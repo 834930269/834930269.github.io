@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html>
+  
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="author" content="张文涛">
+  
+  
+  <title>MyBatis - 数据持久化 | 山海经▪大荒经</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="MyBatis,MyBatis,">
+  
+
+  
+  <meta name="description" content="Winter Zhang的小站">
+
+  
+
+  
+    <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.1/dist/av-min.js" async></script>
+  
+
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+  
+
+  
+    <script src="//unpkg.com/valine/dist/Valine.min.js" async></script>
+  
+
+  
+
+  <script>
+  // theme-ad's config script
+  // it can be used in every script
+  
+  window.AD_CONFIG = {
+    leancloud: {"appid":"Hyq9wkH495DgNHWhDQCOfQSp-gzGzoHsz","appkey":"WaR7nrzhliHj9aVwdQzkdlGd","comment":true,"count":true},
+    welcome: {"enable":false,"interval":30},
+    start_time: "2015-02-10",
+    passwords: ["c035b468e47fd966ac2df15e3d7f7a64d89b1dbf209c24caad6e62bffd90d4c7", ],
+    is_post: true,
+    lock: false,
+    author: "张文涛",
+    share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
+    mathjax: true,
+    page_type: "",
+    root: "/"
+  };
+</script>
+
+  <script src="/vendor/sha256.min.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/index.js"></script>
+<script src="/vendor/qrcode.min.js"></script>
+
+  
+    <link rel="icon" href="/images/favicon2.ico">
+    <link rel="apple-touch-icon" href="/images/touch-icon.png">
+  
+
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/styles/components/highlight/highlight.css">
+
+  
+</head>
+  <body>
+    <header class="site-header">
+  <div class="site-header-brand">
+    
+      <span class="site-header-brand-title">
+        <a href="/">想你了</a>
+      </span>
+    
+    
+      <span class="site-header-brand-motto"> | 祝你平安幸福</span>
+    
+  </div>
+  <div class="site-header-right">
+    <nav class="site-header-navigation">
+      
+        <a href="/" target="_self">首页</a>
+      
+        <a href="/archives/" target="_self">归档</a>
+      
+        <a href="/tags/" target="_self">标签</a>
+      
+        <a href="/categories/" target="_self">分类</a>
+      
+        <a href="/friends/" target="_self">友链</a>
+      
+        <a href="/about/" target="_self">关于</a>
+      
+    </nav>
+    <div class="site-header-btn">
+      
+        <a href="https://github.com/834930269/" target="_blank" id="site-github">
+          <i class="fa fa-github-alt"></i>
+        </a>
+      
+      <a href="javascript:void(0);" id="site-search">
+        <i class="fa fa-search"></i>
+      </a>
+      <a href="javascript:void(0);" id="site-nav-btn">
+        <i class="fa fa-ellipsis-v"></i>
+      </a>
+    </div>
+  </div>
+</header>
+<nav class="table-content" id="site-nav">
+  <div class="table-content-title">
+    <span>导航</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc">
+      
+        <li class="toc-item">
+          <a href="/" target="_self">
+            首页
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/archives/" target="_self">
+            归档
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/tags/" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/categories/" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/friends/" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/about/" target="_self">
+            关于
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</nav>
+<div id="site-process"></div>
+    <main>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2019-01-18
+    </span>
+    
+      <span>
+        | <a href="/categories/MyBatis/"><i class="fa fa-bookmark"></i>MyBatis</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    MyBatis - 数据持久化
+  </h1>
+  
+  <article class="passage-article">
+    <h1 id="学习网站"><a href="#学习网站" class="headerlink" title="学习网站"></a>学习网站</h1><blockquote>
+<p><a href="http://www.funtl.com/zh/mybatis/" title="广州前锋" target="_blank" rel="noopener">广州前锋</a></p>
+</blockquote>
+<h1 id="脏读-脏写"><a href="#脏读-脏写" class="headerlink" title="脏读,脏写"></a>脏读,脏写</h1><blockquote>
+<p>把之前本该不存在的值读,写入数据库</p>
+</blockquote>
+<h1 id="MyBatis"><a href="#MyBatis" class="headerlink" title="MyBatis"></a>MyBatis</h1><blockquote>
+<p>将数据库与应用解耦的中间件. <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2019/01/Lusifer2018061304510002.png" alt></p>
+</blockquote>
+<h1 id="Druid"><a href="#Druid" class="headerlink" title="Druid"></a>Druid</h1><blockquote>
+<p>阿里开源的一款框架,目前(?)连接池中最快.</p>
+</blockquote>
+<h1 id="先放上一组示例"><a href="#先放上一组示例" class="headerlink" title="先放上一组示例"></a>先放上一组示例</h1><h2 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h2><p><img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2019/01/%E6%8D%95%E8%8E%B7-1.png" alt></p>
+<h2 id="1-环境"><a href="#1-环境" class="headerlink" title="1 环境"></a>1 环境</h2><p>Idea + maven3.3.9 + mysql5.7</p>
+<h2 id="2-开发过程"><a href="#2-开发过程" class="headerlink" title="2 开发过程"></a>2 开发过程</h2><h3 id="建立数据表"><a href="#建立数据表" class="headerlink" title="建立数据表"></a>建立数据表</h3><p>在本地mysql数据库中建立名为test的database，并建立user表：</p>
+<pre><code>CREATE DATABASE test default charset=utf8;
+
+CREATE TABLE `user` (
+  `name` varchar(64) DEFAULT NULL,
+  `age` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+insert  into `user`(`name`,`age`) values (&apos;叶莜落&apos;,27),(&apos;张三丰&apos;,128);</code></pre><h3 id="建立一个maven工程，POM文件如下："><a href="#建立一个maven工程，POM文件如下：" class="headerlink" title="建立一个maven工程，POM文件如下："></a>建立一个maven工程，POM文件如下：</h3><pre><code>&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;
+  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+  &lt;groupId&gt;com.yeyouluo.mybatis.druid&lt;/groupId&gt;
+  &lt;artifactId&gt;mybatis-druid&lt;/artifactId&gt;
+  &lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;
+
+  &lt;properties&gt;
+      &lt;myabtis.version&gt;3.4.1&lt;/myabtis.version&gt;
+  &lt;/properties&gt;
+
+  &lt;dependencies&gt;
+       &lt;dependency&gt;
+            &lt;groupId&gt;org.mybatis&lt;/groupId&gt;
+            &lt;artifactId&gt;mybatis&lt;/artifactId&gt;
+            &lt;version&gt;${myabtis.version}&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;mysql&lt;/groupId&gt;
+            &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
+            &lt;version&gt;5.1.30&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.alibaba&lt;/groupId&gt;
+            &lt;artifactId&gt;druid&lt;/artifactId&gt;
+            &lt;version&gt;1.0.14&lt;/version&gt;
+        &lt;/dependency&gt;
+  &lt;/dependencies&gt;
+&lt;/project&gt;</code></pre><h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><p>①db.properties</p>
+<pre><code>driver=com.mysql.jdbc.Driver
+url=jdbc:mysql://localhost:3306/test
+username=root
+password=root</code></pre><p>②mybatis-config.xml</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;!DOCTYPE configuration PUBLIC &quot;-//mybatis.org//DTD Config 3.0//EN&quot;
+        &quot;http://mybatis.org/dtd/mybatis-3-config.dtd&quot;&gt;
+&lt;configuration&gt;
+    &lt;!-- 引用db.properties配置文件 --&gt;
+    &lt;properties resource=&quot;db.properties&quot; /&gt;
+
+    &lt;typeAliases&gt;
+        &lt;typeAlias type=&quot;com.yeyouluo.mybatis.druid.utils.DruidDataSourceFactory&quot;
+            alias=&quot;DRUID&quot; /&gt;
+    &lt;/typeAliases&gt;
+
+    &lt;!-- development : 开发模式 work : 工作模式 --&gt;
+    &lt;environments default=&quot;work&quot;&gt;
+        &lt;environment id=&quot;work&quot;&gt;
+            &lt;transactionManager type=&quot;JDBC&quot; /&gt;
+            &lt;!-- 配置数据库连接信息 --&gt;
+            &lt;dataSource type=&quot;DRUID&quot;&gt;
+                &lt;!-- value属性值引用db.properties配置文件中配置的值 --&gt;
+                &lt;property name=&quot;driver&quot; value=&quot;${driver}&quot; /&gt;
+                &lt;property name=&quot;url&quot; value=&quot;${url}&quot; /&gt;
+                &lt;property name=&quot;username&quot; value=&quot;${username}&quot; /&gt;
+                &lt;property name=&quot;password&quot; value=&quot;${password}&quot; /&gt;
+            &lt;/dataSource&gt;
+        &lt;/environment&gt;
+    &lt;/environments&gt;
+
+    &lt;!-- mybatis的mapper文件，每个xml配置文件对应一个接口 --&gt;
+    &lt;mappers&gt;
+        &lt;mapper resource=&quot;mapper/userMapper.xml&quot; /&gt;
+    &lt;/mappers&gt;
+&lt;/configuration&gt;</code></pre><p>③在resources目录下建立userMapper.xml</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;  
+&lt;!DOCTYPE mapper PUBLIC &quot;-//ibatis.apache.org//DTD Mapper 3.0//EN&quot;      
+ &quot;http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd&quot;&gt;
+&lt;mapper namespace=&quot;com.yeyouluo.mybatis.druid.dao.userDao&quot;&gt;
+    &lt;select id=&quot;findAllUsers&quot; resultType=&quot;com.yeyouluo.mybatis.druid.pojo.User&quot;&gt;
+        select * from user
+    &lt;/select&gt;
+&lt;/mapper&gt;</code></pre><h3 id="实体类-User"><a href="#实体类-User" class="headerlink" title="实体类 User"></a>实体类 User</h3><pre><code>package com.yeyouluo.mybatis.druid.pojo;
+
+public class User {
+
+    private String name;
+    private int age;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return &quot;User [name=&quot; + name + &quot;, age=&quot; + age + &quot;]&quot;;
+    }
+
+}</code></pre><h3 id="工具类"><a href="#工具类" class="headerlink" title="工具类"></a>工具类</h3><p>①DruidDataSourceFactory.java</p>
+<pre><code>package com.yeyouluo.mybatis.druid.utils;
+
+import java.sql.SQLException;
+import java.util.Properties;
+import javax.sql.DataSource;
+import org.apache.ibatis.datasource.DataSourceFactory;
+import com.alibaba.druid.pool.DruidDataSource;
+
+public class DruidDataSourceFactory implements DataSourceFactory {
+    private Properties props;
+
+    @Override
+    public DataSource getDataSource() {
+        DruidDataSource dds = new DruidDataSource();
+        dds.setDriverClassName(this.props.getProperty(&quot;driver&quot;));
+        dds.setUrl(this.props.getProperty(&quot;url&quot;));
+        dds.setUsername(this.props.getProperty(&quot;username&quot;));
+        dds.setPassword(this.props.getProperty(&quot;password&quot;));
+        // 其他配置可以根据MyBatis主配置文件进行配置
+        try {
+            dds.init();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return dds;
+    }
+
+    @Override
+    public void setProperties(Properties props) {
+        this.props = props;
+    }
+}</code></pre><p>②MyBatisUtil.java</p>
+<pre><code>package com.yeyouluo.mybatis.druid.utils;
+
+import java.io.InputStream;
+
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+
+public class MyBatisUtil {
+    private static final String configFile = &quot;mybatis-config.xml&quot;;
+
+    /**
+     * 创建连接
+     */
+    public static SqlSession getSession() {
+        SqlSession session = null;
+        try {
+            InputStream is = Resources.getResourceAsStream(configFile);
+            SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(is);
+            session = factory.openSession();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return session;
+    }
+
+    public static void closeSession(SqlSession session) {
+        session.close();
+    }
+
+    public static void main(String[] args) {
+        SqlSession session = MyBatisUtil.getSession();
+        System.out.println(session);
+        session.close();
+    }
+}</code></pre><h3 id="DAO"><a href="#DAO" class="headerlink" title="DAO"></a>DAO</h3><p>①接口IUserDao.java</p>
+<pre><code>package com.yeyouluo.mybatis.druid.dao;
+
+import java.util.List;
+
+import com.yeyouluo.mybatis.druid.pojo.User;
+
+public interface IUserDao {
+    public List&lt;User&gt; findAllUsers();
+}</code></pre><p>②实现类UserDao.java</p>
+<pre><code>package com.yeyouluo.mybatis.druid.dao.impl;
+
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+
+import com.yeyouluo.mybatis.druid.dao.IUserDao;
+import com.yeyouluo.mybatis.druid.pojo.User;
+import com.yeyouluo.mybatis.druid.utils.MyBatisUtil;
+
+public class UserDao implements IUserDao {
+
+    private static final String namespace = &quot;com.yeyouluo.mybatis.druid.dao.userDao.&quot;;
+
+    @Override
+    public List&lt;User&gt; findAllUsers() {
+        List&lt;User&gt; users = null;
+        SqlSession session = MyBatisUtil.getSession();
+        try {
+            users = session.selectList(namespace + &quot;findAllUsers&quot;, User.class);
+            //注意：此处有陷阱，如果做了更新、插入或删除操作，必须使用：
+            //session.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally{
+            MyBatisUtil.closeSession(session);
+        }
+        return users;
+    }
+
+}</code></pre><h3 id="测试类UserDaoTest-java"><a href="#测试类UserDaoTest-java" class="headerlink" title="测试类UserDaoTest.java"></a>测试类UserDaoTest.java</h3><pre><code>package com.yeyouluo.mybatis.druid.dao.test;
+
+import java.util.List;
+
+import com.yeyouluo.mybatis.druid.dao.IUserDao;
+import com.yeyouluo.mybatis.druid.dao.impl.UserDao;
+import com.yeyouluo.mybatis.druid.pojo.User;
+
+public class UserDaoTest {
+
+    public static void main(String[] args) {
+        // TODO Auto-generated method stub
+        IUserDao userDao = new UserDao();
+        List&lt;User&gt; users= userDao.findAllUsers();
+
+        for(User user : users){
+            System.out.println(user.toString());
+        }
+    }
+
+}</code></pre>
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#学习网站"><span class="toc-text">学习网站</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#脏读-脏写"><span class="toc-text">脏读,脏写</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MyBatis"><span class="toc-text">MyBatis</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Druid"><span class="toc-text">Druid</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#先放上一组示例"><span class="toc-text">先放上一组示例</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#项目结构"><span class="toc-text">项目结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-环境"><span class="toc-text">1 环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-开发过程"><span class="toc-text">2 开发过程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#建立数据表"><span class="toc-text">建立数据表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#建立一个maven工程，POM文件如下："><span class="toc-text">建立一个maven工程，POM文件如下：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置文件"><span class="toc-text">配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实体类-User"><span class="toc-text">实体类 User</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#工具类"><span class="toc-text">工具类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DAO"><span class="toc-text">DAO</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#测试类UserDaoTest-java"><span class="toc-text">测试类UserDaoTest.java</span></a></li></ol></li></ol></li></ol>
+  </div>
+</aside>
+  
+    <aside class="passage-copyright">
+      <div>本文作者: 张文涛</div>
+      
+        <div>
+          原文链接: 
+          <a href="" target="_blank">http://be-sunshine.cn/passages/mybatis/</a>
+        </div>
+      
+      <div>
+        版权声明: 本博客所有文章除特别声明外, 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议. 转载请注明出处!
+      </div>
+    </aside>
+  
+  
+    <div class="passage-tags">
+     
+      <a href="/tags/MyBatis/"><i class="fa fa-tags"></i>MyBatis</a>
+    
+    </div>
+  
+</div>
+
+    </main>
+    
+      
+<div class="site-comment-contanier" data-plateform="leancloud">
+  
+    <p id="site-comment-info">
+      <i class="fa fa-spinner fa-spin"></i> 评论加载中
+    </p>
+    <div id="site-comment"></div>
+  
+</div>
+    
+    <div class="site-footer-wrapper">
+  <footer class="site-footer">
+    
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">博客推荐</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/" target="_blank">GodBMW</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="http://ruanyifeng.com/" target="_blank">阮一峰的个人网站</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">系列教程</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/categories/webpack4%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B/" target="_blank">webpack4系列教程</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/design-patterns/" target="_blank">设计模式手册</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">抓到我</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://weibo.com/3260959934/" target="_blank">微博</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://github.com/834930269" target="_blank">Github</a>
+            </span>
+          
+        </div>
+      
+    
+    <div class="site-footer-info">
+      <i class="fa fa-clock-o"></i> 本站已稳定运行<span id="site-time"></span>
+    </div>
+    
+      <div class="site-footer-info">
+        <i class="fa fa-paw"></i> 您是本站第 <span id="site-count"></span> 位访客
+      </div>
+    
+    
+      <div class="site-footer-info">
+        <i class="fa fa-at"></i> Email: 834930269@qq.com
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-copyright"></i> 
+      2019 <a href="https://github.com/dongyuanxin/theme-ad/" target="_blank">Theme-AD</a>.
+      Created by <a href="https://godbmw.com/" target="_blank">GodBMW</a>.
+      All rights reserved.
+    </div>
+  </footer>
+</div>
+    <div id="site-layer" style="display:none;">
+  <div class="site-layer-content">
+    <div class="site-layer-header">
+      <span class="site-layer-header-title" id="site-layer-title"></span>
+      <i class="fa fa-close" id="site-layer-close"></i>
+    </div>
+    <div class="site-layer-body" id="site-layer-container">
+      <div class="site-layer-input" id="site-layer-search" style="display: none;">
+        <div class="site-layer-input-choose">
+          <a href="javascript:void(0);" title="Change Search Engine">Google</a>
+        </div>
+        <input type="text">
+        <i class="fa fa-search"></i>
+      </div>
+      
+        <div class="site-layer-reward" id="site-layer-reward" style="display: none;">
+          
+            <div>
+              <img src="/images/wechat.png" alt="WeChat">
+              
+                <p>WeChat</p>
+              
+            </div>
+          
+            <div>
+              <img src="/images/alipay.png" alt="AliPay">
+              
+                <p>AliPay</p>
+              
+            </div>
+          
+        </div>
+      
+      <div id="site-layer-welcome" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+    
+
+<div class="bottom-bar">
+  <div class="bottom-bar-left">
+    <a href="/passages/spring/" data-enable="true">
+      <i class="fa fa-arrow-left"></i>
+    </a>
+    <a href="/passages/constant-dripping-wears-away-a-stone/" data-enable="true">
+      <i class="fa fa-arrow-right"></i>
+    </a>
+  </div>
+  <div class="bottom-bar-right">
+    <a href="javascript:void(0);" data-enable="true" id="site-toc-show-btn">
+      <i class="fa fa-bars"></i>
+    </a>
+    
+      <a href="#site-comment" data-enable="true">
+        <i class="fa fa-commenting"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="site-toggle-share-btn">
+      <i class="fa fa-share-alt"></i>
+    </a>
+    
+      <a href="javascript:void(0);" id="site-reward">
+        <i class="fa fa-thumbs-up"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="back-top-btn">
+      <i class="fa fa-chevron-up"></i>
+    </a>
+  </div>
+</div>
+    <div id="share-btn">
+  
+    <a id="share-btn-twitter" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-twitter"></i>
+    </a>
+  
+  
+    <a id="share-btn-facebook" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-facebook"></i>
+    </a>
+  
+  
+    <a id="share-btn-weibo" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-weibo"></i>
+    </a>
+  
+  
+    <a id="share-btn-qq" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-qq"></i>
+    </a>
+  
+  
+    <a id="share-btn-wechat" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-wechat"></i>
+    </a>
+  
+</div>
+    
+
+
+
+
+
+    
+  </body>
+</html>

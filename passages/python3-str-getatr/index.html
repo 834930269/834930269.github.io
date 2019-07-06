@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html>
+  
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="author" content="张文涛">
+  
+  
+  <title>python3学习 定制类 | 山海经▪大荒经</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Python,Python,">
+  
+
+  
+  <meta name="description" content="Winter Zhang的小站">
+
+  
+
+  
+    <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.1/dist/av-min.js" async></script>
+  
+
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+  
+
+  
+    <script src="//unpkg.com/valine/dist/Valine.min.js" async></script>
+  
+
+  
+
+  <script>
+  // theme-ad's config script
+  // it can be used in every script
+  
+  window.AD_CONFIG = {
+    leancloud: {"appid":"Hyq9wkH495DgNHWhDQCOfQSp-gzGzoHsz","appkey":"WaR7nrzhliHj9aVwdQzkdlGd","comment":true,"count":true},
+    welcome: {"enable":false,"interval":30},
+    start_time: "2015-02-10",
+    passwords: ["c035b468e47fd966ac2df15e3d7f7a64d89b1dbf209c24caad6e62bffd90d4c7", ],
+    is_post: true,
+    lock: false,
+    author: "张文涛",
+    share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
+    mathjax: true,
+    page_type: "",
+    root: "/"
+  };
+</script>
+
+  <script src="/vendor/sha256.min.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/index.js"></script>
+<script src="/vendor/qrcode.min.js"></script>
+
+  
+    <link rel="icon" href="/images/favicon2.ico">
+    <link rel="apple-touch-icon" href="/images/touch-icon.png">
+  
+
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/styles/components/highlight/highlight.css">
+
+  
+</head>
+  <body>
+    <header class="site-header">
+  <div class="site-header-brand">
+    
+      <span class="site-header-brand-title">
+        <a href="/">想你了</a>
+      </span>
+    
+    
+      <span class="site-header-brand-motto"> | 祝你平安幸福</span>
+    
+  </div>
+  <div class="site-header-right">
+    <nav class="site-header-navigation">
+      
+        <a href="/" target="_self">首页</a>
+      
+        <a href="/archives/" target="_self">归档</a>
+      
+        <a href="/tags/" target="_self">标签</a>
+      
+        <a href="/categories/" target="_self">分类</a>
+      
+        <a href="/friends/" target="_self">友链</a>
+      
+        <a href="/about/" target="_self">关于</a>
+      
+    </nav>
+    <div class="site-header-btn">
+      
+        <a href="https://github.com/834930269/" target="_blank" id="site-github">
+          <i class="fa fa-github-alt"></i>
+        </a>
+      
+      <a href="javascript:void(0);" id="site-search">
+        <i class="fa fa-search"></i>
+      </a>
+      <a href="javascript:void(0);" id="site-nav-btn">
+        <i class="fa fa-ellipsis-v"></i>
+      </a>
+    </div>
+  </div>
+</header>
+<nav class="table-content" id="site-nav">
+  <div class="table-content-title">
+    <span>导航</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc">
+      
+        <li class="toc-item">
+          <a href="/" target="_self">
+            首页
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/archives/" target="_self">
+            归档
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/tags/" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/categories/" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/friends/" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/about/" target="_self">
+            关于
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</nav>
+<div id="site-process"></div>
+    <main>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2017-07-16
+    </span>
+    
+      <span>
+        | <a href="/categories/Python/"><i class="fa fa-bookmark"></i>Python</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    python3学习 定制类
+  </h1>
+  
+  <article class="passage-article">
+    <p><strong>【Source Code】</strong> <strong>github:<a href="https://github.com/834930269/python_study/blob/master/oop/%E5%AE%9A%E5%88%B6%E7%B1%BB.py" target="_blank" rel="noopener">定制类.py</a></strong></p>
+<hr>
+<p> **# coding: utf-8</p>
+<p># In[3]:</p>
+<p>#__str__<br>class student(object):<br>    def __init__(self,name):<br>        self.name=name<br>    def __str__(self):<br>        return ‘Student object (name: %s)’ % self.name<br>    __repr__=__str__<br>s=student(‘Michael’)</p>
+<p>#__str__是控制打印时输出类型,__repr__是控制台直接s输出的类型</p>
+<p>#如果不重写,那会输出&lt;__main__.Student object at 地址&gt;<br>s<br>print(s)</p>
+<p># In[10]:</p>
+<p>#__iter__<br>‘’’<br>如果一个类想被用于for … in循环，类似list或tuple那样，就必<br>须实现一个__iter__()方法，该方法返回一个迭代对象，然后，Python<br>的for循环就会不断调用该迭代对象的__next__()方法拿到循环的下一个<br>值，直到遇到StopIteration错误时退出循环。</p>
+<p>斐波那契:<br>‘’’<br>class Fib(object):<br>    def __init__(self):<br>        self.a, self.b = 0, 1 # 初始化两个计数器a，b</p>
+<pre><code>def \_\_iter\_\_(self):
+    return self # 实例本身就是迭代对象，故返回自己
+
+def \_\_next\_\_(self):
+    self.a, self.b = self.b, self.a + self.b # 计算下一个值
+    if self.a &gt; 100000: # 退出循环的条件
+        raise StopIteration()
+    return self.a # 返回下一个值
+def \_\_getitem\_\_(self, n):
+    if isinstance(n, int): # n是索引
+        a, b = 1, 1
+        for x in range(n):
+            a, b = b, a + b
+        return a
+    if isinstance(n, slice): # n是切片
+        start = n.start
+        stop = n.stop
+        if start is None:
+            start = 0
+        a, b = 1, 1
+        L = \[\]
+        for x in range(stop):
+            if x &gt;= start:
+                L.append(a)
+            a, b = b, a + b
+        return L</code></pre><p>for i in Fib():<br>    print(i)</p>
+<p># In[14]:</p>
+<p>#__getitem__</p>
+<p>#Fib实例虽然能作用于for循环，看起来和list有点像，</p>
+<p>#但是，把它当成list来使用还是不行</p>
+<p>#要表现得像list那样按照下标取出元素，需要实现__getitem__()方法：<br>f=Fib()<br>print(f[0],f[1],f[2],f[100])<br>‘’’<br>但是list有个神奇的切片方法：</p>
+<blockquote>
+<blockquote>
+<p>&gt; list(range(100))[5:10]<br>[5, 6, 7, 8, 9]</p>
+</blockquote>
+</blockquote>
+<p>对于Fib却报错。原因是__getitem__()传入的参数<br>可能是一个int，也可能是一个 切片对象slice ，所以要做判断：</p>
+<p>class Fib(object):<br>    def __getitem__(self, n):<br>        if isinstance(n, int): # n是索引<br>        if isinstance(n, slice): # n是切片<br>‘’’<br>print(f[:20])#但是没有判断倒序切片以及没有对step参数作处理：</p>
+<p>‘’’<br>此外，如果把对象看成dict，__getitem__()的参数也可能是一个可以<br>作key的object，例如str。</p>
+<p>与之对应的是__setitem__()方法，把对象视作list或dict来对集合赋<br>值。最后，还有一个__delitem__()方法，用于删除某个元素。</p>
+<p>总之，通过上面的方法，我们自己定义的类表现得和Python自带的<br>list、tuple、dict没什么区别，这完全归功于动态语言的“鸭子类型”<br>，不需要强制继承某个接口。<br>‘’’</p>
+<p># In[18]:</p>
+<p>#__getattr__</p>
+<p>#正常情况下，当我们调用类的方法或属性时，如果不存在，就会报错。比如定义Student类：<br>class Student(object):<br>    def __init__(self):<br>        self.name = ‘Michael’<br>    def __getattr__(self, attr):<br>        if attr==’score’:<br>            return 99<br>        if attr==’age’:<br>            return lambda: 25<br>        raise AttributeError(‘\‘Student\‘ object has no attribute \‘%s\‘’ % attr)</p>
+<p>#调用name属性，没问题，但是，调用不存在的score属性，就有问题了<br>‘’’</p>
+<blockquote>
+<blockquote>
+<p>&gt; s = Student()<br>&gt; print(s.name)<br>Michael<br>&gt; print(s.score)<br>Traceback (most recent call last):<br>  …<br>AttributeError: ‘Student’ object has no attribute ‘score’<br>错误信息很清楚地告诉我们，没有找到score这个attribute。</p>
+</blockquote>
+</blockquote>
+<p>要避免这个错误，除了可以加上一个score属性外，Python还有另<br>一个机制，那就是写一个__getattr__()方法，动态返回一个属性。修改如下：<br>class Student(object):</p>
+<pre><code>def \_\_init\_\_(self):
+    self.name = &apos;Michael&apos;
+
+def \_\_getattr\_\_(self, attr):
+    if attr==&apos;score&apos;:
+        return 99</code></pre><p>返回函数也是完全可以的：<br>class Student(object):</p>
+<pre><code>def \_\_getattr\_\_(self, attr):
+    if attr==&apos;age&apos;:
+        return lambda: 25</code></pre><p>只是调用方式要变为：</p>
+<blockquote>
+<blockquote>
+<p>&gt; s.age()<br>25<br>注意，只有在没有找到属性的情况下，才调用__getattr__，<br>已有的属性，比如name，不会在__getattr__中查找。</p>
+</blockquote>
+</blockquote>
+<p>此外，注意到任意调用如s.abc都会返回None，这是因为我们<br>定义的__getattr__默认返回就是None。要让class只响应特定<br>的几个属性，我们就要按照约定，抛出AttributeError的错误：<br>raise AttributeError(‘\‘Student\‘ object has no attribute \‘%s\‘’ % attr)<br>‘’’<br>s=Student()<br>print(s.name,s.score,s.age())</p>
+<p># In[19]:</p>
+<p>‘’’<br>举个例子：</p>
+<p>现在很多网站都搞REST API，比如新浪微博、豆瓣啥的，调用API的URL类似：</p>
+<pre><code>http://api.server/user/friends
+http://api.server/user/timeline/list</code></pre><p>如果要写SDK，给每个URL对应的API都写一个方法，那得累死，而且，API一旦改动，SDK也要改。</p>
+<p>利用完全动态的__getattr__，我们可以写出一个链式调用：<br>‘’’<br>class Chain(object):</p>
+<pre><code>def \_\_init\_\_(self, path=&apos;&apos;):
+    self._path = path
+
+def \_\_getattr\_\_(self, path):
+    return Chain(&apos;%s/%s&apos; % (self._path, path))
+
+def \_\_str\_\_(self):
+    return self._path
+
+\_\_repr\_\_ = \_\_str\_\_</code></pre><p>#try<br>print(Chain().status.user.timeline.list)</p>
+<p>#out[]: /status/user/timeline/list</p>
+<p>#这样，无论API怎么变，SDK都可以根据URL实现完全动态的调用，</p>
+<p>#而且，不随API的增加而改变！</p>
+<p>#还有些REST API会把参数放到URL中，比如GitHub的API：</p>
+<p>#GET /users/:user/repos</p>
+<p>#调用时，需要把:user替换为实际用户名。</p>
+<p># In[21]:</p>
+<p>#__call__<br>class Student(object):<br>    def __init__(self, name):<br>        self.name = name</p>
+<pre><code>def \_\_call\_\_(self):
+    print(&apos;My name is %s.&apos; % self.name)</code></pre><p>s = Student(‘Michael’)<br>s()</p>
+<p># In[29]:</p>
+<p>print(callable(max),callable(map),callable(str),callable(‘123’))</p>
+<p># In[ ]:**</p>
+
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
+    
+  </div>
+</aside>
+  
+    <aside class="passage-copyright">
+      <div>本文作者: 张文涛</div>
+      
+        <div>
+          原文链接: 
+          <a href="" target="_blank">http://be-sunshine.cn/passages/python3-str-getatr/</a>
+        </div>
+      
+      <div>
+        版权声明: 本博客所有文章除特别声明外, 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议. 转载请注明出处!
+      </div>
+    </aside>
+  
+  
+    <div class="passage-tags">
+     
+      <a href="/tags/Python/"><i class="fa fa-tags"></i>Python</a>
+    
+    </div>
+  
+</div>
+
+    </main>
+    
+      
+<div class="site-comment-contanier" data-plateform="leancloud">
+  
+    <p id="site-comment-info">
+      <i class="fa fa-spinner fa-spin"></i> 评论加载中
+    </p>
+    <div id="site-comment"></div>
+  
+</div>
+    
+    <div class="site-footer-wrapper">
+  <footer class="site-footer">
+    
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">博客推荐</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/" target="_blank">GodBMW</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="http://ruanyifeng.com/" target="_blank">阮一峰的个人网站</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">系列教程</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/categories/webpack4%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B/" target="_blank">webpack4系列教程</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/design-patterns/" target="_blank">设计模式手册</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">抓到我</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://weibo.com/3260959934/" target="_blank">微博</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://github.com/834930269" target="_blank">Github</a>
+            </span>
+          
+        </div>
+      
+    
+    <div class="site-footer-info">
+      <i class="fa fa-clock-o"></i> 本站已稳定运行<span id="site-time"></span>
+    </div>
+    
+      <div class="site-footer-info">
+        <i class="fa fa-paw"></i> 您是本站第 <span id="site-count"></span> 位访客
+      </div>
+    
+    
+      <div class="site-footer-info">
+        <i class="fa fa-at"></i> Email: 834930269@qq.com
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-copyright"></i> 
+      2019 <a href="https://github.com/dongyuanxin/theme-ad/" target="_blank">Theme-AD</a>.
+      Created by <a href="https://godbmw.com/" target="_blank">GodBMW</a>.
+      All rights reserved.
+    </div>
+  </footer>
+</div>
+    <div id="site-layer" style="display:none;">
+  <div class="site-layer-content">
+    <div class="site-layer-header">
+      <span class="site-layer-header-title" id="site-layer-title"></span>
+      <i class="fa fa-close" id="site-layer-close"></i>
+    </div>
+    <div class="site-layer-body" id="site-layer-container">
+      <div class="site-layer-input" id="site-layer-search" style="display: none;">
+        <div class="site-layer-input-choose">
+          <a href="javascript:void(0);" title="Change Search Engine">Google</a>
+        </div>
+        <input type="text">
+        <i class="fa fa-search"></i>
+      </div>
+      
+        <div class="site-layer-reward" id="site-layer-reward" style="display: none;">
+          
+            <div>
+              <img src="/images/wechat.png" alt="WeChat">
+              
+                <p>WeChat</p>
+              
+            </div>
+          
+            <div>
+              <img src="/images/alipay.png" alt="AliPay">
+              
+                <p>AliPay</p>
+              
+            </div>
+          
+        </div>
+      
+      <div id="site-layer-welcome" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+    
+
+<div class="bottom-bar">
+  <div class="bottom-bar-left">
+    <a href="/passages/python3-enumerate/" data-enable="true">
+      <i class="fa fa-arrow-left"></i>
+    </a>
+    <a href="/passages/python3-oop-mixin/" data-enable="true">
+      <i class="fa fa-arrow-right"></i>
+    </a>
+  </div>
+  <div class="bottom-bar-right">
+    <a href="javascript:void(0);" data-enable="true" id="site-toc-show-btn">
+      <i class="fa fa-bars"></i>
+    </a>
+    
+      <a href="#site-comment" data-enable="true">
+        <i class="fa fa-commenting"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="site-toggle-share-btn">
+      <i class="fa fa-share-alt"></i>
+    </a>
+    
+      <a href="javascript:void(0);" id="site-reward">
+        <i class="fa fa-thumbs-up"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="back-top-btn">
+      <i class="fa fa-chevron-up"></i>
+    </a>
+  </div>
+</div>
+    <div id="share-btn">
+  
+    <a id="share-btn-twitter" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-twitter"></i>
+    </a>
+  
+  
+    <a id="share-btn-facebook" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-facebook"></i>
+    </a>
+  
+  
+    <a id="share-btn-weibo" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-weibo"></i>
+    </a>
+  
+  
+    <a id="share-btn-qq" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-qq"></i>
+    </a>
+  
+  
+    <a id="share-btn-wechat" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-wechat"></i>
+    </a>
+  
+</div>
+    
+
+
+
+
+
+    
+  </body>
+</html>

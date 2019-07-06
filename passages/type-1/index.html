@@ -1,0 +1,1460 @@
+<!DOCTYPE html>
+<html>
+  
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="author" content="张文涛">
+  
+  
+  <title>聊天室架构从0开始 - 1 TCP&amp;UDP问题 | 山海经▪大荒经</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Java,tcp,网络编程,Java,网络编程,tcp,">
+  
+
+  
+  <meta name="description" content="Winter Zhang的小站">
+
+  
+
+  
+    <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.1/dist/av-min.js" async></script>
+  
+
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+  
+
+  
+    <script src="//unpkg.com/valine/dist/Valine.min.js" async></script>
+  
+
+  
+
+  <script>
+  // theme-ad's config script
+  // it can be used in every script
+  
+  window.AD_CONFIG = {
+    leancloud: {"appid":"Hyq9wkH495DgNHWhDQCOfQSp-gzGzoHsz","appkey":"WaR7nrzhliHj9aVwdQzkdlGd","comment":true,"count":true},
+    welcome: {"enable":false,"interval":30},
+    start_time: "2015-02-10",
+    passwords: ["c035b468e47fd966ac2df15e3d7f7a64d89b1dbf209c24caad6e62bffd90d4c7", ],
+    is_post: true,
+    lock: false,
+    author: "张文涛",
+    share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
+    mathjax: true,
+    page_type: "",
+    root: "/"
+  };
+</script>
+
+  <script src="/vendor/sha256.min.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/index.js"></script>
+<script src="/vendor/qrcode.min.js"></script>
+
+  
+    <link rel="icon" href="/images/favicon2.ico">
+    <link rel="apple-touch-icon" href="/images/touch-icon.png">
+  
+
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/styles/components/highlight/highlight.css">
+
+  
+</head>
+  <body>
+    <header class="site-header">
+  <div class="site-header-brand">
+    
+      <span class="site-header-brand-title">
+        <a href="/">想你了</a>
+      </span>
+    
+    
+      <span class="site-header-brand-motto"> | 祝你平安幸福</span>
+    
+  </div>
+  <div class="site-header-right">
+    <nav class="site-header-navigation">
+      
+        <a href="/" target="_self">首页</a>
+      
+        <a href="/archives/" target="_self">归档</a>
+      
+        <a href="/tags/" target="_self">标签</a>
+      
+        <a href="/categories/" target="_self">分类</a>
+      
+        <a href="/friends/" target="_self">友链</a>
+      
+        <a href="/about/" target="_self">关于</a>
+      
+    </nav>
+    <div class="site-header-btn">
+      
+        <a href="https://github.com/834930269/" target="_blank" id="site-github">
+          <i class="fa fa-github-alt"></i>
+        </a>
+      
+      <a href="javascript:void(0);" id="site-search">
+        <i class="fa fa-search"></i>
+      </a>
+      <a href="javascript:void(0);" id="site-nav-btn">
+        <i class="fa fa-ellipsis-v"></i>
+      </a>
+    </div>
+  </div>
+</header>
+<nav class="table-content" id="site-nav">
+  <div class="table-content-title">
+    <span>导航</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc">
+      
+        <li class="toc-item">
+          <a href="/" target="_self">
+            首页
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/archives/" target="_self">
+            归档
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/tags/" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/categories/" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/friends/" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/about/" target="_self">
+            关于
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</nav>
+<div id="site-process"></div>
+    <main>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2019-01-01
+    </span>
+    
+      <span>
+        | <a href="/categories/Java/"><i class="fa fa-bookmark"></i>Java</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    聊天室架构从0开始 - 1 TCP&UDP问题
+  </h1>
+  
+  <article class="passage-article">
+    <blockquote>
+<p>最后更新于2019/1/1</p>
+</blockquote>
+<h1 id="课设过程中的记录"><a href="#课设过程中的记录" class="headerlink" title="课设过程中的记录"></a>课设过程中的记录</h1><h2 id="序言-tcp与udp的族谱"><a href="#序言-tcp与udp的族谱" class="headerlink" title="序言 - tcp与udp的族谱"></a>序言 - tcp与udp的族谱</h2><h3 id="借助工具-流式读取"><a href="#借助工具-流式读取" class="headerlink" title="借助工具 - 流式读取"></a>借助工具 - 流式读取</h3><p><a href="http://ptzw9yyyp.bkt.clouddn.com/index.php/2018/06/21/javaweb-two/" title="java流式读取" target="_blank" rel="noopener">戳-&gt;java流式读取</a></p>
+<h3 id="简单tcp问题"><a href="#简单tcp问题" class="headerlink" title="简单tcp问题"></a>简单tcp问题</h3><p>因为要求服务端是无限接收客户端的请求,所以服务端必须用线程来新建和处理请求.</p>
+<h4 id="服务端代码"><a href="#服务端代码" class="headerlink" title="服务端代码"></a>服务端代码</h4><pre><code>import javax.print.DocFlavor;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.sql.SQLTransactionRollbackException;
+
+public class Server {
+    public static void main(String[] args)throws IOException {
+        //如果不指定端口号和ip地址,默认是本地
+        ServerSocket server=new ServerSocket(2019);
+        System.out.println(&quot;服务器准备就绪~&quot;);
+        System.out.println(&quot;服务器信息: &quot;+server.getInetAddress()+&quot; P:&quot;+server.getLocalPort() );
+
+        //等待客户端连接
+        while(true) {
+            //得到客户端
+            Socket client = server.accept();
+            //客户端构建异步线程
+            ClientHandler clientHandler = new ClientHandler(client);
+            //启动线程
+            clientHandler.start();
+        }
+    }
+
+    //处理多个请求时要用异步
+    private static class ClientHandler extends Thread{
+        private Socket socket;
+        private boolean flag=true;
+
+        ClientHandler(Socket socket){
+            this.socket=socket;
+        }
+
+        //运行时运行run
+        @Override
+        public void run(){
+            super.run();
+            System.out.println(&quot;新客户端连接: &quot;+socket.getInetAddress()+&quot; P:&quot;+socket.getPort());
+            try{
+                //得到打印流,用于数据输出：服务器回送数据使用
+                PrintStream socketOutput=new PrintStream(socket.getOutputStream());
+                //得到输入流,用于接收数据
+                BufferedReader socketInput=new BufferedReader(new InputStreamReader(
+                        socket.getInputStream()));
+
+                do{
+                    String str=socketInput.readLine();
+                    //equalsIgnoreCase忽略大小写
+                    if(&quot;bye&quot;.equalsIgnoreCase(str)){
+                        flag=false;
+                        //回送
+                        socketOutput.println(&quot;bye&quot;);
+                    }else{
+                        System.out.println(str);
+                        socketOutput.println(&quot;回送： &quot;+ str.length());
+                    }
+                }while(flag);
+
+                socketInput.close();
+                socketOutput.close();
+            }catch(Exception e){
+                System.out.println(&quot;连接异常断开&quot;);
+            }finally {
+                //连接关闭(每个线程)
+                try{
+                    socket.close();
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
+            System.out.println(&quot;客户端已退出: &quot;+socket.getInetAddress()+&quot; P:&quot;+socket.getPort());
+        }
+    }
+}</code></pre><h4 id="客户端代码"><a href="#客户端代码" class="headerlink" title="客户端代码"></a>客户端代码</h4><pre><code>import java.io.*;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.Socket;
+
+public class Client {
+    public static void main(String[] args)throws IOException {
+        Socket socket=new Socket();
+        ///超时时间
+        socket.setSoTimeout(3000);
+        //连接本地,端口2000,超时时间3000ms
+        socket.connect(new InetSocketAddress(InetAddress.getLocalHost(),2019),3000);
+        System.out.println(&quot;已发起服务器连接,并进入后续流程~&quot;);
+        System.out.println(&quot;客户端信息: &quot;+socket.getLocalAddress()+&quot; P:&quot;+socket.getLocalPort());
+        System.out.println(&quot;服务器信息: &quot;+socket.getInetAddress()+&quot; P:&quot;+socket.getPort() );
+
+        try{
+            //发送接收数据
+            todo(socket);
+        }catch(Exception e){
+            System.out.println(&quot;异常关闭&quot;);
+        }
+        //释放资源
+        socket.close();
+        System.out.println(&quot;客户端已关闭&quot;);
+    }
+
+    private static void todo(Socket client) throws IOException{
+        //构建键盘输入流
+        InputStream in=System.in;
+        BufferedReader  input=new BufferedReader(new InputStreamReader(in));
+
+        //得到Socket输出流,并转换为打印流
+        OutputStream output=client.getOutputStream();
+        PrintStream socketPrintStream=new PrintStream(output);
+
+        //得到Socket输入流,并转换为BufferedReader
+        InputStream inputStream=client.getInputStream();
+        BufferedReader socketBufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+
+        boolean flag=true;
+        do{
+            //键盘读一行
+            String str=input.readLine();
+            //发送到服务器
+            socketPrintStream.println(str);
+
+            //从服务器读取一行
+            String echo=socketBufferedReader.readLine();
+            if(&quot;bye&quot;.equalsIgnoreCase(echo)){
+                flag=false;
+            }else{
+                System.out.println(echo);
+            }
+        }while(flag);
+
+        //关闭全部流,资源释放
+        socketBufferedReader.close();
+        socketPrintStream.close();
+        input.close();
+    }
+}</code></pre><h3 id="常见协议端口号"><a href="#常见协议端口号" class="headerlink" title="常见协议端口号"></a>常见协议端口号</h3><p>协议</p>
+<p>端口</p>
+<p>TCP or UDP</p>
+<p>FTP</p>
+<p>20,21</p>
+<p>TCP</p>
+<p>SSH</p>
+<p>22</p>
+<p>TCP</p>
+<p>Telnet</p>
+<p>23</p>
+<p>TCP</p>
+<p>SMTP</p>
+<p>25</p>
+<p>TCP</p>
+<p>DNS</p>
+<p>53</p>
+<p>UDP</p>
+<p>TFTP</p>
+<p>69</p>
+<p>UDP</p>
+<p>HTTP</p>
+<p>80</p>
+<p>TCP</p>
+<p>POP3</p>
+<p>110</p>
+<p>TCP</p>
+<p>IMAP4</p>
+<p>143</p>
+<p>TCP</p>
+<p>HTTPS</p>
+<p>443</p>
+<p>TCP</p>
+<p>其中49152~65535号端口属于动态端口,没有端口可以被正式注册.</p>
+<h3 id="UDP"><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h3><h4 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h4><p>UDP是不可靠连接的协议,它的结构简单,不保留数据备份,无校验,速度快,容易丢包,可广播. 自身协议占用64位. 0-15(2个字节,短整型):发送源ip 16-31：接收源ip 32-47:长度 48-64:校验字段和header 其余均为data域: 最大的数据长度为65507 Bite,超过的要自行分包.</p>
+<h4 id="UDP能做什么"><a href="#UDP能做什么" class="headerlink" title="UDP能做什么?"></a>UDP能做什么?</h4><ol>
+<li>解析ip时的DNS就是依赖于UDP,以及TFTP,SNMP</li>
+<li>视频,音频,普通数据(无关紧要的数据),但若下载时用的是tcp</li>
+</ol>
+<h4 id="UDP-核心API"><a href="#UDP-核心API" class="headerlink" title="UDP 核心API"></a>UDP 核心API</h4><ol>
+<li>UDP并未合并到Socket核心包中.</li>
+</ol>
+<p>API</p>
+<p>作用</p>
+<p>DatagramSocket()</p>
+<p>创建简单实例,不指定端口和ip</p>
+<p>DatagramSocket(int port)</p>
+<p>创建监听某端口实例</p>
+<p>DatagramSocket(int port，InetAddress localAddr)</p>
+<p>创建固定端口指定ip的实例</p>
+<p>receive(DatagramPacket d)</p>
+<p>继续DatagramPacket后-接收</p>
+<p>sent(DatagramPacket d)</p>
+<p>继续DatagramPacket后-发送</p>
+<p>setSoTimeout(int timeout)</p>
+<p>设置传输/监听时超时时间,毫秒</p>
+<p>close()</p>
+<p>关闭,释放资源</p>
+<p>DatagramPacket(byte[] buf,int offset,int length,InetAddress address,int port)</p>
+<p>用于处理报文,拆包,封包,是发送/接收实体 - byte数组，可用区间(offset,length),接收者(发送时有效)地址(address,port)</p>
+<p>DatagramPacket(byte[] buf,int length,SocketAddress address)</p>
+<p>用Socket封装</p>
+<p>setData(byte[] buf,int offset,int length)</p>
+<p>DatagramPacket.setData构造一,指定偏移</p>
+<p>setData(byte[] buf)</p>
+<p>DatagramPacket无偏移</p>
+<p>setLength(int length)</p>
+<p>DatagramPacket单独指定长度</p>
+<p>getData(),getOffset(),getLength()</p>
+<p>DatagramPacket获取信息</p>
+<p>setAddress(InetAddress address),setPort(int iport)</p>
+<p>DatagramPacket指定发送时接收端ip</p>
+<p>setSocketAddress(SocketAddress address)</p>
+<p>DatagramPacket指定封装ip端口后的SocketAddress</p>
+<p>get…()</p>
+<p>DatagramPacket获取这些信息</p>
+<h4 id="单播-广播和多播"><a href="#单播-广播和多播" class="headerlink" title="单播,广播和多播"></a>单播,广播和多播</h4><ol>
+<li>单播: 将信息传给单点，两者间</li>
+<li>多播(组播): 给一组设备发送</li>
+<li>广播: 给所有设备(同一网段)发送</li>
+</ol>
+<h4 id="UDP点对点"><a href="#UDP点对点" class="headerlink" title="UDP点对点"></a>UDP点对点</h4><h5 id="服务提供方代码"><a href="#服务提供方代码" class="headerlink" title="服务提供方代码"></a>服务提供方代码</h5><pre><code>import javax.xml.crypto.Data;
+import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.SocketException;
+
+/*
+ UDP 服务提供方
+ */
+public class UDPProvider {
+    public static void main(String[] args)throws IOException {
+        System.out.println(&quot;Provider Started.&quot;);
+
+        //作为接受者,制定一个端口用于数据接收
+        DatagramSocket ds=new DatagramSocket(20000);
+
+        //构建接收实体
+        final byte[] buf=new byte[512];
+        DatagramPacket receivePack=new DatagramPacket(buf,buf.length);
+
+        //接收
+        ds.receive(receivePack);
+
+        //打印接收到的信息与发送者的信息
+        //发送端ip地址
+        String ip=receivePack.getAddress().getHostAddress();
+        int port=receivePack.getPort();
+        int dataLen=receivePack.getLength();
+        String data=new String(receivePack.getData(),0,dataLen);
+        System.out.println(&quot;UDPProvider receive from ip:&quot;+ip+&quot;\tport:&quot;+port+&quot;\tdata:&quot;+data);
+
+        //构建一份回送数据
+        String responseData=&quot;Receive data with len：&quot;+dataLen;
+        byte[] responseDataBytes=responseData.getBytes();
+        //直接根据发送者构建一份回送信息
+        DatagramPacket responsePacket= new DatagramPacket(responseDataBytes,responseDataBytes.length,receivePack.getAddress(),receivePack.getPort());
+        ds.send(responsePacket);
+
+        //完成
+        System.out.println(&quot;UDPProvider Finished.&quot;);
+        ds.close();
+    }
+}</code></pre><h5 id="服务请求方代码"><a href="#服务请求方代码" class="headerlink" title="服务请求方代码"></a>服务请求方代码</h5><pre><code>import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+
+/*
+    UDP搜索者,用于搜索服务支持方
+ */
+public class UDPSearcher {
+    public static void main(String[] args)throws IOException {
+        System.out.println(&quot;UDPSearcher Started.&quot;);
+
+        //作为搜索方,系统直接分配端口
+        DatagramSocket ds=new DatagramSocket();
+
+        //构建一份请求数据
+        String requestData=&quot;HelloWorld&quot;;
+        byte[] requestDataBytes=requestData.getBytes();
+        //直接根据构建一份请求信息
+        DatagramPacket requestPacket= new DatagramPacket(requestDataBytes,requestDataBytes.length);
+        requestPacket.setAddress(InetAddress.getLocalHost());
+        requestPacket.setPort(20000);
+
+        ds.send(requestPacket);
+
+        //构建接收实体
+        final byte[] buf=new byte[512];
+        DatagramPacket receivePack=new DatagramPacket(buf,buf.length);
+
+        //接收
+        ds.receive(receivePack);
+
+        //打印接收到的信息与发送者的信息
+        //发送端ip地址
+        String ip=receivePack.getAddress().getHostAddress();
+        int port=receivePack.getPort();
+        int dataLen=receivePack.getLength();
+        String data=new String(receivePack.getData(),0,dataLen);
+        System.out.println(&quot;UDPSearcher receive from ip:&quot;+ip+&quot;\tport:&quot;+port+&quot;\tdata:&quot;+data);
+
+
+        //完成
+        System.out.println(&quot;UDPSearcher Finished.&quot;);
+        ds.close();
+    }
+}</code></pre><h4 id="UDP广播"><a href="#UDP广播" class="headerlink" title="UDP广播"></a>UDP广播</h4><h5 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h5><ol>
+<li>线程中的CountDownLatch异步通知外部.</li>
+<li>线程关闭</li>
+<li>局域网广播地址255.255.255.255</li>
+<li>唯一标识库 UUID</li>
+<li>字符串处理API （startsWith(String),substring(length)）</li>
+<li>DatagramSocket和DatagramPacket</li>
+</ol>
+<h5 id="简单架构"><a href="#简单架构" class="headerlink" title="简单架构"></a>简单架构</h5><ol>
+<li>无论客户端还是服务端,在发送前首先要保证自己的监听时开启的,否则可能因为指令优化导致先发送而却无法接收.</li>
+<li>搜索端用内部类建立Device来保存设备数据.</li>
+<li>搜索端用CountDownLatch来通知监听器该请求已成功.</li>
+<li>搜索端和客户端共用一个MessageCreator类来解析互传的消息.</li>
+<li>DatapramSocket是监听端口,DatapramPacket是封装/拆封报文.</li>
+</ol>
+<h5 id="解析信息代码"><a href="#解析信息代码" class="headerlink" title="解析信息代码"></a>解析信息代码</h5><pre><code>import org.omg.CORBA.INTERNAL;
+
+public class MessageCreator{
+    private static final String SN_HEADER = &quot;收到暗号,我是(SN): &quot;;
+    private static final String PORT_HEADER=&quot;这是暗号,请回电端口(Port)&quot;;
+
+    public static String buildWithPort(int port){
+        return PORT_HEADER+port;
+    }
+
+    public static int parsePort(String data){
+        if(data.startsWith(PORT_HEADER)){
+            return Integer.parseInt(data.substring(PORT_HEADER.length()));
+        }
+        return -1;
+    }
+
+    public static String buildWithSN(String SN){
+        return SN_HEADER+SN;
+    }
+
+    public static String parseSN(String data){
+        if(data.startsWith(SN_HEADER)){
+            return data.substring(PORT_HEADER.length());
+        }
+        return null;
+    }
+}</code></pre><h5 id="服务提供端代码"><a href="#服务提供端代码" class="headerlink" title="服务提供端代码"></a>服务提供端代码</h5><pre><code>import javax.xml.crypto.Data;
+import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.SocketException;
+import java.util.UUID;
+
+/*
+ UDP 服务提供方
+ */
+public class UDPProvider {
+    public static void main(String[] args)throws IOException {
+        //生成一份唯一标识
+        String sn= UUID.randomUUID().toString();
+        //开启监听
+        Provider provider=new Provider(sn);
+        provider.start();
+
+        //本地读取任意键盘信息后可以退出
+        System.in.read();
+        provider.exit();
+    }
+
+    private static class Provider extends Thread{
+        private final String sn;
+        private boolean done=false;
+        private DatagramSocket ds=null;
+        public Provider(String sn){
+            super();
+            this.sn=sn;
+        }
+
+        @Override
+        public void run(){
+            super.run();
+            System.out.println(&quot;Provider Started.&quot;);
+            try {
+                //作为接受者,制定一个端口用于监听数据接收
+                ds = new DatagramSocket(20000);
+
+                while (!done) {
+                    //构建接收实体
+                    final byte[] buf = new byte[512];
+                    DatagramPacket receivePack = new DatagramPacket(buf, buf.length);
+
+                    //接收
+                    ds.receive(receivePack);
+
+                    //打印接收到的信息与发送者的信息
+                    //发送端ip地址
+                    String ip = receivePack.getAddress().getHostAddress();
+                    int port = receivePack.getPort();
+                    int dataLen = receivePack.getLength();
+                    String data = new String(receivePack.getData(), 0, dataLen);
+                    System.out.println(&quot;UDPProvider receive from ip:&quot; + ip + &quot;\tport:&quot; + port + &quot;\tdata:&quot; + data);
+
+                    //解析回送端口号
+                    int responsePort = MessageCreator.parsePort(data);
+                    if(responsePort !=-1) {
+                        //构建一份回送数据
+                        String responseData = MessageCreator.buildWithSN(sn);
+                        byte[] responseDataBytes = responseData.getBytes();
+                        //直接根据发送者构建一份回送信息,发送到指定Port上去,并附上口令sn
+                        DatagramPacket responsePacket =
+                                new DatagramPacket(responseDataBytes,
+                                responseDataBytes.length,
+                                receivePack.getAddress(),
+                                responsePort);
+                        ds.send(responsePacket);
+                    }
+
+                }
+            }catch (Exception ignore){
+            }finally {
+                //done退出后阻塞异常到这里再判断一次是否需要退出
+                close();
+            }
+            //完成
+            System.out.println(&quot;UDPProvider Finished.&quot;);
+        }
+
+        private void close(){
+            if(ds!=null){
+                ds.close();
+                ds=null;
+            }
+        }
+
+        ///提供随时停止的方法
+        void exit(){
+            done=true;
+            close();
+        }
+    }
+}</code></pre><h5 id="客户搜索端代码"><a href="#客户搜索端代码" class="headerlink" title="客户搜索端代码"></a>客户搜索端代码</h5><pre><code>import java.io.IOException;
+import java.net.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CountDownLatch;
+
+/*
+    UDP搜索者,用于搜索服务支持方
+ */
+public class UDPSearcher {
+    //监听端口
+    private static final int LISTEN_PORT=30000;
+
+
+    public static void main(String[] args) throws IOException, InterruptedException {
+        System.out.println(&quot;UDPSearcher Started.&quot;);
+
+        Listener listener=listen();
+        sendBroadcast();
+
+        //本地读取任意键盘信息后可以退出
+        System.in.read();
+        List&lt;Device&gt; devices=listener.getDevicesAndClose();
+        for (Device device: devices) {
+            System.out.println(&quot;Device:&quot; + device.toString());
+        }
+
+        System.out.println(&quot;完成&quot;);
+    }
+
+    //用于监听请求服务端后的回发
+    private static  Listener listen() throws InterruptedException {
+        CountDownLatch countDownLatch=new CountDownLatch(1);
+        Listener listener=new Listener(LISTEN_PORT,countDownLatch);
+        listener.start();
+
+        //执行countdownlatch.countdown()后await释放
+        countDownLatch.await();
+        return listener;
+    }
+
+    //广播
+    private static void sendBroadcast() throws IOException {
+        System.out.println(&quot;UDPSearcher sendBroadcast Started.&quot;);
+
+        //作为搜索方,系统直接分配端口
+        DatagramSocket ds=new DatagramSocket();
+
+        //构建一份请求数据
+        String requestData=MessageCreator.buildWithPort(LISTEN_PORT);
+        byte[] requestDataBytes=requestData.getBytes();
+        //直接根据构建一份请求信息
+        DatagramPacket requestPacket= new DatagramPacket(requestDataBytes,
+                requestDataBytes.length);
+        requestPacket.setAddress(InetAddress.getByName(&quot;255.255.255.255&quot;));
+        requestPacket.setPort(20000);
+
+        ds.send(requestPacket);
+        ds.close();
+        System.out.println(&quot;发送已完成.&quot;);
+    }
+
+    public static class Device{
+        ///必须要
+        final int port;
+        final String ip;
+        final String sn;
+        public Device(int port, String ip, String sn) {
+            this.port = port;
+            this.ip = ip;
+            this.sn = sn;
+        }
+
+        @Override
+        public String toString() {
+            return &quot;Device{&quot; +
+                    &quot;port=&quot; + port +
+                    &quot;, ip=&apos;&quot; + ip + &apos;\&apos;&apos; +
+                    &quot;, sn=&apos;&quot; + sn + &apos;\&apos;&apos; +
+                    &apos;}&apos;;
+        }
+    }
+
+    private static class Listener extends Thread{
+        private final int listenPort;
+        //用CountDownLatch通知外部已启动
+        private final CountDownLatch countDownLatch;
+        private final List&lt;Device&gt; devices=new ArrayList&lt;&gt;();
+        private boolean done=false;
+        private DatagramSocket ds=null;
+
+        public Listener(int listenPort,CountDownLatch countDownLatch){
+            super();
+            this.listenPort=listenPort;
+            this.countDownLatch=countDownLatch;
+        }
+        @Override
+        public void run(){
+            super.run();
+
+            //通知已启动
+            countDownLatch.countDown();
+            try{
+                //监听端口
+                ds=new DatagramSocket(listenPort);
+                while(!done) {
+                    //构建接收实体
+                    final byte[] buf = new byte[512];
+                    DatagramPacket receivePack = new DatagramPacket(buf, buf.length);
+
+                    //接收
+                    ds.receive(receivePack);
+
+                    //打印接收到的信息与发送者的信息
+                    //发送端ip地址
+                    String ip = receivePack.getAddress().getHostAddress();
+                    int port = receivePack.getPort();
+                    int dataLen = receivePack.getLength();
+                    String data = new String(receivePack.getData(), 0, dataLen);
+                    System.out.println(&quot;UDPSearcher receive from ip:&quot; + ip + &quot;\tport:&quot; + port + &quot;\tdata:&quot; + data);
+
+                    String sn=MessageCreator.parseSN(data);
+                    if(sn!=null){
+                        Device device=new Device(port,ip,sn);
+                        devices.add(device);
+                    }
+                }
+            }catch(Exception ignore){
+
+            }finally {
+                close();
+            }
+            System.out.println(&quot;UDPSearcher listener finished&quot;);
+        }
+
+        private void close(){
+            if(ds!=null){
+                ds.close();
+                ds=null;
+            }
+        }
+
+        List&lt;Device&gt; getDevicesAndClose(){
+            done=true;
+            close();
+            return devices;
+        }
+    }
+
+}</code></pre><h3 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h3><h4 id="介绍-1"><a href="#介绍-1" class="headerlink" title="介绍"></a>介绍</h4><p>tcp是传输控制协议,是一种面向连接,可靠的,基于字节流的传输曾通信协议. 区别于UDP: udp基于数字报,不可靠. 相同: 完成第四层所指定的职责.</p>
+<h4 id="机制"><a href="#机制" class="headerlink" title="机制"></a>机制</h4><ol>
+<li>三次握手、四次挥手</li>
+<li>具有校验机制、可靠、数据传输稳定</li>
+<li>建立连接后,传递字节流数据</li>
+</ol>
+<h4 id="TCP能做什么"><a href="#TCP能做什么" class="headerlink" title="TCP能做什么?"></a>TCP能做什么?</h4><ol>
+<li>聊天消息传输、推送</li>
+<li>单人语音、视频聊天(信息要求完全准确用tcp)</li>
+<li>几乎udp可以做的tcp都可以做,只不过需要考虑复杂性和心跟那个问题</li>
+<li>限制: 无法进行广播,多播</li>
+</ol>
+<h4 id="TCP核心API"><a href="#TCP核心API" class="headerlink" title="TCP核心API"></a>TCP核心API</h4><p>API</p>
+<p>功能</p>
+<p>socket()</p>
+<p>创建一个socket</p>
+<p>bind()</p>
+<p>绑定一个Socket到一个本地地址和端口上</p>
+<p>connect()</p>
+<p>连接到远程套接字</p>
+<p>accept()</p>
+<p>接受一个新的连接,调用该方法时,服务端会进入阻塞状态,直到有一个套接字到达</p>
+<p>write()</p>
+<p>把数据写入到Socket输出流</p>
+<p>read()</p>
+<p>从Socket输入流中读取数据</p>
+<h4 id="创建流程"><a href="#创建流程" class="headerlink" title="创建流程"></a>创建流程</h4><h5 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h5><ol>
+<li>创建 Socket</li>
+<li>bind本地套接字(占用一个端口)</li>
+<li>connect远程套接字(成功)</li>
+<li>客户端与远程套接字通信</li>
+</ol>
+<h5 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h5><ol>
+<li>创建 SeverSocket</li>
+<li>bind本地套接字(占用一个端口)</li>
+<li>connect客户端套接字(成功)</li>
+<li>客户端与远程套接字通信</li>
+</ol>
+<h4 id="Socket也可以创建进程与进程间通信"><a href="#Socket也可以创建进程与进程间通信" class="headerlink" title="Socket也可以创建进程与进程间通信"></a>Socket也可以创建进程与进程间通信</h4><h4 id="三次握手"><a href="#三次握手" class="headerlink" title="三次握手"></a>三次握手</h4><ol>
+<li>客户端发起的(SYN 连接请求)</li>
+<li>服务端回送ACK</li>
+<li>匹配成功,客户端在发送给服务端一个ACK</li>
+</ol>
+<h4 id="四次挥手-断开"><a href="#四次挥手-断开" class="headerlink" title="四次挥手(断开)"></a>四次挥手(断开)</h4><p>FIN是申请结束字段. 1. 客户端发送: FIN=1,seq=u 2. 服务端发送: ACK=1,seq=v,ack=u+1 这之后因为可能会有一些信息还未发送完毕,所以需要发送完再进行断开确认.</p>
+<ol start="3">
+<li>服务端发送: FIN=1,ACK=1,seq=w,ack=u+1</li>
+<li>客户端发送: ACK=1,seq=u+1,ack=w+1</li>
+</ol>
+<h4 id="前置知识-1"><a href="#前置知识-1" class="headerlink" title="前置知识"></a>前置知识</h4><h5 id="客户端-1"><a href="#客户端-1" class="headerlink" title="客户端"></a>客户端</h5><h6 id="Nagle算法"><a href="#Nagle算法" class="headerlink" title="Nagle算法"></a>Nagle算法</h6><p>当我们在发送报文时,如果报文是成块的发送,那么对报文的利用率将会很高,但如果是一小段一小段的发送的话,对于当前tcp的链接将会是很低效的,因为每次都需要额外处理的开销. 而Nagle算法就是为了解决小包的问题.</p>
+<blockquote>
+<p>其核心思想是允许网络中最多只能有一个小分组被发送，而待发送的其它小分组会被重新分组成一个”较大的”小分组，等收到上一个小分组的应答后再发送</p>
+</blockquote>
+<h6 id="心跳包"><a href="#心跳包" class="headerlink" title="心跳包"></a>心跳包</h6><blockquote>
+<p>人活着的证明之一是心跳依然在跳动,心跳包就是用于判断在长时间无活动的前提下连接是否已断开.</p>
+<blockquote>
+<p>socket.setKeepAlive(true)</p>
+</blockquote>
+</blockquote>
+<h6 id="连接关闭缓冲"><a href="#连接关闭缓冲" class="headerlink" title="连接关闭缓冲"></a>连接关闭缓冲</h6><blockquote>
+<p>在两端连接执行关闭操作前必须要保证两端数据已经传输完成. 如果没有传输完成就关闭大概率会导致数据异常,而socket库对于关闭有三种方式.（内置于socket.setSoLinger()函数中）</p>
+<blockquote>
+<ol>
+<li>socket.setSoLinger(false,0) 关闭时立即返回,底层系统接管出输出流,将缓冲区内数据发送完全.</li>
+<li>true,0:关闭时立即返回,抛弃缓冲区数据,直接发送RST结束命令到对方</li>
+<li>true,200: 关闭后等待200ms,然后按第二种方式处理.</li>
+</ol>
+</blockquote>
+</blockquote>
+<h6 id="紧急数据内敛"><a href="#紧急数据内敛" class="headerlink" title="紧急数据内敛"></a>紧急数据内敛</h6><blockquote>
+<p>将某一块数据的优先级提至最高,一般不需要</p>
+<blockquote>
+<p>socket.setOOBInline(true) (默认false)</p>
+</blockquote>
+</blockquote>
+<h6 id="设置缓冲区大小"><a href="#设置缓冲区大小" class="headerlink" title="设置缓冲区大小"></a>设置缓冲区大小</h6><blockquote>
+<p>1024是1kb,1024*1024是1mb</p>
+<blockquote>
+<p>加快速度可以用 data &lt;&lt; 10 代表1kb</p>
+<blockquote>
+<p>socket.setReceiveBufferSize(64 * 1024 * 1024); 接受缓冲区 socket.setSendBufferSize(64 * 1024 * 1024); 发送缓冲区</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<h6 id="设置性能参数"><a href="#设置性能参数" class="headerlink" title="设置性能参数"></a>设置性能参数</h6><blockquote>
+<p>短链接，延迟，带宽的相对重要性</p>
+<blockquote>
+<p>socket.setPerformancePreferences(1, 1, 0); 其中这三个参数代表的是权重占比,无实际意义.</p>
+</blockquote>
+</blockquote>
+<h6 id="几种不同的套接字参数"><a href="#几种不同的套接字参数" class="headerlink" title="几种不同的套接字参数"></a>几种不同的套接字参数</h6><pre><code>// 无代理模式，等效于空构造函数
+Socket socket = new Socket(Proxy.NO_PROXY);
+
+// 新建一份具有HTTP代理的套接字，传输数据将通过www.baidu.com:8080端口转发
+Proxy proxy = new Proxy(Proxy.Type.HTTP,
+        new InetSocketAddress(Inet4Address.getByName(&quot;www.baidu.com&quot;), 8800));
+socket = new Socket(proxy);
+
+// 新建一个套接字，并且直接链接到本地20000的服务器上
+socket = new Socket(&quot;localhost&quot;, PORT);
+
+// 新建一个套接字，并且直接链接到本地20000的服务器上
+socket = new Socket(Inet4Address.getLocalHost(), PORT);
+
+// 新建一个套接字，并且直接链接到本地20000的服务器上，并且绑定到本地20001端口上
+socket = new Socket(&quot;localhost&quot;, PORT, Inet4Address.getLocalHost(), LOCAL_PORT);
+socket = new Socket(Inet4Address.getLocalHost(), PORT, Inet4Address.getLocalHost(), LOCAL_PORT);
+
+Socket socket = new Socket();
+// 绑定到本地20001端口
+socket.bind(new InetSocketAddress(Inet4Address.getLocalHost(), LOCAL_PORT));</code></pre><h6 id="连接数据的流式操作"><a href="#连接数据的流式操作" class="headerlink" title="连接数据的流式操作"></a>连接数据的流式操作</h6><blockquote>
+<p>我仅用一串代码表示,但经过事实证明,各类型数据在ByteBuffer这个NIO库下只能传输一个数据,多了的话就会出现数据紊乱.除非用字符串传送.</p>
+</blockquote>
+<pre><code>//得到Socket输出流,并转换为打印流
+   OutputStream outputStream=client.getOutputStream();
+
+   //得到Socket输入流,并用ByteBuffer包裹起来
+   InputStream inputStream=client.getInputStream();
+   byte[] buffer=new byte[256];
+   ByteBuffer byteBuffer=ByteBuffer.wrap(buffer);
+
+   // byte
+   byteBuffer.put((byte) 126);
+
+   // char
+   char c = &apos;a&apos;;
+   byteBuffer.putChar(c);
+
+   // int
+   int i = 2323123;
+   byteBuffer.putInt(i);
+
+   // bool
+   boolean b = true;
+   byteBuffer.put(b ? (byte) 1 : (byte) 0);
+
+   // Long
+   long l = 298789739;
+   byteBuffer.putLong(l);
+
+
+   // float
+   float f = 12.345f;
+   byteBuffer.putFloat(f);
+
+
+   // double
+   double d = 13.31241248782973;
+   byteBuffer.putDouble(d);
+
+   // String
+   String str = &quot;Hello你好！&quot;;
+   byteBuffer.put(str.getBytes());
+
+   //发送到服务器
+   outputStream.write(buffer,0,byteBuffer.position()+1);
+
+   //接受服务器返回
+   int read=inputStream.read(buffer);
+   System.out.println(&quot;收到数量: &quot;+read);
+
+   //资源释放
+   outputStream.close();
+   inputStream.close();</code></pre><h5 id="服务端-1"><a href="#服务端-1" class="headerlink" title="服务端"></a>服务端</h5><h6 id="ServerSocket"><a href="#ServerSocket" class="headerlink" title="ServerSocket"></a>ServerSocket</h6><blockquote>
+<p>对于服务端的Socket,为何要用ServerSocket?因为不一定只有一个客户端啊,课本部分会有一大堆Socket传过来啊,所以ServerSocket其实是用来处理多个Socket用的，最后仍然要回归到处理Socket</p>
+</blockquote>
+<h6 id="ServerSocket-与-Socket的关系"><a href="#ServerSocket-与-Socket的关系" class="headerlink" title="ServerSocket 与 Socket的关系"></a>ServerSocket 与 Socket的关系</h6><p><img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/12/ServerSocket%E4%B8%8ESocket.png" alt></p>
+<h6 id="ServerSocket配置"><a href="#ServerSocket配置" class="headerlink" title="ServerSocket配置"></a>ServerSocket配置</h6><pre><code>ServerSocket serverSocket=new ServerSocket();
+// 绑定到本地端口20000上，并且设置当前可允许等待链接的队列为50个
+//serverSocket = new ServerSocket(PORT);
+
+// 等效于上面的方案，队列设置为50个
+//serverSocket = new ServerSocket(PORT, 50);
+
+// 与上面等同
+// serverSocket = new ServerSocket(PORT, 50, Inet4Address.getLocalHost());
+// 是否复用未完全关闭的地址端口
+serverSocket.setReuseAddress(true);
+
+// 等效Socket#setReceiveBufferSize
+serverSocket.setReceiveBufferSize(64 * 1024 * 1024);
+
+// 设置serverSocket#accept超时时间
+// serverSocket.setSoTimeout(2000);
+
+// 设置性能参数：短链接，延迟，带宽的相对重要性
+serverSocket.setPerformancePreferences(1, 1, 1);</code></pre><h4 id="服务端代码-1"><a href="#服务端代码-1" class="headerlink" title="服务端代码"></a>服务端代码</h4><pre><code>import org.omg.CORBA.PRIVATE_MEMBER;
+
+import javax.print.DocFlavor;
+import java.io.*;
+import java.net.Inet4Address;
+import java.net.InetSocketAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.nio.ByteBuffer;
+import java.sql.SQLTransactionRollbackException;
+
+public class Server {
+    private static final int PORT=20000;
+    public static void main(String[] args)throws IOException {
+        //如果不指定端口号和ip地址,默认是本地
+        ServerSocket server=createServerSocket();
+
+        initServerSocket(server);
+
+        server.bind(new InetSocketAddress(Inet4Address.getLocalHost(),PORT),50);
+
+        System.out.println(&quot;服务器准备就绪~&quot;);
+        System.out.println(&quot;服务器信息: &quot;+server.getInetAddress()+&quot; P:&quot;+server.getLocalPort() );
+
+        //等待客户端连接
+        while(true) {
+            //得到客户端
+            Socket client = server.accept();
+            //客户端构建异步线程
+            ClientHandler clientHandler = new ClientHandler(client);
+            //启动线程
+            clientHandler.start();
+        }
+    }
+
+    private static ServerSocket createServerSocket() throws IOException {
+        ServerSocket serverSocket=new ServerSocket();
+        // 绑定到本地端口20000上，并且设置当前可允许等待链接的队列为50个
+        //serverSocket = new ServerSocket(PORT);
+
+        // 等效于上面的方案，队列设置为50个
+        //serverSocket = new ServerSocket(PORT, 50);
+
+        // 与上面等同
+        // serverSocket = new ServerSocket(PORT, 50, Inet4Address.getLocalHost());
+        return serverSocket;
+    }
+
+    private static void initServerSocket(ServerSocket serverSocket)throws IOException{
+        //是否复用未完全关闭的地址端
+        serverSocket.setReuseAddress(true);
+
+        // 等效Socket#setReceiveBufferSize
+        serverSocket.setReceiveBufferSize(64 * 1024 * 1024);
+
+        // 设置serverSocket#accept超时时间
+        // serverSocket.setSoTimeout(2000);
+
+        // 设置性能参数：短链接，延迟，带宽的相对重要性
+        serverSocket.setPerformancePreferences(1, 1, 1);
+    }
+
+    //处理多个请求时要用异步
+    private static class ClientHandler extends Thread{
+        private Socket socket;
+        private boolean flag=true;
+
+        ClientHandler(Socket socket){
+            this.socket=socket;
+        }
+
+        //运行时运行run
+        @Override
+        public void run(){
+            super.run();
+            System.out.println(&quot;新客户端连接: &quot;+socket.getInetAddress()+&quot; P:&quot;+socket.getPort());
+            try{
+                //得到套接字流
+                OutputStream outputStream=socket.getOutputStream();
+                InputStream inputStream=socket.getInputStream();
+                byte[] buffer=new byte[256];
+                int readCount=inputStream.read(buffer);
+                ByteBuffer byteBuffer=ByteBuffer.wrap(buffer);
+
+                // byte
+                byte be = byteBuffer.get();
+
+                // char
+                char c = byteBuffer.getChar();
+
+                // int
+                int i = byteBuffer.getInt();
+
+                // bool
+                boolean b = byteBuffer.get() == 1;
+
+                // Long
+                long l = byteBuffer.getLong();
+
+                // float
+                float f = byteBuffer.getFloat();
+
+                // double
+                double d = byteBuffer.getDouble();
+
+                // String
+                int pos = byteBuffer.position();
+
+                String str = new String(buffer, pos, readCount - pos - 1);
+
+                System.out.println(&quot;收到数量：&quot; + readCount + &quot; 数据：&quot;
+                        + be + &quot;\n&quot;
+                        + c + &quot;\n&quot;
+                        + i + &quot;\n&quot;
+                        + b + &quot;\n&quot;
+                        + l + &quot;\n&quot;
+                        + f + &quot;\n&quot;
+                        + d + &quot;\n&quot;
+                        + str + &quot;\n&quot;);
+                System.out.println(buffer.toString());
+
+                outputStream.write(buffer, 0, readCount);
+                outputStream.close();
+                inputStream.close();
+            }catch(Exception e){
+                System.out.println(&quot;连接异常断开&quot;);
+            }finally {
+                //连接关闭(每个线程)
+                try{
+                    socket.close();
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
+            System.out.println(&quot;客户端已退出: &quot;+socket.getInetAddress()+&quot; P:&quot;+socket.getPort());
+        }
+    }
+}</code></pre><h4 id="客户端代码-1"><a href="#客户端代码-1" class="headerlink" title="客户端代码"></a>客户端代码</h4><pre><code>import java.io.*;
+import java.net.*;
+import java.nio.ByteBuffer;
+
+public class Client {
+
+    private static final int PORT=20000;
+    private static final int LOCAL_PORT=20001;
+
+    public static void main(String[] args)throws IOException {
+        Socket socket=createSocket();
+
+        initSocket(socket);
+
+        //连接本地,端口20000,超时时间3000ms
+        socket.connect(new InetSocketAddress(InetAddress.getLocalHost(),PORT),3000);
+        System.out.println(&quot;已发起服务器连接,并进入后续流程~&quot;);
+        System.out.println(&quot;客户端信息: &quot;+socket.getLocalAddress()+&quot; P:&quot;+socket.getLocalPort());
+        System.out.println(&quot;服务器信息: &quot;+socket.getInetAddress()+&quot; P:&quot;+socket.getPort() );
+
+        try{
+            //发送接收数据
+            todo(socket);
+        }catch(Exception e){
+            System.out.println(&quot;异常关闭&quot;);
+        }
+        //释放资源
+        socket.close();
+        System.out.println(&quot;客户端已关闭&quot;);
+    }
+
+    private static Socket createSocket() throws IOException{
+        /*
+        // 无代理模式，等效于空构造函数
+        Socket socket = new Socket(Proxy.NO_PROXY);
+
+        // 新建一份具有HTTP代理的套接字，传输数据将通过www.baidu.com:8080端口转发
+        Proxy proxy = new Proxy(Proxy.Type.HTTP,
+                new InetSocketAddress(Inet4Address.getByName(&quot;www.baidu.com&quot;), 8800));
+        socket = new Socket(proxy);
+
+        // 新建一个套接字，并且直接链接到本地20000的服务器上
+        socket = new Socket(&quot;localhost&quot;, PORT);
+
+        // 新建一个套接字，并且直接链接到本地20000的服务器上
+        socket = new Socket(Inet4Address.getLocalHost(), PORT);
+
+        // 新建一个套接字，并且直接链接到本地20000的服务器上，并且绑定到本地20001端口上
+        socket = new Socket(&quot;localhost&quot;, PORT, Inet4Address.getLocalHost(), LOCAL_PORT);
+        socket = new Socket(Inet4Address.getLocalHost(), PORT, Inet4Address.getLocalHost(), LOCAL_PORT);
+        */
+        Socket socket=new Socket();
+        //绑定到本地20001端口
+        socket.bind(new InetSocketAddress(Inet4Address.getLocalHost(),LOCAL_PORT));
+        return socket;
+    }
+
+    private static void initSocket(Socket socket)  throws SocketException{
+        //设置读取超时时间为2秒
+        socket.setSoTimeout(2000);
+        //是否复用未完全关闭的Socket地址,对于指定build操作后的套接字有效
+        socket.setReuseAddress(true);
+        //是否需要开启Nagle算法
+        socket.setKeepAlive(true);
+        //是否需要在长时间无数据时确认是否依然连接(类似于心跳包),时间大约为2h
+        socket.setKeepAlive(true);
+
+        // 对于close关闭操作行为进行怎样的处理；默认为false，0
+        // false、0：默认情况，关闭时立即返回，底层系统接管输出流，将缓冲区内的数据发送完成
+        // true、0：关闭时立即返回，缓冲区数据抛弃，直接发送RST结束命令到对方，并无需经过2MSL等待
+        // true、200：关闭时最长阻塞200毫秒，随后按第二情况处理
+        socket.setSoLinger(true,20);
+        // 是否让紧急数据内敛，默认false；紧急数据通过 socket.sendUrgentData(1);发送
+        socket.setOOBInline(true);
+
+        // 设置接收发送缓冲器大小
+        socket.setReceiveBufferSize(64 * 1024 * 1024);
+        socket.setSendBufferSize(64 * 1024 * 1024);
+
+        // 设置性能参数：短链接，延迟，带宽的相对重要性
+        socket.setPerformancePreferences(1, 1, 0);
+
+    }
+
+    private static void todo(Socket client) throws IOException{
+        //得到Socket输出流,并转换为打印流
+        OutputStream outputStream=client.getOutputStream();
+
+        //得到Socket输入流,并用ByteBuffer包裹起来
+        InputStream inputStream=client.getInputStream();
+        byte[] buffer=new byte[256];
+        ByteBuffer byteBuffer=ByteBuffer.wrap(buffer);
+
+        // byte
+        byteBuffer.put((byte) 126);
+
+        // char
+        char c = &apos;a&apos;;
+        byteBuffer.putChar(c);
+
+        // int
+        int J = 12138;
+        byteBuffer.putInt(J);
+
+        // bool
+        boolean b = true;
+        byteBuffer.put(b ? (byte) 1 : (byte) 0);
+
+        // Long
+        long l = 298789739;
+        byteBuffer.putLong(l);
+
+
+        // float
+        float f = 12.345f;
+        byteBuffer.putFloat(f);
+
+
+        // double
+        double d = 13.31241248782973;
+        byteBuffer.putDouble(d);
+
+        // String
+        String str = &quot;Hello你好！&quot;;
+        byteBuffer.put(str.getBytes());
+
+        //发送到服务器
+        outputStream.write(buffer,0,byteBuffer.position()+1);
+
+        //接受服务器返回
+        int read=inputStream.read(buffer);
+        System.out.println(&quot;收到数量: &quot;+read);
+
+        //资源释放
+        outputStream.close();
+        inputStream.close();
+    }
+}</code></pre><h1 id="聊天室架构从0开始-–-2-TCP-UDP-实现搜索IP与端口"><a href="#聊天室架构从0开始-–-2-TCP-UDP-实现搜索IP与端口" class="headerlink" title="聊天室架构从0开始 – 2 TCP+UDP 实现搜索IP与端口"></a>聊天室架构从0开始 – 2 TCP+UDP 实现搜索IP与端口</h1><p><a href="be-sunshine.cn/index.php/2019/01/14/ty2/" title="聊天室架构从0开始 – 2 TCP+UDP 实现搜索IP与端口">聊天室架构从0开始 – 2 TCP+UDP 实现搜索IP与端口</a></p>
+
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#课设过程中的记录"><span class="toc-text">课设过程中的记录</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#序言-tcp与udp的族谱"><span class="toc-text">序言 - tcp与udp的族谱</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#借助工具-流式读取"><span class="toc-text">借助工具 - 流式读取</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#简单tcp问题"><span class="toc-text">简单tcp问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#服务端代码"><span class="toc-text">服务端代码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#客户端代码"><span class="toc-text">客户端代码</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#常见协议端口号"><span class="toc-text">常见协议端口号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#UDP"><span class="toc-text">UDP</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#介绍"><span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#UDP能做什么"><span class="toc-text">UDP能做什么?</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#UDP-核心API"><span class="toc-text">UDP 核心API</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#单播-广播和多播"><span class="toc-text">单播,广播和多播</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#UDP点对点"><span class="toc-text">UDP点对点</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#服务提供方代码"><span class="toc-text">服务提供方代码</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#服务请求方代码"><span class="toc-text">服务请求方代码</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#UDP广播"><span class="toc-text">UDP广播</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#前置知识"><span class="toc-text">前置知识</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#简单架构"><span class="toc-text">简单架构</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#解析信息代码"><span class="toc-text">解析信息代码</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#服务提供端代码"><span class="toc-text">服务提供端代码</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#客户搜索端代码"><span class="toc-text">客户搜索端代码</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP"><span class="toc-text">TCP</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#介绍-1"><span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#机制"><span class="toc-text">机制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#TCP能做什么"><span class="toc-text">TCP能做什么?</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#TCP核心API"><span class="toc-text">TCP核心API</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#创建流程"><span class="toc-text">创建流程</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#客户端"><span class="toc-text">客户端</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#服务端"><span class="toc-text">服务端</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Socket也可以创建进程与进程间通信"><span class="toc-text">Socket也可以创建进程与进程间通信</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#三次握手"><span class="toc-text">三次握手</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#四次挥手-断开"><span class="toc-text">四次挥手(断开)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#前置知识-1"><span class="toc-text">前置知识</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#客户端-1"><span class="toc-text">客户端</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#Nagle算法"><span class="toc-text">Nagle算法</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#心跳包"><span class="toc-text">心跳包</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#连接关闭缓冲"><span class="toc-text">连接关闭缓冲</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#紧急数据内敛"><span class="toc-text">紧急数据内敛</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#设置缓冲区大小"><span class="toc-text">设置缓冲区大小</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#设置性能参数"><span class="toc-text">设置性能参数</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#几种不同的套接字参数"><span class="toc-text">几种不同的套接字参数</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#连接数据的流式操作"><span class="toc-text">连接数据的流式操作</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#服务端-1"><span class="toc-text">服务端</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#ServerSocket"><span class="toc-text">ServerSocket</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#ServerSocket-与-Socket的关系"><span class="toc-text">ServerSocket 与 Socket的关系</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#ServerSocket配置"><span class="toc-text">ServerSocket配置</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#服务端代码-1"><span class="toc-text">服务端代码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#客户端代码-1"><span class="toc-text">客户端代码</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#聊天室架构从0开始-–-2-TCP-UDP-实现搜索IP与端口"><span class="toc-text">聊天室架构从0开始 – 2 TCP+UDP 实现搜索IP与端口</span></a></li></ol>
+  </div>
+</aside>
+  
+    <aside class="passage-copyright">
+      <div>本文作者: 张文涛</div>
+      
+        <div>
+          原文链接: 
+          <a href="" target="_blank">http://be-sunshine.cn/passages/type-1/</a>
+        </div>
+      
+      <div>
+        版权声明: 本博客所有文章除特别声明外, 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议. 转载请注明出处!
+      </div>
+    </aside>
+  
+  
+    <div class="passage-tags">
+     
+      <a href="/tags/Java/"><i class="fa fa-tags"></i>Java</a>
+     
+      <a href="/tags/网络编程/"><i class="fa fa-tags"></i>网络编程</a>
+     
+      <a href="/tags/tcp/"><i class="fa fa-tags"></i>tcp</a>
+    
+    </div>
+  
+</div>
+
+    </main>
+    
+      
+<div class="site-comment-contanier" data-plateform="leancloud">
+  
+    <p id="site-comment-info">
+      <i class="fa fa-spinner fa-spin"></i> 评论加载中
+    </p>
+    <div id="site-comment"></div>
+  
+</div>
+    
+    <div class="site-footer-wrapper">
+  <footer class="site-footer">
+    
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">博客推荐</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/" target="_blank">GodBMW</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="http://ruanyifeng.com/" target="_blank">阮一峰的个人网站</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">系列教程</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/categories/webpack4%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B/" target="_blank">webpack4系列教程</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/design-patterns/" target="_blank">设计模式手册</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">抓到我</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://weibo.com/3260959934/" target="_blank">微博</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://github.com/834930269" target="_blank">Github</a>
+            </span>
+          
+        </div>
+      
+    
+    <div class="site-footer-info">
+      <i class="fa fa-clock-o"></i> 本站已稳定运行<span id="site-time"></span>
+    </div>
+    
+      <div class="site-footer-info">
+        <i class="fa fa-paw"></i> 您是本站第 <span id="site-count"></span> 位访客
+      </div>
+    
+    
+      <div class="site-footer-info">
+        <i class="fa fa-at"></i> Email: 834930269@qq.com
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-copyright"></i> 
+      2019 <a href="https://github.com/dongyuanxin/theme-ad/" target="_blank">Theme-AD</a>.
+      Created by <a href="https://godbmw.com/" target="_blank">GodBMW</a>.
+      All rights reserved.
+    </div>
+  </footer>
+</div>
+    <div id="site-layer" style="display:none;">
+  <div class="site-layer-content">
+    <div class="site-layer-header">
+      <span class="site-layer-header-title" id="site-layer-title"></span>
+      <i class="fa fa-close" id="site-layer-close"></i>
+    </div>
+    <div class="site-layer-body" id="site-layer-container">
+      <div class="site-layer-input" id="site-layer-search" style="display: none;">
+        <div class="site-layer-input-choose">
+          <a href="javascript:void(0);" title="Change Search Engine">Google</a>
+        </div>
+        <input type="text">
+        <i class="fa fa-search"></i>
+      </div>
+      
+        <div class="site-layer-reward" id="site-layer-reward" style="display: none;">
+          
+            <div>
+              <img src="/images/wechat.png" alt="WeChat">
+              
+                <p>WeChat</p>
+              
+            </div>
+          
+            <div>
+              <img src="/images/alipay.png" alt="AliPay">
+              
+                <p>AliPay</p>
+              
+            </div>
+          
+        </div>
+      
+      <div id="site-layer-welcome" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+    
+
+<div class="bottom-bar">
+  <div class="bottom-bar-left">
+    <a href="/passages/type-2/" data-enable="true">
+      <i class="fa fa-arrow-left"></i>
+    </a>
+    <a href="/passages/23-sort-dp/" data-enable="true">
+      <i class="fa fa-arrow-right"></i>
+    </a>
+  </div>
+  <div class="bottom-bar-right">
+    <a href="javascript:void(0);" data-enable="true" id="site-toc-show-btn">
+      <i class="fa fa-bars"></i>
+    </a>
+    
+      <a href="#site-comment" data-enable="true">
+        <i class="fa fa-commenting"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="site-toggle-share-btn">
+      <i class="fa fa-share-alt"></i>
+    </a>
+    
+      <a href="javascript:void(0);" id="site-reward">
+        <i class="fa fa-thumbs-up"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="back-top-btn">
+      <i class="fa fa-chevron-up"></i>
+    </a>
+  </div>
+</div>
+    <div id="share-btn">
+  
+    <a id="share-btn-twitter" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-twitter"></i>
+    </a>
+  
+  
+    <a id="share-btn-facebook" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-facebook"></i>
+    </a>
+  
+  
+    <a id="share-btn-weibo" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-weibo"></i>
+    </a>
+  
+  
+    <a id="share-btn-qq" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-qq"></i>
+    </a>
+  
+  
+    <a id="share-btn-wechat" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-wechat"></i>
+    </a>
+  
+</div>
+    
+
+
+
+
+
+    
+  </body>
+</html>

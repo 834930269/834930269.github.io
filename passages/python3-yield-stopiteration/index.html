@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html>
+  
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="author" content="张文涛">
+  
+  
+  <title>python3学习 生成器+杨辉三角+yield+异常StopIteration | 山海经▪大荒经</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Python,Python,">
+  
+
+  
+  <meta name="description" content="Winter Zhang的小站">
+
+  
+
+  
+    <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.1/dist/av-min.js" async></script>
+  
+
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+  
+
+  
+    <script src="//unpkg.com/valine/dist/Valine.min.js" async></script>
+  
+
+  
+
+  <script>
+  // theme-ad's config script
+  // it can be used in every script
+  
+  window.AD_CONFIG = {
+    leancloud: {"appid":"Hyq9wkH495DgNHWhDQCOfQSp-gzGzoHsz","appkey":"WaR7nrzhliHj9aVwdQzkdlGd","comment":true,"count":true},
+    welcome: {"enable":false,"interval":30},
+    start_time: "2015-02-10",
+    passwords: ["c035b468e47fd966ac2df15e3d7f7a64d89b1dbf209c24caad6e62bffd90d4c7", ],
+    is_post: true,
+    lock: false,
+    author: "张文涛",
+    share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
+    mathjax: true,
+    page_type: "",
+    root: "/"
+  };
+</script>
+
+  <script src="/vendor/sha256.min.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/index.js"></script>
+<script src="/vendor/qrcode.min.js"></script>
+
+  
+    <link rel="icon" href="/images/favicon2.ico">
+    <link rel="apple-touch-icon" href="/images/touch-icon.png">
+  
+
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/styles/components/highlight/highlight.css">
+
+  
+</head>
+  <body>
+    <header class="site-header">
+  <div class="site-header-brand">
+    
+      <span class="site-header-brand-title">
+        <a href="/">想你了</a>
+      </span>
+    
+    
+      <span class="site-header-brand-motto"> | 祝你平安幸福</span>
+    
+  </div>
+  <div class="site-header-right">
+    <nav class="site-header-navigation">
+      
+        <a href="/" target="_self">首页</a>
+      
+        <a href="/archives/" target="_self">归档</a>
+      
+        <a href="/tags/" target="_self">标签</a>
+      
+        <a href="/categories/" target="_self">分类</a>
+      
+        <a href="/friends/" target="_self">友链</a>
+      
+        <a href="/about/" target="_self">关于</a>
+      
+    </nav>
+    <div class="site-header-btn">
+      
+        <a href="https://github.com/834930269/" target="_blank" id="site-github">
+          <i class="fa fa-github-alt"></i>
+        </a>
+      
+      <a href="javascript:void(0);" id="site-search">
+        <i class="fa fa-search"></i>
+      </a>
+      <a href="javascript:void(0);" id="site-nav-btn">
+        <i class="fa fa-ellipsis-v"></i>
+      </a>
+    </div>
+  </div>
+</header>
+<nav class="table-content" id="site-nav">
+  <div class="table-content-title">
+    <span>导航</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc">
+      
+        <li class="toc-item">
+          <a href="/" target="_self">
+            首页
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/archives/" target="_self">
+            归档
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/tags/" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/categories/" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/friends/" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/about/" target="_self">
+            关于
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</nav>
+<div id="site-process"></div>
+    <main>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2017-07-12
+    </span>
+    
+      <span>
+        | <a href="/categories/Python/"><i class="fa fa-bookmark"></i>Python</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    python3学习 生成器+杨辉三角+yield+异常StopIteration
+  </h1>
+  
+  <article class="passage-article">
+    <p><strong>【Source Code】</strong> <strong><a href="https://github.com/834930269/python_study/blob/master/generator/%E7%94%9F%E6%88%90%E5%99%A8.py" target="_blank" rel="noopener">github: 生成器.py</a></strong></p>
+<hr>
+<p>**# coding: utf-8</p>
+<p># In[1]:</p>
+<p>‘’’<br>通过列表生成式，我们可以直接创建一个列表。但是，受到内存限制，列表容量肯定是有限的。而且，<br>创建一个包含100万个元素的列表，不仅占用很大的存储空间，如果我们仅仅需要访问前面几个元素，<br>那后面绝大多数元素占用的空间都白白浪费了。<br>所以，如果列表元素可以按照某种算法推算出来，那我们是否可以在循环的过程中不断推算出后续的元<br>素呢？这样就不必创建完整的list，从而节省大量的空间。在Python中，这种一边循环一边计算的机制<br>，称为生成器：generator。<br>‘’’</p>
+<p>#要创建一个generator，有很多种方法。第一种方法很简单，只要把一个列表生成式的[]改成()，就创建了一个generator：<br>L=[x<em>x for x in range(10)]<br>print(L)<br>g=(x</em>x for x in range(10))<br>print(g)</p>
+<p>#out[1]: [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]</p>
+<p>#out[2]:  at 0x0000000004C2FB48&gt;</p>
+<p># In[3]:</p>
+<p>‘’’<br>创建L和g的区别仅在于最外层的[]和()，L是一个list，而g是一个generator。</p>
+<p>我们可以直接打印出list的每一个元素，但我们怎么打印出generator的每一个元素呢？</p>
+<p>如果要一个一个打印出来，可以通过next()函数获得generator的下一个返回值：<br>generator必须紧跟着输入,否则用next()只能输出一次循环</p>
+<p>‘’’<br>g=(x*x for x in range(10))<br>i=0<br>while i&lt;10:<br>    print(next(g))<br>    i+=1</p>
+<p># In[10]:</p>
+<p>#用for<br>g=(x*x for x in range(10))<br>for n in g:<br>    print(n)</p>
+<p># In[6]:</p>
+<p>#斐波那契</p>
+<p>#注意,赋值语句 a,b=b,a+b</p>
+<p>#相当于<br>‘’’<br>t = (b, a + b) # t是一个tuple<br>a = t[0]<br>b = t[1]</p>
+<p>‘’’<br>def fib(max):<br>    n,a,b=0,0,1<br>    while n</p>
+<p>#想要在循环中得到fib2的return值,必须捕获StopIteration错误返回值包括在</p>
+<p>#其中的value中<br>while True:<br>    try:<br>        x=next(f)<br>        print(‘f:’,x)<br>    except StopIteration as ev:<br>        print(‘Generator return value:’,ev.value)<br>        break</p>
+<p># In[17]:</p>
+<p>#yield举例<br>def odd():<br>    print(‘step 1’)<br>    yield 1<br>    print(‘step 2’)<br>    yield(3)<br>    print(‘step 3’)<br>    yield(5)<br>o=odd()<br>print(‘之前没输出’)<br>for n in o:<br>    print(n)</p>
+<p># In[ ]:</p>
+<p>#test<br>‘’’<br>杨辉三角定义如下：</p>
+<pre><code>      1
+    1   1
+  1   2   1
+1   3   3   1</code></pre><p>  1   4   6   4   1<br>1   5   10  10  5   1<br>‘’’<br>def triangles():<br>    L=[1]<br>    while True:<br>        yield L<br>        l=len(L)<br>        R=[1]<br>        for i in range(1,l):<br>            R.append(L[i-1]+L[i])<br>        R.append(1)<br>        L=R[:]<br>‘’’<br>第二种解法,中间为中间列表,和上面一样,只不过直接加起来了,避免了中间变量<br>def triangles():<br>l = [1]<br>while True:<br>    yield l<br>    l = [1] + [l[i]+l[i+1] for i in range(len(l)-1)] + [1]<br>‘’’<br># 期待输出:<br># [1]<br># [1, 1]<br># [1, 2, 1]<br># [1, 3, 3, 1]<br># [1, 4, 6, 4, 1]<br># [1, 5, 10, 10, 5, 1]<br># [1, 6, 15, 20, 15, 6, 1]<br># [1, 7, 21, 35, 35, 21, 7, 1]<br># [1, 8, 28, 56, 70, 56, 28, 8, 1]<br># [1, 9, 36, 84, 126, 126, 84, 36, 9, 1]<br>n = 0<br>for t in triangles():<br>    print(t)<br>    n = n + 1<br>    if n == 10:<br>        break**</p>
+
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
+    
+  </div>
+</aside>
+  
+    <aside class="passage-copyright">
+      <div>本文作者: 张文涛</div>
+      
+        <div>
+          原文链接: 
+          <a href="" target="_blank">http://be-sunshine.cn/passages/python3-yield-stopiteration/</a>
+        </div>
+      
+      <div>
+        版权声明: 本博客所有文章除特别声明外, 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议. 转载请注明出处!
+      </div>
+    </aside>
+  
+  
+    <div class="passage-tags">
+     
+      <a href="/tags/Python/"><i class="fa fa-tags"></i>Python</a>
+    
+    </div>
+  
+</div>
+
+    </main>
+    
+      
+<div class="site-comment-contanier" data-plateform="leancloud">
+  
+    <p id="site-comment-info">
+      <i class="fa fa-spinner fa-spin"></i> 评论加载中
+    </p>
+    <div id="site-comment"></div>
+  
+</div>
+    
+    <div class="site-footer-wrapper">
+  <footer class="site-footer">
+    
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">博客推荐</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/" target="_blank">GodBMW</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="http://ruanyifeng.com/" target="_blank">阮一峰的个人网站</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">系列教程</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/categories/webpack4%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B/" target="_blank">webpack4系列教程</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/design-patterns/" target="_blank">设计模式手册</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">抓到我</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://weibo.com/3260959934/" target="_blank">微博</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://github.com/834930269" target="_blank">Github</a>
+            </span>
+          
+        </div>
+      
+    
+    <div class="site-footer-info">
+      <i class="fa fa-clock-o"></i> 本站已稳定运行<span id="site-time"></span>
+    </div>
+    
+      <div class="site-footer-info">
+        <i class="fa fa-paw"></i> 您是本站第 <span id="site-count"></span> 位访客
+      </div>
+    
+    
+      <div class="site-footer-info">
+        <i class="fa fa-at"></i> Email: 834930269@qq.com
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-copyright"></i> 
+      2019 <a href="https://github.com/dongyuanxin/theme-ad/" target="_blank">Theme-AD</a>.
+      Created by <a href="https://godbmw.com/" target="_blank">GodBMW</a>.
+      All rights reserved.
+    </div>
+  </footer>
+</div>
+    <div id="site-layer" style="display:none;">
+  <div class="site-layer-content">
+    <div class="site-layer-header">
+      <span class="site-layer-header-title" id="site-layer-title"></span>
+      <i class="fa fa-close" id="site-layer-close"></i>
+    </div>
+    <div class="site-layer-body" id="site-layer-container">
+      <div class="site-layer-input" id="site-layer-search" style="display: none;">
+        <div class="site-layer-input-choose">
+          <a href="javascript:void(0);" title="Change Search Engine">Google</a>
+        </div>
+        <input type="text">
+        <i class="fa fa-search"></i>
+      </div>
+      
+        <div class="site-layer-reward" id="site-layer-reward" style="display: none;">
+          
+            <div>
+              <img src="/images/wechat.png" alt="WeChat">
+              
+                <p>WeChat</p>
+              
+            </div>
+          
+            <div>
+              <img src="/images/alipay.png" alt="AliPay">
+              
+                <p>AliPay</p>
+              
+            </div>
+          
+        </div>
+      
+      <div id="site-layer-welcome" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+    
+
+<div class="bottom-bar">
+  <div class="bottom-bar-left">
+    <a href="/passages/libreoj-516/" data-enable="true">
+      <i class="fa fa-arrow-left"></i>
+    </a>
+    <a href="/passages/python3-listcomprehension/" data-enable="true">
+      <i class="fa fa-arrow-right"></i>
+    </a>
+  </div>
+  <div class="bottom-bar-right">
+    <a href="javascript:void(0);" data-enable="true" id="site-toc-show-btn">
+      <i class="fa fa-bars"></i>
+    </a>
+    
+      <a href="#site-comment" data-enable="true">
+        <i class="fa fa-commenting"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="site-toggle-share-btn">
+      <i class="fa fa-share-alt"></i>
+    </a>
+    
+      <a href="javascript:void(0);" id="site-reward">
+        <i class="fa fa-thumbs-up"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="back-top-btn">
+      <i class="fa fa-chevron-up"></i>
+    </a>
+  </div>
+</div>
+    <div id="share-btn">
+  
+    <a id="share-btn-twitter" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-twitter"></i>
+    </a>
+  
+  
+    <a id="share-btn-facebook" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-facebook"></i>
+    </a>
+  
+  
+    <a id="share-btn-weibo" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-weibo"></i>
+    </a>
+  
+  
+    <a id="share-btn-qq" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-qq"></i>
+    </a>
+  
+  
+    <a id="share-btn-wechat" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-wechat"></i>
+    </a>
+  
+</div>
+    
+
+
+
+
+
+    
+  </body>
+</html>

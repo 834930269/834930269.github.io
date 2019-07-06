@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html>
+  
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="author" content="张文涛">
+  
+  
+  <title>python3学习 装饰器Decorator+log(日志输出)+functools+args | 山海经▪大荒经</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Python,Python,">
+  
+
+  
+  <meta name="description" content="Winter Zhang的小站">
+
+  
+
+  
+    <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.1/dist/av-min.js" async></script>
+  
+
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+  
+
+  
+    <script src="//unpkg.com/valine/dist/Valine.min.js" async></script>
+  
+
+  
+
+  <script>
+  // theme-ad's config script
+  // it can be used in every script
+  
+  window.AD_CONFIG = {
+    leancloud: {"appid":"Hyq9wkH495DgNHWhDQCOfQSp-gzGzoHsz","appkey":"WaR7nrzhliHj9aVwdQzkdlGd","comment":true,"count":true},
+    welcome: {"enable":false,"interval":30},
+    start_time: "2015-02-10",
+    passwords: ["c035b468e47fd966ac2df15e3d7f7a64d89b1dbf209c24caad6e62bffd90d4c7", ],
+    is_post: true,
+    lock: false,
+    author: "张文涛",
+    share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
+    mathjax: true,
+    page_type: "",
+    root: "/"
+  };
+</script>
+
+  <script src="/vendor/sha256.min.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/index.js"></script>
+<script src="/vendor/qrcode.min.js"></script>
+
+  
+    <link rel="icon" href="/images/favicon2.ico">
+    <link rel="apple-touch-icon" href="/images/touch-icon.png">
+  
+
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/styles/components/highlight/highlight.css">
+
+  
+</head>
+  <body>
+    <header class="site-header">
+  <div class="site-header-brand">
+    
+      <span class="site-header-brand-title">
+        <a href="/">想你了</a>
+      </span>
+    
+    
+      <span class="site-header-brand-motto"> | 祝你平安幸福</span>
+    
+  </div>
+  <div class="site-header-right">
+    <nav class="site-header-navigation">
+      
+        <a href="/" target="_self">首页</a>
+      
+        <a href="/archives/" target="_self">归档</a>
+      
+        <a href="/tags/" target="_self">标签</a>
+      
+        <a href="/categories/" target="_self">分类</a>
+      
+        <a href="/friends/" target="_self">友链</a>
+      
+        <a href="/about/" target="_self">关于</a>
+      
+    </nav>
+    <div class="site-header-btn">
+      
+        <a href="https://github.com/834930269/" target="_blank" id="site-github">
+          <i class="fa fa-github-alt"></i>
+        </a>
+      
+      <a href="javascript:void(0);" id="site-search">
+        <i class="fa fa-search"></i>
+      </a>
+      <a href="javascript:void(0);" id="site-nav-btn">
+        <i class="fa fa-ellipsis-v"></i>
+      </a>
+    </div>
+  </div>
+</header>
+<nav class="table-content" id="site-nav">
+  <div class="table-content-title">
+    <span>导航</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc">
+      
+        <li class="toc-item">
+          <a href="/" target="_self">
+            首页
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/archives/" target="_self">
+            归档
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/tags/" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/categories/" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/friends/" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/about/" target="_self">
+            关于
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</nav>
+<div id="site-process"></div>
+    <main>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2017-07-14
+    </span>
+    
+      <span>
+        | <a href="/categories/Python/"><i class="fa fa-bookmark"></i>Python</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    python3学习 装饰器Decorator+log(日志输出)+functools+args
+  </h1>
+  
+  <article class="passage-article">
+    <p><strong>【Record】</strong> <strong>函数是对象,也有其属性,比如 f.</strong>name** 获取f控制的函数的名字.** <strong>【Source Code】</strong> <strong>github: <a href="https://github.com/834930269/python_study/blob/master/Decorator/Decorator.py" target="_blank" rel="noopener">Decorator.py</a></strong></p>
+<hr>
+<p>**# coding: utf-8</p>
+<p># In[1]:</p>
+<p>#函数也是一个对象,所以可以赋值给变量<br>def now():<br>    print(‘1997-02-10’)<br>f=now<br>f()</p>
+<p># In[3]:</p>
+<p>#函数对象有一个__name__属性,可以拿到其名字<br>print(f.__name__)</p>
+<p># In[5]:</p>
+<p>‘’’<br>现在，假设我们要增强now()函数的功能，比如，<br>在函数调用前后自动打印日志，但又不希望修改<br>now()函数的定义，这种在代码运行期间动态增<br>加功能的方式，称之为“装饰器”（Decorator）。<br>‘’’</p>
+<p>#本质上，decorator就是一个返回函数的高阶函数</p>
+<p>#。所以，我们要定义一个能打印日志的decorator，可以定义如下：<br>def log(func):<br>    def wrapper(*args,**kw):<br>        print(‘call %s():’ % func.__name__)<br>        return func(*args,**kw)<br>    return wrapper<br>‘’’<br>观察上面的log，因为它是一个decorator，所以接受<br>一个函数作为参数，并返回一个函数。我们要借助<br>Python的@语法，把decorator置于函数的定义处：</p>
+<p>调用now()函数，不仅会运行now()函数本身，还会在<br>运行now()函数前打印一行日志：<br>‘’’<br>@log<br>def now2():<br>    print(‘1997-12-11’)<br>now2() </p>
+<p># In[16]:</p>
+<p>#把@log放到now()函数的定义处，相当于执行了语句：</p>
+<p>#now=log(now)<br>‘’’<br>1.wrapper()函数的参数定义是(*args, **kw)，因此，<br>wrapper()函数可以接受任意参数的调用。在wrapper()<br>函数内，首先打印日志，再紧接着调用原始函数。</p>
+<p>2.如果decorator本身需要传入参数，那就需要编写一个返<br>回decorator的高阶函数，写出来会更复杂。比如，要自定义log的文本：</p>
+<p>‘’’<br>def log2(text):<br>    def decorator(func):<br>        def wrapper(*args,**kw):<br>            print(‘%s %s():’ %(text,func.__name__))<br>            return func(*args,**kw)<br>        return wrapper<br>    return decorator</p>
+<p>#这个3层嵌套的decorator用法如下：<br>@log2(‘execute’)<br>def now3():<br>    print(‘2015-3-25’)<br>now3()</p>
+<p>#三层嵌套是这样的:now = log(‘execute’)(now)</p>
+<p># In[17]:</p>
+<p>‘’’<br>我们来剖析上面的语句，首先执行log(‘execute’)，<br>返回的是decorator函数，再调用返回的函数，参数是now函数，返回值最终是wrapper函数。</p>
+<p>以上两种decorator的定义都没有问题，但还差最后一步。<br>因为我们讲了函数也是对象，它有__name__等属性，但你去看经过decorator装饰之后的函数<br>，它们的__name__已经从原来的’now’变成了’wrapper’：<br>‘’’<br>print(now.__name__)</p>
+<p># In[20]:</p>
+<p>‘’’<br>因为返回的那个wrapper()函数名字就是’wrapper’，所以，<br>需要把原始函数的__name__等属性复制到wrapper()函数中，<br>否则，有些依赖函数签名的代码执行就会出错。</p>
+<p>不需要编写wrapper.__name__ = func.__name__这样的代码，<br>Python内置的functools.wraps就是干这个事的，所以，一个<br>完整的decorator的写法如下：<br>‘’’<br>import functools</p>
+<p>def log3(func):<br>    @functools.wraps(func)<br>    def wrapper(*args, **kw):<br>        print(‘call %s():’ % func.__name__)<br>        return func(*args, **kw)<br>    return wrapper</p>
+<p>#或者针对带参数的decorator：<br>def log4(text):<br>    def decorator(func):<br>        @functools.wraps(func)<br>        def wrapper(*args, **kw):<br>            print(‘%s %s():’ % (text, func.__name__))<br>            return func(*args, **kw)<br>        return wrapper<br>    return decorator</p>
+<p># In[22]:</p>
+<p>#题目<br>‘’’<br>在面向对象（OOP）的设计模式中，decorator被称为装饰模式。<br>OOP的装饰模式需要通过继承和组合来实现，而Python除了能支<br>持OOP的decorator外，直接从语法层次支持decorator。Python<br>的decorator可以用函数实现，也可以用类实现。</p>
+<p>decorator可以增强函数的功能，定义起来虽然有点复杂，但使<br>用起来非常灵活和方便。</p>
+<p>请编写一个decorator，能在函数调用的前后打印出’begin call’<br>和’end call’的日志。</p>
+<p>再思考一下能否写出一个@log的decorator，使它既支持：</p>
+<p>@log<br>def f():<br>    pass</p>
+<p>又支持：</p>
+<p>@log(‘execute’)<br>def f():<br>    pass<br>‘’’<br>def log5(<em>args1):<br>    def decorator(func):<br>        @functools.wraps(func)<br>        def wrapper(\</em>args,**kw):<br>            print(‘args1 num =%d’ %len(args1))<br>            print(‘begin %s():’ % func.__name__)<br>            func()<br>            print(‘end %s().\n’ % func.__name__)<br>        return wrapper<br>    return decorator</p>
+<p>@log5(‘123’,’a’)<br>def dream():<br>    print(‘My Dream.’)</p>
+<p>@log5()<br>def future():<br>    print(‘Must..’)</p>
+<p>dream()<br>future()</p>
+<p>‘’’<br>Out:<br>args1 num =2<br>begin dream():<br>My Dream.<br>end dream().</p>
+<p>args1 num =0<br>begin future():<br>Must..<br>end future().<br>‘’’</p>
+<p># In[ ]:**</p>
+
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
+    
+  </div>
+</aside>
+  
+    <aside class="passage-copyright">
+      <div>本文作者: 张文涛</div>
+      
+        <div>
+          原文链接: 
+          <a href="" target="_blank">http://be-sunshine.cn/passages/python3-decoratorlog-functoolsargs/</a>
+        </div>
+      
+      <div>
+        版权声明: 本博客所有文章除特别声明外, 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议. 转载请注明出处!
+      </div>
+    </aside>
+  
+  
+    <div class="passage-tags">
+     
+      <a href="/tags/Python/"><i class="fa fa-tags"></i>Python</a>
+    
+    </div>
+  
+</div>
+
+    </main>
+    
+      
+<div class="site-comment-contanier" data-plateform="leancloud">
+  
+    <p id="site-comment-info">
+      <i class="fa fa-spinner fa-spin"></i> 评论加载中
+    </p>
+    <div id="site-comment"></div>
+  
+</div>
+    
+    <div class="site-footer-wrapper">
+  <footer class="site-footer">
+    
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">博客推荐</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/" target="_blank">GodBMW</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="http://ruanyifeng.com/" target="_blank">阮一峰的个人网站</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">系列教程</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/categories/webpack4%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B/" target="_blank">webpack4系列教程</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/design-patterns/" target="_blank">设计模式手册</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">抓到我</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://weibo.com/3260959934/" target="_blank">微博</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://github.com/834930269" target="_blank">Github</a>
+            </span>
+          
+        </div>
+      
+    
+    <div class="site-footer-info">
+      <i class="fa fa-clock-o"></i> 本站已稳定运行<span id="site-time"></span>
+    </div>
+    
+      <div class="site-footer-info">
+        <i class="fa fa-paw"></i> 您是本站第 <span id="site-count"></span> 位访客
+      </div>
+    
+    
+      <div class="site-footer-info">
+        <i class="fa fa-at"></i> Email: 834930269@qq.com
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-copyright"></i> 
+      2019 <a href="https://github.com/dongyuanxin/theme-ad/" target="_blank">Theme-AD</a>.
+      Created by <a href="https://godbmw.com/" target="_blank">GodBMW</a>.
+      All rights reserved.
+    </div>
+  </footer>
+</div>
+    <div id="site-layer" style="display:none;">
+  <div class="site-layer-content">
+    <div class="site-layer-header">
+      <span class="site-layer-header-title" id="site-layer-title"></span>
+      <i class="fa fa-close" id="site-layer-close"></i>
+    </div>
+    <div class="site-layer-body" id="site-layer-container">
+      <div class="site-layer-input" id="site-layer-search" style="display: none;">
+        <div class="site-layer-input-choose">
+          <a href="javascript:void(0);" title="Change Search Engine">Google</a>
+        </div>
+        <input type="text">
+        <i class="fa fa-search"></i>
+      </div>
+      
+        <div class="site-layer-reward" id="site-layer-reward" style="display: none;">
+          
+            <div>
+              <img src="/images/wechat.png" alt="WeChat">
+              
+                <p>WeChat</p>
+              
+            </div>
+          
+            <div>
+              <img src="/images/alipay.png" alt="AliPay">
+              
+                <p>AliPay</p>
+              
+            </div>
+          
+        </div>
+      
+      <div id="site-layer-welcome" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+    
+
+<div class="bottom-bar">
+  <div class="bottom-bar-left">
+    <a href="/passages/python3-partial-functionargskw/" data-enable="true">
+      <i class="fa fa-arrow-left"></i>
+    </a>
+    <a href="/passages/uva-10891/" data-enable="true">
+      <i class="fa fa-arrow-right"></i>
+    </a>
+  </div>
+  <div class="bottom-bar-right">
+    <a href="javascript:void(0);" data-enable="true" id="site-toc-show-btn">
+      <i class="fa fa-bars"></i>
+    </a>
+    
+      <a href="#site-comment" data-enable="true">
+        <i class="fa fa-commenting"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="site-toggle-share-btn">
+      <i class="fa fa-share-alt"></i>
+    </a>
+    
+      <a href="javascript:void(0);" id="site-reward">
+        <i class="fa fa-thumbs-up"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="back-top-btn">
+      <i class="fa fa-chevron-up"></i>
+    </a>
+  </div>
+</div>
+    <div id="share-btn">
+  
+    <a id="share-btn-twitter" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-twitter"></i>
+    </a>
+  
+  
+    <a id="share-btn-facebook" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-facebook"></i>
+    </a>
+  
+  
+    <a id="share-btn-weibo" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-weibo"></i>
+    </a>
+  
+  
+    <a id="share-btn-qq" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-qq"></i>
+    </a>
+  
+  
+    <a id="share-btn-wechat" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-wechat"></i>
+    </a>
+  
+</div>
+    
+
+
+
+
+
+    
+  </body>
+</html>

@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html>
+  
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="author" content="张文涛">
+  
+  
+  <title>关于使用ajax(JavaScript)+Flask(Python)+Canvas 上传画布(Canvas)图片并存储 | 山海经▪大荒经</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="ajax,Flask,Python,Flask,Python,ajax,">
+  
+
+  
+  <meta name="description" content="Winter Zhang的小站">
+
+  
+
+  
+    <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.1/dist/av-min.js" async></script>
+  
+
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+  
+
+  
+    <script src="//unpkg.com/valine/dist/Valine.min.js" async></script>
+  
+
+  
+
+  <script>
+  // theme-ad's config script
+  // it can be used in every script
+  
+  window.AD_CONFIG = {
+    leancloud: {"appid":"Hyq9wkH495DgNHWhDQCOfQSp-gzGzoHsz","appkey":"WaR7nrzhliHj9aVwdQzkdlGd","comment":true,"count":true},
+    welcome: {"enable":false,"interval":30},
+    start_time: "2015-02-10",
+    passwords: ["c035b468e47fd966ac2df15e3d7f7a64d89b1dbf209c24caad6e62bffd90d4c7", ],
+    is_post: true,
+    lock: false,
+    author: "张文涛",
+    share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
+    mathjax: true,
+    page_type: "",
+    root: "/"
+  };
+</script>
+
+  <script src="/vendor/sha256.min.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/index.js"></script>
+<script src="/vendor/qrcode.min.js"></script>
+
+  
+    <link rel="icon" href="/images/favicon2.ico">
+    <link rel="apple-touch-icon" href="/images/touch-icon.png">
+  
+
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/styles/components/highlight/highlight.css">
+
+  
+</head>
+  <body>
+    <header class="site-header">
+  <div class="site-header-brand">
+    
+      <span class="site-header-brand-title">
+        <a href="/">想你了</a>
+      </span>
+    
+    
+      <span class="site-header-brand-motto"> | 祝你平安幸福</span>
+    
+  </div>
+  <div class="site-header-right">
+    <nav class="site-header-navigation">
+      
+        <a href="/" target="_self">首页</a>
+      
+        <a href="/archives/" target="_self">归档</a>
+      
+        <a href="/tags/" target="_self">标签</a>
+      
+        <a href="/categories/" target="_self">分类</a>
+      
+        <a href="/friends/" target="_self">友链</a>
+      
+        <a href="/about/" target="_self">关于</a>
+      
+    </nav>
+    <div class="site-header-btn">
+      
+        <a href="https://github.com/834930269/" target="_blank" id="site-github">
+          <i class="fa fa-github-alt"></i>
+        </a>
+      
+      <a href="javascript:void(0);" id="site-search">
+        <i class="fa fa-search"></i>
+      </a>
+      <a href="javascript:void(0);" id="site-nav-btn">
+        <i class="fa fa-ellipsis-v"></i>
+      </a>
+    </div>
+  </div>
+</header>
+<nav class="table-content" id="site-nav">
+  <div class="table-content-title">
+    <span>导航</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc">
+      
+        <li class="toc-item">
+          <a href="/" target="_self">
+            首页
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/archives/" target="_self">
+            归档
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/tags/" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/categories/" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/friends/" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/about/" target="_self">
+            关于
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</nav>
+<div id="site-process"></div>
+    <main>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2017-10-26
+    </span>
+    
+      <span>
+        | <a href="/categories/ajax/"><i class="fa fa-bookmark"></i>ajax</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    关于使用ajax(JavaScript)+Flask(Python)+Canvas 上传画布(Canvas)图片并存储
+  </h1>
+  
+  <article class="passage-article">
+    <p>因为想要做一个todo list的记事本app.其中有一个模块是使用Canvas做涂鸦. <code>其中有两个操作</code>: <code>1.</code>然后上传canvas的画布图片并保存到本地. <code>2.</code>将对应画布的url传给画布,并绘制出来. 首先,Canvas画板的css和js是在Github上淘的一个,链接如下: <code>https://github.com/youknowznm/paint</code><a href="https://github.com/youknowznm/paint" title="&lt;code&gt;点击这里&lt;/code&gt;" target="_blank" rel="noopener"><code>点击这里</code></a> 首先是<code>index.html</code>的代码,大部分是样式,所以不用太在意,只需要注意<code>canvas的id</code>即可.</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;title&gt;paint&lt;/title&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;./paint.css&quot;&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class=&quot;canvas-wrapper&quot;&gt;
+        &lt;ul class=&quot;doodle-colors&quot;&gt;
+            &lt;li data-color=&quot;black&quot;&gt;&lt;/li&gt;
+            &lt;li data-color=&quot;green&quot;&gt;&lt;/li&gt;
+            &lt;li data-color=&quot;yellow&quot;&gt;&lt;/li&gt;
+            &lt;li data-color=&quot;red&quot;&gt;&lt;/li&gt;
+            &lt;li data-color=&quot;white&quot;&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+        &lt;ul class=&quot;doodle-controllers&quot;&gt;
+            &lt;li class=&quot;undo&quot;&gt;&lt;/li&gt;
+            &lt;li class=&quot;redo&quot;&gt;&lt;/li&gt;
+            &lt;li class=&quot;clear&quot;&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+        &lt;canvas id=&quot;cv&quot; class=&quot;doodle-content&quot; width=&apos;500&apos; height=&apos;500&apos;&gt;&lt;/canvas&gt;
+    &lt;/div&gt;
+    &lt;script src=&quot;https://cdn.jsdelivr.net/jquery/3.1.1/jquery.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;./paint.js&quot;&gt;&lt;/script&gt;
+    &lt;script&gt;
+        window.onload = function() {
+            let canvasEle = $(&apos;.doodle-content&apos;)[0];
+            let colorsEle = $(&apos;.doodle-colors&apos;)[0];
+            let controllersEle = $(&apos;.doodle-controllers&apos;)[0];
+            initCanvas(canvasEle, colorsEle, controllersEle, null);
+        }
+        function oc(){
+            let cav=document.getElementById(&apos;cv&apos;);
+            console.log(cav);
+            let data=cav.toDataURL();
+            console.log(data);
+            let img = document.createElement(&apos;img&apos;);
+            img.src = data;
+            document.body.appendChild(img);
+            let image=cav.toDataURL(&apos;image/jpeg&apos;);
+            window.location=image;
+        }
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre><p>注意,我在代码中添加了一个<code>JavaScript函数oc()</code>:</p>
+<pre><code>function oc(){
+    let cav=document.getElementById(&apos;cv&apos;);
+    console.log(cav);
+    let data=cav.toDataURL();
+    console.log(data);
+    let img = document.createElement(&apos;img&apos;);
+    img.src = data;
+    document.body.appendChild(img);
+    let image=cav.toDataURL(&apos;image/jpeg&apos;);
+    window.location=image;
+}</code></pre><p>其中<code>cav.toDataURL(&#39;type&#39;)</code>即可以实现提取当前Canvas中的图片流信息. 然后我们尝试向后台发送Canvas图片的<code>用base64加密的数据</code>. 使用一个<code>Button</code>来发送post信息. 添加<code>&lt;button id=&quot;btn&quot; &gt;123&lt;/button&gt;</code> 为<code>button</code>添加click事件:</p>
+<pre><code>$(function(){
+    $(&apos;#btn&apos;).click(function(){
+        let cav=document.getElementById(&apos;cv&apos;);
+        let image=cav.toDataURL(&apos;image/jpeg&apos;);
+        $.post(&apos;/upload&apos;,{&apos;data&apos;:image,&apos;idx&apos;:223},function(result){
+            let canvasEle = $(&apos;.doodle-content&apos;)[0];
+            let colorsEle = $(&apos;.doodle-colors&apos;)[0];
+            let controllersEle = $(&apos;.doodle-controllers&apos;)[0];
+            initCanvas(canvasEle, colorsEle, controllersEle, result);
+        })
+    })
+})</code></pre><p>其中表单中<code>data</code>为图片加密信息,<code>idx</code>为假想当前记事本的id. 实践.发送post内容如下: <a href="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2017/10/QQ截图20171027191006.png" target="_blank" rel="noopener"><img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2017/10/QQ%E6%88%AA%E5%9B%BE20171027191006.png" alt></a> 注意这里只是介绍了前台代码,让大家看一下发送的表单数据,如果没编写后台接受<code>Post</code>的Route的话是会返回<code>404</code>的. 然后在后台的View视图中添加相应的Route:</p>
+<pre><code>from . import main
+from flask import Flask,render_template
+from flask import make_response,render_template, session, redirect, url_for, current_app,abort,flash,request
+import json,os,base64  
+
+@main.route(&apos;/upload&apos;,methods=[&apos;POST&apos;])
+def upLoad():
+    &quot;&quot;&quot;
+    disturbing by jq
+    this method cannot work
+    &quot;&quot;&quot;
+    files=request.values.get(&apos;data&apos;)
+    f=request.form[&apos;data&apos;][23:]
+    ind=request.form[&apos;idx&apos;]
+    imgdata=base64.b64decode(f)
+    file=open(&apos;app/static/&apos;+ind+&apos;.jpg&apos;,&apos;wb&apos;)
+    file.write(imgdata)
+    file.close()
+    return &apos;/static/&apos;+ind+&apos;.jpg&apos;
+
+@main.route(&apos;/show&apos;,methods=[&apos;GET&apos;])
+def show():
+    return render_template(&apos;index.html&apos;)</code></pre><p>其中用<code>request.values.get(&#39;key&#39;)</code>来获取对应表单的数据.然后用base64算法对获取到的数据进行解码.之后创建一个空文件<code>idx.jpg</code>,将解码后的数据写进去.得到的即为图片. 我们可以看到<code>获取到的data的头有一段非编码部分</code>:</p>
+<pre><code>data:image/jpeg;base64,/9j/4A</code></pre><p>所以我们需要将前面不属于编码的部分去掉. 后台处理代码中:</p>
+<pre><code>f=request.form[&apos;data&apos;][23:]</code></pre><p>即完成了这一任务. 注意在JavaScript用这种方式获取Canvas的时候,开启管道时<code>背景如果是透明</code>,它会在转换成base64时自动补成<code>#fff</code>(纯黑色). 所以我们需要在创建Canvas时将背景染成纯白色<code>#000</code>. 我们在Paint.js中初始化context中加入下面两句:</p>
+<pre><code>// 初始化 context
+var ctx = canvasEle.getContext(&apos;2d&apos;);
+ctx.fillStyle=&quot;#fff&quot;;
+ctx.fillRect(0, 0, 500, 500);</code></pre><p>OK,我们获取图片后即为原图了! 至于如何在Canvas中将图片画出来.直接用<code>paint.js</code>中的 <code>initCanvas(canvasEle, colorsEle, controllersEle, result);</code> 即可.result为对应图片的地址<code>一般是发布网站的相对地址</code>. 上传结果: <a href="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2017/10/QQ截图20171027193747.png" target="_blank" rel="noopener"><img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2017/10/QQ%E6%88%AA%E5%9B%BE20171027193747.png" alt></a> 最后一个问题: <code>当我们试图读取图片的url时,浏览器多半会返回对应url的缓存图片文件,如何解决这个问题呢?</code> 我们只需要在<code>URL</code>中随便加入一个参数即可,保证每次的url不相同即可,比如:</p>
+<pre><code>URL=URL+&apos;?t=&apos;+Math.random();</code></pre><p>OK,日志本的第一个难题攻关!</p>
+
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
+    
+  </div>
+</aside>
+  
+    <aside class="passage-copyright">
+      <div>本文作者: 张文涛</div>
+      
+        <div>
+          原文链接: 
+          <a href="" target="_blank">http://be-sunshine.cn/passages/ajax-upload-canvas-to-server/</a>
+        </div>
+      
+      <div>
+        版权声明: 本博客所有文章除特别声明外, 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议. 转载请注明出处!
+      </div>
+    </aside>
+  
+  
+    <div class="passage-tags">
+     
+      <a href="/tags/Flask/"><i class="fa fa-tags"></i>Flask</a>
+     
+      <a href="/tags/Python/"><i class="fa fa-tags"></i>Python</a>
+     
+      <a href="/tags/ajax/"><i class="fa fa-tags"></i>ajax</a>
+    
+    </div>
+  
+</div>
+
+    </main>
+    
+      
+<div class="site-comment-contanier" data-plateform="leancloud">
+  
+    <p id="site-comment-info">
+      <i class="fa fa-spinner fa-spin"></i> 评论加载中
+    </p>
+    <div id="site-comment"></div>
+  
+</div>
+    
+    <div class="site-footer-wrapper">
+  <footer class="site-footer">
+    
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">博客推荐</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/" target="_blank">GodBMW</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="http://ruanyifeng.com/" target="_blank">阮一峰的个人网站</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">系列教程</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/categories/webpack4%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B/" target="_blank">webpack4系列教程</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/design-patterns/" target="_blank">设计模式手册</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">抓到我</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://weibo.com/3260959934/" target="_blank">微博</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://github.com/834930269" target="_blank">Github</a>
+            </span>
+          
+        </div>
+      
+    
+    <div class="site-footer-info">
+      <i class="fa fa-clock-o"></i> 本站已稳定运行<span id="site-time"></span>
+    </div>
+    
+      <div class="site-footer-info">
+        <i class="fa fa-paw"></i> 您是本站第 <span id="site-count"></span> 位访客
+      </div>
+    
+    
+      <div class="site-footer-info">
+        <i class="fa fa-at"></i> Email: 834930269@qq.com
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-copyright"></i> 
+      2019 <a href="https://github.com/dongyuanxin/theme-ad/" target="_blank">Theme-AD</a>.
+      Created by <a href="https://godbmw.com/" target="_blank">GodBMW</a>.
+      All rights reserved.
+    </div>
+  </footer>
+</div>
+    <div id="site-layer" style="display:none;">
+  <div class="site-layer-content">
+    <div class="site-layer-header">
+      <span class="site-layer-header-title" id="site-layer-title"></span>
+      <i class="fa fa-close" id="site-layer-close"></i>
+    </div>
+    <div class="site-layer-body" id="site-layer-container">
+      <div class="site-layer-input" id="site-layer-search" style="display: none;">
+        <div class="site-layer-input-choose">
+          <a href="javascript:void(0);" title="Change Search Engine">Google</a>
+        </div>
+        <input type="text">
+        <i class="fa fa-search"></i>
+      </div>
+      
+        <div class="site-layer-reward" id="site-layer-reward" style="display: none;">
+          
+            <div>
+              <img src="/images/wechat.png" alt="WeChat">
+              
+                <p>WeChat</p>
+              
+            </div>
+          
+            <div>
+              <img src="/images/alipay.png" alt="AliPay">
+              
+                <p>AliPay</p>
+              
+            </div>
+          
+        </div>
+      
+      <div id="site-layer-welcome" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+    
+
+<div class="bottom-bar">
+  <div class="bottom-bar-left">
+    <a href="/passages/github-web-app-cm-todo/" data-enable="true">
+      <i class="fa fa-arrow-left"></i>
+    </a>
+    <a href="/passages/index/" data-enable="true">
+      <i class="fa fa-arrow-right"></i>
+    </a>
+  </div>
+  <div class="bottom-bar-right">
+    <a href="javascript:void(0);" data-enable="true" id="site-toc-show-btn">
+      <i class="fa fa-bars"></i>
+    </a>
+    
+      <a href="#site-comment" data-enable="true">
+        <i class="fa fa-commenting"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="site-toggle-share-btn">
+      <i class="fa fa-share-alt"></i>
+    </a>
+    
+      <a href="javascript:void(0);" id="site-reward">
+        <i class="fa fa-thumbs-up"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="back-top-btn">
+      <i class="fa fa-chevron-up"></i>
+    </a>
+  </div>
+</div>
+    <div id="share-btn">
+  
+    <a id="share-btn-twitter" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-twitter"></i>
+    </a>
+  
+  
+    <a id="share-btn-facebook" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-facebook"></i>
+    </a>
+  
+  
+    <a id="share-btn-weibo" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-weibo"></i>
+    </a>
+  
+  
+    <a id="share-btn-qq" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-qq"></i>
+    </a>
+  
+  
+    <a id="share-btn-wechat" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-wechat"></i>
+    </a>
+  
+</div>
+    
+
+
+
+
+
+    
+  </body>
+</html>

@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html>
+  
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="author" content="张文涛">
+  
+  
+  <title>加 - 并发编程基础 | 山海经▪大荒经</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="技术,技术,">
+  
+
+  
+  <meta name="description" content="Winter Zhang的小站">
+
+  
+
+  
+    <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.1/dist/av-min.js" async></script>
+  
+
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+  
+
+  
+    <script src="//unpkg.com/valine/dist/Valine.min.js" async></script>
+  
+
+  
+
+  <script>
+  // theme-ad's config script
+  // it can be used in every script
+  
+  window.AD_CONFIG = {
+    leancloud: {"appid":"Hyq9wkH495DgNHWhDQCOfQSp-gzGzoHsz","appkey":"WaR7nrzhliHj9aVwdQzkdlGd","comment":true,"count":true},
+    welcome: {"enable":false,"interval":30},
+    start_time: "2015-02-10",
+    passwords: ["c035b468e47fd966ac2df15e3d7f7a64d89b1dbf209c24caad6e62bffd90d4c7", ],
+    is_post: true,
+    lock: false,
+    author: "张文涛",
+    share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
+    mathjax: true,
+    page_type: "",
+    root: "/"
+  };
+</script>
+
+  <script src="/vendor/sha256.min.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/index.js"></script>
+<script src="/vendor/qrcode.min.js"></script>
+
+  
+    <link rel="icon" href="/images/favicon2.ico">
+    <link rel="apple-touch-icon" href="/images/touch-icon.png">
+  
+
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/styles/components/highlight/highlight.css">
+
+  
+</head>
+  <body>
+    <header class="site-header">
+  <div class="site-header-brand">
+    
+      <span class="site-header-brand-title">
+        <a href="/">想你了</a>
+      </span>
+    
+    
+      <span class="site-header-brand-motto"> | 祝你平安幸福</span>
+    
+  </div>
+  <div class="site-header-right">
+    <nav class="site-header-navigation">
+      
+        <a href="/" target="_self">首页</a>
+      
+        <a href="/archives/" target="_self">归档</a>
+      
+        <a href="/tags/" target="_self">标签</a>
+      
+        <a href="/categories/" target="_self">分类</a>
+      
+        <a href="/friends/" target="_self">友链</a>
+      
+        <a href="/about/" target="_self">关于</a>
+      
+    </nav>
+    <div class="site-header-btn">
+      
+        <a href="https://github.com/834930269/" target="_blank" id="site-github">
+          <i class="fa fa-github-alt"></i>
+        </a>
+      
+      <a href="javascript:void(0);" id="site-search">
+        <i class="fa fa-search"></i>
+      </a>
+      <a href="javascript:void(0);" id="site-nav-btn">
+        <i class="fa fa-ellipsis-v"></i>
+      </a>
+    </div>
+  </div>
+</header>
+<nav class="table-content" id="site-nav">
+  <div class="table-content-title">
+    <span>导航</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc">
+      
+        <li class="toc-item">
+          <a href="/" target="_self">
+            首页
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/archives/" target="_self">
+            归档
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/tags/" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/categories/" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/friends/" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/about/" target="_self">
+            关于
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</nav>
+<div id="site-process"></div>
+    <main>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2018-07-02
+    </span>
+    
+      <span>
+        | <a href="/categories/技术/"><i class="fa fa-bookmark"></i>技术</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    加 - 并发编程基础
+  </h1>
+  
+  <article class="passage-article">
+    <blockquote>
+<p>并发的一些基础概念</p>
+</blockquote>
+<h1 id="CPU-多级缓存"><a href="#CPU-多级缓存" class="headerlink" title="CPU 多级缓存"></a>CPU 多级缓存</h1><p>为了解决CPU与主存间速度不匹配的问题.</p>
+<h2 id="时间局部性"><a href="#时间局部性" class="headerlink" title="时间局部性"></a>时间局部性</h2><p>数据可能被重复访问</p>
+<h2 id="空间局部性"><a href="#空间局部性" class="headerlink" title="空间局部性"></a>空间局部性</h2><p>数据周围的一些数据,也可能被访问</p>
+<h2 id="缓存一致性-MESI协议"><a href="#缓存一致性-MESI协议" class="headerlink" title="缓存一致性(MESI协议)"></a>缓存一致性(MESI协议)</h2><p>为了搞定共享数据一致的问题 <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/07/cf1e2049ec3ec10bd64b64336c485d03.png" alt> M: 已修改,待写回 E: 缓存只被缓存在CPU中,未被修改,修改后转为 M S: 共享态,可能被多个CPU共享 I: 有其他CPU修改了缓存行 lr: 本地读 lw: 本地写 rr: 内存读 rw: 缓存写到主存 状态转换 <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/07/d44fed62558e13367358433f7c2e8bba.png" alt></p>
+<h1 id="乱序执行优化"><a href="#乱序执行优化" class="headerlink" title="乱序执行优化"></a>乱序执行优化</h1><p>这点与之前JVM对中间代码的优化一致,可能会导致在优化过程中导致的代码乱序执行(如果是并行则对原结果不影响),乱序优化是CPU为了提高执行效率(因为各组件的数量是有限的,为了防止一直等待一个组件而导致的时间浪费进行优化).</p>
+<h2 id="脏数据"><a href="#脏数据" class="headerlink" title="脏数据"></a>脏数据</h2><h1 id="Java内存模型-JMM"><a href="#Java内存模型-JMM" class="headerlink" title="Java内存模型(JMM)"></a>Java内存模型(JMM)</h1><p>之前也聊过. JMM: Java Memory Model (为了屏蔽掉各种硬件和操作系统的访问差异,使一个代码在各平台下都可正常并行) JMM是一个规范模型. 规定一个线程如何和何时可以看到由其他变量修改过后的共享变量的值.以及在必须时如何同步的访问共享变量. <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/07/9a429df8ec619d4952831b979fe0d40d.png" alt> 堆是在运行时动态分配,存取速度慢. 栈,存取速度快,存储空间一定. 线程在栈上. 对象在堆上,引用在栈上. <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/07/ad5214bd255a2751d0d98015ed3beadd.png" alt></p>
+<h2 id="高速缓存"><a href="#高速缓存" class="headerlink" title="高速缓存"></a>高速缓存</h2><p>CPU与主存间的缓存. <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/07/eda78e84cd4268f0ff501ca2b10ef846.png" alt></p>
+<h3 id="抽象"><a href="#抽象" class="headerlink" title="抽象"></a>抽象</h3><p><img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/07/efebbee76283df7a42baab3c2557835f.png" alt> 线程间通讯,必须通过主内存. 故出现问题就是因为主内存中没处理代码同时执行的操作.</p>
+<h1 id="同步的八种操作以及操作规则"><a href="#同步的八种操作以及操作规则" class="headerlink" title="同步的八种操作以及操作规则"></a>同步的八种操作以及操作规则</h1><p>（1）lock(锁定)：作用于主内存的变量，把一个变量标记为一条线程独占状态 （2）unlock(解锁)：作用于主内存的变量，把一个处于锁定状态的变量释放出来，释放后的变量才可以被其他线程锁定 （3）read(读取)：作用于主内存的变量，把一个变量值从主内存传输到线程的工作内存中，以便随后的load动作使用 （4）load(载入)：作用于工作内存的变量，它把read操作从主内存中得到的变量值放入工作内存的变量副本中 （5）use(使用)：作用于工作内存的变量，把工作内存中的一个变量值传递给执行引擎 （6）assign(赋值)：作用于工作内存的变量，它把一个从执行引擎接收到的值赋给工作内存的变量 （7）store(存储)：作用于工作内存的变量，把工作内存中的一个变量的值传送到主内存中，以便随后的write的操作 （8）write(写入)：作用于工作内存的变量，它把store操作从工作内存中的一个变量的值传送到主内存的变量中 如果要把一个变量从主内存中复制到工作内存中，就需要按顺序地执行read和load操作，如果把变量从工作内存中同步到主内存中，就需要按顺序地执行store和write操作。但Java内存模型只要求上述操作必须按顺序执行，而没有保证必须是连续执行。 <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/07/67a8e36cfd2b4f7252a3b72a29d1d572.png" alt> 同步规则分析： 1）不允许一个线程无原因地（没有发生过任何assign操作）把数据从工作内存同步会主内存中 2）一个新的变量只能在主内存中诞生，不允许在工作内存中直接使用一个未被初始化（load或者assign）的变量。即就是对一个变量实施use和store操作之前，必须先自行assign和load操作。 3）一个变量在同一时刻只允许一条线程对其进行lock操作，但lock操作可以被同一线程重复执行多次，多次执行lock后，只有执行相同次数的unlock操作，变量才会被解锁。lock和unlock必须成对出现。 4）如果对一个变量执行lock操作，将会清空工作内存中此变量的值，在执行引擎使用这个变量之前需要重新执行load或assign操作初始化变量的值。 5）如果一个变量事先没有被lock操作锁定，则不允许对它执行unlock操作；也不允许去unlock一个被其他线程锁定的变量。 6）对一个变量执行unlock操作之前，必须先把此变量同步到主内存中（执行store和write操作）</p>
+
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#CPU-多级缓存"><span class="toc-text">CPU 多级缓存</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#时间局部性"><span class="toc-text">时间局部性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#空间局部性"><span class="toc-text">空间局部性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#缓存一致性-MESI协议"><span class="toc-text">缓存一致性(MESI协议)</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#乱序执行优化"><span class="toc-text">乱序执行优化</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#脏数据"><span class="toc-text">脏数据</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Java内存模型-JMM"><span class="toc-text">Java内存模型(JMM)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#高速缓存"><span class="toc-text">高速缓存</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#抽象"><span class="toc-text">抽象</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#同步的八种操作以及操作规则"><span class="toc-text">同步的八种操作以及操作规则</span></a></li></ol>
+  </div>
+</aside>
+  
+    <aside class="passage-copyright">
+      <div>本文作者: 张文涛</div>
+      
+        <div>
+          原文链接: 
+          <a href="" target="_blank">http://be-sunshine.cn/passages/corplus/</a>
+        </div>
+      
+      <div>
+        版权声明: 本博客所有文章除特别声明外, 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议. 转载请注明出处!
+      </div>
+    </aside>
+  
+  
+    <div class="passage-tags">
+     
+      <a href="/tags/技术/"><i class="fa fa-tags"></i>技术</a>
+    
+    </div>
+  
+</div>
+
+    </main>
+    
+      
+<div class="site-comment-contanier" data-plateform="leancloud">
+  
+    <p id="site-comment-info">
+      <i class="fa fa-spinner fa-spin"></i> 评论加载中
+    </p>
+    <div id="site-comment"></div>
+  
+</div>
+    
+    <div class="site-footer-wrapper">
+  <footer class="site-footer">
+    
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">博客推荐</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/" target="_blank">GodBMW</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="http://ruanyifeng.com/" target="_blank">阮一峰的个人网站</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">系列教程</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/categories/webpack4%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B/" target="_blank">webpack4系列教程</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/design-patterns/" target="_blank">设计模式手册</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">抓到我</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://weibo.com/3260959934/" target="_blank">微博</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://github.com/834930269" target="_blank">Github</a>
+            </span>
+          
+        </div>
+      
+    
+    <div class="site-footer-info">
+      <i class="fa fa-clock-o"></i> 本站已稳定运行<span id="site-time"></span>
+    </div>
+    
+      <div class="site-footer-info">
+        <i class="fa fa-paw"></i> 您是本站第 <span id="site-count"></span> 位访客
+      </div>
+    
+    
+      <div class="site-footer-info">
+        <i class="fa fa-at"></i> Email: 834930269@qq.com
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-copyright"></i> 
+      2019 <a href="https://github.com/dongyuanxin/theme-ad/" target="_blank">Theme-AD</a>.
+      Created by <a href="https://godbmw.com/" target="_blank">GodBMW</a>.
+      All rights reserved.
+    </div>
+  </footer>
+</div>
+    <div id="site-layer" style="display:none;">
+  <div class="site-layer-content">
+    <div class="site-layer-header">
+      <span class="site-layer-header-title" id="site-layer-title"></span>
+      <i class="fa fa-close" id="site-layer-close"></i>
+    </div>
+    <div class="site-layer-body" id="site-layer-container">
+      <div class="site-layer-input" id="site-layer-search" style="display: none;">
+        <div class="site-layer-input-choose">
+          <a href="javascript:void(0);" title="Change Search Engine">Google</a>
+        </div>
+        <input type="text">
+        <i class="fa fa-search"></i>
+      </div>
+      
+        <div class="site-layer-reward" id="site-layer-reward" style="display: none;">
+          
+            <div>
+              <img src="/images/wechat.png" alt="WeChat">
+              
+                <p>WeChat</p>
+              
+            </div>
+          
+            <div>
+              <img src="/images/alipay.png" alt="AliPay">
+              
+                <p>AliPay</p>
+              
+            </div>
+          
+        </div>
+      
+      <div id="site-layer-welcome" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+    
+
+<div class="bottom-bar">
+  <div class="bottom-bar-left">
+    <a href="/passages/concurrency-tools/" data-enable="true">
+      <i class="fa fa-arrow-left"></i>
+    </a>
+    <a href="/passages/javaweb-two/" data-enable="true">
+      <i class="fa fa-arrow-right"></i>
+    </a>
+  </div>
+  <div class="bottom-bar-right">
+    <a href="javascript:void(0);" data-enable="true" id="site-toc-show-btn">
+      <i class="fa fa-bars"></i>
+    </a>
+    
+      <a href="#site-comment" data-enable="true">
+        <i class="fa fa-commenting"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="site-toggle-share-btn">
+      <i class="fa fa-share-alt"></i>
+    </a>
+    
+      <a href="javascript:void(0);" id="site-reward">
+        <i class="fa fa-thumbs-up"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="back-top-btn">
+      <i class="fa fa-chevron-up"></i>
+    </a>
+  </div>
+</div>
+    <div id="share-btn">
+  
+    <a id="share-btn-twitter" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-twitter"></i>
+    </a>
+  
+  
+    <a id="share-btn-facebook" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-facebook"></i>
+    </a>
+  
+  
+    <a id="share-btn-weibo" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-weibo"></i>
+    </a>
+  
+  
+    <a id="share-btn-qq" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-qq"></i>
+    </a>
+  
+  
+    <a id="share-btn-wechat" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-wechat"></i>
+    </a>
+  
+</div>
+    
+
+
+
+
+
+    
+  </body>
+</html>

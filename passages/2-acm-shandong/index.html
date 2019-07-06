@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html>
+  
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="author" content="张文涛">
+  
+  
+  <title>第二届ACM山东省赛 | 山海经▪大荒经</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="第二届ACM山东省塞,第二届ACM山东省塞,">
+  
+
+  
+  <meta name="description" content="Winter Zhang的小站">
+
+  
+
+  
+    <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.1/dist/av-min.js" async></script>
+  
+
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+  
+
+  
+    <script src="//unpkg.com/valine/dist/Valine.min.js" async></script>
+  
+
+  
+
+  <script>
+  // theme-ad's config script
+  // it can be used in every script
+  
+  window.AD_CONFIG = {
+    leancloud: {"appid":"Hyq9wkH495DgNHWhDQCOfQSp-gzGzoHsz","appkey":"WaR7nrzhliHj9aVwdQzkdlGd","comment":true,"count":true},
+    welcome: {"enable":false,"interval":30},
+    start_time: "2015-02-10",
+    passwords: ["c035b468e47fd966ac2df15e3d7f7a64d89b1dbf209c24caad6e62bffd90d4c7", ],
+    is_post: true,
+    lock: false,
+    author: "张文涛",
+    share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
+    mathjax: true,
+    page_type: "",
+    root: "/"
+  };
+</script>
+
+  <script src="/vendor/sha256.min.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/index.js"></script>
+<script src="/vendor/qrcode.min.js"></script>
+
+  
+    <link rel="icon" href="/images/favicon2.ico">
+    <link rel="apple-touch-icon" href="/images/touch-icon.png">
+  
+
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/styles/components/highlight/highlight.css">
+
+  
+</head>
+  <body>
+    <header class="site-header">
+  <div class="site-header-brand">
+    
+      <span class="site-header-brand-title">
+        <a href="/">想你了</a>
+      </span>
+    
+    
+      <span class="site-header-brand-motto"> | 祝你平安幸福</span>
+    
+  </div>
+  <div class="site-header-right">
+    <nav class="site-header-navigation">
+      
+        <a href="/" target="_self">首页</a>
+      
+        <a href="/archives/" target="_self">归档</a>
+      
+        <a href="/tags/" target="_self">标签</a>
+      
+        <a href="/categories/" target="_self">分类</a>
+      
+        <a href="/friends/" target="_self">友链</a>
+      
+        <a href="/about/" target="_self">关于</a>
+      
+    </nav>
+    <div class="site-header-btn">
+      
+        <a href="https://github.com/834930269/" target="_blank" id="site-github">
+          <i class="fa fa-github-alt"></i>
+        </a>
+      
+      <a href="javascript:void(0);" id="site-search">
+        <i class="fa fa-search"></i>
+      </a>
+      <a href="javascript:void(0);" id="site-nav-btn">
+        <i class="fa fa-ellipsis-v"></i>
+      </a>
+    </div>
+  </div>
+</header>
+<nav class="table-content" id="site-nav">
+  <div class="table-content-title">
+    <span>导航</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc">
+      
+        <li class="toc-item">
+          <a href="/" target="_self">
+            首页
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/archives/" target="_self">
+            归档
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/tags/" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/categories/" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/friends/" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/about/" target="_self">
+            关于
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</nav>
+<div id="site-process"></div>
+    <main>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2018-04-24
+    </span>
+    
+      <span>
+        | <a href="/categories/第二届ACM山东省塞/"><i class="fa fa-bookmark"></i>第二届ACM山东省塞</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    第二届ACM山东省赛
+  </h1>
+  
+  <article class="passage-article">
+    <h1 id="A-Nim-Bash-博弈"><a href="#A-Nim-Bash-博弈" class="headerlink" title="A: Nim+Bash 博弈"></a>A: Nim+Bash 博弈</h1><blockquote>
+<p>Nim博弈可以看做只考虑取二进制化后的数的位数上的1,结合Bash就变成了从几堆中取相应的1 答案是 统计二进制位数,如果全部取模(3+1)等于0,则是必败态</p>
+</blockquote>
+<pre><code>#include&lt;bits/stdc++.h&gt;
+using namespace std;
+const int maxn=11000;
+
+int a[maxn],N,T,K,max_tot;
+
+int main(){
+    scanf(&quot;%d&quot;,&amp;T);
+    while(T--){
+        memset(a,0,sizeof(a));
+        max_tot=0;
+        scanf(&quot;%d&quot;,&amp;N);
+        for(int i=0;i&lt;N;++i){
+            scanf(&quot;%d&quot;,&amp;K);
+            int tot=0;
+            while(K){
+                if(K&amp;1) a[tot++]++;
+                else tot++;
+                K&gt;&gt;=1;
+            }
+            max_tot=max(max_tot,tot);
+        }
+        //printf(&quot;max: %d\n&quot;,max_tot);
+        bool flag=true;
+        for(int i=0;i&lt;max_tot;++i){
+            if(a[i]%4){
+                flag=false;
+                break;
+            }
+        }
+        printf(flag?&quot;No\n&quot;:&quot;Yes\n&quot;);
+    }
+    return 0;
+}</code></pre><h1 id="B-排序模拟"><a href="#B-排序模拟" class="headerlink" title="B:排序模拟"></a>B:排序模拟</h1><pre><code>#include&lt;bits/stdc++.h&gt;
+using namespace std;
+
+struct team{
+    char name[40];
+    bool all_girls;
+    int solved;
+    int pe;
+    int id;
+
+    bool operator&lt;(const team&amp; A) const{
+        if(solved==A.solved){
+            return pe&gt;A.pe;
+        }else return solved&lt;A.solved;
+    }
+};
+
+struct Name{
+    char name[40];
+    int id;
+    bool operator&lt;(const Name&amp; A) const{
+        return id&lt;A.id;
+    }
+};
+
+int T,kase=1;
+int N,M;
+char str[1000];
+priority_queue&lt;team&gt; pt;
+vector&lt;Name&gt; ans;
+
+void init(){
+    while(!pt.empty()) pt.pop();
+    ans.clear();
+}
+
+team get_team(int id){
+    char name[40];
+    bool all_girls;
+    int solved;
+    int pe;
+    team t;
+
+    sscanf(str,&quot;%s %d %d %d&quot;,name,&amp;all_girls,&amp;solved,&amp;pe);
+    strcpy(t.name,name);
+    t.all_girls=all_girls;
+    t.solved=solved;
+    t.pe=pe;
+    t.id=id;
+    return t;
+}
+
+Name new_me(char str[40],int ind){
+    Name me;
+    strcpy(me.name,str);
+    me.id=ind;
+    return me;
+}
+
+void can(){
+    bool has_girl=false;
+    while(!pt.empty()){
+        team a=pt.top();pt.pop();
+        if(a.solved&lt;=0) break;
+        if(a.all_girls) has_girl=true;
+        ans.push_back(new_me(a.name,a.id));
+        M--;
+        if(M==0)break;
+    }
+    if(M==0){
+        if(!has_girl){
+            while(!pt.empty()){
+                team a=pt.top();pt.pop();
+                if(a.solved&lt;=0) break;
+                if(a.all_girls){
+                    ans.push_back(new_me(a.name,a.id));
+                    break;
+                }
+            }
+        }
+    }
+}
+
+void cant(){
+    while(!pt.empty()){
+        team a=pt.top();pt.pop();
+        ans.push_back(new_me(a.name,a.id));
+    }
+}
+
+void print(){
+    sort(ans.begin(),ans.end());
+    for(int i=0;i&lt;ans.size();++i){
+        printf(&quot;%s\n&quot;,ans[i].name);
+    }
+    puts(&quot;&quot;);
+}
+
+int main(){
+    scanf(&quot;%d&quot;,&amp;T);
+    while(T--){
+        init();
+        scanf(&quot;%d%d\n&quot;,&amp;N,&amp;M);
+        int low=0;
+        for(int i=0;i&lt;N;++i){
+            gets(str);
+            team a=get_team(i);
+            if(a.solved&gt;=1) low++;
+            pt.push(a);
+        }
+        printf(&quot;Case %d:\n&quot;,kase++);
+        if(low&gt;=M) can();
+        else cant();
+        print();
+    }
+    return 0;
+}</code></pre><h1 id="C-水"><a href="#C-水" class="headerlink" title="C:水"></a>C:水</h1><pre><code>#include&lt;bits/stdc++.h&gt;
+using namespace std;
+const int maxn=200;
+char str[maxn];
+int T;
+
+int main(){
+    scanf(&quot;%d&quot;,&amp;T);
+    while(T--){
+        bool is=true;
+        gets(str);
+        int len=strlen(str);
+        if(isalpha(str[0]) || str[0]==&apos;_&apos;){
+            for(int i=1;i&lt;len;++i){
+                if(!(isalpha(str[i]) || isdigit(str[i]) || str[i]==&apos;_&apos;)){
+                    printf(&quot;No\n&quot;);
+                    is=false;
+                    break;
+                }
+            }
+        }else{
+            printf(&quot;No\n&quot;);
+            is=false;
+        }
+        if(is) printf(&quot;Yes\n&quot;);
+    }
+
+    return 0;
+}</code></pre><h1 id="D-求组合数模-可以大数-可以打表"><a href="#D-求组合数模-可以大数-可以打表" class="headerlink" title="D: 求组合数模,可以大数,可以打表"></a>D: 求组合数模,可以大数,可以打表</h1><pre><code>///1000*1000的数据直接打表就好
+#include &lt;iostream&gt;
+#include &lt;string.h&gt;
+using namespace std;
+const int mod=10000003;
+const int N=1002;
+int c[N][N];
+
+void init()//递推打表
+{
+    memset(c,0,sizeof(c));
+    c[0][0]=c[1][0]=c[1][1]=1;
+    for(int i=2;i&lt;N;i++)
+    {
+        c[i][i]=c[i][0]=1;
+        for(int j=0;j&lt;i;j++)
+        {
+            c[i][j]=(c[i-1][j-1]+c[i-1][j])%mod;//不会越界
+        }
+    }
+}
+int main()
+{
+    init();
+    int k;cin&gt;&gt;k;
+    int a,b;
+    while(k--)
+    {
+        cin&gt;&gt;a&gt;&gt;b;
+        cout&lt;&lt;c[a][b]&lt;&lt;endl;//直接输出
+    }
+}</code></pre><h1 id="E-快速幂模-数组模拟trie"><a href="#E-快速幂模-数组模拟trie" class="headerlink" title="E:快速幂模+数组模拟trie"></a>E:快速幂模+数组模拟trie</h1><pre><code>#include&lt;bits/stdc++.h&gt;
+using namespace std;
+typedef long long ll;
+typedef unsigned long long ull;
+const int maxn=1e6+7;
+
+int mp[11][11][11];
+char res[11][11][11];
+char str[maxn];
+
+ll mod_pow(ull x,ull n,int mod){
+    ull res=1;
+    while(n&gt;0){
+        if(n&amp;1) res=res*x%mod;
+        x=x*x%mod;
+        n&gt;&gt;=1;
+    }
+    return res;
+}
+
+void f(int id,int n){
+    int ans=mod_pow(id,n,997);
+    //cout&lt;&lt;ans&lt;&lt;endl;
+    int cnt=0;
+    int dt[3]={0,0,0};
+    while(ans){
+        dt[cnt++]=ans%10;
+        ans/=10;
+    }
+    mp[dt[2]][dt[1]][dt[0]]++;
+    res[dt[2]][dt[1]][dt[0]]=(char)id;
+}
+
+void init(int n){
+    memset(mp,0,sizeof(mp));
+    ///处理数字
+    for(int i=0;i&lt;10;++i)
+        f(&apos;0&apos;+i,n);
+    ///处理lowalpha
+    for(int i=0;i&lt;27;++i)
+        f(&apos;a&apos;+i,n);
+    ///处理upperalpha
+    for(int i=0;i&lt;27;++i)
+        f(&apos;A&apos;+i,n);
+}
+
+int main(){
+    int T,K;
+    scanf(&quot;%d&quot;,&amp;T);
+    while(T--){
+        scanf(&quot;%d\n%s&quot;,&amp;K,str);
+        init(K);
+        int len=strlen(str);
+        if(len%3){
+            printf(&quot;No Solution\n&quot;);
+            continue;
+        }
+        bool flag=true;
+        string ans;
+        for(int i=0;i&lt;len;i+=3){
+            int x=str[i]-&apos;0&apos;,y=str[i+1]-&apos;0&apos;,z=str[i+2]-&apos;0&apos;;
+            //cout&lt;&lt;x&lt;&lt;y&lt;&lt;z&lt;&lt;mp[x][y][z]&lt;&lt;endl;
+            if(mp[x][y][z]&gt;1 || mp[x][y][z]==0){
+                flag=false;
+                break;
+            }
+            ans+=res[x][y][z];
+        }
+        if(flag) cout&lt;&lt;ans&lt;&lt;endl;
+        else cout&lt;&lt;&quot;No Solution&quot;&lt;&lt;endl;
+    }
+
+    return 0;
+}</code></pre><h1 id="I-区间DP"><a href="#I-区间DP" class="headerlink" title="I: 区间DP"></a>I: 区间DP</h1><pre><code>#include&lt;bits/stdc++.h&gt;
+using namespace std;
+#define INF 0x3f3f3f3f
+const int maxn=1010;
+typedef long long LL;
+LL dp[maxn];
+LL sum[maxn],num;
+int T,N,M;
+
+
+int main(){
+    scanf(&quot;%d&quot;,&amp;T);
+    while(T--){
+        sum[0]=0ll;
+        dp[0]=0ll;
+        scanf(&quot;%d%d&quot;,&amp;N,&amp;M);
+        for(int i=1;i&lt;=N;++i){
+            scanf(&quot;%lld&quot;,&amp;num);
+            sum[i]=sum[i-1]+num;
+            dp[i]=sum[i]*sum[i];
+        }
+
+        for(int i=2;i&lt;=M;++i){
+            ///枚举区间,j为i划分倒推的一维
+            for(int j=N-M+i;j&gt;=i;--j){
+                for(int k=1;k&lt;j;++k){
+                    dp[j]=min(dp[j],dp[k]+(sum[j]-sum[k])*(sum[j]-sum[k]));
+                }
+            }
+        }
+        printf(&quot;%lld\n&quot;,dp[N]);
+    }
+    return 0;
+}</code></pre>
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#A-Nim-Bash-博弈"><span class="toc-text">A: Nim+Bash 博弈</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#B-排序模拟"><span class="toc-text">B:排序模拟</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#C-水"><span class="toc-text">C:水</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#D-求组合数模-可以大数-可以打表"><span class="toc-text">D: 求组合数模,可以大数,可以打表</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#E-快速幂模-数组模拟trie"><span class="toc-text">E:快速幂模+数组模拟trie</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#I-区间DP"><span class="toc-text">I: 区间DP</span></a></li></ol>
+  </div>
+</aside>
+  
+    <aside class="passage-copyright">
+      <div>本文作者: 张文涛</div>
+      
+        <div>
+          原文链接: 
+          <a href="" target="_blank">http://be-sunshine.cn/passages/2-acm-shandong/</a>
+        </div>
+      
+      <div>
+        版权声明: 本博客所有文章除特别声明外, 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议. 转载请注明出处!
+      </div>
+    </aside>
+  
+  
+    <div class="passage-tags">
+     
+      <a href="/tags/第二届ACM山东省塞/"><i class="fa fa-tags"></i>第二届ACM山东省塞</a>
+    
+    </div>
+  
+</div>
+
+    </main>
+    
+      
+<div class="site-comment-contanier" data-plateform="leancloud">
+  
+    <p id="site-comment-info">
+      <i class="fa fa-spinner fa-spin"></i> 评论加载中
+    </p>
+    <div id="site-comment"></div>
+  
+</div>
+    
+    <div class="site-footer-wrapper">
+  <footer class="site-footer">
+    
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">博客推荐</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/" target="_blank">GodBMW</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="http://ruanyifeng.com/" target="_blank">阮一峰的个人网站</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">系列教程</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/categories/webpack4%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B/" target="_blank">webpack4系列教程</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/design-patterns/" target="_blank">设计模式手册</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">抓到我</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://weibo.com/3260959934/" target="_blank">微博</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://github.com/834930269" target="_blank">Github</a>
+            </span>
+          
+        </div>
+      
+    
+    <div class="site-footer-info">
+      <i class="fa fa-clock-o"></i> 本站已稳定运行<span id="site-time"></span>
+    </div>
+    
+      <div class="site-footer-info">
+        <i class="fa fa-paw"></i> 您是本站第 <span id="site-count"></span> 位访客
+      </div>
+    
+    
+      <div class="site-footer-info">
+        <i class="fa fa-at"></i> Email: 834930269@qq.com
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-copyright"></i> 
+      2019 <a href="https://github.com/dongyuanxin/theme-ad/" target="_blank">Theme-AD</a>.
+      Created by <a href="https://godbmw.com/" target="_blank">GodBMW</a>.
+      All rights reserved.
+    </div>
+  </footer>
+</div>
+    <div id="site-layer" style="display:none;">
+  <div class="site-layer-content">
+    <div class="site-layer-header">
+      <span class="site-layer-header-title" id="site-layer-title"></span>
+      <i class="fa fa-close" id="site-layer-close"></i>
+    </div>
+    <div class="site-layer-body" id="site-layer-container">
+      <div class="site-layer-input" id="site-layer-search" style="display: none;">
+        <div class="site-layer-input-choose">
+          <a href="javascript:void(0);" title="Change Search Engine">Google</a>
+        </div>
+        <input type="text">
+        <i class="fa fa-search"></i>
+      </div>
+      
+        <div class="site-layer-reward" id="site-layer-reward" style="display: none;">
+          
+            <div>
+              <img src="/images/wechat.png" alt="WeChat">
+              
+                <p>WeChat</p>
+              
+            </div>
+          
+            <div>
+              <img src="/images/alipay.png" alt="AliPay">
+              
+                <p>AliPay</p>
+              
+            </div>
+          
+        </div>
+      
+      <div id="site-layer-welcome" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+    
+
+<div class="bottom-bar">
+  <div class="bottom-bar-left">
+    <a href="/passages/tsu-os/" data-enable="true">
+      <i class="fa fa-arrow-left"></i>
+    </a>
+    <a href="/passages/poj-2186/" data-enable="true">
+      <i class="fa fa-arrow-right"></i>
+    </a>
+  </div>
+  <div class="bottom-bar-right">
+    <a href="javascript:void(0);" data-enable="true" id="site-toc-show-btn">
+      <i class="fa fa-bars"></i>
+    </a>
+    
+      <a href="#site-comment" data-enable="true">
+        <i class="fa fa-commenting"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="site-toggle-share-btn">
+      <i class="fa fa-share-alt"></i>
+    </a>
+    
+      <a href="javascript:void(0);" id="site-reward">
+        <i class="fa fa-thumbs-up"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="back-top-btn">
+      <i class="fa fa-chevron-up"></i>
+    </a>
+  </div>
+</div>
+    <div id="share-btn">
+  
+    <a id="share-btn-twitter" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-twitter"></i>
+    </a>
+  
+  
+    <a id="share-btn-facebook" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-facebook"></i>
+    </a>
+  
+  
+    <a id="share-btn-weibo" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-weibo"></i>
+    </a>
+  
+  
+    <a id="share-btn-qq" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-qq"></i>
+    </a>
+  
+  
+    <a id="share-btn-wechat" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-wechat"></i>
+    </a>
+  
+</div>
+    
+
+
+
+
+
+    
+  </body>
+</html>

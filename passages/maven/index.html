@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html>
+  
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="author" content="张文涛">
+  
+  
+  <title>Maven | 山海经▪大荒经</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Maven,技术,技术,Maven,">
+  
+
+  
+  <meta name="description" content="Winter Zhang的小站">
+
+  
+
+  
+    <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.1/dist/av-min.js" async></script>
+  
+
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+  
+
+  
+    <script src="//unpkg.com/valine/dist/Valine.min.js" async></script>
+  
+
+  
+
+  <script>
+  // theme-ad's config script
+  // it can be used in every script
+  
+  window.AD_CONFIG = {
+    leancloud: {"appid":"Hyq9wkH495DgNHWhDQCOfQSp-gzGzoHsz","appkey":"WaR7nrzhliHj9aVwdQzkdlGd","comment":true,"count":true},
+    welcome: {"enable":false,"interval":30},
+    start_time: "2015-02-10",
+    passwords: ["c035b468e47fd966ac2df15e3d7f7a64d89b1dbf209c24caad6e62bffd90d4c7", ],
+    is_post: true,
+    lock: false,
+    author: "张文涛",
+    share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
+    mathjax: true,
+    page_type: "",
+    root: "/"
+  };
+</script>
+
+  <script src="/vendor/sha256.min.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/index.js"></script>
+<script src="/vendor/qrcode.min.js"></script>
+
+  
+    <link rel="icon" href="/images/favicon2.ico">
+    <link rel="apple-touch-icon" href="/images/touch-icon.png">
+  
+
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/styles/components/highlight/highlight.css">
+
+  
+</head>
+  <body>
+    <header class="site-header">
+  <div class="site-header-brand">
+    
+      <span class="site-header-brand-title">
+        <a href="/">想你了</a>
+      </span>
+    
+    
+      <span class="site-header-brand-motto"> | 祝你平安幸福</span>
+    
+  </div>
+  <div class="site-header-right">
+    <nav class="site-header-navigation">
+      
+        <a href="/" target="_self">首页</a>
+      
+        <a href="/archives/" target="_self">归档</a>
+      
+        <a href="/tags/" target="_self">标签</a>
+      
+        <a href="/categories/" target="_self">分类</a>
+      
+        <a href="/friends/" target="_self">友链</a>
+      
+        <a href="/about/" target="_self">关于</a>
+      
+    </nav>
+    <div class="site-header-btn">
+      
+        <a href="https://github.com/834930269/" target="_blank" id="site-github">
+          <i class="fa fa-github-alt"></i>
+        </a>
+      
+      <a href="javascript:void(0);" id="site-search">
+        <i class="fa fa-search"></i>
+      </a>
+      <a href="javascript:void(0);" id="site-nav-btn">
+        <i class="fa fa-ellipsis-v"></i>
+      </a>
+    </div>
+  </div>
+</header>
+<nav class="table-content" id="site-nav">
+  <div class="table-content-title">
+    <span>导航</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc">
+      
+        <li class="toc-item">
+          <a href="/" target="_self">
+            首页
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/archives/" target="_self">
+            归档
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/tags/" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/categories/" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/friends/" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/about/" target="_self">
+            关于
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</nav>
+<div id="site-process"></div>
+    <main>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2018-06-20
+    </span>
+    
+      <span>
+        | <a href="/categories/Maven/"><i class="fa fa-bookmark"></i>Maven</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    Maven
+  </h1>
+  
+  <article class="passage-article">
+    <blockquote>
+<p>总而言之说下吧,Maven其实就类似于.Net的NuGet和Python-Anaconda 的pip和conda.包的管理工具更贴切?</p>
+</blockquote>
+<h1 id="Maven下载地址"><a href="#Maven下载地址" class="headerlink" title="Maven下载地址"></a>Maven下载地址</h1><p><a href="http://maven.apache.org/download.cgi" target="_blank" rel="noopener">http://maven.apache.org/download.cgi</a></p>
+<h1 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h1><p>mvn -v (查看版本) mvn archetype:generate -DgroupId=com.how2java -DartifactId=j2se -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false -archetype: generate 表示创建个项目 -DgroupId 项目包名: com.how2java -DartifactId 项目名称: j2se -DarchetypeArtifactId 项目类型: maven-archetype-quickstart -DinteractiveMode: false 表示前面参数都给了，就不用一个一个地输入了 mvn package (打包成jar) java -cp target/j2se-1.0-SNAPSHOT.jar com.how2java.App (执行jar) mvn archetype: generate -DarchetypeGroupId=org.apache.maven.archetypes -DarchetypeArtifactId=maven-archetype-webapp -DgroupId=com.how2java -DartifactId=j2ee -DinteractiveMode=false 创建Web App,可以发现其中是maven-archetype-webapp</p>
+<h1 id="仓库"><a href="#仓库" class="headerlink" title="仓库"></a>仓库</h1><p>仓库就是来存放项目需要的jar包的。 maven采用一个仓库，多个项目的方式，让多个项目共享一个仓库里的相同jar包。 仓库默认位置: .\apache-maven-3.5.3\conf\settings.xml 第53行</p>
+<pre><code>Default: ${user.home}/.m2/repository</code></pre><h1 id="修改下载路径"><a href="#修改下载路径" class="headerlink" title="修改下载路径"></a>修改下载路径</h1><p>这里用阿里的. 这里修改仓库默认地址(随便,好找): D:/Software/maven/repository 然后修改maven的镜像(mirrors)</p>
+<pre><code>&lt;mirrors&gt;
+  &lt;!-- mirror
+   | Specifies a repository mirror site to use instead of a given repository. The repository that
+   | this mirror serves has an ID that matches the mirrorOf element of this mirror. IDs are used
+   | for inheritance and direct lookup purposes, and must be unique across the set of mirrors.
+   |
+  &lt;mirror&gt;
+    &lt;id&gt;mirrorId&lt;/id&gt;
+    &lt;mirrorOf&gt;repositoryId&lt;/mirrorOf&gt;
+    &lt;name&gt;Human Readable Name for this Mirror.&lt;/name&gt;
+    &lt;url&gt;http://my.repository.com/repo/path&lt;/url&gt;
+  &lt;/mirror&gt;
+   --&gt;
+   &lt;mirror&gt;
+   &lt;id&gt;alimaven&lt;/id&gt;
+       &lt;mirrorOf&gt;central&lt;/mirrorOf&gt;
+       &lt;name&gt;aliyun maven&lt;/name&gt;
+       &lt;url&gt;http://maven.aliyun.com/nexus/content/repositories/central/&lt;/url&gt;
+   &lt;mirror&gt;
+&lt;/mirrors&gt;</code></pre><h1 id="Maven风格的Java项目-听说很少用"><a href="#Maven风格的Java项目-听说很少用" class="headerlink" title="Maven风格的Java项目(听说很少用)"></a>Maven风格的Java项目(听说很少用)</h1><blockquote>
+<p>莫名其妙的东东,运行jar???多个入口怎么处理啊?迷,不过用来封jar包挺方便的/大概</p>
+</blockquote>
+<p>给个链接:<a href="http://how2j.cn/k/maven/maven-create-maven-project/1331.html#nowhere" target="_blank" rel="noopener">http://how2j.cn/k/maven/maven-create-maven-project/1331.html#nowhere</a></p>
+<h2 id="windows-盘符跳转"><a href="#windows-盘符跳转" class="headerlink" title="windows 盘符跳转"></a>windows 盘符跳转</h2><p>cd /d D:\Java 要在中间加上/d 或者直接 :e</p>
+<h1 id="配置安装以及接下来"><a href="#配置安装以及接下来" class="headerlink" title="配置安装以及接下来"></a>配置安装以及接下来</h1><p>配置见how2j 之后再Maven中添加包,直接在pom.xml下的Depen…中点Add 如果无法自动搜索 菜单-&gt;Window-&gt;Show View-&gt;Other-&gt;Maven-&gt;Maven Repositories-&gt;Local Repository-&gt;Rebuild Index 没有run on server 解决办法: <a href="https://blog.csdn.net/mr_yzko/article/details/78458873" target="_blank" rel="noopener">https://blog.csdn.net/mr_yzko/article/details/78458873</a> 然后可能出现jsp报错:导包即可 <a href="http://how2j.cn/k/maven/maven-eclipse-web-project/1334.html" target="_blank" rel="noopener">http://how2j.cn/k/maven/maven-eclipse-web-project/1334.html</a></p>
+<h1 id="总结一下新建maven-webapp所出现的所有问题"><a href="#总结一下新建maven-webapp所出现的所有问题" class="headerlink" title="总结一下新建maven webapp所出现的所有问题"></a>总结一下新建maven webapp所出现的所有问题</h1><ol>
+<li><p>创建项目后的JDK版本错误</p>
+<blockquote>
+<p>右键-&gt;属性-&gt;Build Path-&gt;Libraries-&gt;JRE System…-&gt;Edit-&gt;Default JRE</p>
+</blockquote>
+</li>
+<li><p>无Run on server</p>
+<blockquote>
+<p>右键-&gt;属性-&gt;Project Facets-&gt;点那个蓝条-&gt;选中Dynamic Web Module和Javascript-&gt;OK</p>
+</blockquote>
+</li>
+<li><p>.jsp报错</p>
+<blockquote>
+<p>双击pom.xml-&gt;Dependencies-&gt;Add-&gt;javax.servlet-api</p>
+</blockquote>
+</li>
+<li><p>无法找到web文件夹和主页(初始404)</p>
+<blockquote>
+<p>完成第二步后-&gt;Deployment Assembly-&gt;查看Deploy Path为/的那一条的源路径是否正确-&gt;不正确,删除后修改为index.jsp所在目录-&gt;添加Maven Dependencies-&gt;OK</p>
+</blockquote>
+</li>
+<li><p>完成!</p>
+</li>
+</ol>
+<h1 id="pom-xml-基础模板"><a href="#pom-xml-基础模板" class="headerlink" title="pom.xml 基础模板"></a>pom.xml 基础模板</h1><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot;
+         xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+         xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+
+    &lt;groupId&gt;com.funtl&lt;/groupId&gt;
+    &lt;artifactId&gt;hello-maven&lt;/artifactId&gt;
+    &lt;version&gt;1.0.0-SNAPSHOT&lt;/version&gt;
+    &lt;packaging&gt;war&lt;/packaging&gt;
+
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;javax.servlet&lt;/groupId&gt;
+            &lt;artifactId&gt;javax.servlet-api&lt;/artifactId&gt;
+            &lt;version&gt;4.0.1&lt;/version&gt;
+            &lt;scope&gt;provided&lt;/scope&gt;
+        &lt;/dependency&gt;
+
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.slf4j&lt;/groupId&gt;
+            &lt;artifactId&gt;log4j-over-slf4j&lt;/artifactId&gt;
+            &lt;version&gt;1.7.25&lt;/version&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+&lt;/project&gt;</code></pre><h1 id="Maven统一架构"><a href="#Maven统一架构" class="headerlink" title="Maven统一架构"></a>Maven统一架构</h1><pre><code>├─src
+│  ├─main
+│  │  ├─java
+│  │  ├─resources
+│  │  └─webapp
+│  │      └─WEB-INF
+│  └─test
+│      └─java</code></pre><blockquote>
+<p>src：源码目录</p>
+<blockquote>
+<p>src/main/java：Java 源码目录 src/main/resources：资源文件目录 src/main/webapp：Web 相关目录 src/test：单元测试</p>
+</blockquote>
+</blockquote>
+
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Maven下载地址"><span class="toc-text">Maven下载地址</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#基本操作"><span class="toc-text">基本操作</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#仓库"><span class="toc-text">仓库</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#修改下载路径"><span class="toc-text">修改下载路径</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Maven风格的Java项目-听说很少用"><span class="toc-text">Maven风格的Java项目(听说很少用)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#windows-盘符跳转"><span class="toc-text">windows 盘符跳转</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#配置安装以及接下来"><span class="toc-text">配置安装以及接下来</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结一下新建maven-webapp所出现的所有问题"><span class="toc-text">总结一下新建maven webapp所出现的所有问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#pom-xml-基础模板"><span class="toc-text">pom.xml 基础模板</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Maven统一架构"><span class="toc-text">Maven统一架构</span></a></li></ol>
+  </div>
+</aside>
+  
+    <aside class="passage-copyright">
+      <div>本文作者: 张文涛</div>
+      
+        <div>
+          原文链接: 
+          <a href="" target="_blank">http://be-sunshine.cn/passages/maven/</a>
+        </div>
+      
+      <div>
+        版权声明: 本博客所有文章除特别声明外, 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议. 转载请注明出处!
+      </div>
+    </aside>
+  
+  
+    <div class="passage-tags">
+     
+      <a href="/tags/技术/"><i class="fa fa-tags"></i>技术</a>
+     
+      <a href="/tags/Maven/"><i class="fa fa-tags"></i>Maven</a>
+    
+    </div>
+  
+</div>
+
+    </main>
+    
+      
+<div class="site-comment-contanier" data-plateform="leancloud">
+  
+    <p id="site-comment-info">
+      <i class="fa fa-spinner fa-spin"></i> 评论加载中
+    </p>
+    <div id="site-comment"></div>
+  
+</div>
+    
+    <div class="site-footer-wrapper">
+  <footer class="site-footer">
+    
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">博客推荐</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/" target="_blank">GodBMW</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="http://ruanyifeng.com/" target="_blank">阮一峰的个人网站</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">系列教程</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/categories/webpack4%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B/" target="_blank">webpack4系列教程</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/design-patterns/" target="_blank">设计模式手册</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">抓到我</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://weibo.com/3260959934/" target="_blank">微博</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://github.com/834930269" target="_blank">Github</a>
+            </span>
+          
+        </div>
+      
+    
+    <div class="site-footer-info">
+      <i class="fa fa-clock-o"></i> 本站已稳定运行<span id="site-time"></span>
+    </div>
+    
+      <div class="site-footer-info">
+        <i class="fa fa-paw"></i> 您是本站第 <span id="site-count"></span> 位访客
+      </div>
+    
+    
+      <div class="site-footer-info">
+        <i class="fa fa-at"></i> Email: 834930269@qq.com
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-copyright"></i> 
+      2019 <a href="https://github.com/dongyuanxin/theme-ad/" target="_blank">Theme-AD</a>.
+      Created by <a href="https://godbmw.com/" target="_blank">GodBMW</a>.
+      All rights reserved.
+    </div>
+  </footer>
+</div>
+    <div id="site-layer" style="display:none;">
+  <div class="site-layer-content">
+    <div class="site-layer-header">
+      <span class="site-layer-header-title" id="site-layer-title"></span>
+      <i class="fa fa-close" id="site-layer-close"></i>
+    </div>
+    <div class="site-layer-body" id="site-layer-container">
+      <div class="site-layer-input" id="site-layer-search" style="display: none;">
+        <div class="site-layer-input-choose">
+          <a href="javascript:void(0);" title="Change Search Engine">Google</a>
+        </div>
+        <input type="text">
+        <i class="fa fa-search"></i>
+      </div>
+      
+        <div class="site-layer-reward" id="site-layer-reward" style="display: none;">
+          
+            <div>
+              <img src="/images/wechat.png" alt="WeChat">
+              
+                <p>WeChat</p>
+              
+            </div>
+          
+            <div>
+              <img src="/images/alipay.png" alt="AliPay">
+              
+                <p>AliPay</p>
+              
+            </div>
+          
+        </div>
+      
+      <div id="site-layer-welcome" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+    
+
+<div class="bottom-bar">
+  <div class="bottom-bar-left">
+    <a href="/passages/javaweb-two/" data-enable="true">
+      <i class="fa fa-arrow-left"></i>
+    </a>
+    <a href="/passages/javaweb-first/" data-enable="true">
+      <i class="fa fa-arrow-right"></i>
+    </a>
+  </div>
+  <div class="bottom-bar-right">
+    <a href="javascript:void(0);" data-enable="true" id="site-toc-show-btn">
+      <i class="fa fa-bars"></i>
+    </a>
+    
+      <a href="#site-comment" data-enable="true">
+        <i class="fa fa-commenting"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="site-toggle-share-btn">
+      <i class="fa fa-share-alt"></i>
+    </a>
+    
+      <a href="javascript:void(0);" id="site-reward">
+        <i class="fa fa-thumbs-up"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="back-top-btn">
+      <i class="fa fa-chevron-up"></i>
+    </a>
+  </div>
+</div>
+    <div id="share-btn">
+  
+    <a id="share-btn-twitter" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-twitter"></i>
+    </a>
+  
+  
+    <a id="share-btn-facebook" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-facebook"></i>
+    </a>
+  
+  
+    <a id="share-btn-weibo" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-weibo"></i>
+    </a>
+  
+  
+    <a id="share-btn-qq" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-qq"></i>
+    </a>
+  
+  
+    <a id="share-btn-wechat" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-wechat"></i>
+    </a>
+  
+</div>
+    
+
+
+
+
+
+    
+  </body>
+</html>

@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html>
+  
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="author" content="张文涛">
+  
+  
+  <title>Egret事件 | 山海经▪大荒经</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Egret,Egret,">
+  
+
+  
+  <meta name="description" content="Winter Zhang的小站">
+
+  
+
+  
+    <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.1/dist/av-min.js" async></script>
+  
+
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+  
+
+  
+    <script src="//unpkg.com/valine/dist/Valine.min.js" async></script>
+  
+
+  
+
+  <script>
+  // theme-ad's config script
+  // it can be used in every script
+  
+  window.AD_CONFIG = {
+    leancloud: {"appid":"Hyq9wkH495DgNHWhDQCOfQSp-gzGzoHsz","appkey":"WaR7nrzhliHj9aVwdQzkdlGd","comment":true,"count":true},
+    welcome: {"enable":false,"interval":30},
+    start_time: "2015-02-10",
+    passwords: ["c035b468e47fd966ac2df15e3d7f7a64d89b1dbf209c24caad6e62bffd90d4c7", ],
+    is_post: true,
+    lock: false,
+    author: "张文涛",
+    share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
+    mathjax: true,
+    page_type: "",
+    root: "/"
+  };
+</script>
+
+  <script src="/vendor/sha256.min.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/index.js"></script>
+<script src="/vendor/qrcode.min.js"></script>
+
+  
+    <link rel="icon" href="/images/favicon2.ico">
+    <link rel="apple-touch-icon" href="/images/touch-icon.png">
+  
+
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/styles/components/highlight/highlight.css">
+
+  
+</head>
+  <body>
+    <header class="site-header">
+  <div class="site-header-brand">
+    
+      <span class="site-header-brand-title">
+        <a href="/">想你了</a>
+      </span>
+    
+    
+      <span class="site-header-brand-motto"> | 祝你平安幸福</span>
+    
+  </div>
+  <div class="site-header-right">
+    <nav class="site-header-navigation">
+      
+        <a href="/" target="_self">首页</a>
+      
+        <a href="/archives/" target="_self">归档</a>
+      
+        <a href="/tags/" target="_self">标签</a>
+      
+        <a href="/categories/" target="_self">分类</a>
+      
+        <a href="/friends/" target="_self">友链</a>
+      
+        <a href="/about/" target="_self">关于</a>
+      
+    </nav>
+    <div class="site-header-btn">
+      
+        <a href="https://github.com/834930269/" target="_blank" id="site-github">
+          <i class="fa fa-github-alt"></i>
+        </a>
+      
+      <a href="javascript:void(0);" id="site-search">
+        <i class="fa fa-search"></i>
+      </a>
+      <a href="javascript:void(0);" id="site-nav-btn">
+        <i class="fa fa-ellipsis-v"></i>
+      </a>
+    </div>
+  </div>
+</header>
+<nav class="table-content" id="site-nav">
+  <div class="table-content-title">
+    <span>导航</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc">
+      
+        <li class="toc-item">
+          <a href="/" target="_self">
+            首页
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/archives/" target="_self">
+            归档
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/tags/" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/categories/" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/friends/" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/about/" target="_self">
+            关于
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</nav>
+<div id="site-process"></div>
+    <main>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2017-10-01
+    </span>
+    
+      <span>
+        | <a href="/categories/Egret/"><i class="fa fa-bookmark"></i>Egret</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    Egret事件
+  </h1>
+  
+  <article class="passage-article">
+    <p>先贴跟随书上的问题代码: 项目截图: <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2017/10/QQ%E6%88%AA%E5%9B%BE20171001144253.png" alt="Aaron"> 代码:</p>
+<pre><code>//Circle.ts
+class Circle extends egret.Sprite{
+    public constructor(cx:number,cy:number,cr:number){
+        super();
+        this.init(cx,cy,cr);
+    }
+    private shape:egret.Shape;
+    private shapex:number;
+    private shapey:number;
+    private shaper:number;
+    private color:number;
+    public static Event_Click:string=&quot;event_click&quot;;
+    private colorList = [13408665, 16777113, 6710937, 16750848, 16776960, 39372, 13421721, 13382553, 10079232, 16737894, 16776960, 3381708, 13395456, 10066329, 13421619, 16750899, 16777164, 39219, 39372, 13421772, 16737894, 16737792, 16777062, 39270, 13395507, 16764057, 13395456, 13369446, 39321, 16763955];
+    private randmColor():number{
+        return this.colorList[Math.round(Math.random()*this.colorList.length)];
+    }
+    private init(cx:number,cy:number,cr:number){
+        this.color=this.randmColor();
+        this.shape=new egret.Shape();
+        this.shape.graphics.beginFill(this.color);
+        this.shape.graphics.drawCircle(0,0,cr);
+        this.shape.graphics.endFill();
+        //设定矢量圆的位置为父类中心点
+        this.shape.x=-cr;
+        this.shape.y=-cr;
+
+        this.shapex=cx;
+        this.shapey=cy;
+        this.shaper=cr;
+        this.touchEnabled=!0;
+
+        //侦听用户的移动与触摸事件
+        this.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onTouch,this,!1);
+        this.addChild(this.shape);
+        this.x=cx;
+        this.y=cy;
+    }
+    private onTouch(e:egret.TouchEvent):void{
+        var par=this.parent;
+        par.dispatchEventWith(Circle.Event_Click,false,this.color);
+        this.touchEnabled=!1;
+        var tween:egret.Tween=egret.Tween.get(this);
+        tween.to({alpha:0.1},500,egret.Ease.sineOut);
+        tween.call(function(){
+            this.visible=!1;
+            par.removeChild(this);
+            this.removeEventListener(egret.TouchEvent.TOUCH_TAP,this.onTouch,this);
+        },this);
+
+        var circleList:Circle[]=[];
+        var tweenList:egret.Tween[]=[];
+        var redius:number=this.shaper&gt;&gt;1;
+        var tempx:number;
+        var tempy:number;
+        var tempr:number;
+
+        var g:number=0;
+        for(var i:number=0;i&lt;2;++i){
+            for(var t:number=0;t&lt;2;++t){
+                tempx=this.shapex-this.shaper+redius*2*t;
+                tempy=this.shapey-this.shaper+redius*2*i;
+                circleList[g]=new Circle(tempx,tempy,redius);
+                circleList[g].alpha=0.1;
+                circleList[g].scaleX=0.8;
+                circleList[g].scaleY=0.8;
+                par.addChild(circleList[g]);
+                tweenList[g]=egret.Tween.get(circleList[g]);
+                tweenList[g].to({alpha:1,scaleX:1,scaleY:1},1000,egret.Ease.sineIn);
+                g++;
+            }
+        }
+
+    }
+}
+
+
+
+//Main.ts
+    public constructor() {
+        super();
+        this.addEventListener(egret.Event.ADDED_TO_STAGE, this.onAddToStage, this);
+        this.addEventListener(Circle.Event_Click,this.onClickCircle,this);
+    }
+
+    private textCount:egret.TextField;
+    private textTimer:egret.TextField;
+    private textDes:egret.TextField;
+    private timer:egret.Timer;
+    private color:number; 
+
+    private onAddToStage(event: egret.Event) {
+        var stageW:number=this.stage.stageWidth;
+        var stageH:number=this.stage.stageHeight;
+
+        var bg=new egret.Shape();
+        bg.graphics.beginFill(0xfccfcc);
+        bg.graphics.drawRect(0,0,stageW,stageH);
+        bg.graphics.endFill();
+
+        this.textCount=new egret.TextField();
+        this.textCount.textColor=0xffffff;
+        this.textCount.y=630;
+        this.textCount.text=&quot;分数 : 0&quot;;
+
+        this.textTimer=new egret.TextField();
+        this.textTimer.textColor=0xffffff;
+        this.textTimer.y=720;
+        this.textTimer.text=&quot;倒计时&quot;;
+
+        this.textDes=new egret.TextField();
+        this.textDes.text=&quot;点击第一个颜色开始&quot;;
+        this.textDes.y=800;
+
+        this.textCount.textAlign=
+            this.textTimer.textAlign=
+                this.textDes.textAlign=
+                    egret.HorizontalAlign.CENTER;
+
+        this.textCount.width=
+            this.textDes.width=
+                this.textTimer.width=stageW;
+
+        this.textCount.textColor=
+            this.textDes.textColor=
+                this.textTimer.textColor=0x000000;
+
+        this.addChild(bg);
+        this.addChild(this.textCount);
+        this.addChild(this.textDes);
+        this.addChild(this.textTimer);
+
+        this.timer=new egret.Timer(1000,30);
+        this.timer.addEventListener(egret.TimerEvent.TIMER,this.onTimer,this);
+        this.timer.addEventListener(egret.TimerEvent.TIMER_COMPLETE,this.onTimerComplete,this);
+
+        var radius:number=60;
+        for(var i:number=0;i&lt;4;++i){
+            for(var t:number=0;t&lt;4;++t){
+                var tempx:number=200+radius*2*t;
+                var tempy:number=190+radius*2*i;
+                var circle:Circle=new Circle(tempx,tempy,radius);
+                this.addChild(circle);
+            }
+        }
+    }
+
+    private count:number=0;
+    private onClickCircle(e:any):void{
+        //e是触发时的事件对象
+        console.log(e,this.color,&quot;   &quot;,e.data);
+        if(this.count==0){
+            this.color=e.data;
+            //console.log(e,&quot;   &quot;,e.data);
+            this.textCount.text=&quot;分数 : &quot;+(++this.count);
+            this.timer.start();
+        }else if(this.color==e.data){
+            this.textCount.text=&quot;分数 : &quot;+(++this.count);
+        }
+    }
+
+    private onTimer(e:egret.TimerEvent):void{
+        this.textTimer.text=&quot;倒计时 : &quot;+(this.timer.repeatCount-this.timer.currentCount);
+    }
+
+    private onTimerComplete(e:egret.TimerEvent):void{
+        this.textDes.text=&quot;这不是极限,刷新再来一次! &quot;;
+        this.removeEventListener(Circle.Event_Click,this.onClickCircle,this);
+    }</code></pre><p>其中我不解的是</p>
+<pre><code>e:any</code></pre><p>和</p>
+<pre><code>e.data</code></pre><p>为什么是color:number类型的.所以准备系统搞一遍Event. **------------ 1.开始… 首先是构造函数中的三个参数，type、bubbles和cancelable。</p>
+<pre><code>type:触发事件的类型.
+bubbles:是指定事件是否参与事件流的冒泡阶段，关于事件流，会在后面的小节中介绍。
+cancelable:表示是否要取消Event对象。</code></pre><p>这里我们用约会的例子来说明一下. 首先定义一个约会的类:</p>
+<pre><code>class DateEvent extends egret.Event
+{
+    public static DATE:string = &quot;约会&quot;;
+    public _year:number = 0;
+    public _month:number = 0;
+    public _date:number = 0;
+    public _where:string = &quot;&quot;;
+    public _todo:string = &quot;&quot;;
+    public constructor(type:string, bubbles:boolean=false, cancelable:boolean=false)
+    {
+        super(type,bubbles,cancelable);
+    }
+}</code></pre><p>其中</p>
+<pre><code>static DATE:string</code></pre><p>代表DATE事件. **------------ 2.侦听器 事件侦听器也就是事件的处理者，负责接收事件携带的信息，并在接收到该事件后执行特定的代码。 Egret中，事件的侦听器必须是一个函数。事件的发送者必须是 egret.EventDispatcher 类或者子类的实例。只有事件发送者才能侦听事件，并且可以 注册侦听器。 注册侦听器:addEventListener(). 侦听器的定义:</p>
+<pre><code>public addEventListener(type:string, listener:Function, thisObject:any, useCapture:boolean = false, priority:number = 0)</code></pre><p>type: 事件类型. listener: 用来处理事件的侦听器,即函数. thisObject: this即可. 注册侦听器: 事件发送者.addEventListener(事件类型, 侦听器, this); 移除侦听器: 事件发送者.removeEventListener(事件类型, 侦听器, this); 最后一个 priority 参数的设置即侦听器的优先级. 而 侦听器 有一个参数是 e:Event.或者 e:any. e.data 即为发送过来的数据. 在项目中 Circle 有这样一个句:</p>
+<pre><code>par.dispatchEventWith(Circle.Event_Click,false,this.color);</code></pre><p>即当事件触发时 打包发送 this.color. 将其改为 0Xffffff 试试: <a href="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2017/10/QQ%E6%88%AA%E5%9B%BE20171001151826.png" target="_blank" rel="noopener"><img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2017/10/QQ%E6%88%AA%E5%9B%BE20171001151826.png" alt></a> 果然如此. 问题解决!****</p>
+
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
+    
+  </div>
+</aside>
+  
+    <aside class="passage-copyright">
+      <div>本文作者: 张文涛</div>
+      
+        <div>
+          原文链接: 
+          <a href="" target="_blank">http://be-sunshine.cn/passages/egret-event/</a>
+        </div>
+      
+      <div>
+        版权声明: 本博客所有文章除特别声明外, 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议. 转载请注明出处!
+      </div>
+    </aside>
+  
+  
+    <div class="passage-tags">
+     
+      <a href="/tags/Egret/"><i class="fa fa-tags"></i>Egret</a>
+    
+    </div>
+  
+</div>
+
+    </main>
+    
+      
+<div class="site-comment-contanier" data-plateform="leancloud">
+  
+    <p id="site-comment-info">
+      <i class="fa fa-spinner fa-spin"></i> 评论加载中
+    </p>
+    <div id="site-comment"></div>
+  
+</div>
+    
+    <div class="site-footer-wrapper">
+  <footer class="site-footer">
+    
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">博客推荐</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/" target="_blank">GodBMW</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="http://ruanyifeng.com/" target="_blank">阮一峰的个人网站</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">系列教程</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/categories/webpack4%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B/" target="_blank">webpack4系列教程</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/design-patterns/" target="_blank">设计模式手册</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">抓到我</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://weibo.com/3260959934/" target="_blank">微博</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://github.com/834930269" target="_blank">Github</a>
+            </span>
+          
+        </div>
+      
+    
+    <div class="site-footer-info">
+      <i class="fa fa-clock-o"></i> 本站已稳定运行<span id="site-time"></span>
+    </div>
+    
+      <div class="site-footer-info">
+        <i class="fa fa-paw"></i> 您是本站第 <span id="site-count"></span> 位访客
+      </div>
+    
+    
+      <div class="site-footer-info">
+        <i class="fa fa-at"></i> Email: 834930269@qq.com
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-copyright"></i> 
+      2019 <a href="https://github.com/dongyuanxin/theme-ad/" target="_blank">Theme-AD</a>.
+      Created by <a href="https://godbmw.com/" target="_blank">GodBMW</a>.
+      All rights reserved.
+    </div>
+  </footer>
+</div>
+    <div id="site-layer" style="display:none;">
+  <div class="site-layer-content">
+    <div class="site-layer-header">
+      <span class="site-layer-header-title" id="site-layer-title"></span>
+      <i class="fa fa-close" id="site-layer-close"></i>
+    </div>
+    <div class="site-layer-body" id="site-layer-container">
+      <div class="site-layer-input" id="site-layer-search" style="display: none;">
+        <div class="site-layer-input-choose">
+          <a href="javascript:void(0);" title="Change Search Engine">Google</a>
+        </div>
+        <input type="text">
+        <i class="fa fa-search"></i>
+      </div>
+      
+        <div class="site-layer-reward" id="site-layer-reward" style="display: none;">
+          
+            <div>
+              <img src="/images/wechat.png" alt="WeChat">
+              
+                <p>WeChat</p>
+              
+            </div>
+          
+            <div>
+              <img src="/images/alipay.png" alt="AliPay">
+              
+                <p>AliPay</p>
+              
+            </div>
+          
+        </div>
+      
+      <div id="site-layer-welcome" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+    
+
+<div class="bottom-bar">
+  <div class="bottom-bar-left">
+    <a href="/passages/node-js-koa-render/" data-enable="true">
+      <i class="fa fa-arrow-left"></i>
+    </a>
+    <a href="/passages/egret/" data-enable="true">
+      <i class="fa fa-arrow-right"></i>
+    </a>
+  </div>
+  <div class="bottom-bar-right">
+    <a href="javascript:void(0);" data-enable="true" id="site-toc-show-btn">
+      <i class="fa fa-bars"></i>
+    </a>
+    
+      <a href="#site-comment" data-enable="true">
+        <i class="fa fa-commenting"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="site-toggle-share-btn">
+      <i class="fa fa-share-alt"></i>
+    </a>
+    
+      <a href="javascript:void(0);" id="site-reward">
+        <i class="fa fa-thumbs-up"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="back-top-btn">
+      <i class="fa fa-chevron-up"></i>
+    </a>
+  </div>
+</div>
+    <div id="share-btn">
+  
+    <a id="share-btn-twitter" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-twitter"></i>
+    </a>
+  
+  
+    <a id="share-btn-facebook" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-facebook"></i>
+    </a>
+  
+  
+    <a id="share-btn-weibo" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-weibo"></i>
+    </a>
+  
+  
+    <a id="share-btn-qq" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-qq"></i>
+    </a>
+  
+  
+    <a id="share-btn-wechat" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-wechat"></i>
+    </a>
+  
+</div>
+    
+
+
+
+
+
+    
+  </body>
+</html>

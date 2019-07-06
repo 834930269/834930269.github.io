@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html>
+  
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="author" content="张文涛">
+  
+  
+  <title>计划:技术栈完善2-实战JAVA高并发程序设计-第二章 | 山海经▪大荒经</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="技术,技术,">
+  
+
+  
+  <meta name="description" content="Winter Zhang的小站">
+
+  
+
+  
+    <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.1/dist/av-min.js" async></script>
+  
+
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+  
+
+  
+    <script src="//unpkg.com/valine/dist/Valine.min.js" async></script>
+  
+
+  
+
+  <script>
+  // theme-ad's config script
+  // it can be used in every script
+  
+  window.AD_CONFIG = {
+    leancloud: {"appid":"Hyq9wkH495DgNHWhDQCOfQSp-gzGzoHsz","appkey":"WaR7nrzhliHj9aVwdQzkdlGd","comment":true,"count":true},
+    welcome: {"enable":false,"interval":30},
+    start_time: "2015-02-10",
+    passwords: ["c035b468e47fd966ac2df15e3d7f7a64d89b1dbf209c24caad6e62bffd90d4c7", ],
+    is_post: true,
+    lock: false,
+    author: "张文涛",
+    share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
+    mathjax: true,
+    page_type: "",
+    root: "/"
+  };
+</script>
+
+  <script src="/vendor/sha256.min.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/index.js"></script>
+<script src="/vendor/qrcode.min.js"></script>
+
+  
+    <link rel="icon" href="/images/favicon2.ico">
+    <link rel="apple-touch-icon" href="/images/touch-icon.png">
+  
+
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/styles/components/highlight/highlight.css">
+
+  
+</head>
+  <body>
+    <header class="site-header">
+  <div class="site-header-brand">
+    
+      <span class="site-header-brand-title">
+        <a href="/">想你了</a>
+      </span>
+    
+    
+      <span class="site-header-brand-motto"> | 祝你平安幸福</span>
+    
+  </div>
+  <div class="site-header-right">
+    <nav class="site-header-navigation">
+      
+        <a href="/" target="_self">首页</a>
+      
+        <a href="/archives/" target="_self">归档</a>
+      
+        <a href="/tags/" target="_self">标签</a>
+      
+        <a href="/categories/" target="_self">分类</a>
+      
+        <a href="/friends/" target="_self">友链</a>
+      
+        <a href="/about/" target="_self">关于</a>
+      
+    </nav>
+    <div class="site-header-btn">
+      
+        <a href="https://github.com/834930269/" target="_blank" id="site-github">
+          <i class="fa fa-github-alt"></i>
+        </a>
+      
+      <a href="javascript:void(0);" id="site-search">
+        <i class="fa fa-search"></i>
+      </a>
+      <a href="javascript:void(0);" id="site-nav-btn">
+        <i class="fa fa-ellipsis-v"></i>
+      </a>
+    </div>
+  </div>
+</header>
+<nav class="table-content" id="site-nav">
+  <div class="table-content-title">
+    <span>导航</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc">
+      
+        <li class="toc-item">
+          <a href="/" target="_self">
+            首页
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/archives/" target="_self">
+            归档
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/tags/" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/categories/" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/friends/" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/about/" target="_self">
+            关于
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</nav>
+<div id="site-process"></div>
+    <main>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2018-06-17
+    </span>
+    
+      <span>
+        | <a href="/categories/技术/"><i class="fa fa-bookmark"></i>技术</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    计划:技术栈完善2-实战JAVA高并发程序设计-第二章
+  </h1>
+  
+  <article class="passage-article">
+    <h1 id="Java并行程序基础"><a href="#Java并行程序基础" class="headerlink" title="Java并行程序基础"></a>Java并行程序基础</h1><h2 id="进程-Process"><a href="#进程-Process" class="headerlink" title="进程(Process)"></a>进程(Process)</h2><p><strong>进程</strong>:</p>
+<blockquote>
+<p>1.是计算机中的程序关于某数据集合上的一次运行活动. 2.是系统进行资源分配和调度的基本单位 3.是操作系统结构的基础 4.早期,进程是程序的基本执行实体 5.当代,进程是线程的容器 6.程序是指令、数据及其组织形式的描述,进程是程序的实体</p>
+</blockquote>
+<p>我们使用多线程而非使用多进程去进行并发程序的设计,是因为线程间的切换和调度的成本<strong>远小于进程</strong>.</p>
+<h2 id="线程的生命周期"><a href="#线程的生命周期" class="headerlink" title="线程的生命周期"></a>线程的生命周期</h2><p><img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/d705faf4fec8f9026144efa61d6b9b6d.png" alt> Java中的线程就是继承Runnable,故生命周期如上图所示. 以下是<code>Java.lang.Thread</code>中关于State的枚举定义源码:</p>
+<pre><code>public enum State {
+    /**
+     * Thread state for a thread which has not yet started.
+     */
+    NEW,
+
+    /**
+     * Thread state for a runnable thread.  A thread in the runnable
+     * state is executing in the Java virtual machine but it may
+     * be waiting for other resources from the operating system
+     * such as processor.
+     */
+    RUNNABLE,
+
+    /**
+     * Thread state for a thread blocked waiting for a monitor lock.
+     * A thread in the blocked state is waiting for a monitor lock
+     * to enter a synchronized block/method or
+     * reenter a synchronized block/method after calling
+     * {@link Object#wait() Object.wait}.
+     */
+    BLOCKED,
+
+    /**
+     * Thread state for a waiting thread.
+     * A thread is in the waiting state due to calling one of the
+     * following methods:
+     * &lt;ul&gt;
+     *   &lt;li&gt;{@link Object#wait() Object.wait} with no timeout&lt;/li&gt;
+     *   &lt;li&gt;{@link #join() Thread.join} with no timeout&lt;/li&gt;
+     *   &lt;li&gt;{@link LockSupport#park() LockSupport.park}&lt;/li&gt;
+     * &lt;/ul&gt;
+     *
+     * &lt;p&gt;A thread in the waiting state is waiting for another thread to
+     * perform a particular action.
+     *
+     * For example, a thread that has called &lt;tt&gt;Object.wait()&lt;/tt&gt;
+     * on an object is waiting for another thread to call
+     * &lt;tt&gt;Object.notify()&lt;/tt&gt; or &lt;tt&gt;Object.notifyAll()&lt;/tt&gt; on
+     * that object. A thread that has called &lt;tt&gt;Thread.join()&lt;/tt&gt;
+     * is waiting for a specified thread to terminate.
+     */
+    WAITING,
+
+    /**
+     * Thread state for a waiting thread with a specified waiting time.
+     * A thread is in the timed waiting state due to calling one of
+     * the following methods with a specified positive waiting time:
+     * &lt;ul&gt;
+     *   &lt;li&gt;{@link #sleep Thread.sleep}&lt;/li&gt;
+     *   &lt;li&gt;{@link Object#wait(long) Object.wait} with timeout&lt;/li&gt;
+     *   &lt;li&gt;{@link #join(long) Thread.join} with timeout&lt;/li&gt;
+     *   &lt;li&gt;{@link LockSupport#parkNanos LockSupport.parkNanos}&lt;/li&gt;
+     *   &lt;li&gt;{@link LockSupport#parkUntil LockSupport.parkUntil}&lt;/li&gt;
+     * &lt;/ul&gt;
+     */
+    TIMED_WAITING,
+
+    /**
+     * Thread state for a terminated thread.
+     * The thread has completed execution.
+     */
+    TERMINATED;
+}</code></pre><p><img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/68a53d6f77b170185ae936fc85487b8c.png" alt></p>
+<h2 id="初始线程-线程的基本操作"><a href="#初始线程-线程的基本操作" class="headerlink" title="初始线程: 线程的基本操作"></a>初始线程: 线程的基本操作</h2><h3 id="新建线程"><a href="#新建线程" class="headerlink" title="新建线程"></a>新建线程</h3><p>线程启动时的调用顺序 start()-&gt;run() 所以,当我们使用start启动线程时是<code>真正</code>启动了一个线程,而在这个线程中调用run方法. 而如果使用了run(),则代表只是<code>调用了一次run函数</code>.</p>
+<blockquote>
+<p>使用匿名内部类修改run方法,然后启动线程</p>
+</blockquote>
+<pre><code>public class p21 {
+
+    public static void main(String[] args){
+        Thread t1=new Thread(){
+            @Override
+            public void run(){
+                System.out.println(&quot;Hello, I&apos;m t1&quot;);
+            }
+        };
+        t1.start();
+    }
+}</code></pre><h3 id="使用Runnable接口来作为Thread的构造参数传入"><a href="#使用Runnable接口来作为Thread的构造参数传入" class="headerlink" title="使用Runnable接口来作为Thread的构造参数传入"></a>使用Runnable接口来作为Thread的构造参数传入</h3><p>以下是Runnable接口的源码:</p>
+<pre><code>@FunctionalInterface
+public interface Runnable {
+    public abstract void run();
+}</code></pre><p>可以发现,我们只需要实现run方法即可. 当我们调用Thread的run方法时,他会先判断下是否有Rannable,如果有,则调用Runnable的run方法.</p>
+<pre><code>@Override
+public void run() {
+    if (target != null) {
+        target.run();
+    }
+}</code></pre><p>我们来使用Runnable接口实现线程</p>
+<pre><code>public class p21 implements Runnable {
+
+    public static void main(String[] args){
+        Thread t1=new Thread(){
+            @Override
+            public void run(){
+                System.out.println(&quot;Hello, I&apos;m t1&quot;);
+            }
+        };
+        t1.start();
+        Thread t2=new Thread(new p21());
+        t2.start();
+    }
+
+    @Override
+    public void run(){
+        System.out.println(&quot;Hello,I&apos;m t2.&quot;);
+    }
+
+}</code></pre><p>这样就避免了重载Thread的run()方法,也是最常用的做法</p>
+<h3 id="终止线程"><a href="#终止线程" class="headerlink" title="终止线程"></a>终止线程</h3><p>当我们在实现某些功能时,可能会让一些线程常驻在内存中. 那么我们该如何停止这些线程呢? Thread内部有一个Stop()的方法,但他已被标注为将废弃,因为该方法太过暴力,很有可能造成数据不一致的问题. 因为stop方法会在结束线程时,直接终止线程,并且释放掉这个线程的所有锁.而这些锁则是为了保证对象的一致性.如果此时,写线程写到一半,被强行终止,那么对象的完整性就可能会被破坏. 而因为锁被释放了,所以另一个线程就顺理成章的读到了这个不完整的对象… <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/d4573f33d24bfc236e8d0da6dae4a164.png" alt></p>
+<h4 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h4><p>我们用一个程序来模拟下上面说的情况: 具体思路为-&gt;开启读取线程,如果User名字和id不一样,输出-&gt;不停地创建修改线程,修改的id和name一样-&gt;修改完成后stop()-&gt;观察结果</p>
+<pre><code>public class p22 {
+    public static User u=new User();
+    public static class User{
+        private int id;
+        public int getId() {
+            return id;
+        }
+        public void setId(int id) {
+            this.id = id;
+        }
+        public String getName() {
+            return name;
+        }
+        public void setName(String name) {
+            this.name = name;
+        }
+        private String name;
+        public User(){
+            id=0;
+            name=&quot;0&quot;;
+        }
+        @Override
+        public String toString(){
+            return &quot;User [id=&quot;+id+&quot;,name=&quot;+name+&quot;]&quot;;
+        }
+    }
+
+    public static class ChangeObjectThread extends Thread{
+        @Override
+        public void run(){
+            while(true){
+                synchronized(u){
+                    int v=(int)(System.currentTimeMillis()/1000);
+                    u.setId(v);
+                    //Oh,do sth.else
+                    try{
+                        Thread.sleep(100);
+                    }catch(InterruptedException e){
+                        e.printStackTrace();
+                    }
+                    u.setName(String.valueOf(v));
+                }
+                Thread.yield();
+            }
+        }
+    }
+
+    public static class ReadObjectThread extends Thread{
+        @Override
+        public void run(){
+            while(true){
+                synchronized(u){
+                    if(u.getId()!=Integer.parseInt(u.getName())){
+                        System.out.println(u.toString());
+                    }
+                }
+                Thread.yield();
+            }
+        }
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+        new ReadObjectThread().start();
+        while(true){
+            Thread t=new ChangeObjectThread();
+            t.start();
+            Thread.sleep(100);
+            t.stop();
+        }
+    }
+}</code></pre><p>输出: … User [id=1529221875,name=1529221874] User [id=1529221875,name=1529221874] User [id=1529221875,name=1529221874] User [id=1529221875,name=1529221874] User [id=1529221875,name=1529221874] User [id=1529221875,name=1529221874] User [id=1529221875,name=1529221874] … 我们发现会出现很多如此的错误,为什么呢?和之前一样的原因,指令的顺序在优化中可能被更改,而线程的执行顺序也和调度算法有关,所以就造成了有可能某线程对User数据修改时sleep了一段时间,而这段时间内突然被stop了,其他的线程就拿到了不完整的数据. <strong>当然,如果你将两个sleep都设置为0就不会出现这种错误了.</strong></p>
+<h4 id="自定义线程停止"><a href="#自定义线程停止" class="headerlink" title="自定义线程停止"></a>自定义线程停止</h4><blockquote>
+<p>如何解决这种问题呢?</p>
+</blockquote>
+<p>我们自行决定线程何时退出就可以了。</p>
+<ul>
+<li>volatile关键字 &gt; 添加该关键字的变量是: &gt;&gt; 不同线程访问和修改的变量</li>
+</ul>
+<blockquote>
+<p>即该指令不会因为编译器的优化而忽略,且要求每次直接读值.</p>
+</blockquote>
+<p>我们只需要为ChangeObjectThread添加一个方法stopMe(), 当stopme为true的时候才可以读取,为false的时候就禁止读取.并且直接退出run方法. 这也就保证了不会导致修改中途被撤销.</p>
+<pre><code>public class p22 {
+    public static User u=new User();
+    public static class User{
+        private int id;
+        public int getId() {
+            return id;
+        }
+        public void setId(int id) {
+            this.id = id;
+        }
+        public String getName() {
+            return name;
+        }
+        public void setName(String name) {
+            this.name = name;
+        }
+        private String name;
+        public User(){
+            id=0;
+            name=&quot;0&quot;;
+        }
+        @Override
+        public String toString(){
+            return &quot;User [id=&quot;+id+&quot;,name=&quot;+name+&quot;]&quot;;
+        }
+    }
+
+    public static class ChangeObjectThread extends Thread{
+
+        volatile boolean stopme=false;
+
+        public void stopMe(){
+            stopme=true;
+        }
+
+        @Override
+        public void run(){
+            while(true){
+                synchronized(u){
+                    if(stopme){
+                        System.out.println(&quot;exit by stop me&quot;);
+                        break;
+                    }
+                    int v=(int)(System.currentTimeMillis()/1000);
+                    u.setId(v);
+                    //Oh,do sth.else
+                    try{
+                        Thread.sleep(100);
+                    }catch(InterruptedException e){
+                        e.printStackTrace();
+                    }
+                    u.setName(String.valueOf(v));
+                }
+                Thread.yield();
+            }
+        }
+
+
+
+    }
+
+    public static class ReadObjectThread extends Thread{
+        @Override
+        public void run(){
+            while(true){
+                synchronized(u){
+                    if(u.getId()!=Integer.parseInt(u.getName())){
+                        System.out.println(u.toString());
+                    }
+                }
+                Thread.yield();
+            }
+        }
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+        new ReadObjectThread().start();
+        while(true){
+            ChangeObjectThread t=new ChangeObjectThread();
+            t.start();
+            Thread.sleep(100);
+            t.stopMe();
+        }
+    }
+
+}</code></pre><h3 id="线程中断"><a href="#线程中断" class="headerlink" title="线程中断"></a>线程中断</h3><p>为了解决stop可能会导致数据冲突的问题,JDK中提供了三个方法来实现线程中断.</p>
+<blockquote>
+<p>线程中断</p>
+<blockquote>
+<p>即线程中断不会使线程立即退出,而是给线程发一个通知,告知目标线程要中断了,至于如何处理,何时中断,<strong>由目标决定.</strong></p>
+</blockquote>
+</blockquote>
+<p><img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/ec4bce7b33d0b7bbbb972f5ef2404bc2.png" alt></p>
+<pre><code>public class p23 {
+
+    public static void main(String[] args) throws Exception{
+        // TODO Auto-generated method stub
+        Thread t1=new Thread(){
+            @Override
+            public void run(){
+                while(true){
+                    if(Thread.currentThread().isInterrupted()){
+                        System.out.println(&quot;Interruted!&quot;);
+                        break;
+                    }
+                    Thread.yield();
+                }
+            }
+        };
+        t1.start();
+        Thread.sleep(100);
+        t1.interrupt();
+    }
+
+}</code></pre><h4 id="Thread-sleep函数"><a href="#Thread-sleep函数" class="headerlink" title="Thread.sleep函数"></a>Thread.sleep函数</h4><p>他的签名如下: <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/b5e83f7565ce436cf16a37f5917f11ad.png" alt> Thread.sleep()会让当前线程休眠若干时间,他会抛出一个InterruptedException中断异常,这个异常不是运行时异常,也就是说程序必须捕获并处理它,当线程休眠时,如果被中断,该异常就会产生.</p>
+<pre><code>public class p23 {
+
+    public static void main(String[] args) throws Exception{
+        // TODO Auto-generated method stub
+        Thread t1=new Thread(){
+            @Override
+            public void run(){
+                while(true){
+                    if(Thread.currentThread().isInterrupted()){
+                        System.out.println(&quot;Interruted!&quot;);
+                        break;
+                    }
+                    try{
+                        Thread.sleep(2000);
+                    }catch(InterruptedException e){
+                        System.out.println(&quot;Interrpted When Sleep&quot;);
+                        Thread.currentThread().interrupt();
+                    }
+                    Thread.yield();
+                }
+            }
+        };
+        t1.start();
+        Thread.sleep(100);
+        t1.interrupt();
+    }
+
+}</code></pre><p>所以我们必须在捕捉该异常的同时再次放出中断异常,这样才能保证该线程被正常中断.</p>
+<h4 id="wait-与notify"><a href="#wait-与notify" class="headerlink" title="wait()与notify()"></a>wait()与notify()</h4><p>为了支持多线程间协作,JDK提供了等待wait()和通知notify()两个方法. 但这两个方法不存在Thread类中,而是输出Object类.这也就意味着任意的对象都可以调用该方法. 两个方法签名如下:</p>
+<pre><code>public final void wait() throws InterruptedException
+public final native void notify()</code></pre><p><img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/45787c634458f214da51856102ddff30.png" alt> <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/b5278147272b76af3b33e061e68201b6.png" alt> <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/b6d82ba876ebf51839908d5453046041.png" alt> <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/b48a839ed1fa92328e6d7d2b3533f3ac.png" alt> <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/34da980742c79e179903c43f753e473a.png" alt> 简单的例子:</p>
+<pre><code>public class p24 {
+    final static Object object = new Object();
+    public static class T1 extends Thread{
+        public void run(){
+            synchronized(object){
+                System.out.println(System.currentTimeMillis()+&quot;:T1 start!&quot;);
+                try{
+                    System.out.println(System.currentTimeMillis()+&quot;:T1 wait for object&quot;);
+                    object.wait();
+                }catch(InterruptedException e){
+                    e.printStackTrace();
+                }
+                System.out.println(System.currentTimeMillis()+&quot;:T1 end!&quot;);
+            }
+        }
+    }
+    public static class T2 extends Thread{
+        public void run(){
+            synchronized(object){
+                System.out.println(System.currentTimeMillis()+&quot;:T2 start! notify one thread&quot;);
+                object.notify();
+                System.out.println(System.currentTimeMillis()+&quot;:T2 end!&quot;);
+                try{
+                    Thread.sleep(2000);
+                }catch(InterruptedException e){
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        Thread t1=new T1();
+        Thread t2=new T2();
+        t1.start();
+        t2.start();
+    }
+
+}</code></pre><p>结果:</p>
+<pre><code>1529292002347:T1 start!
+1529292002347:T1 wait for object
+1529292002348:T2 start! notify one thread
+1529292002348:T2 end!
+1529292004348:T1 end!</code></pre><p>Tip: wait会释放所有的锁</p>
+<h4 id="挂起-suspend-和继续执行-resume-线程"><a href="#挂起-suspend-和继续执行-resume-线程" class="headerlink" title="挂起(suspend)和继续执行(resume)线程"></a>挂起(suspend)和继续执行(resume)线程</h4><p>suspend乍看起来和stop或者wait相似简单的用法,但是,值得注意的是,suspend并不会释放任何资源和锁.所以就会导致其他想要索取资源的线程也被牵连. 而且resume也是存在问题,有可能在suspend前执行,这就会导致当前线程的状态被误判.</p>
+<h4 id="等待线程结束-join-和谦让-yield"><a href="#等待线程结束-join-和谦让-yield" class="headerlink" title="等待线程结束(join)和谦让(yield)"></a>等待线程结束(join)和谦让(yield)</h4><p>一个线程需要等待另一个线程的结束才能继续执行(依赖输出)则用join. public final void join() throws InterruptedExcption public final synchronized void join(long millis) throws InterruptedException 第一个表示无限等待,他会一直阻塞线程,直到目标线程执行完毕. 第二个表示如果超过一段时间还没等到,则不等待,继续执行. 例:</p>
+<pre><code>public class p25 {
+    public volatile static int i=0;
+    public static class AddThread extends Thread{
+        @Override
+        public void run(){
+            for(i=0;i&lt;10000000;++i);
+        }
+    }
+    public static void main(String[] args) throws InterruptedException {
+        // TODO Auto-generated method stub
+        AddThread at=new AddThread();
+        at.start();
+        at.join();
+        System.out.println(i);
+
+    }
+
+}</code></pre><p>上述主函数中,如果不执行join来等待线程结束,则更多的可能是只会出现在线程结束前输出i的值(比如0)的情况. 如果用join来等待的话,则最终一定会输出1e7. join的本质是让调用线程wait()在当前线程对象实例上. 另一个: yield()方法是让当前线程让出CPU,然后重新加入到资源的争抢当中.如果觉得一个线程不是很重要,又害怕它占用过多的CPU,可以调用yield方法.</p>
+<h4 id="volatile与Java内存模型-JMM"><a href="#volatile与Java内存模型-JMM" class="headerlink" title="volatile与Java内存模型(JMM)"></a>volatile与Java内存模型(JMM)</h4><p>使用volatitle就表示告诉了虚拟机这个变量很可能被某线程修改. 虚拟机会特别小心的处理这个变量,尤其是当发现修改的顺序是反的时候. volatile可以很大程度上保证变量的完整性,但不保证操作的原子性,比如i++的原子操作完整性(i为32位下的长整型) 此外,volatile也能保证数据的可见性和有序性. 例:</p>
+<pre><code>public class p26 {
+
+    private volatile static boolean ready;
+    private static int number;
+
+    private static class ReaderThread extends Thread{
+        public void run(){
+            while(!ready);
+            System.out.println(number); 
+        }
+    }
+
+    public static void main(String[] args) throws InterruptedException{
+        new ReaderThread().start();
+        Thread.sleep(1000);
+        number=42;
+        ready=true;
+        Thread.sleep(10000);
+    }
+}</code></pre><p>因为指令的优化,在Server下线程无法”看到”ready”被修改.所以会无限的执行下去,这就是典型的可见性问题. 而加了volatiel修饰后的ready就不会出现这种情况了.</p>
+<h3 id="线程组"><a href="#线程组" class="headerlink" title="线程组"></a>线程组</h3><p>一个系统中如果存在过多的线程,而且分工比较明确,就可以将相同功能的线程放置在一个线程组内.这样会使效率更高些.</p>
+<pre><code>public class p27 implements Runnable{
+
+    public static void main(String[] args) {
+        // TODO Auto-generated method stub
+        ThreadGroup tg=new ThreadGroup(&quot;PrintGroup&quot;);
+        Thread t1=new Thread(tg,new p27(),&quot;T1&quot;);
+        Thread t2=new Thread(tg,new p27(),&quot;T2&quot;);
+        t1.start();
+        t2.start();
+        System.out.println(tg.activeCount());
+        tg.list();
+        //tg.stop();-慎用
+    }
+    @Override
+    public void run(){
+        String groupAndName=Thread.currentThread().getThreadGroup().getName()
+                +&quot;-&quot;+Thread.currentThread().getName();
+        while(true){
+            System.out.println(&quot;I am &quot;+groupAndName);
+            try{
+                Thread.sleep(3000);
+            }catch(InterruptedException e){
+                e.printStackTrace();
+            }
+        }
+    }
+}</code></pre><h3 id="驻守后台-守护线程-Daemon"><a href="#驻守后台-守护线程-Daemon" class="headerlink" title="驻守后台-守护线程(Daemon)"></a>驻守后台-守护线程(Daemon)</h3><p>JVM内部的实现是如果运行的程序只剩下守护线程的话，程序将终止运行，直接结束。所以守护线程是作为辅助线程存在的</p>
+<h3 id="线程优先级"><a href="#线程优先级" class="headerlink" title="线程优先级"></a>线程优先级</h3><p>Java可以自定义线程的优先级. <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/d05785fceddb6610ce2c0cf81eb21716.png" alt> 设置优先级用 (Thread).setPriority(优先级(1~10))</p>
+<h3 id="线程安全概念与synchronized"><a href="#线程安全概念与synchronized" class="headerlink" title="线程安全概念与synchronized"></a>线程安全概念与synchronized</h3><p>线程安全是并行程序开发的一大重点. 线程安全例子:</p>
+<pre><code>public class p28 implements Runnable{
+    static p28 instance=new p28();
+    static volatile int i=0;
+    public static void increase(){
+        i++;
+    }
+    @Override
+    public void run(){
+        for(int j=0;j&lt;10000000;++j){
+            increase();
+        }
+    }
+
+    public static void main(String[] args) throws InterruptedException{
+        // TODO Auto-generated method stub
+        Thread t1=new Thread(instance);
+        Thread t2=new Thread(instance);
+        t1.start();
+        t2.start();
+        t1.join();t2.join();
+        System.out.println(i);
+    }
+}</code></pre><p>如果把t1.join()放到t1.start()后面的话,输出就为正常结果.但如上这样子放的话,也就代表了两个线程实际上是一起执行的.但在某一时刻t1.join开启以后t2就暂停执行等待t1执行完再继续. 我们可以使用synchronized关键字来对同步的代码加锁.使得每一次只能有一个线程进入同步块. 代码在书上的-P58,之前写过很多次了.</p>
+<h3 id="并发下的ArrayList"><a href="#并发下的ArrayList" class="headerlink" title="并发下的ArrayList"></a>并发下的ArrayList</h3><p>ArrayList是线程不安全的,用Vector代替线程不安全的ArrayList即可.</p>
+<h3 id="并发下的HashMap"><a href="#并发下的HashMap" class="headerlink" title="并发下的HashMap"></a>并发下的HashMap</h3><p>并发下的HashMap可能会出现死循环的现象,为什么?下面来看一段代码 <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/7be0b2035576e2b5202c4ba9360fb90d.png" alt> 这段代码证明HashMap的插入是按照链表的方法插入的.而当死循环时就代表当前的HashMap链表被破坏成了环.也就导致了死循环. (但JDK8已经避免了这种情况的产生)</p>
+<h3 id="jps和jstack工具"><a href="#jps和jstack工具" class="headerlink" title="jps和jstack工具"></a>jps和jstack工具</h3><p>jps是查看当前所有大线程 jstack是定位到对应的线程以及代码</p>
+<h3 id="Integer其实使用工厂方法进行赋值的"><a href="#Integer其实使用工厂方法进行赋值的" class="headerlink" title="Integer其实使用工厂方法进行赋值的"></a>Integer其实使用工厂方法进行赋值的</h3><p>如果我们想要给Integer加锁时,我们不能直接在Integer(int)变量上加锁,因为Integer是用工厂方法进行赋值,每次给int赋值时都会重新生成一个Integer对象. 所以我们需要在改变量所在的实例化对象上加锁. 比如: public class k implements Runnable{ int a; public void run(){ Code here. } } 我们就需要在实例化后的k对象上加锁,而不是在a上加锁.</p>
+
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Java并行程序基础"><span class="toc-text">Java并行程序基础</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#进程-Process"><span class="toc-text">进程(Process)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#线程的生命周期"><span class="toc-text">线程的生命周期</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#初始线程-线程的基本操作"><span class="toc-text">初始线程: 线程的基本操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#新建线程"><span class="toc-text">新建线程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用Runnable接口来作为Thread的构造参数传入"><span class="toc-text">使用Runnable接口来作为Thread的构造参数传入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#终止线程"><span class="toc-text">终止线程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#测试"><span class="toc-text">测试</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#自定义线程停止"><span class="toc-text">自定义线程停止</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#线程中断"><span class="toc-text">线程中断</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Thread-sleep函数"><span class="toc-text">Thread.sleep函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#wait-与notify"><span class="toc-text">wait()与notify()</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#挂起-suspend-和继续执行-resume-线程"><span class="toc-text">挂起(suspend)和继续执行(resume)线程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#等待线程结束-join-和谦让-yield"><span class="toc-text">等待线程结束(join)和谦让(yield)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#volatile与Java内存模型-JMM"><span class="toc-text">volatile与Java内存模型(JMM)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#线程组"><span class="toc-text">线程组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#驻守后台-守护线程-Daemon"><span class="toc-text">驻守后台-守护线程(Daemon)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#线程优先级"><span class="toc-text">线程优先级</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#线程安全概念与synchronized"><span class="toc-text">线程安全概念与synchronized</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#并发下的ArrayList"><span class="toc-text">并发下的ArrayList</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#并发下的HashMap"><span class="toc-text">并发下的HashMap</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jps和jstack工具"><span class="toc-text">jps和jstack工具</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Integer其实使用工厂方法进行赋值的"><span class="toc-text">Integer其实使用工厂方法进行赋值的</span></a></li></ol></li></ol></li></ol>
+  </div>
+</aside>
+  
+    <aside class="passage-copyright">
+      <div>本文作者: 张文涛</div>
+      
+        <div>
+          原文链接: 
+          <a href="" target="_blank">http://be-sunshine.cn/passages/plan-two-2/</a>
+        </div>
+      
+      <div>
+        版权声明: 本博客所有文章除特别声明外, 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议. 转载请注明出处!
+      </div>
+    </aside>
+  
+  
+    <div class="passage-tags">
+     
+      <a href="/tags/技术/"><i class="fa fa-tags"></i>技术</a>
+    
+    </div>
+  
+</div>
+
+    </main>
+    
+      
+<div class="site-comment-contanier" data-plateform="leancloud">
+  
+    <p id="site-comment-info">
+      <i class="fa fa-spinner fa-spin"></i> 评论加载中
+    </p>
+    <div id="site-comment"></div>
+  
+</div>
+    
+    <div class="site-footer-wrapper">
+  <footer class="site-footer">
+    
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">博客推荐</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/" target="_blank">GodBMW</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="http://ruanyifeng.com/" target="_blank">阮一峰的个人网站</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">系列教程</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/categories/webpack4%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B/" target="_blank">webpack4系列教程</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/design-patterns/" target="_blank">设计模式手册</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">抓到我</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://weibo.com/3260959934/" target="_blank">微博</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://github.com/834930269" target="_blank">Github</a>
+            </span>
+          
+        </div>
+      
+    
+    <div class="site-footer-info">
+      <i class="fa fa-clock-o"></i> 本站已稳定运行<span id="site-time"></span>
+    </div>
+    
+      <div class="site-footer-info">
+        <i class="fa fa-paw"></i> 您是本站第 <span id="site-count"></span> 位访客
+      </div>
+    
+    
+      <div class="site-footer-info">
+        <i class="fa fa-at"></i> Email: 834930269@qq.com
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-copyright"></i> 
+      2019 <a href="https://github.com/dongyuanxin/theme-ad/" target="_blank">Theme-AD</a>.
+      Created by <a href="https://godbmw.com/" target="_blank">GodBMW</a>.
+      All rights reserved.
+    </div>
+  </footer>
+</div>
+    <div id="site-layer" style="display:none;">
+  <div class="site-layer-content">
+    <div class="site-layer-header">
+      <span class="site-layer-header-title" id="site-layer-title"></span>
+      <i class="fa fa-close" id="site-layer-close"></i>
+    </div>
+    <div class="site-layer-body" id="site-layer-container">
+      <div class="site-layer-input" id="site-layer-search" style="display: none;">
+        <div class="site-layer-input-choose">
+          <a href="javascript:void(0);" title="Change Search Engine">Google</a>
+        </div>
+        <input type="text">
+        <i class="fa fa-search"></i>
+      </div>
+      
+        <div class="site-layer-reward" id="site-layer-reward" style="display: none;">
+          
+            <div>
+              <img src="/images/wechat.png" alt="WeChat">
+              
+                <p>WeChat</p>
+              
+            </div>
+          
+            <div>
+              <img src="/images/alipay.png" alt="AliPay">
+              
+                <p>AliPay</p>
+              
+            </div>
+          
+        </div>
+      
+      <div id="site-layer-welcome" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+    
+
+<div class="bottom-bar">
+  <div class="bottom-bar-left">
+    <a href="/passages/pl2-lintcode/" data-enable="true">
+      <i class="fa fa-arrow-left"></i>
+    </a>
+    <a href="/passages/plan-category/" data-enable="true">
+      <i class="fa fa-arrow-right"></i>
+    </a>
+  </div>
+  <div class="bottom-bar-right">
+    <a href="javascript:void(0);" data-enable="true" id="site-toc-show-btn">
+      <i class="fa fa-bars"></i>
+    </a>
+    
+      <a href="#site-comment" data-enable="true">
+        <i class="fa fa-commenting"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="site-toggle-share-btn">
+      <i class="fa fa-share-alt"></i>
+    </a>
+    
+      <a href="javascript:void(0);" id="site-reward">
+        <i class="fa fa-thumbs-up"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="back-top-btn">
+      <i class="fa fa-chevron-up"></i>
+    </a>
+  </div>
+</div>
+    <div id="share-btn">
+  
+    <a id="share-btn-twitter" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-twitter"></i>
+    </a>
+  
+  
+    <a id="share-btn-facebook" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-facebook"></i>
+    </a>
+  
+  
+    <a id="share-btn-weibo" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-weibo"></i>
+    </a>
+  
+  
+    <a id="share-btn-qq" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-qq"></i>
+    </a>
+  
+  
+    <a id="share-btn-wechat" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-wechat"></i>
+    </a>
+  
+</div>
+    
+
+
+
+
+
+    
+  </body>
+</html>

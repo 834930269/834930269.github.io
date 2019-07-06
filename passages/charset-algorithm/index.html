@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html>
+  
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="author" content="张文涛">
+  
+  
+  <title>字符串算法 | 山海经▪大荒经</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="AC自动机,KMP,字符串处理,KMP,字符串处理,AC自动机,">
+  
+
+  
+  <meta name="description" content="Winter Zhang的小站">
+
+  
+
+  
+    <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.1/dist/av-min.js" async></script>
+  
+
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+  
+
+  
+    <script src="//unpkg.com/valine/dist/Valine.min.js" async></script>
+  
+
+  
+
+  <script>
+  // theme-ad's config script
+  // it can be used in every script
+  
+  window.AD_CONFIG = {
+    leancloud: {"appid":"Hyq9wkH495DgNHWhDQCOfQSp-gzGzoHsz","appkey":"WaR7nrzhliHj9aVwdQzkdlGd","comment":true,"count":true},
+    welcome: {"enable":false,"interval":30},
+    start_time: "2015-02-10",
+    passwords: ["c035b468e47fd966ac2df15e3d7f7a64d89b1dbf209c24caad6e62bffd90d4c7", ],
+    is_post: true,
+    lock: false,
+    author: "张文涛",
+    share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
+    mathjax: true,
+    page_type: "",
+    root: "/"
+  };
+</script>
+
+  <script src="/vendor/sha256.min.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/index.js"></script>
+<script src="/vendor/qrcode.min.js"></script>
+
+  
+    <link rel="icon" href="/images/favicon2.ico">
+    <link rel="apple-touch-icon" href="/images/touch-icon.png">
+  
+
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/styles/components/highlight/highlight.css">
+
+  
+</head>
+  <body>
+    <header class="site-header">
+  <div class="site-header-brand">
+    
+      <span class="site-header-brand-title">
+        <a href="/">想你了</a>
+      </span>
+    
+    
+      <span class="site-header-brand-motto"> | 祝你平安幸福</span>
+    
+  </div>
+  <div class="site-header-right">
+    <nav class="site-header-navigation">
+      
+        <a href="/" target="_self">首页</a>
+      
+        <a href="/archives/" target="_self">归档</a>
+      
+        <a href="/tags/" target="_self">标签</a>
+      
+        <a href="/categories/" target="_self">分类</a>
+      
+        <a href="/friends/" target="_self">友链</a>
+      
+        <a href="/about/" target="_self">关于</a>
+      
+    </nav>
+    <div class="site-header-btn">
+      
+        <a href="https://github.com/834930269/" target="_blank" id="site-github">
+          <i class="fa fa-github-alt"></i>
+        </a>
+      
+      <a href="javascript:void(0);" id="site-search">
+        <i class="fa fa-search"></i>
+      </a>
+      <a href="javascript:void(0);" id="site-nav-btn">
+        <i class="fa fa-ellipsis-v"></i>
+      </a>
+    </div>
+  </div>
+</header>
+<nav class="table-content" id="site-nav">
+  <div class="table-content-title">
+    <span>导航</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc">
+      
+        <li class="toc-item">
+          <a href="/" target="_self">
+            首页
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/archives/" target="_self">
+            归档
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/tags/" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/categories/" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/friends/" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/about/" target="_self">
+            关于
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</nav>
+<div id="site-process"></div>
+    <main>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2018-02-24
+    </span>
+    
+      <span>
+        | <a href="/categories/AC自动机/"><i class="fa fa-bookmark"></i>AC自动机</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    字符串算法
+  </h1>
+  
+  <article class="passage-article">
+    <h1 id="Trie"><a href="#Trie" class="headerlink" title="Trie"></a>Trie</h1><blockquote>
+<p>这个…不想写了</p>
+</blockquote>
+<h1 id="KMP"><a href="#KMP" class="headerlink" title="KMP"></a>KMP</h1><blockquote>
+<p>朴素的对比字符串算法复杂度是O(mn)的.这样一来对两串比较长的字符串就显得略微低效了. KMP算法的时间复杂度也不过O(m+n)</p>
+</blockquote>
+<h2 id="Next数组"><a href="#Next数组" class="headerlink" title="Next数组"></a>Next数组</h2><blockquote>
+<p>对于KMP而言最重要的莫过于这个Next数组了.</p>
+<blockquote>
+<p>Next数组最大的作用在于当匹配失败时,需要跳转到哪个下标.</p>
+</blockquote>
+<p>构造方法:</p>
+<blockquote>
+<p>Next[i]=max{j | j\&lt;i 且N[1..j]=N[i-j+1..i]}</p>
+<blockquote>
+<p>即Next[i]球的试串P[1..i]的一个最长的前缀P[1..j],这个前缀同时也是他的后缀。当这个前缀找不到的时候,Next[i]=0</p>
+</blockquote>
+</blockquote>
+<p>例如:</p>
+<blockquote>
+<p>模式串 P = ababc</p>
+<blockquote>
+<p>则Next[4]=2,因为ab不仅是abab的前缀,也是他的后缀. 而Next[5]=0，因为无法找到ababc(P[1..5])的一个前缀同时又是他的后缀.</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<h3 id="附上一张图"><a href="#附上一张图" class="headerlink" title="附上一张图"></a>附上一张图</h3><p><a href="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/02/bVDOro.png" target="_blank" rel="noopener"><img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/02/bVDOro.png" alt></a></p>
+<h2 id="匹配时逻辑"><a href="#匹配时逻辑" class="headerlink" title="匹配时逻辑"></a>匹配时逻辑</h2><blockquote>
+<p>KMP 在匹配时同时维护两个下标 i 和 j ,表示当前模式串 P 的前 j 个字符与主串 T 在位置 i 前的 j 个字符匹配,即 P[1..j]=T[i-j..i-1]。 当算法尝试对 T[i] 和 P[j+1] 匹配中遇到不相同的字符,就会通过Next数组进行跳跃。</p>
+</blockquote>
+<h2 id="算法实现"><a href="#算法实现" class="headerlink" title="算法实现"></a>算法实现</h2><h3 id="Next数组-1"><a href="#Next数组-1" class="headerlink" title="Next数组"></a>Next数组</h3><h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><pre><code>#include&lt;bits/stdc++.h&gt;
+using namespace std;
+const int maxn=10000+7;
+int Next[maxn];
+string S,T;//S主串,T子串
+
+void getNext(){
+    int k=-1,len=T.length();
+    int j=0;
+    Next[0]=-1;
+    while(j&lt;len){
+        //如果有相同前缀
+        if(k==-1 || T[j]==T[k]) Next[++j]=++k;
+        else k=Next[k];
+    }
+}
+
+void print(){
+    for(int i=0;i&lt;T.length();++i){
+        cout&lt;&lt;Next[i]&lt;&lt;&quot; &quot;;
+    }
+    cout&lt;&lt;endl;
+}
+
+int main(){
+    while(cin&gt;&gt;T){
+        getNext();
+        print();
+    }
+    return 0;
+}</code></pre><h4 id="几组数据"><a href="#几组数据" class="headerlink" title="几组数据"></a>几组数据</h4><pre><code>ababc
+Next: -1 0 0 1 2
+
+abcdef
+Next: -1 0 0 0 0 0
+
+abcdabce
+Next: -1 0 0 0 0 1 2 3
+
+abcabcabc
+Next: -1 0 0 0 1 2 3 4 5
+
+abcdabcabcd
+Next: -1 0 0 0 0 1 2 3 1 2 3</code></pre><h3 id="KMP-返回第一个匹配的下标"><a href="#KMP-返回第一个匹配的下标" class="headerlink" title="KMP - 返回第一个匹配的下标"></a>KMP - 返回第一个匹配的下标</h3><h4 id="主程"><a href="#主程" class="headerlink" title="主程"></a>主程</h4><pre><code>#include&lt;bits/stdc++.h&gt;
+using namespace std;
+const int maxn=10000+7;
+int Next[maxn];
+string S,T;//S主串,T子串
+
+void getNext(){
+    int k=-1,len=T.length();
+    int j=0;
+    Next[0]=-1;
+    while(j&lt;len){
+        //如果有相同前缀
+        if(k==-1 || T[j]==T[k]) Next[++j]=++k;
+        else k=Next[k];
+    }
+}
+
+void print(){
+    for(int i=0;i&lt;T.length();++i){
+        cout&lt;&lt;Next[i]&lt;&lt;&quot; &quot;;
+    }
+    cout&lt;&lt;endl;
+}
+
+int KMP_index(){
+    int i=0,j=0,slen=S.length(),tlen=T.length();
+    getNext();
+    while(i&lt;slen &amp;&amp; j&lt;tlen){
+        if(j==-1 || S[i]==T[j]){
+            i++;
+            j++;
+        }else j=Next[j];
+    }
+    if(j==tlen) return i-tlen;
+    else return -1;
+}
+
+int main(){
+    while(cin&gt;&gt;S&gt;&gt;T){
+        int ans=KMP_index();
+        if(ans==-1) cout&lt;&lt;&quot;Failed!&quot;&lt;&lt;endl;
+        else cout&lt;&lt;&quot;Succesed!String T was matched in index &quot;&lt;&lt;ans&lt;&lt;&quot;.&quot;&lt;&lt;endl;
+        print();
+    }
+    return 0;
+}</code></pre><h4 id="两组数据"><a href="#两组数据" class="headerlink" title="两组数据"></a>两组数据</h4><pre><code>IN[0]: jashdjashdjabababcabcsdas
+IN[1]: abcabc
+OUT[0]: Succesed!String T was matched in index 15.
+OUT[1]: -1 0 0 0 1 2
+IN[2]: jashdjashdjabababcabcsdas
+IN[3]: abcabcd
+OUT[2]: Failed!
+OUT[3]: -1 0 0 0 1 2 3</code></pre><h1 id="AC-Corasick-自动机"><a href="#AC-Corasick-自动机" class="headerlink" title="AC-Corasick 自动机"></a>AC-Corasick 自动机</h1><blockquote>
+<p>思想是KMP+Trie,在Trie上建立失配指针.</p>
+<blockquote>
+<p>常用于主串匹配多个字符串</p>
+</blockquote>
+</blockquote>
+<h2 id="尾节点记录字符串下标的AC自动机"><a href="#尾节点记录字符串下标的AC自动机" class="headerlink" title="尾节点记录字符串下标的AC自动机"></a>尾节点记录字符串下标的AC自动机</h2><blockquote>
+<p>优点是可以直接输出字符串.</p>
+</blockquote>
+<pre><code>#include&lt;bits/stdc++.h&gt;
+using namespace std;
+
+const int maxn=(int)500005;
+const int max_tot=(int)1e6+6;
+
+int T,N;
+char str[10010][60],tot[max_tot];
+
+struct AC_AutoMaton{
+    static const int sigma_size=26;
+    static const char first_caractar=&apos;a&apos;;
+    ///Trie树
+    int ch[maxn][sigma_size];
+    ///后缀相关数组
+    int f[maxn],last[maxn];
+    ///个数信息,尾节点记录信息
+    int cnt[maxn],val[maxn];
+    ///总节点个数
+    int siz;
+
+    int all_su;///记录总共有多少不可重复子串
+
+    void init(){
+        siz=all_su=0;
+        memset(ch,0,sizeof(ch));
+        memset(val,0,sizeof(val));
+    }
+
+    int ord(char c){
+        return c-first_caractar;
+    }
+
+    void insert(char *s,int v){
+        int u=0,n=strlen(s);
+        for(int i=0;i&lt;n;++i){
+            int c=ord(s[i]);
+            if(!ch[u][c]) ch[u][c]=++siz;
+            u=ch[u][c];
+       }
+       ///尾节点记录字符串在str数组的下标
+       val[u]=v;
+    }
+
+    //Fail树
+    void getFail(){
+        queue&lt;int&gt; Q;
+        f[0]=0;
+        ///遍历取出第一个节点所有的前向字符
+        for(int c=0;c&lt;sigma_size;++c){
+            int u=ch[0][c];
+            if(u){
+                f[u]=last[u]=0;
+                Q.push(u);
+            }
+        }
+        while(!Q.empty()){
+            int k=Q.front();
+            Q.pop();
+            for(int c=0;c&lt;sigma_size;++c){
+                int u=ch[k][c];
+                if(!u) continue;
+                Q.push(u);
+                int v=f[k];
+                while(v &amp;&amp; !ch[v][c]) v=f[v];
+                f[u]=ch[v][c];
+                last[u]=val[f[u]]?f[u]:last[f[u]];
+            }
+        }
+    }
+
+    ///统计
+    void add(int u){
+        for(;u;u=last[u]){
+            if(!cnt[val[u]]) all_su++;
+            printf(&quot;\n%s\n&quot;,str[val[u]-1]);
+            cnt[val[u]]++;
+        }
+    }
+
+    ///多模式匹配
+    void Find(char *s){
+        int u=0,n=strlen(s);
+        memset(cnt,0,sizeof(cnt));
+        for(int i=0;i&lt;n;++i){
+            int c=ord(s[i]);
+            while(u &amp;&amp; !ch[u][c]) u=f[u];
+            u=ch[u][c];
+            if(val[u]) add(u);
+            else if(last[u]) add(last[u]);
+        }
+    }
+}aho;
+
+int main(){
+    scanf(&quot;%d&quot;,&amp;T);
+    while(T--){
+        aho.init();
+        scanf(&quot;%d&quot;,&amp;N);
+        for(int i=0;i&lt;N;++i){
+            scanf(&quot;%s&quot;,str[i]);
+            aho.insert(str[i],i+1);
+        }
+        aho.getFail();
+        scanf(&quot;%s&quot;,tot);
+        aho.Find(tot);
+        printf(&quot;%d\n&quot;,aho.all_su);
+    }
+    return 0;
+}</code></pre><h2 id="尾节点记录可重复子串在总串中出现次数"><a href="#尾节点记录可重复子串在总串中出现次数" class="headerlink" title="尾节点记录可重复子串在总串中出现次数"></a>尾节点记录可重复子串在总串中出现次数</h2><pre><code>#include&lt;bits/stdc++.h&gt;
+using namespace std;
+
+const int maxn=(int)500005;
+const int max_tot=(int)1e6+6;
+
+int T,N;
+char str[10010][60],tot[max_tot];
+
+struct AC_AutoMaton{
+    static const int sigma_size=26;
+    static const char first_caractar=&apos;a&apos;;
+    int ch[maxn][sigma_size];
+    int f[maxn],last[maxn];
+    int cnt[maxn],val[maxn];
+    int siz;
+
+    int ans;
+
+    void init(){
+        siz=ans=0;
+        memset(ch,0,sizeof(ch));
+        memset(val,0,sizeof(val));
+    }
+
+    int ord(char c){
+        return c-first_caractar;
+    }
+
+    void insert(char *s){
+        int u=0,n=strlen(s);
+        for(int i=0;i&lt;n;++i){
+            int c=ord(s[i]);
+            if(!ch[u][c]) ch[u][c]=++siz;
+            u=ch[u][c];
+       }
+       ///表示以第u棵节点为字符串最后一个字符节点的个数
+       ///如果想存储该节点代表的是哪个字符串.即存储该字符串的下标
+       ///val[u]=v;(v是下标)
+       ///但是这样存储就会出现无法统计之前有多少个重复字符串
+       ///比如这道题如果输入
+       ///3
+       ///sha
+       ///sha
+       ///sha
+       ///shashasha
+       ///则用第一种方法最后结果是3
+       ///但用第二种方法只能匹配一次sha
+       val[u]++;
+    }
+    //Fail树
+    void getFail(){
+        queue&lt;int&gt; Q;
+        f[0]=0;
+        ///遍历取出第一个节点所有的前向字符
+        for(int c=0;c&lt;sigma_size;++c){
+            int u=ch[0][c];
+            if(u){
+                f[u]=last[u]=0;
+                Q.push(u);
+            }
+        }
+        while(!Q.empty()){
+            int k=Q.front();
+            Q.pop();
+            for(int c=0;c&lt;sigma_size;++c){
+                int u=ch[k][c];
+                if(!u) continue;
+                Q.push(u);
+                int v=f[k];
+                while(v &amp;&amp; !ch[v][c]) v=f[v];
+                f[u]=ch[v][c];
+                last[u]=val[f[u]]?f[u]:last[f[u]];
+            }
+        }
+    }
+
+    ///统计
+    void add(int u){
+        if(u){
+            if(!cnt[u]) ans+=val[u],cnt[u]=1;
+            add(last[u]);
+        }
+    }
+
+    ///多模式匹配
+    void Find(char *s){
+        int u=0,n=strlen(s);
+        memset(cnt,0,sizeof(cnt));
+        for(int i=0;i&lt;n;++i){
+            int c=ord(s[i]);
+            while(u &amp;&amp; !ch[u][c]) u=f[u];
+            u=ch[u][c];
+            if(val[u]) add(u);
+            else if(last[u]) add(last[u]);
+        }
+    }
+}aho;
+
+int main(){
+    scanf(&quot;%d&quot;,&amp;T);
+    while(T--){
+        aho.init();
+        scanf(&quot;%d&quot;,&amp;N);
+        for(int i=0;i&lt;N;++i){
+            scanf(&quot;%s&quot;,str[i]);
+            aho.insert(str[i]);
+        }
+        aho.getFail();
+        scanf(&quot;%s&quot;,tot);
+        aho.Find(tot);
+        printf(&quot;%d\n&quot;,aho.ans);
+    }
+    return 0;
+}</code></pre><h2 id="失配函数优化"><a href="#失配函数优化" class="headerlink" title="失配函数优化"></a>失配函数优化</h2><blockquote>
+<p>接下来都基于第一个代码进行优化,可以复刻到第二个代码上</p>
+<blockquote>
+<p>即将失配记录转变成 一条确定的边连到Trie中(这样应该就不能被称之为树了)</p>
+</blockquote>
+<p>if(!u) continue; =&gt;</p>
+<blockquote>
+<p>if(!u) {ch[k][c]=ch[f[k]][c];continue;} 删掉适配函数BFS中的 while()</p>
+</blockquote>
+</blockquote>
+<pre><code>#include&lt;bits/stdc++.h&gt;
+using namespace std;
+
+const int maxn=(int)500005;
+const int max_tot=(int)1e6+6;
+
+int T,N;
+char str[10010][60],tot[max_tot];
+
+struct AC_AutoMaton{
+    static const int sigma_size=26;
+    static const char first_caractar=&apos;a&apos;;
+    ///Trie树
+    int ch[maxn][sigma_size];
+    ///后缀相关数组
+    int f[maxn],last[maxn];
+    ///个数信息,尾节点记录信息
+    int cnt[maxn],val[maxn];
+    ///总节点个数
+    int siz;
+
+    int all_su;///记录总共有多少不可重复子串
+
+    void init(){
+        siz=all_su=0;
+        memset(ch,0,sizeof(ch));
+        memset(val,0,sizeof(val));
+    }
+
+    int ord(char c){
+        return c-first_caractar;
+    }
+
+    void insert(char *s,int v){
+        int u=0,n=strlen(s);
+        for(int i=0;i&lt;n;++i){
+            int c=ord(s[i]);
+            if(!ch[u][c]) ch[u][c]=++siz;
+            u=ch[u][c];
+       }
+       ///尾节点记录字符串在str数组的下标
+       val[u]=v;
+    }
+
+    //Fail树
+    void getFail(){
+        queue&lt;int&gt; Q;
+        f[0]=0;
+        ///遍历取出第一个节点所有的前向字符
+        for(int c=0;c&lt;sigma_size;++c){
+            int u=ch[0][c];
+            if(u){
+                f[u]=last[u]=0;
+                Q.push(u);
+            }
+        }
+        while(!Q.empty()){
+            int k=Q.front();
+            Q.pop();
+            for(int c=0;c&lt;sigma_size;++c){
+                int u=ch[k][c];
+                if(!u) {ch[k][c]=ch[f[k]][c];continue;}
+                Q.push(u);
+                int v=f[k];
+                f[u]=ch[v][c];
+                last[u]=val[f[u]]?f[u]:last[f[u]];
+            }
+        }
+    }
+
+    ///统计
+    void add(int u){
+        for(;u;u=last[u]){
+            if(!cnt[val[u]]) all_su++;
+            printf(&quot;\n%s\n&quot;,str[val[u]-1]);
+            cnt[val[u]]++;
+        }
+    }
+
+    ///多模式匹配
+    void Find(char *s){
+        int u=0,n=strlen(s);
+        memset(cnt,0,sizeof(cnt));
+        for(int i=0;i&lt;n;++i){
+            int c=ord(s[i]);
+            while(u &amp;&amp; !ch[u][c]) u=f[u];
+            u=ch[u][c];
+            if(val[u]) add(u);
+            else if(last[u]) add(last[u]);
+        }
+    }
+}aho;
+
+int main(){
+    scanf(&quot;%d&quot;,&amp;T);
+    while(T--){
+        aho.init();
+        scanf(&quot;%d&quot;,&amp;N);
+        for(int i=0;i&lt;N;++i){
+            scanf(&quot;%s&quot;,str[i]);
+            aho.insert(str[i],i+1);
+        }
+        aho.getFail();
+        scanf(&quot;%s&quot;,tot);
+        aho.Find(tot);
+        printf(&quot;%d\n&quot;,aho.all_su);
+    }
+    return 0;
+}</code></pre><h2 id="MLE和TLE优化–内存优化"><a href="#MLE和TLE优化–内存优化" class="headerlink" title="MLE和TLE优化–内存优化"></a>MLE和TLE优化–内存优化</h2><blockquote>
+<p>听说之前网络赛的时候就有道AC自动机的题,然后普通的模板总是MLE. 少了一半的时间,一半的内存</p>
+<blockquote>
+<p>意在每次不全初始化,每多一个节点初始化一次</p>
+</blockquote>
+</blockquote>
+<pre><code>#include&lt;bits/stdc++.h&gt;
+using namespace std;
+
+const int maxn=(int)500005;
+const int max_tot=(int)1e6+6;
+
+int T,N;
+char str[60],tot[max_tot];
+
+struct AC_AutoMaton{
+    static const int sigma_size=26;
+    static const char first_caractar=&apos;a&apos;;
+    ///Trie树
+    int ch[maxn][sigma_size];
+    ///后缀相关数组fail,last
+    int f[maxn];
+    ///个数信息,尾节点记录信息
+    int cnt[maxn],val[maxn];
+    ///总节点个数,根节点编号
+    int siz,root;
+
+    int ans;
+
+    int newNode(){
+        memset(ch[siz],0,sizeof(ch[siz]));
+        f[siz]=val[siz]=0;
+        return siz++;
+    }
+
+    void init(){
+        ans=0;siz=0;root=newNode();
+    }
+
+    int ord(char c){
+        return c-first_caractar;
+    }
+
+    void insert(char *s){
+        int u=root,n=strlen(s);
+        for(int i=0;i&lt;n;++i){
+            int c=ord(s[i]);
+            if(!ch[u][c]) ch[u][c]=newNode();
+            u=ch[u][c];
+       }
+       val[u]++;
+    }
+
+    //Fail树,build
+    void getFail(){
+        queue&lt;int&gt; Q;
+        Q.push(root);
+
+        while(!Q.empty()){
+            int k=Q.front();
+            Q.pop();
+            for(int c=0;c&lt;sigma_size;++c){
+                if(ch[k][c]){
+                    f[ch[k][c]]=k?ch[f[k]][c]:0;
+                    Q.push(ch[k][c]);
+                }
+                else ch[k][c]=ch[f[k]][c];
+            }
+        }
+    }
+
+    ///多模式匹配
+    void Find(char *s){
+        int u=0,n=strlen(s);
+        for(int i=0;i&lt;n;++i){
+            int c=ord(s[i]);
+            u=ch[u][c];
+            int p=u;
+            while(p &amp;&amp; val[p]){
+                ans+=val[p];
+                val[p]=0;
+                p=f[p];
+            }
+        }
+    }
+}aho;
+
+int main(){
+    scanf(&quot;%d&quot;,&amp;T);
+    while(T--){
+        aho.init();
+        scanf(&quot;%d&quot;,&amp;N);
+        for(int i=0;i&lt;N;++i){
+            scanf(&quot;%s&quot;,str);
+            aho.insert(str);
+        }
+        aho.getFail();
+        scanf(&quot;%s&quot;,tot);
+        aho.Find(tot);
+        printf(&quot;%d\n&quot;,aho.ans);
+    }
+    return 0;
+}</code></pre><h2 id="但是以上自动机识别形如a-ab-abc-abcd这类子串会出问题-在刷题时发现的-下面重新用新的方法来解决这个问题-建议用下面的AC自动机"><a href="#但是以上自动机识别形如a-ab-abc-abcd这类子串会出问题-在刷题时发现的-下面重新用新的方法来解决这个问题-建议用下面的AC自动机" class="headerlink" title="但是以上自动机识别形如a,ab,abc,abcd这类子串会出问题,在刷题时发现的,下面重新用新的方法来解决这个问题,建议用下面的AC自动机"></a>但是以上自动机识别形如a,ab,abc,abcd这类子串会出问题,在刷题时发现的,下面重新用新的方法来解决这个问题,建议用下面的AC自动机</h2><h3 id="HDU-2222，上面的那些题-修改"><a href="#HDU-2222，上面的那些题-修改" class="headerlink" title="HDU 2222，上面的那些题,修改"></a>HDU 2222，上面的那些题,修改</h3><pre><code>#include&lt;bits/stdc++.h&gt;
+using namespace std;
+
+const int maxn=1000000+6;
+
+int T,N,tot_len;
+char str[maxn],len[maxn];
+
+struct AC_AutoMaton{
+    static const int sigma_size=26;
+
+    int ch[maxn][sigma_size];
+
+    int f[maxn];
+
+    int cle[maxn],val[maxn];
+
+    int siz,root,ans;
+
+    int newNode(){
+        for(int i=0;i&lt;sigma_size;++i){
+            ch[siz][i]=0;
+        }
+        f[siz]=val[siz]=0;
+        return siz++;
+    }
+
+    void init(){
+        for(int i=0;i&lt;maxn;++i) val[i]=0;
+        ans=0;
+        siz=0;root=0;
+        newNode();
+    }
+
+    int ord(char c){
+        if(isupper(c))
+            c=tolower(c);
+        return (int)(c-&apos;a&apos;);
+    }
+
+    void insert(char *s){
+        int u=root,n=strlen(s);
+        for(int i=0;i&lt;n;++i){
+            int c=ord(s[i]);
+            if(!ch[u][c]) ch[u][c]=newNode();
+            u=ch[u][c];
+       }
+       val[u]++;
+    }
+
+    void getFail(){
+        queue&lt;int&gt; Q;
+        Q.push(root);
+        while(!Q.empty()){
+            int k=Q.front();
+            Q.pop();
+            for(int c=0;c&lt;sigma_size;++c){
+                if(ch[k][c]){
+                    f[ch[k][c]]=k?ch[f[k]][c]:0;
+                    Q.push(ch[k][c]);
+                }
+                else ch[k][c]=ch[f[k]][c];
+            }
+        }
+    }
+
+    void add(int u,int i){
+        while(u){
+            if(val[u]){
+                int t=len[val[u]];
+                for(int r=0;r&lt;t;++r){
+                    cle[i-r]=1;
+                }
+                return;
+            }
+            u=f[u];
+        }
+    }
+
+    void Find(char *s){
+        int u=0,n=tot_len;
+        for(int i=0;i&lt;tot_len;++i) cle[i]=0;
+        for(int i=0;i&lt;n;++i){
+            int c=ord(s[i]);
+            ///下面这句加不加都一样
+            //while(u &amp;&amp; !ch[u][c]) u=f[u];
+            u=ch[u][c];
+            int p=u;
+            while(p &amp;&amp; val[p]){
+                ans+=val[p];
+                val[p]=0;
+                p=f[p];
+            }
+        }
+    }
+
+}aho;
+
+int main(){
+    scanf(&quot;%d&quot;,&amp;T);
+    while(T--){
+        aho.init();
+        scanf(&quot;%d&quot;,&amp;N);
+        for(int i=0;i&lt;N;++i){
+            scanf(&quot;%s&quot;,str);
+            aho.insert(str);
+            len[i+1]=strlen(str);
+        }
+        getchar();
+        aho.getFail();
+        tot_len=0;
+        gets(str);
+        tot_len=strlen(str);
+        aho.Find(str);
+        printf(&quot;%d\n&quot;,aho.ans);
+    }
+    return 0;
+}</code></pre><h3 id="HDU-5880-青岛区域赛网赛"><a href="#HDU-5880-青岛区域赛网赛" class="headerlink" title="HDU 5880,青岛区域赛网赛"></a>HDU 5880,青岛区域赛网赛</h3><pre><code>#include&lt;bits/stdc++.h&gt;
+using namespace std;
+
+const int maxn=1000000+6;
+
+int T,N,tot_len;
+char str[maxn],len[maxn];
+
+struct AC_AutoMaton{
+    static const int sigma_size=26;
+
+    int ch[maxn][sigma_size];
+
+    int f[maxn];
+
+    int cle[maxn],val[maxn];
+
+    int siz,root;
+
+    int newNode(){
+        for(int i=0;i&lt;sigma_size;++i){
+            ch[siz][i]=0;
+        }
+        f[siz]=val[siz]=0;
+        return siz++;
+    }
+
+    void init(){
+        for(int i=0;i&lt;maxn;++i) val[i]=0;
+
+        siz=0;root=0;
+        newNode();
+    }
+
+    int ord(char c){
+        if(isupper(c))
+            c=tolower(c);
+        return (int)(c-&apos;a&apos;);
+    }
+
+    void insert(char *s,int v){
+        int u=root,n=strlen(s);
+        for(int i=0;i&lt;n;++i){
+            int c=ord(s[i]);
+            if(!ch[u][c]) ch[u][c]=newNode();
+            u=ch[u][c];
+       }
+       val[u]=v;
+    }
+
+    void getFail(){
+        queue&lt;int&gt; Q;
+        Q.push(root);
+        while(!Q.empty()){
+            int k=Q.front();
+            Q.pop();
+            for(int c=0;c&lt;sigma_size;++c){
+                if(ch[k][c]){
+                    f[ch[k][c]]=k?ch[f[k]][c]:0;
+                    Q.push(ch[k][c]);
+                }
+                else ch[k][c]=ch[f[k]][c];
+            }
+        }
+    }
+
+    void add(int u,int i){
+        while(u){
+            if(val[u]){
+                int t=len[val[u]];
+                for(int r=0;r&lt;t;++r){
+                    cle[i-r]=1;
+                }
+                return;
+            }
+            u=f[u];
+        }
+    }
+
+    void Find(char *s){
+        int u=0,n=tot_len;
+        for(int i=0;i&lt;tot_len;++i) cle[i]=0;
+        for(int i=0;i&lt;n;++i){
+            if(!isalpha(s[i])){
+                u=0;
+                continue;
+            }
+            int c=ord(s[i]);
+            ///下面这句加不加都一样
+            //while(u &amp;&amp; !ch[u][c]) u=f[u];
+            u=ch[u][c];
+            /*
+            int p=u;
+            //cout&lt;&lt;i&lt;&lt;&quot;  &quot;&lt;&lt;u&lt;&lt;&quot;: &quot;&lt;&lt;c&lt;&lt;endl;
+            ///while是用来判断子串的.这道题不需要加
+            while(p &amp;&amp; val[p]){
+                p=f[p];
+            }
+            */
+            add(u,i);
+        }
+    }
+
+    void print(){
+        for(int i=0;i&lt;tot_len;++i){
+            if(cle[i]) putchar(&apos;*&apos;);
+            else putchar(str[i]);
+        }
+        printf(&quot;\n&quot;);
+    }
+}aho;
+
+int main(){
+    scanf(&quot;%d&quot;,&amp;T);
+    while(T--){
+        aho.init();
+        scanf(&quot;%d&quot;,&amp;N);
+        for(int i=0;i&lt;N;++i){
+            scanf(&quot;%s&quot;,str);
+            aho.insert(str,i+1);
+            len[i+1]=strlen(str);
+        }
+        getchar();
+        aho.getFail();
+        tot_len=0;
+        //scanf(&quot;%[^\n]&quot;,str);
+        gets(str);
+        tot_len=strlen(str);
+        //cout&lt;&lt;tot_len&lt;&lt;endl;
+        aho.Find(str);
+        aho.print();
+    }
+    return 0;
+}</code></pre><h1 id="后缀数组"><a href="#后缀数组" class="headerlink" title="后缀数组"></a>后缀数组</h1><h1 id="后缀自动机"><a href="#后缀自动机" class="headerlink" title="后缀自动机"></a>后缀自动机</h1>
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Trie"><span class="toc-text">Trie</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#KMP"><span class="toc-text">KMP</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Next数组"><span class="toc-text">Next数组</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#附上一张图"><span class="toc-text">附上一张图</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#匹配时逻辑"><span class="toc-text">匹配时逻辑</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算法实现"><span class="toc-text">算法实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Next数组-1"><span class="toc-text">Next数组</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#代码"><span class="toc-text">代码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#几组数据"><span class="toc-text">几组数据</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#KMP-返回第一个匹配的下标"><span class="toc-text">KMP - 返回第一个匹配的下标</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#主程"><span class="toc-text">主程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#两组数据"><span class="toc-text">两组数据</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#AC-Corasick-自动机"><span class="toc-text">AC-Corasick 自动机</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#尾节点记录字符串下标的AC自动机"><span class="toc-text">尾节点记录字符串下标的AC自动机</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#尾节点记录可重复子串在总串中出现次数"><span class="toc-text">尾节点记录可重复子串在总串中出现次数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#失配函数优化"><span class="toc-text">失配函数优化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MLE和TLE优化–内存优化"><span class="toc-text">MLE和TLE优化–内存优化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#但是以上自动机识别形如a-ab-abc-abcd这类子串会出问题-在刷题时发现的-下面重新用新的方法来解决这个问题-建议用下面的AC自动机"><span class="toc-text">但是以上自动机识别形如a,ab,abc,abcd这类子串会出问题,在刷题时发现的,下面重新用新的方法来解决这个问题,建议用下面的AC自动机</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#HDU-2222，上面的那些题-修改"><span class="toc-text">HDU 2222，上面的那些题,修改</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HDU-5880-青岛区域赛网赛"><span class="toc-text">HDU 5880,青岛区域赛网赛</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#后缀数组"><span class="toc-text">后缀数组</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#后缀自动机"><span class="toc-text">后缀自动机</span></a></li></ol>
+  </div>
+</aside>
+  
+    <aside class="passage-copyright">
+      <div>本文作者: 张文涛</div>
+      
+        <div>
+          原文链接: 
+          <a href="" target="_blank">http://be-sunshine.cn/passages/charset-algorithm/</a>
+        </div>
+      
+      <div>
+        版权声明: 本博客所有文章除特别声明外, 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议. 转载请注明出处!
+      </div>
+    </aside>
+  
+  
+    <div class="passage-tags">
+     
+      <a href="/tags/KMP/"><i class="fa fa-tags"></i>KMP</a>
+     
+      <a href="/tags/字符串处理/"><i class="fa fa-tags"></i>字符串处理</a>
+     
+      <a href="/tags/AC自动机/"><i class="fa fa-tags"></i>AC自动机</a>
+    
+    </div>
+  
+</div>
+
+    </main>
+    
+      
+<div class="site-comment-contanier" data-plateform="leancloud">
+  
+    <p id="site-comment-info">
+      <i class="fa fa-spinner fa-spin"></i> 评论加载中
+    </p>
+    <div id="site-comment"></div>
+  
+</div>
+    
+    <div class="site-footer-wrapper">
+  <footer class="site-footer">
+    
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">博客推荐</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/" target="_blank">GodBMW</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="http://ruanyifeng.com/" target="_blank">阮一峰的个人网站</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">系列教程</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/categories/webpack4%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B/" target="_blank">webpack4系列教程</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/design-patterns/" target="_blank">设计模式手册</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">抓到我</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://weibo.com/3260959934/" target="_blank">微博</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://github.com/834930269" target="_blank">Github</a>
+            </span>
+          
+        </div>
+      
+    
+    <div class="site-footer-info">
+      <i class="fa fa-clock-o"></i> 本站已稳定运行<span id="site-time"></span>
+    </div>
+    
+      <div class="site-footer-info">
+        <i class="fa fa-paw"></i> 您是本站第 <span id="site-count"></span> 位访客
+      </div>
+    
+    
+      <div class="site-footer-info">
+        <i class="fa fa-at"></i> Email: 834930269@qq.com
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-copyright"></i> 
+      2019 <a href="https://github.com/dongyuanxin/theme-ad/" target="_blank">Theme-AD</a>.
+      Created by <a href="https://godbmw.com/" target="_blank">GodBMW</a>.
+      All rights reserved.
+    </div>
+  </footer>
+</div>
+    <div id="site-layer" style="display:none;">
+  <div class="site-layer-content">
+    <div class="site-layer-header">
+      <span class="site-layer-header-title" id="site-layer-title"></span>
+      <i class="fa fa-close" id="site-layer-close"></i>
+    </div>
+    <div class="site-layer-body" id="site-layer-container">
+      <div class="site-layer-input" id="site-layer-search" style="display: none;">
+        <div class="site-layer-input-choose">
+          <a href="javascript:void(0);" title="Change Search Engine">Google</a>
+        </div>
+        <input type="text">
+        <i class="fa fa-search"></i>
+      </div>
+      
+        <div class="site-layer-reward" id="site-layer-reward" style="display: none;">
+          
+            <div>
+              <img src="/images/wechat.png" alt="WeChat">
+              
+                <p>WeChat</p>
+              
+            </div>
+          
+            <div>
+              <img src="/images/alipay.png" alt="AliPay">
+              
+                <p>AliPay</p>
+              
+            </div>
+          
+        </div>
+      
+      <div id="site-layer-welcome" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+    
+
+<div class="bottom-bar">
+  <div class="bottom-bar-left">
+    <a href="/passages/poj-1961/" data-enable="true">
+      <i class="fa fa-arrow-left"></i>
+    </a>
+    <a href="/passages/fireworks/" data-enable="true">
+      <i class="fa fa-arrow-right"></i>
+    </a>
+  </div>
+  <div class="bottom-bar-right">
+    <a href="javascript:void(0);" data-enable="true" id="site-toc-show-btn">
+      <i class="fa fa-bars"></i>
+    </a>
+    
+      <a href="#site-comment" data-enable="true">
+        <i class="fa fa-commenting"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="site-toggle-share-btn">
+      <i class="fa fa-share-alt"></i>
+    </a>
+    
+      <a href="javascript:void(0);" id="site-reward">
+        <i class="fa fa-thumbs-up"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="back-top-btn">
+      <i class="fa fa-chevron-up"></i>
+    </a>
+  </div>
+</div>
+    <div id="share-btn">
+  
+    <a id="share-btn-twitter" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-twitter"></i>
+    </a>
+  
+  
+    <a id="share-btn-facebook" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-facebook"></i>
+    </a>
+  
+  
+    <a id="share-btn-weibo" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-weibo"></i>
+    </a>
+  
+  
+    <a id="share-btn-qq" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-qq"></i>
+    </a>
+  
+  
+    <a id="share-btn-wechat" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-wechat"></i>
+    </a>
+  
+</div>
+    
+
+
+
+
+
+    
+  </body>
+</html>

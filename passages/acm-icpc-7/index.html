@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html>
+  
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="author" content="张文涛">
+  
+  
+  <title>山东省第七届省赛 | 山海经▪大荒经</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Sdut,二分搜索,博弈论,第七届ACM山东省赛,博弈论,sdut,二分搜索,第七届ACM山东省赛,">
+  
+
+  
+  <meta name="description" content="Winter Zhang的小站">
+
+  
+
+  
+    <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.1/dist/av-min.js" async></script>
+  
+
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+  
+
+  
+    <script src="//unpkg.com/valine/dist/Valine.min.js" async></script>
+  
+
+  
+
+  <script>
+  // theme-ad's config script
+  // it can be used in every script
+  
+  window.AD_CONFIG = {
+    leancloud: {"appid":"Hyq9wkH495DgNHWhDQCOfQSp-gzGzoHsz","appkey":"WaR7nrzhliHj9aVwdQzkdlGd","comment":true,"count":true},
+    welcome: {"enable":false,"interval":30},
+    start_time: "2015-02-10",
+    passwords: ["c035b468e47fd966ac2df15e3d7f7a64d89b1dbf209c24caad6e62bffd90d4c7", ],
+    is_post: true,
+    lock: false,
+    author: "张文涛",
+    share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
+    mathjax: true,
+    page_type: "",
+    root: "/"
+  };
+</script>
+
+  <script src="/vendor/sha256.min.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/index.js"></script>
+<script src="/vendor/qrcode.min.js"></script>
+
+  
+    <link rel="icon" href="/images/favicon2.ico">
+    <link rel="apple-touch-icon" href="/images/touch-icon.png">
+  
+
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/styles/components/highlight/highlight.css">
+
+  
+</head>
+  <body>
+    <header class="site-header">
+  <div class="site-header-brand">
+    
+      <span class="site-header-brand-title">
+        <a href="/">想你了</a>
+      </span>
+    
+    
+      <span class="site-header-brand-motto"> | 祝你平安幸福</span>
+    
+  </div>
+  <div class="site-header-right">
+    <nav class="site-header-navigation">
+      
+        <a href="/" target="_self">首页</a>
+      
+        <a href="/archives/" target="_self">归档</a>
+      
+        <a href="/tags/" target="_self">标签</a>
+      
+        <a href="/categories/" target="_self">分类</a>
+      
+        <a href="/friends/" target="_self">友链</a>
+      
+        <a href="/about/" target="_self">关于</a>
+      
+    </nav>
+    <div class="site-header-btn">
+      
+        <a href="https://github.com/834930269/" target="_blank" id="site-github">
+          <i class="fa fa-github-alt"></i>
+        </a>
+      
+      <a href="javascript:void(0);" id="site-search">
+        <i class="fa fa-search"></i>
+      </a>
+      <a href="javascript:void(0);" id="site-nav-btn">
+        <i class="fa fa-ellipsis-v"></i>
+      </a>
+    </div>
+  </div>
+</header>
+<nav class="table-content" id="site-nav">
+  <div class="table-content-title">
+    <span>导航</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc">
+      
+        <li class="toc-item">
+          <a href="/" target="_self">
+            首页
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/archives/" target="_self">
+            归档
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/tags/" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/categories/" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/friends/" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/about/" target="_self">
+            关于
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</nav>
+<div id="site-process"></div>
+    <main>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2018-03-04
+    </span>
+    
+      <span>
+        | <a href="/categories/Sdut/"><i class="fa fa-bookmark"></i>Sdut</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    山东省第七届省赛
+  </h1>
+  
+  <article class="passage-article">
+    <h1 id="A-水"><a href="#A-水" class="headerlink" title="A:水"></a>A:水</h1><pre><code>#include&lt;bits/stdc++.h&gt;
+using namespace std;
+int main(){
+    int T,A,B;
+    while(~scanf(&quot;%d&quot;,&amp;T)){
+        for(int i=0;i&lt;T;++i){
+            cin&gt;&gt;A&gt;&gt;B;
+            if(A%B){
+                cout&lt;&lt;(A/B)+1&lt;&lt;endl;
+            }else{
+                cout&lt;&lt;(A/B)&lt;&lt;endl;
+            }
+        }
+    }
+    return 0;
+}</code></pre><h1 id="B-二分-或者可以暴力-只有45个FB-结论题-用到斐波那契博弈里的一个结论-任何数都可以被拆成不同斐波那契的和-进而猜测直接从最大的小于N的FB往下找即可"><a href="#B-二分-或者可以暴力-只有45个FB-结论题-用到斐波那契博弈里的一个结论-任何数都可以被拆成不同斐波那契的和-进而猜测直接从最大的小于N的FB往下找即可" class="headerlink" title="B:二分(或者可以暴力,只有45个FB)结论题,用到斐波那契博弈里的一个结论:任何数都可以被拆成不同斐波那契的和,进而猜测直接从最大的小于N的FB往下找即可"></a>B:二分(或者可以暴力,只有45个FB)结论题,用到斐波那契博弈里的一个结论:任何数都可以被拆成不同斐波那契的和,进而猜测直接从最大的小于N的FB往下找即可</h1><h2 id="我吐槽下SDUT的OJ…尼玛10-9能写成109-劳资找了大大大大大大半天错硬是不知道错哪里了艹"><a href="#我吐槽下SDUT的OJ…尼玛10-9能写成109-劳资找了大大大大大大半天错硬是不知道错哪里了艹" class="headerlink" title="我吐槽下SDUT的OJ…尼玛10^9能写成109,劳资找了大大大大大大半天错硬是不知道错哪里了艹"></a>我吐槽下SDUT的OJ…尼玛10^9能写成109,劳资找了大大大大大大半天错硬是不知道错哪里了艹</h2><h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><pre><code>#include&lt;bits/stdc++.h&gt;
+using namespace std;
+const int maxn=45;
+int Fb[maxn],M;
+int vis[maxn],has_ans;
+
+void init(){
+    Fb[0]=1;
+    Fb[1]=2;
+    for(int i=2;i&lt;maxn;++i){
+        Fb[i]=Fb[i-1]+Fb[i-2];
+        //printf(&quot;%d\n&quot;,Fb[i]);
+    }
+
+}
+
+void solve(int N){
+    stack&lt;int&gt; ans;
+    int mx=maxn;
+    while(N!=0){
+        int ind=lower_bound(Fb,Fb+mx,N)-Fb;
+        if(Fb[ind]&gt;N)ind-=1;
+        N=N-Fb[ind];
+        ans.push(Fb[ind]);
+    }
+    printf(&quot;%d=&quot;,M);
+    int t=0;
+    while(!ans.empty()){
+        if(!t){
+            printf(&quot;%d&quot;,ans.top());t++;
+        }else printf(&quot;+%d&quot;,ans.top());
+        ans.pop();
+    }
+    printf(&quot;\n&quot;);
+}
+
+int main(){
+    init();
+    int T;
+    scanf(&quot;%d&quot;,&amp;T);
+    while(T--){
+        memset(vis,0,sizeof(vis));
+        has_ans=0;
+        scanf(&quot;%d&quot;,&amp;M);
+        solve(M);
+    }
+    return 0;
+}
+
+/***************************************************
+User name: 奥术大师大所大
+Result: Accepted
+Take time: 40ms
+Take Memory: 196KB
+Submit time: 2018-03-04 13:39:50
+****************************************************/</code></pre><h1 id="E-简单枚举"><a href="#E-简单枚举" class="headerlink" title="E:简单枚举"></a>E:简单枚举</h1><pre><code>#include&lt;bits/stdc++.h&gt;
+using namespace std;
+const int maxn=110;
+
+int T,N,M;
+char mp[maxn][maxn];
+int dist[4][2]={ {1,0},{-1,0},{0,-1},{0,1}};
+
+bool check(int x,int y){
+    if(x&lt;1 || x&gt;M || y&lt;1 || y&gt;N) return false;
+    return true;
+}
+
+int main(){
+    scanf(&quot;%d&quot;,&amp;T);
+    while(T--){
+        int ans=0;
+        scanf(&quot;%d%d&quot;,&amp;M,&amp;N);
+        for(int i=1;i&lt;=M;++i){
+            scanf(&quot;%s&quot;,mp[i]+1);
+        }
+        for(int i=1;i&lt;=M;++i){
+            for(int j=1;j&lt;=N;++j){
+                if(mp[i][j]==&apos;#&apos;){
+                    for(int k=0;k&lt;4;++k){
+                        int x=i+dist[k][0],y=j+dist[k][1];
+                        if(check(x,y)){
+                            if(mp[x][y]==&apos;#&apos;)continue;
+                            int room=0;
+                            for(int kk=0;kk&lt;4;++kk){
+                                int xx=x+dist[kk][0],yy=y+dist[kk][1];
+                                if(check(xx,yy)){
+                                    if(mp[xx][yy]==&apos;#&apos;)++room;
+                                }
+                            }
+                            if(room==1)ans++;
+                        }else ++ans;
+                    }
+                }
+            }
+        }
+        printf(&quot;%d\n&quot;,ans);
+    }
+    return 0;
+}
+
+
+/***************************************************
+User name: 奥术大师大所大
+Result: Accepted
+Take time: 228ms
+Take Memory: 212KB
+Submit time: 2018-03-04 14:46:06
+****************************************************/</code></pre><h1 id="G-找规律-不像博弈-抱歉-会打表-但是规律想不出来-对不起"><a href="#G-找规律-不像博弈-抱歉-会打表-但是规律想不出来-对不起" class="headerlink" title="G:找规律,不像博弈,抱歉,会打表,但是规律想不出来,对不起"></a>G:找规律,不像博弈,抱歉,会打表,但是规律想不出来,对不起</h1><h2 id="打表"><a href="#打表" class="headerlink" title="打表"></a>打表</h2><pre><code>#include&lt;bits/stdc++.h&gt;
+using namespace std;
+
+int solve(int N){
+    int ans=0;
+    for(int i=1;i&lt;N;++i){
+        for(int j=i;j&lt;N-i;++j){
+            int k=N-i-j;
+            if((i^j^k)==0) ans++;
+        }
+    }
+    return ans;
+}
+
+int main(){
+    for(int i=1;i&lt;=200;++i){
+        printf(&quot;%d: %d\n&quot;,i,solve(i)/3);
+    }
+    return 0;
+}</code></pre><h2 id="找的规律-知道规律了-直接粘的别人代码"><a href="#找的规律-知道规律了-直接粘的别人代码" class="headerlink" title="找的规律,知道规律了,直接粘的别人代码"></a>找的规律,知道规律了,直接粘的别人代码</h2><pre><code>#include&lt;bits/stdc++.h&gt;
+using namespace std;
+int main()
+{
+    int ans,pp;
+    int i;
+    long long int f[100];
+    f[2]=1;
+    f[1]=0;
+    f[0]=0;
+    for(i=3;i&lt;30;i++)
+        f[i]=f[i-1]*3+1;
+    long long int a;
+    int T;
+    cin&gt;&gt;T;
+    while(T--)
+    {
+        cin&gt;&gt;a;
+        ans=0;
+        if(a%2)
+        {
+            cout&lt;&lt;0&lt;&lt;endl;
+            continue;
+        }
+        while(a!=0)
+        {
+            pp=a%2;
+            if(pp)
+                ans++;
+            a/=2;
+        }
+        cout&lt;&lt;f[ans]&lt;&lt;endl;
+    }
+}</code></pre><h1 id="J-题目翻译-http-www-bubuko-com-infodetail-1612259-html-说实话-完全理解题意了基本就是水题-但对我不是"><a href="#J-题目翻译-http-www-bubuko-com-infodetail-1612259-html-说实话-完全理解题意了基本就是水题-但对我不是" class="headerlink" title="J:题目翻译: http://www.bubuko.com/infodetail-1612259.html 说实话,完全理解题意了基本就是水题.但对我不是."></a>J:题目翻译: <a href="http://www.bubuko.com/infodetail-1612259.html" target="_blank" rel="noopener">http://www.bubuko.com/infodetail-1612259.html</a> 说实话,完全理解题意了基本就是水题.但对我不是.</h1><pre><code>#include&lt;bits/stdc++.h&gt;
+using namespace std;
+int T;
+char str[1000];
+int main(){
+    cin&gt;&gt;T;
+    while(T--){
+        int N,M;
+        cin&gt;&gt;N&gt;&gt;M;
+        int c=0,m=0,o=0,b=0;
+        getchar();
+        for(int i=0;i&lt;N;++i){
+            gets(str);
+            if(str[0]==&apos;C&apos;){
+                c++;
+            }else if(str[0]==&apos;M&apos;){
+                m++;
+            }else if(str[0]==&apos;O&apos;){
+                o++;
+            }else if(str[0]==&apos;B&apos;){
+                b++;
+            }
+        }
+        int ans=o*(2+(N-1)+m*2)+b*(2+m*2);
+        if(ans&gt;=M){
+            puts(&quot;Mrghllghghllghg!&quot;);
+        }else puts(&quot;Tell you a joke, the execution of Paladin.&quot;);
+    }
+    return 0;
+}</code></pre><h1 id="K-水"><a href="#K-水" class="headerlink" title="K:水"></a>K:水</h1><pre><code>#include&lt;bits/stdc++.h&gt;
+using namespace std;
+const int maxn=10010,maxm=5010;
+int N;
+stack&lt;char&gt; st;
+int main(){
+    while(~scanf(&quot;%d\n&quot;,&amp;N)){
+        char qb;
+        while(N--){
+            int f=0;
+            do{
+                do{
+                    qb=getchar();
+                    if(isalpha(qb)) st.push(qb);
+                }while(qb!=&apos; &apos; &amp;&amp; qb!=&apos;\n&apos;);
+                if(f==0)f++;
+                else printf(&quot; &quot;);
+                while(!st.empty()){
+                    printf(&quot;%c&quot;,st.top());
+                    st.pop();
+                }
+            }while(qb!=&apos;\n&apos;);
+            printf(&quot;\n&quot;);
+        }
+    }
+    return 0;
+}</code></pre>
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#A-水"><span class="toc-text">A:水</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#B-二分-或者可以暴力-只有45个FB-结论题-用到斐波那契博弈里的一个结论-任何数都可以被拆成不同斐波那契的和-进而猜测直接从最大的小于N的FB往下找即可"><span class="toc-text">B:二分(或者可以暴力,只有45个FB)结论题,用到斐波那契博弈里的一个结论:任何数都可以被拆成不同斐波那契的和,进而猜测直接从最大的小于N的FB往下找即可</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#我吐槽下SDUT的OJ…尼玛10-9能写成109-劳资找了大大大大大大半天错硬是不知道错哪里了艹"><span class="toc-text">我吐槽下SDUT的OJ…尼玛10^9能写成109,劳资找了大大大大大大半天错硬是不知道错哪里了艹</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Code"><span class="toc-text">Code</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#E-简单枚举"><span class="toc-text">E:简单枚举</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#G-找规律-不像博弈-抱歉-会打表-但是规律想不出来-对不起"><span class="toc-text">G:找规律,不像博弈,抱歉,会打表,但是规律想不出来,对不起</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#打表"><span class="toc-text">打表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#找的规律-知道规律了-直接粘的别人代码"><span class="toc-text">找的规律,知道规律了,直接粘的别人代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#J-题目翻译-http-www-bubuko-com-infodetail-1612259-html-说实话-完全理解题意了基本就是水题-但对我不是"><span class="toc-text">J:题目翻译: http://www.bubuko.com/infodetail-1612259.html 说实话,完全理解题意了基本就是水题.但对我不是.</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#K-水"><span class="toc-text">K:水</span></a></li></ol>
+  </div>
+</aside>
+  
+    <aside class="passage-copyright">
+      <div>本文作者: 张文涛</div>
+      
+        <div>
+          原文链接: 
+          <a href="" target="_blank">http://be-sunshine.cn/passages/acm-icpc-7/</a>
+        </div>
+      
+      <div>
+        版权声明: 本博客所有文章除特别声明外, 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议. 转载请注明出处!
+      </div>
+    </aside>
+  
+  
+    <div class="passage-tags">
+     
+      <a href="/tags/博弈论/"><i class="fa fa-tags"></i>博弈论</a>
+     
+      <a href="/tags/sdut/"><i class="fa fa-tags"></i>sdut</a>
+     
+      <a href="/tags/二分搜索/"><i class="fa fa-tags"></i>二分搜索</a>
+     
+      <a href="/tags/第七届ACM山东省赛/"><i class="fa fa-tags"></i>第七届ACM山东省赛</a>
+    
+    </div>
+  
+</div>
+
+    </main>
+    
+      
+<div class="site-comment-contanier" data-plateform="leancloud">
+  
+    <p id="site-comment-info">
+      <i class="fa fa-spinner fa-spin"></i> 评论加载中
+    </p>
+    <div id="site-comment"></div>
+  
+</div>
+    
+    <div class="site-footer-wrapper">
+  <footer class="site-footer">
+    
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">博客推荐</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/" target="_blank">GodBMW</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="http://ruanyifeng.com/" target="_blank">阮一峰的个人网站</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">系列教程</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/categories/webpack4%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B/" target="_blank">webpack4系列教程</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/design-patterns/" target="_blank">设计模式手册</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">抓到我</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://weibo.com/3260959934/" target="_blank">微博</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://github.com/834930269" target="_blank">Github</a>
+            </span>
+          
+        </div>
+      
+    
+    <div class="site-footer-info">
+      <i class="fa fa-clock-o"></i> 本站已稳定运行<span id="site-time"></span>
+    </div>
+    
+      <div class="site-footer-info">
+        <i class="fa fa-paw"></i> 您是本站第 <span id="site-count"></span> 位访客
+      </div>
+    
+    
+      <div class="site-footer-info">
+        <i class="fa fa-at"></i> Email: 834930269@qq.com
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-copyright"></i> 
+      2019 <a href="https://github.com/dongyuanxin/theme-ad/" target="_blank">Theme-AD</a>.
+      Created by <a href="https://godbmw.com/" target="_blank">GodBMW</a>.
+      All rights reserved.
+    </div>
+  </footer>
+</div>
+    <div id="site-layer" style="display:none;">
+  <div class="site-layer-content">
+    <div class="site-layer-header">
+      <span class="site-layer-header-title" id="site-layer-title"></span>
+      <i class="fa fa-close" id="site-layer-close"></i>
+    </div>
+    <div class="site-layer-body" id="site-layer-container">
+      <div class="site-layer-input" id="site-layer-search" style="display: none;">
+        <div class="site-layer-input-choose">
+          <a href="javascript:void(0);" title="Change Search Engine">Google</a>
+        </div>
+        <input type="text">
+        <i class="fa fa-search"></i>
+      </div>
+      
+        <div class="site-layer-reward" id="site-layer-reward" style="display: none;">
+          
+            <div>
+              <img src="/images/wechat.png" alt="WeChat">
+              
+                <p>WeChat</p>
+              
+            </div>
+          
+            <div>
+              <img src="/images/alipay.png" alt="AliPay">
+              
+                <p>AliPay</p>
+              
+            </div>
+          
+        </div>
+      
+      <div id="site-layer-welcome" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+    
+
+<div class="bottom-bar">
+  <div class="bottom-bar-left">
+    <a href="/passages/51nod-1040-max-gcd-sum/" data-enable="true">
+      <i class="fa fa-arrow-left"></i>
+    </a>
+    <a href="/passages/5-c-kmp/" data-enable="true">
+      <i class="fa fa-arrow-right"></i>
+    </a>
+  </div>
+  <div class="bottom-bar-right">
+    <a href="javascript:void(0);" data-enable="true" id="site-toc-show-btn">
+      <i class="fa fa-bars"></i>
+    </a>
+    
+      <a href="#site-comment" data-enable="true">
+        <i class="fa fa-commenting"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="site-toggle-share-btn">
+      <i class="fa fa-share-alt"></i>
+    </a>
+    
+      <a href="javascript:void(0);" id="site-reward">
+        <i class="fa fa-thumbs-up"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="back-top-btn">
+      <i class="fa fa-chevron-up"></i>
+    </a>
+  </div>
+</div>
+    <div id="share-btn">
+  
+    <a id="share-btn-twitter" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-twitter"></i>
+    </a>
+  
+  
+    <a id="share-btn-facebook" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-facebook"></i>
+    </a>
+  
+  
+    <a id="share-btn-weibo" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-weibo"></i>
+    </a>
+  
+  
+    <a id="share-btn-qq" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-qq"></i>
+    </a>
+  
+  
+    <a id="share-btn-wechat" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-wechat"></i>
+    </a>
+  
+</div>
+    
+
+
+
+
+
+    
+  </body>
+</html>

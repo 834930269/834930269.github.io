@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html>
+  
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="author" content="张文涛">
+  
+  
+  <title>Maven模块化 | 山海经▪大荒经</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Maven,随笔,Maven,">
+  
+
+  
+  <meta name="description" content="Winter Zhang的小站">
+
+  
+
+  
+    <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.1/dist/av-min.js" async></script>
+  
+
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+  
+
+  
+    <script src="//unpkg.com/valine/dist/Valine.min.js" async></script>
+  
+
+  
+
+  <script>
+  // theme-ad's config script
+  // it can be used in every script
+  
+  window.AD_CONFIG = {
+    leancloud: {"appid":"Hyq9wkH495DgNHWhDQCOfQSp-gzGzoHsz","appkey":"WaR7nrzhliHj9aVwdQzkdlGd","comment":true,"count":true},
+    welcome: {"enable":false,"interval":30},
+    start_time: "2015-02-10",
+    passwords: ["c035b468e47fd966ac2df15e3d7f7a64d89b1dbf209c24caad6e62bffd90d4c7", ],
+    is_post: true,
+    lock: false,
+    author: "张文涛",
+    share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
+    mathjax: true,
+    page_type: "",
+    root: "/"
+  };
+</script>
+
+  <script src="/vendor/sha256.min.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/index.js"></script>
+<script src="/vendor/qrcode.min.js"></script>
+
+  
+    <link rel="icon" href="/images/favicon2.ico">
+    <link rel="apple-touch-icon" href="/images/touch-icon.png">
+  
+
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/styles/components/highlight/highlight.css">
+
+  
+</head>
+  <body>
+    <header class="site-header">
+  <div class="site-header-brand">
+    
+      <span class="site-header-brand-title">
+        <a href="/">想你了</a>
+      </span>
+    
+    
+      <span class="site-header-brand-motto"> | 祝你平安幸福</span>
+    
+  </div>
+  <div class="site-header-right">
+    <nav class="site-header-navigation">
+      
+        <a href="/" target="_self">首页</a>
+      
+        <a href="/archives/" target="_self">归档</a>
+      
+        <a href="/tags/" target="_self">标签</a>
+      
+        <a href="/categories/" target="_self">分类</a>
+      
+        <a href="/friends/" target="_self">友链</a>
+      
+        <a href="/about/" target="_self">关于</a>
+      
+    </nav>
+    <div class="site-header-btn">
+      
+        <a href="https://github.com/834930269/" target="_blank" id="site-github">
+          <i class="fa fa-github-alt"></i>
+        </a>
+      
+      <a href="javascript:void(0);" id="site-search">
+        <i class="fa fa-search"></i>
+      </a>
+      <a href="javascript:void(0);" id="site-nav-btn">
+        <i class="fa fa-ellipsis-v"></i>
+      </a>
+    </div>
+  </div>
+</header>
+<nav class="table-content" id="site-nav">
+  <div class="table-content-title">
+    <span>导航</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc">
+      
+        <li class="toc-item">
+          <a href="/" target="_self">
+            首页
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/archives/" target="_self">
+            归档
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/tags/" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/categories/" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/friends/" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/about/" target="_self">
+            关于
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</nav>
+<div id="site-process"></div>
+    <main>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2019-02-02
+    </span>
+    
+      <span>
+        | <a href="/categories/Maven/"><i class="fa fa-bookmark"></i>Maven</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    Maven模块化
+  </h1>
+  
+  <article class="passage-article">
+    <p>我们在构建应用的时候,多数情况下都会使用模块化的方式来进行解耦. 而使用Maven进行模块化开发单体应用的方式如下: <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2019/02/maven%E6%A8%A1%E5%9D%97%E5%8C%96.png" alt></p>
+<blockquote>
+<p>即将不同的模块间互相解耦成不同的项目模块.后使用maven来互相依赖.</p>
+</blockquote>
+<p>按照上图的构造方式.每个pom.xml中编写互相依赖的代码.</p>
+<h1 id="名词解释"><a href="#名词解释" class="headerlink" title="名词解释"></a>名词解释</h1><h2 id="GroupId"><a href="#GroupId" class="headerlink" title="GroupId"></a>GroupId</h2><p>GroupID一般分为多个段，第一段为域，第二段为公司名称。域又分为org、com、cn等等许多，其中org为非营利组织，com为商业组织。举个apache公司的tomcat项目例子：这个项目的groupId是org.apache，它的域是org（因为tomcat是非营利项目），公司名称是apache，artigactId是tomcat。</p>
+<blockquote>
+<p>通俗点</p>
+</blockquote>
+<p>GroupID是项目组织唯一的标识符，实际对应Java的包的结构，是main目录里java的目录结构。</p>
+<h2 id="ArtifactID"><a href="#ArtifactID" class="headerlink" title="ArtifactID"></a>ArtifactID</h2><p>ArtifactID就是项目的唯一的标识符，实际对应项目的名称，就是项目根目录的名称。</p>
+<h2 id><a href="#" class="headerlink" title="\"></a>\<parent></parent></h2><blockquote>
+<p>父项目 结构如下</p>
+</blockquote>
+<pre><code>&lt;parent&gt;
+    &lt;groupId&gt;com.funtl&lt;/groupId&gt; -- 组ID
+    &lt;artifactId&gt;my-shop&lt;/artifactId&gt;  -- 项目ID
+    &lt;version&gt;1.0.0-SNAPSHOT&lt;/version&gt;  -- 版本
+    &lt;relativePath&gt;../pom.xml&lt;/relativePath&gt;  -- 相对位置
+&lt;/parent&gt;</code></pre><h2 id="-1"><a href="#-1" class="headerlink" title="\"></a>\<packaging></packaging></h2><blockquote>
+<p>一般模块间依赖就用pom pom是maven依赖文件 不用依赖的边缘模块就用jar jar是java普通项目打包 ? war是java web项目打包</p>
+</blockquote>
+<h2 id="-2"><a href="#-2" class="headerlink" title="\"></a>\<dependencymanagement></dependencymanagement></h2><blockquote>
+<p>管理依赖包,子模块仅需要添加依赖即可,不需要添加版本号</p>
+</blockquote>
+<p>总<br>=</p>
+<blockquote>
+<p>总项目下的pom.xml</p>
+</blockquote>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot;
+         xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+         xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+
+    &lt;groupId&gt;com.funtl&lt;/groupId&gt;
+    &lt;artifactId&gt;my-shop&lt;/artifactId&gt;
+    &lt;version&gt;1.0.0-SNAPSHOT&lt;/version&gt;
+    &lt;packaging&gt;pom&lt;/packaging&gt;
+
+    &lt;modules&gt;
+        &lt;module&gt;my-shop-dependencies&lt;/module&gt;
+        &lt;module&gt;my-shop-commons&lt;/module&gt;
+        &lt;module&gt;my-shop-domain&lt;/module&gt;
+        &lt;module&gt;my-shop-web-admin&lt;/module&gt;
+        &lt;module&gt;my-shop-web-ui&lt;/module&gt;
+        &lt;module&gt;my-shop-web-api&lt;/module&gt;
+    &lt;/modules&gt;
+&lt;/project&gt;</code></pre><h1 id="管理项目外依赖包"><a href="#管理项目外依赖包" class="headerlink" title="管理项目外依赖包"></a>管理项目外依赖包</h1><blockquote>
+<p>my-shop-dependencies pom.xml</p>
+</blockquote>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+         xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+
+    &lt;parent&gt;
+        &lt;groupId&gt;com.funtl&lt;/groupId&gt;
+        &lt;artifactId&gt;my-shop&lt;/artifactId&gt;
+        &lt;version&gt;1.0.0-SNAPSHOT&lt;/version&gt;
+        &lt;relativePath&gt;../pom.xml&lt;/relativePath&gt;
+    &lt;/parent&gt;
+
+    &lt;artifactId&gt;my-shop-dependencies&lt;/artifactId&gt;
+    &lt;packaging&gt;pom&lt;/packaging&gt;
+
+    &lt;name&gt;my-shop-dependencies&lt;/name&gt;
+    &lt;description&gt;&lt;/description&gt;
+
+    &lt;properties&gt;
+        &lt;!-- 环境配置 --&gt;
+        &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;
+        &lt;project.reporting.outputEncoding&gt;UTF-8&lt;/project.reporting.outputEncoding&gt;
+        &lt;java.version&gt;1.8&lt;/java.version&gt;
+
+        &lt;!-- 统一的依赖管理 --&gt;
+        &lt;alibaba-druid.version&gt;1.1.6&lt;/alibaba-druid.version&gt;
+        &lt;apache-httpclient.version&gt;4.5.5&lt;/apache-httpclient.version&gt;
+        &lt;commons-email.version&gt;1.5&lt;/commons-email.version&gt;
+        &lt;commons-fileupload.version&gt;1.3.2&lt;/commons-fileupload.version&gt;
+        &lt;commons-lang3.version&gt;3.5&lt;/commons-lang3.version&gt;
+        &lt;hibernate-validator.version&gt;5.3.4.Final&lt;/hibernate-validator.version&gt;
+        &lt;jackson.version&gt;2.9.5&lt;/jackson.version&gt;
+        &lt;jstl.version&gt;1.2&lt;/jstl.version&gt;
+        &lt;junit.version&gt;4.12&lt;/junit.version&gt;
+        &lt;kaptcha.version&gt;2.3&lt;/kaptcha.version&gt;
+        &lt;log4j.version&gt;1.2.17&lt;/log4j.version&gt;
+        &lt;lombok.version&gt;1.16.18&lt;/lombok.version&gt;
+        &lt;mybaits-spring.version&gt;1.3.1&lt;/mybaits-spring.version&gt;
+        &lt;mybatis.version&gt;3.2.8&lt;/mybatis.version&gt;
+        &lt;mysql.version&gt;5.1.46&lt;/mysql.version&gt;
+        &lt;servlet-api.version&gt;3.1.0&lt;/servlet-api.version&gt;
+        &lt;slf4j.version&gt;1.7.25&lt;/slf4j.version&gt;
+        &lt;spring.version&gt;4.3.17.RELEASE&lt;/spring.version&gt;
+    &lt;/properties&gt;
+
+    &lt;dependencyManagement&gt;
+        &lt;dependencies&gt;
+            &lt;!-- Test Begin --&gt;
+            &lt;dependency&gt;
+                &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+                &lt;artifactId&gt;spring-test&lt;/artifactId&gt;
+                &lt;version&gt;${spring.version}&lt;/version&gt;
+            &lt;/dependency&gt;
+            &lt;dependency&gt;
+                &lt;groupId&gt;junit&lt;/groupId&gt;
+                &lt;artifactId&gt;junit&lt;/artifactId&gt;
+                &lt;version&gt;${junit.version}&lt;/version&gt;
+            &lt;/dependency&gt;
+            &lt;!-- Test Begin --&gt;
+
+            &lt;!-- Spring Begin --&gt;
+            &lt;dependency&gt;
+                &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+                &lt;artifactId&gt;spring-context&lt;/artifactId&gt;
+                &lt;version&gt;${spring.version}&lt;/version&gt;
+            &lt;/dependency&gt;
+            &lt;dependency&gt;
+                &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+                &lt;artifactId&gt;spring-webmvc&lt;/artifactId&gt;
+                &lt;version&gt;${spring.version}&lt;/version&gt;
+            &lt;/dependency&gt;
+            &lt;dependency&gt;
+                &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+                &lt;artifactId&gt;spring-aspects&lt;/artifactId&gt;
+                &lt;version&gt;${spring.version}&lt;/version&gt;
+            &lt;/dependency&gt;
+            &lt;!-- Spring End --&gt;
+
+            &lt;!-- Servlet Begin --&gt;
+            &lt;dependency&gt;
+                &lt;groupId&gt;javax.servlet&lt;/groupId&gt;
+                &lt;artifactId&gt;javax.servlet-api&lt;/artifactId&gt;
+                &lt;version&gt;${servlet-api.version}&lt;/version&gt;
+                &lt;scope&gt;provided&lt;/scope&gt;
+            &lt;/dependency&gt;
+            &lt;dependency&gt;
+                &lt;groupId&gt;javax.servlet&lt;/groupId&gt;
+                &lt;artifactId&gt;jstl&lt;/artifactId&gt;
+                &lt;version&gt;${jstl.version}&lt;/version&gt;
+            &lt;/dependency&gt;
+            &lt;!-- Servlet End --&gt;
+
+            &lt;!-- Log Begin --&gt;
+            &lt;dependency&gt;
+                &lt;groupId&gt;org.slf4j&lt;/groupId&gt;
+                &lt;artifactId&gt;slf4j-api&lt;/artifactId&gt;
+                &lt;version&gt;${slf4j.version}&lt;/version&gt;
+            &lt;/dependency&gt;
+            &lt;dependency&gt;
+                &lt;groupId&gt;org.slf4j&lt;/groupId&gt;
+                &lt;artifactId&gt;slf4j-log4j12&lt;/artifactId&gt;
+                &lt;version&gt;${slf4j.version}&lt;/version&gt;
+            &lt;/dependency&gt;
+            &lt;dependency&gt;
+                &lt;groupId&gt;org.slf4j&lt;/groupId&gt;
+                &lt;artifactId&gt;jcl-over-slf4j&lt;/artifactId&gt;
+                &lt;version&gt;${slf4j.version}&lt;/version&gt;
+            &lt;/dependency&gt;
+            &lt;dependency&gt;
+                &lt;groupId&gt;org.slf4j&lt;/groupId&gt;
+                &lt;artifactId&gt;jul-to-slf4j&lt;/artifactId&gt;
+                &lt;version&gt;${slf4j.version}&lt;/version&gt;
+            &lt;/dependency&gt;
+            &lt;dependency&gt;
+                &lt;groupId&gt;log4j&lt;/groupId&gt;
+                &lt;artifactId&gt;log4j&lt;/artifactId&gt;
+                &lt;version&gt;${log4j.version}&lt;/version&gt;
+            &lt;/dependency&gt;
+            &lt;!-- Log End --&gt;
+
+            &lt;!-- Commons Begin --&gt;
+            &lt;dependency&gt;
+                &lt;groupId&gt;org.apache.commons&lt;/groupId&gt;
+                &lt;artifactId&gt;commons-lang3&lt;/artifactId&gt;
+                &lt;version&gt;${commons-lang3.version}&lt;/version&gt;
+            &lt;/dependency&gt;
+            &lt;dependency&gt;
+                &lt;groupId&gt;commons-fileupload&lt;/groupId&gt;
+                &lt;artifactId&gt;commons-fileupload&lt;/artifactId&gt;
+                &lt;version&gt;${commons-fileupload.version}&lt;/version&gt;
+            &lt;/dependency&gt;
+            &lt;dependency&gt;
+                &lt;groupId&gt;org.apache.commons&lt;/groupId&gt;
+                &lt;artifactId&gt;commons-email&lt;/artifactId&gt;
+                &lt;version&gt;${commons-email.version}&lt;/version&gt;
+            &lt;/dependency&gt;
+            &lt;!-- Commons End --&gt;
+
+            &lt;!-- Database Begin --&gt;
+            &lt;dependency&gt;
+                &lt;groupId&gt;com.alibaba&lt;/groupId&gt;
+                &lt;artifactId&gt;druid&lt;/artifactId&gt;
+                &lt;version&gt;${alibaba-druid.version}&lt;/version&gt;
+            &lt;/dependency&gt;
+            &lt;dependency&gt;
+                &lt;groupId&gt;mysql&lt;/groupId&gt;
+                &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
+                &lt;version&gt;${mysql.version}&lt;/version&gt;
+            &lt;/dependency&gt;
+            &lt;dependency&gt;
+                &lt;groupId&gt;org.mybatis&lt;/groupId&gt;
+                &lt;artifactId&gt;mybatis&lt;/artifactId&gt;
+                &lt;version&gt;${mybatis.version}&lt;/version&gt;
+            &lt;/dependency&gt;
+            &lt;dependency&gt;
+                &lt;groupId&gt;org.mybatis&lt;/groupId&gt;
+                &lt;artifactId&gt;mybatis-spring&lt;/artifactId&gt;
+                &lt;version&gt;${mybaits-spring.version}&lt;/version&gt;
+            &lt;/dependency&gt;
+            &lt;dependency&gt;
+                &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+                &lt;artifactId&gt;spring-jdbc&lt;/artifactId&gt;
+                &lt;version&gt;${spring.version}&lt;/version&gt;
+            &lt;/dependency&gt;
+            &lt;dependency&gt;
+                &lt;groupId&gt;org.hibernate&lt;/groupId&gt;
+                &lt;artifactId&gt;hibernate-validator&lt;/artifactId&gt;
+                &lt;version&gt;${hibernate-validator.version}&lt;/version&gt;
+            &lt;/dependency&gt;
+            &lt;!-- Database End --&gt;
+
+            &lt;!-- Json Begin --&gt;
+            &lt;dependency&gt;
+                &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;
+                &lt;artifactId&gt;jackson-core&lt;/artifactId&gt;
+                &lt;version&gt;${jackson.version}&lt;/version&gt;
+            &lt;/dependency&gt;
+            &lt;dependency&gt;
+                &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;
+                &lt;artifactId&gt;jackson-databind&lt;/artifactId&gt;
+                &lt;version&gt;${jackson.version}&lt;/version&gt;
+            &lt;/dependency&gt;
+            &lt;dependency&gt;
+                &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;
+                &lt;artifactId&gt;jackson-annotations&lt;/artifactId&gt;
+                &lt;version&gt;${jackson.version}&lt;/version&gt;
+            &lt;/dependency&gt;
+            &lt;!-- Json End --&gt;
+
+            &lt;!-- Apache Http Begin --&gt;
+            &lt;dependency&gt;
+                &lt;groupId&gt;org.apache.httpcomponents&lt;/groupId&gt;
+                &lt;artifactId&gt;httpclient&lt;/artifactId&gt;
+                &lt;version&gt;${apache-httpclient.version}&lt;/version&gt;
+            &lt;/dependency&gt;
+            &lt;dependency&gt;
+                &lt;groupId&gt;org.apache.httpcomponents&lt;/groupId&gt;
+                &lt;artifactId&gt;fluent-hc&lt;/artifactId&gt;
+                &lt;version&gt;${apache-httpclient.version}&lt;/version&gt;
+            &lt;/dependency&gt;
+            &lt;dependency&gt;
+                &lt;groupId&gt;org.apache.httpcomponents&lt;/groupId&gt;
+                &lt;artifactId&gt;httpmime&lt;/artifactId&gt;
+                &lt;version&gt;${apache-httpclient.version}&lt;/version&gt;
+            &lt;/dependency&gt;
+            &lt;!-- Apache Http End --&gt;
+
+            &lt;!-- Google Code Begin --&gt;
+            &lt;dependency&gt;
+                &lt;groupId&gt;com.google.code.kaptcha&lt;/groupId&gt;
+                &lt;artifactId&gt;kaptcha&lt;/artifactId&gt;
+                &lt;version&gt;${kaptcha.version}&lt;/version&gt;
+            &lt;/dependency&gt;
+            &lt;!-- Google Code End --&gt;
+
+            &lt;dependency&gt;
+                &lt;groupId&gt;org.projectlombok&lt;/groupId&gt;
+                &lt;artifactId&gt;lombok&lt;/artifactId&gt;
+                &lt;version&gt;${lombok.version}&lt;/version&gt;
+            &lt;/dependency&gt;
+        &lt;/dependencies&gt;
+    &lt;/dependencyManagement&gt;
+
+    &lt;build&gt;
+        &lt;pluginManagement&gt;
+            &lt;plugins&gt;
+                &lt;plugin&gt;
+                    &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                    &lt;artifactId&gt;maven-install-plugin&lt;/artifactId&gt;
+                    &lt;version&gt;2.5.2&lt;/version&gt;
+                &lt;/plugin&gt;
+            &lt;/plugins&gt;
+        &lt;/pluginManagement&gt;
+
+        &lt;plugins&gt;
+            &lt;!-- Compiler 插件, 设定 JDK 版本 --&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+                &lt;version&gt;3.7.0&lt;/version&gt;
+                &lt;configuration&gt;
+                    &lt;source&gt;${java.version}&lt;/source&gt;
+                    &lt;target&gt;${java.version}&lt;/target&gt;
+                    &lt;encoding&gt;${project.build.sourceEncoding}&lt;/encoding&gt;
+                    &lt;showWarnings&gt;true&lt;/showWarnings&gt;
+                &lt;/configuration&gt;
+            &lt;/plugin&gt;
+        &lt;/plugins&gt;
+
+        &lt;!-- 资源文件配置 --&gt;
+        &lt;resources&gt;
+            &lt;resource&gt;
+                &lt;directory&gt;src/main/java&lt;/directory&gt;
+                &lt;excludes&gt;
+                    &lt;exclude&gt;**/*.java&lt;/exclude&gt;
+                &lt;/excludes&gt;
+            &lt;/resource&gt;
+            &lt;resource&gt;
+                &lt;directory&gt;src/main/resources&lt;/directory&gt;
+            &lt;/resource&gt;
+        &lt;/resources&gt;
+    &lt;/build&gt;
+&lt;/project&gt;</code></pre><blockquote>
+<p>Commons是通用包</p>
+</blockquote>
+<h1 id="项目内依赖"><a href="#项目内依赖" class="headerlink" title="项目内依赖"></a>项目内依赖</h1><blockquote>
+<p>除父级依赖外就是同级依赖</p>
+</blockquote>
+<pre><code>&lt;dependencies&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;com.funtl&lt;/groupId&gt;
+        &lt;artifactId&gt;my-shop-commons&lt;/artifactId&gt;
+        &lt;version&gt;${project.parent.version}&lt;/version&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;</code></pre>
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#名词解释"><span class="toc-text">名词解释</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#GroupId"><span class="toc-text">GroupId</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ArtifactID"><span class="toc-text">ArtifactID</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">\</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#-1"><span class="toc-text">\</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#-2"><span class="toc-text">\</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#管理项目外依赖包"><span class="toc-text">管理项目外依赖包</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#项目内依赖"><span class="toc-text">项目内依赖</span></a></li></ol>
+  </div>
+</aside>
+  
+    <aside class="passage-copyright">
+      <div>本文作者: 张文涛</div>
+      
+        <div>
+          原文链接: 
+          <a href="" target="_blank">http://be-sunshine.cn/passages/maven-modules/</a>
+        </div>
+      
+      <div>
+        版权声明: 本博客所有文章除特别声明外, 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议. 转载请注明出处!
+      </div>
+    </aside>
+  
+  
+    <div class="passage-tags">
+     
+      <a href="/tags/Maven/"><i class="fa fa-tags"></i>Maven</a>
+    
+    </div>
+  
+</div>
+
+    </main>
+    
+      
+<div class="site-comment-contanier" data-plateform="leancloud">
+  
+    <p id="site-comment-info">
+      <i class="fa fa-spinner fa-spin"></i> 评论加载中
+    </p>
+    <div id="site-comment"></div>
+  
+</div>
+    
+    <div class="site-footer-wrapper">
+  <footer class="site-footer">
+    
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">博客推荐</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/" target="_blank">GodBMW</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="http://ruanyifeng.com/" target="_blank">阮一峰的个人网站</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">系列教程</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/categories/webpack4%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B/" target="_blank">webpack4系列教程</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/design-patterns/" target="_blank">设计模式手册</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">抓到我</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://weibo.com/3260959934/" target="_blank">微博</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://github.com/834930269" target="_blank">Github</a>
+            </span>
+          
+        </div>
+      
+    
+    <div class="site-footer-info">
+      <i class="fa fa-clock-o"></i> 本站已稳定运行<span id="site-time"></span>
+    </div>
+    
+      <div class="site-footer-info">
+        <i class="fa fa-paw"></i> 您是本站第 <span id="site-count"></span> 位访客
+      </div>
+    
+    
+      <div class="site-footer-info">
+        <i class="fa fa-at"></i> Email: 834930269@qq.com
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-copyright"></i> 
+      2019 <a href="https://github.com/dongyuanxin/theme-ad/" target="_blank">Theme-AD</a>.
+      Created by <a href="https://godbmw.com/" target="_blank">GodBMW</a>.
+      All rights reserved.
+    </div>
+  </footer>
+</div>
+    <div id="site-layer" style="display:none;">
+  <div class="site-layer-content">
+    <div class="site-layer-header">
+      <span class="site-layer-header-title" id="site-layer-title"></span>
+      <i class="fa fa-close" id="site-layer-close"></i>
+    </div>
+    <div class="site-layer-body" id="site-layer-container">
+      <div class="site-layer-input" id="site-layer-search" style="display: none;">
+        <div class="site-layer-input-choose">
+          <a href="javascript:void(0);" title="Change Search Engine">Google</a>
+        </div>
+        <input type="text">
+        <i class="fa fa-search"></i>
+      </div>
+      
+        <div class="site-layer-reward" id="site-layer-reward" style="display: none;">
+          
+            <div>
+              <img src="/images/wechat.png" alt="WeChat">
+              
+                <p>WeChat</p>
+              
+            </div>
+          
+            <div>
+              <img src="/images/alipay.png" alt="AliPay">
+              
+                <p>AliPay</p>
+              
+            </div>
+          
+        </div>
+      
+      <div id="site-layer-welcome" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+    
+
+<div class="bottom-bar">
+  <div class="bottom-bar-left">
+    <a href="/passages/spring-druid/" data-enable="true">
+      <i class="fa fa-arrow-left"></i>
+    </a>
+    <a href="/passages/bean/" data-enable="true">
+      <i class="fa fa-arrow-right"></i>
+    </a>
+  </div>
+  <div class="bottom-bar-right">
+    <a href="javascript:void(0);" data-enable="true" id="site-toc-show-btn">
+      <i class="fa fa-bars"></i>
+    </a>
+    
+      <a href="#site-comment" data-enable="true">
+        <i class="fa fa-commenting"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="site-toggle-share-btn">
+      <i class="fa fa-share-alt"></i>
+    </a>
+    
+      <a href="javascript:void(0);" id="site-reward">
+        <i class="fa fa-thumbs-up"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="back-top-btn">
+      <i class="fa fa-chevron-up"></i>
+    </a>
+  </div>
+</div>
+    <div id="share-btn">
+  
+    <a id="share-btn-twitter" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-twitter"></i>
+    </a>
+  
+  
+    <a id="share-btn-facebook" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-facebook"></i>
+    </a>
+  
+  
+    <a id="share-btn-weibo" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-weibo"></i>
+    </a>
+  
+  
+    <a id="share-btn-qq" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-qq"></i>
+    </a>
+  
+  
+    <a id="share-btn-wechat" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-wechat"></i>
+    </a>
+  
+</div>
+    
+
+
+
+
+
+    
+  </body>
+</html>

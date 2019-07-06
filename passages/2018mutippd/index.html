@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html>
+  
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="author" content="张文涛">
+  
+  
+  <title>2018全国多校算法寒假练习赛(三) D | 山海经▪大荒经</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="博弈论,牛客练习赛,牛客练习赛,博弈论,">
+  
+
+  
+  <meta name="description" content="Winter Zhang的小站">
+
+  
+
+  
+    <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.1/dist/av-min.js" async></script>
+  
+
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+  
+
+  
+    <script src="//unpkg.com/valine/dist/Valine.min.js" async></script>
+  
+
+  
+
+  <script>
+  // theme-ad's config script
+  // it can be used in every script
+  
+  window.AD_CONFIG = {
+    leancloud: {"appid":"Hyq9wkH495DgNHWhDQCOfQSp-gzGzoHsz","appkey":"WaR7nrzhliHj9aVwdQzkdlGd","comment":true,"count":true},
+    welcome: {"enable":false,"interval":30},
+    start_time: "2015-02-10",
+    passwords: ["c035b468e47fd966ac2df15e3d7f7a64d89b1dbf209c24caad6e62bffd90d4c7", ],
+    is_post: true,
+    lock: false,
+    author: "张文涛",
+    share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
+    mathjax: true,
+    page_type: "",
+    root: "/"
+  };
+</script>
+
+  <script src="/vendor/sha256.min.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/index.js"></script>
+<script src="/vendor/qrcode.min.js"></script>
+
+  
+    <link rel="icon" href="/images/favicon2.ico">
+    <link rel="apple-touch-icon" href="/images/touch-icon.png">
+  
+
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/styles/components/highlight/highlight.css">
+
+  
+</head>
+  <body>
+    <header class="site-header">
+  <div class="site-header-brand">
+    
+      <span class="site-header-brand-title">
+        <a href="/">想你了</a>
+      </span>
+    
+    
+      <span class="site-header-brand-motto"> | 祝你平安幸福</span>
+    
+  </div>
+  <div class="site-header-right">
+    <nav class="site-header-navigation">
+      
+        <a href="/" target="_self">首页</a>
+      
+        <a href="/archives/" target="_self">归档</a>
+      
+        <a href="/tags/" target="_self">标签</a>
+      
+        <a href="/categories/" target="_self">分类</a>
+      
+        <a href="/friends/" target="_self">友链</a>
+      
+        <a href="/about/" target="_self">关于</a>
+      
+    </nav>
+    <div class="site-header-btn">
+      
+        <a href="https://github.com/834930269/" target="_blank" id="site-github">
+          <i class="fa fa-github-alt"></i>
+        </a>
+      
+      <a href="javascript:void(0);" id="site-search">
+        <i class="fa fa-search"></i>
+      </a>
+      <a href="javascript:void(0);" id="site-nav-btn">
+        <i class="fa fa-ellipsis-v"></i>
+      </a>
+    </div>
+  </div>
+</header>
+<nav class="table-content" id="site-nav">
+  <div class="table-content-title">
+    <span>导航</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc">
+      
+        <li class="toc-item">
+          <a href="/" target="_self">
+            首页
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/archives/" target="_self">
+            归档
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/tags/" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/categories/" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/friends/" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/about/" target="_self">
+            关于
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</nav>
+<div id="site-process"></div>
+    <main>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2018-02-08
+    </span>
+    
+      <span>
+        | <a href="/categories/博弈论/"><i class="fa fa-bookmark"></i>博弈论</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    2018全国多校算法寒假练习赛(三) D
+  </h1>
+  
+  <article class="passage-article">
+    <blockquote>
+<p>这道题以前在lrj上见过,不过没注意.</p>
+</blockquote>
+<h1 id="Link"><a href="#Link" class="headerlink" title="Link"></a>Link</h1><p><a href="https://www.nowcoder.net/acm/contest/75/D" title="https://www.nowcoder.net/acm/contest/75/D" target="_blank" rel="noopener">https://www.nowcoder.net/acm/contest/75/D</a></p>
+<h1 id="Type-博弈论"><a href="#Type-博弈论" class="headerlink" title="Type: 博弈论"></a>Type: 博弈论</h1><h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><blockquote>
+<p>链接：<a href="https://www.nowcoder.net/acm/contest/75/D" target="_blank" rel="noopener">https://www.nowcoder.net/acm/contest/75/D</a> 来源：牛客网</p>
+<blockquote>
+<p>小牛和小客玩石子游戏，他们用n个石子围成一圈，小牛和小客分别从其中取石子，谁先取完谁胜，每次可以从一圈中取一个或者相邻两个，每次都是小牛先取，请输出胜利者的名字（小牛获胜输出XiaoNiu，小客获胜输出XiaoKe）（1 2 3 4 取走 2 13 不算相邻）</p>
+</blockquote>
+</blockquote>
+<h1 id="约束"><a href="#约束" class="headerlink" title="约束"></a>约束</h1><blockquote>
+<p>输入包括多组测试数据 每组测试数据一个n（1≤n≤1e9）</p>
+</blockquote>
+<h1 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h1><blockquote>
+<p>每组用一行输出胜利者的名字（小牛获胜输出XiaoNiu，小客获胜输出XiaoKe）</p>
+</blockquote>
+<h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><blockquote>
+<p>我直接说推出的结论了 很明显的是:</p>
+<blockquote>
+<p>n=0时,先手必败,n=1,2时,先手必胜</p>
+</blockquote>
+<p>然后我们看n&gt;=3:</p>
+<blockquote>
+<ol>
+<li><p>n=3时很明显先手必败</p>
+</li>
+<li><p>n=4时,无论先手者取1还是2,只需要和他取一样的即可,把当前的石子堆分成两部分,每部分有一样的石子,可以发现,该情况下先手必败(只需要和先手者操作一样即可获胜).</p>
+<blockquote>
+<p>然后我们可以发现只要是偶数都可以这样乱搞</p>
+</blockquote>
+</li>
+<li><p>n=5时,无论先手者取1还是2,只需要和他取相反的即可,其余和以上一样,同样将石子堆分为两堆.</p>
+<blockquote>
+<p>然后我们发现只要是奇数都可以这样乱搞</p>
+</blockquote>
+</li>
+</ol>
+</blockquote>
+</blockquote>
+<h1 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h1><pre><code>/**
+
+                                                                       :;LaEaHKEEGpPXU7;,
+                                                                  .:75pKH11252U252XapZgRQgD6XJscLr;,.
+                                                               :LXpRgGaX521JLw1JswJJsJs22XHPPEZEGDOMMRDOa7.
+                                                           .r2EDDZEpZPZP6KpHX5SXH5XXa5KwaXaSX5UJ1c77sLs2GMQQ6r                                       .
+                                                        ,LpgOGpEZGZEZEpZKpHHU5wP5HEDgpXpHa2SSa5aSXULr7rrirrJXRBp;                                   ;B
+                                                     ,J6MRZH6EgEEZE6E6EZZPZXXwSSGQXr::aPpP5USUHaHaKa5Lvrr7ri;rLHBB2:                                Kc
+                                                   rpQDOpPPOGGZOGOZG6GEOEOEDPPGBa.  .PaSSUXSUUUaUSaKXKS177r7rrrirSBBR7                             .O,
+                                                :UBQOKPK6ZOOOEDEO6GZE6EpEpDgDBR:   UBpXHa5aSaUS5SUS5XapPHJc7rrv7rr7sgBBs                           .g.
+                                              ;gBMPXpO6GEOEOEOEGEOEE6EZEEDRGBB    EB5pKSXpHKaHSX552S5aUHHEX17c7vr7777s5RBS:                        .R;
+                                           .sQBPXpDZOODOgODGOGgEDEOEOGgGgOOMB:   LBKKSXSHa52aaKXHXKaa5aSaaHXSJLcL7vcc777JDBBg2;.                    Qi
+                                         ;2ggp2EDDOggGEDGgDDOgGGZDOOZOGg6gEBX    vBZaHUKaaUXXXSXXKXpXHXH5wwaa52U1wssLsLJccv1UDQBQ67.                O7
+                                       :ZZUU5PROOEOZOZGGOODZOGgODZOOgOggRgRB; ;:..R6XaKKpP6PGppKPHpHpPX5aU21UUa5Sw52UwUJJv77L77sSpQMDU;            ;B5
+                                     ,SRJ7sSHGggEOZOEG6OODpOZgggOQQBBBBBQBBQ.,;;. LBOgOgDRDDZODMgQRgRDaa552a252UUa25w5UaU2sLvccs7r7sJZBBMr       ,XQJ:
+                                    LQHr77J6RGOZDZOEGEDGgDRORQBBBQRDPU1Jscwa7.,::.:J7r;::::.  ..,:;i7UOgRRRgDPH5SUSU52U2HHa1JJJLJLccLr71RBB,    7R2,
+                                  :RZv;77JSgGOZEODEDGOEggQBBBMS7;:,:,,.,.,.:7L;:,;.:  ,: . .....       .:;rJU6GgGRggEZHPaKXX2S221Js1Lc7r:7QB. .XX:
+                                 7g1;;7rcXG6gpGDZGgZOOQBBQpr.   ::::;:;:::Jr::sr;::;:.:vs,:::::::::::,,         ,:7L5HGOggRgZUUU5wSUaJLc7r7BOiDr  ...
+                               .XX;;;irLHGKpZZZEKgDRBBB6i    ,;;:;;;;r;;:s177:,;L7:;7:.rHi,:::::::::::::::::,.         .,;7ZRQgO6KUUJsLwsJ7KBM. .....
+                               JZ:;rrrc5EPHp6XgpRBBBE;     :i:;;;;;:;;;:c7::r7;,::::::::rv:,:::::::::::,:,:,:,,,,            .;sORQRGX21wsXU:  .... .
+                              .Br;iir72EHPHZ6EgBBR7.   ..;ii:;;;;;;;;;:71r::.:7,  .::7;:;H;.::,:::::::,:::::,,,::,,,              ,7wEDRZBMr  .......
+                              1D;:r;rwOPXPKH6BBX,   .:;:;;;:::;:;;;;;::Ls,;ss..r.  ,c77;sLU,:,:::,:::,:,:,:,,,:,,,:::.                  .:.rP:.......
+                              D2:i;rJpKHXHXgg7    .,,::::;:::::;:;:;;:;SL7sS2, :.   ::::,:U7.:::,:::,:,,,,,:,,.,,,.,:,                    ;L:. .. ...
+                             :Qc;i7LGZPa6gBM,  ...,,::::::::::::;;::;.JJ;ic:         ;:::,v1,.:::;7,,,:,:,:,,,,.:,,,,..                :2wr.  .......
+                             sRr:rrwZGgBQR7.  .,,::::::::::::::;::;:::Hr:7i          ,;;:::U: .,,,:r.,,:,:,:,,,:,,,.....             7K2:. ..........
+                             OX:irsXgQZ:.   .,,:::,,:::,::::::::;;;::r5;r7:           :;;;:7L ..,.,;:,:,:,,,:,:,,,,......        .rU6w;..............
+                            .BJ71EK5;.   .,,::,:,:,,,:,:,::::::::;:;.Ls;r7             :;:::s, ..,,,r:.:.,,,.:, .,..... .    .;s5XJr,..,.............
+                            1Mv::.     .:,:,,,,,,,:::::::,;:::;:;::..J7;c:          ,. ,rri:27  , .,:;. ,:,:,,:..,....    .rpPL;:.. ... .............
+                       ..7Ls:        .,,,:,,,:,:,:::,:,:::::,:::::: .Srrr,  .,:;;;::::..:7r;r1    .: :E:..,,:,...,,.., ..XBQ7, ................... ..
+                  ,;7v7r7:,         ,,,,:.,,,,,,:,,::,:,,.::.,:.,:, :Jrr; ,r7,:..        ,:::L:  .  .7RJ .,.:.,......,,:MBs   ..............,........
+            .:;vJs7i,              ,,,., ..,,:,,,:,,,:,:.,rs,,.:,,  ;J;c,                .,::;;     Lr.E: .,...,....:,:1Z:  .........,.,...........:,.
+   .;,,:r7J1wv;,.               ....,.:. .,.,,:,,,:,,::::,sS;.:::,  cLrr.     .       .,. .,..:    ;;  r5 ........,,:;s7. ....,.,.,...........,.,.,,.
+   ,BBs:::                   . ........,.,,,,,.:,,,:,:,,.;s7r,,,,,  cc7;         ,.,,.      .:7rrJGMPOEL1, ..... ,,:rSr, : ,.,.,.,.,.........,,,,,. ..
+     rZL.                   ....... ..,,,.,,,..,,,.,;,...7J:s: ..  .wr7,        ...    .rJpQBBBBBBBQgKP77s  ..  .,7S2,,....,....,.,.,......,,.,. .:cX2
+       ;SH7,               . . . .. .,.,.,.,,,...,..r, ::Ur;7L .   .57;.           .rPBBQBBBPws:;r::::.,:P.    .;S5;,..,...,.,.,.,.... ..,,, ..,7HSJvr
+          r7r;:             . ... ..........,...,.. 7L;,rS;;ivr .   1r:       .  .rZBBK7;.JL,::Jrs;.:;,:;J, .,;LDv..:.,...,.,.,.,...,.,,:,, ,7sKGwc77;
+             .:7L7:,            . ,r,..,.,,,...,..:iLL  7s;r;cv:    U7.         :vi;:. .. :Er:::.Ls. . ,7::::vHEi ,:,,.,,,.,.,,,,,,::::, .:1QBKJJUsssc
+                .:rvw1JsL7;,      ,;..........,.:ir :r .ELr77v:,.   Pr          ..      .  Ls    ,w.   rr.r:JPr. ::,..,,,.,,,,:,:::,:,..7XgRE52US25w1c
+                      .:;7JRQpX:   ; .........,i:  .,J ;gri;7r  :   1;                     .X:    .   ,v :aK1, ,,:.,,,.,,,,:::::,;::::cOBB6K55UXUX5XUw
+                           ;J,XQB7,:    . ...,:   .:7Z.7Zi7;r:   ,  v,                      :w:;,.,:::7LUsc:..:,:.:,,,,,:,:::::::,:;c5BBPS5wSUSUaUaUa2
+                           J7  rEBBg..,. ..... .  ,L1PLKr:,:;r;;::, :,                       :;SXsJU1XLLr....:,,,,,,::::,::::::,::LL,,rZXUJU25552aUUUU
+                           JL .:sXBB:... ., .    ,OH777;,rZRBBBQL ..r,                     ,:r7::r:,;;....:,,,,,,,,.::::;::;:::.7gL    UK2UUS1aw2wU25J
+                           U7 .r71BB;  . :.. .. :QJ;.;1pBBBBBGRBRi  i:                   .      .w7.   ..,,:,,,,,:,:,:::::::,.,2BR:   .DSaUSUUS525w5U1
+                           2r :7rJBQ7   .;. .   KL::JGBBBgE6Hp6XMQ;     .                    ... ,2s    ,,,,:::::,:::::::,,.:sQQB2    ;DHa5U52S2U25USJ
+                           a: :7;1BB2   .v,    sL;LPQgDBPH6KPQBpGBG    .                   ... ..  aP:. .. ,::,:::::,,,,.;rSgBQDa;    :gSSwSUUU525US2U
+                           5; ;;r2QBB,  .s:  :a7:PBZ2,:BEaZPKgBZOgB,                        .   ...:LEHri::,:.,,.,,,::rsXRBgGKEJi,    2GH252SUS5S11wH5
+                           U: ;:rwDBBr  .c, rB6r 167.,,RQPpEP6OpKEBc      .,                 .   : ::sS7;cKB6HHa1XOQRRQBRgEZDBH; ..  ;RZUPSSU525USSpK2
+                           s; ;::aBg,   .; .Gv,H::,,::,;BQDOGHPXpKBs      .,.                 . .,.  .r:;:6gOEBQRRRDggQgOHgMGL,    .;PEHHXaaKaPXPKPaXS
+                           s7.:,sBa     :..S,  vE::::;  7BBMgZH6pQBr             .             ,:,   ,.,r2RHSSpMZPKRRZpgggav,    ;UpEZaaaKHHUHPPaUJHGO
+                           a;.775:    .::rU.    gR:,:.   :;:BBBBQar                         .  ,,   ,.,7rggJwU6DDGMgOGgXc:,   ,rPGOpKSXSXSKUKHU1UHgOEP
+                          1i :SZJrLXpBBMRB:  .v  Ba,.       :sv:                             .        irsBUSpEEGPPpg65r:..,;sKZDZHSX5XaHU55K2wUGMRZ6Z6
+                         :K  :7asvwc2MgEQB, :gg.:iB7  .,,,:.                      ...,.   .     ..   .:iM6GEpSSXZOEs:...;spZpKKXXSX5Xa5Ja5wwKGQDEpp6OZ
+                         w; ,LXLr77sLwL5aR. gRgQgaQBi ,vJwvi,.                 .;;:;7:   .   .  ,...  rRDRJUSXpgas:,.:;U66SaHa2X5aUa552X12SgQgpZpEpGOD
+                         H: ;XJ;77rv7rJUaQ;rgaPgXXHBB;        . .              .ri:;;          ,: . :6QZEKHXpXXL:,::r1PKXaa2XSS5a5S5UJ22aOBgEpOppZOOgG
+                         iwsJsr7rsLrrLcJ2gQGXHwa1SUHBB:  . ... .                 ..,           :   1BRKpOEGp2Jr;::rsXP1Uaa2U5a5aUa5SsSpgQRZGZEEZZOOgDg
+                           ,cs5aXaP552ssLwRSHXaSS5asXBB.      . .                             .  LBBgGgZHsr;vrr;rcXpP5UUS5X5S2XS5SS1URBggpEZgDDGOGggRD
+                              ,;irrs2KgQRPJJJSUXKXSHJpBM   . . .                                ZBBOUsr;:.  ,,,rHgZPUaSaUSUSSXaUPXsSBB6ZZp6EEGOOGDEggO
+                                       ;BBQQZaSJ5J15SJDQ7                                    .iEBL:.  . .,:,:;SRQGZXPXXSHaS2UUSUSswQB6OZgG6pZZGODEOGDE
+                                      JgUri1aGEpEpXSS5LBQ,                              .rLap2Jr     ;712OO6ZggRDZXHXpKK2211LLLc7wgBa2PODRGE6OZgDgGDGD
+                                    7QB; ,Jc76DaZXOZgDPEBBX,                       :c1HEZ1c;:,.,:;cHDgQQggMZgGOZO6OEGpXsLLsJXHPOBBBc;vss5EMggZDODOgED6
+                                   LZJ::iwrrr72EPgXU5OBBBBBBBp7:               .i5P6wL;,   .:LS6DMgMgZKgEOPOGGDDGEXULvLSOBBBBBQBgDQDJ5rrr7JOQQDDZGEgDD
+                                   wp rR5,       .HQRX7r72RQBBBBBQBMEK6Uc7sc7cHOU:,     .:LHgOQg6ZOPZpZGGEDERZPwcr7LKDDaJr:.      rBX;;:r:ir1DBQMgRgDp
+                                   7D,sw:      ,   Z.      .LgBBQBBOsJaQBBBBBBXrr.  .:rwZBBQgROgDgDOERRMgROOScrLsPP5r,             7Qs,::::::rUgRgZOG6
+                                   ,Q57:r  ,:  ,r  U:         .;;   .vL7L;r:UG7.:sr;JSgQBgDEZXXUSXpHa21svr7r7s2v:.                  iQK...:,:::;LLJJws
+                                    OBHs;.  :;;,v  H:             :6X;       rpL;7pSrrr7r;::,....,,:;iirrvvvr,                       :BBPs;;:,,,,::;::
+                                    ::rPDEL:..7:c;7r              pK  .:      :KL.:r:..     ..:icsS5sr:,.                              JgGgBQDOSJss77r
+                                         :r;:::  ,                PH r,       ,;5: ,::::;7Ls7Lc7;:                                         ,:7JP17rJUs
+                                                                  .:J: :;  .,:K6BQS7:.,.,.
+                                                                    :r7Ji;r7;::;;.**/
+                                                                        .
+#include&lt;bits/stdc++.h&gt;
+using namespace std;
+int main(){
+    int n;
+    while(cin&gt;&gt;n){
+        if(n&lt;=2)cout&lt;&lt;&quot;XiaoNiu&quot;&lt;&lt;endl;
+        else cout&lt;&lt;&quot;XiaoKe&quot;&lt;&lt;endl;
+    }
+    return 0;
+}</code></pre>
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Link"><span class="toc-text">Link</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Type-博弈论"><span class="toc-text">Type: 博弈论</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#题目"><span class="toc-text">题目</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#约束"><span class="toc-text">约束</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#输出"><span class="toc-text">输出</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#题解"><span class="toc-text">题解</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Code"><span class="toc-text">Code</span></a></li></ol>
+  </div>
+</aside>
+  
+    <aside class="passage-copyright">
+      <div>本文作者: 张文涛</div>
+      
+        <div>
+          原文链接: 
+          <a href="" target="_blank">http://be-sunshine.cn/passages/2018mutippd/</a>
+        </div>
+      
+      <div>
+        版权声明: 本博客所有文章除特别声明外, 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议. 转载请注明出处!
+      </div>
+    </aside>
+  
+  
+    <div class="passage-tags">
+     
+      <a href="/tags/牛客练习赛/"><i class="fa fa-tags"></i>牛客练习赛</a>
+     
+      <a href="/tags/博弈论/"><i class="fa fa-tags"></i>博弈论</a>
+    
+    </div>
+  
+</div>
+
+    </main>
+    
+      
+<div class="site-comment-contanier" data-plateform="leancloud">
+  
+    <p id="site-comment-info">
+      <i class="fa fa-spinner fa-spin"></i> 评论加载中
+    </p>
+    <div id="site-comment"></div>
+  
+</div>
+    
+    <div class="site-footer-wrapper">
+  <footer class="site-footer">
+    
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">博客推荐</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/" target="_blank">GodBMW</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="http://ruanyifeng.com/" target="_blank">阮一峰的个人网站</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">系列教程</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/categories/webpack4%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B/" target="_blank">webpack4系列教程</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/design-patterns/" target="_blank">设计模式手册</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">抓到我</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://weibo.com/3260959934/" target="_blank">微博</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://github.com/834930269" target="_blank">Github</a>
+            </span>
+          
+        </div>
+      
+    
+    <div class="site-footer-info">
+      <i class="fa fa-clock-o"></i> 本站已稳定运行<span id="site-time"></span>
+    </div>
+    
+      <div class="site-footer-info">
+        <i class="fa fa-paw"></i> 您是本站第 <span id="site-count"></span> 位访客
+      </div>
+    
+    
+      <div class="site-footer-info">
+        <i class="fa fa-at"></i> Email: 834930269@qq.com
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-copyright"></i> 
+      2019 <a href="https://github.com/dongyuanxin/theme-ad/" target="_blank">Theme-AD</a>.
+      Created by <a href="https://godbmw.com/" target="_blank">GodBMW</a>.
+      All rights reserved.
+    </div>
+  </footer>
+</div>
+    <div id="site-layer" style="display:none;">
+  <div class="site-layer-content">
+    <div class="site-layer-header">
+      <span class="site-layer-header-title" id="site-layer-title"></span>
+      <i class="fa fa-close" id="site-layer-close"></i>
+    </div>
+    <div class="site-layer-body" id="site-layer-container">
+      <div class="site-layer-input" id="site-layer-search" style="display: none;">
+        <div class="site-layer-input-choose">
+          <a href="javascript:void(0);" title="Change Search Engine">Google</a>
+        </div>
+        <input type="text">
+        <i class="fa fa-search"></i>
+      </div>
+      
+        <div class="site-layer-reward" id="site-layer-reward" style="display: none;">
+          
+            <div>
+              <img src="/images/wechat.png" alt="WeChat">
+              
+                <p>WeChat</p>
+              
+            </div>
+          
+            <div>
+              <img src="/images/alipay.png" alt="AliPay">
+              
+                <p>AliPay</p>
+              
+            </div>
+          
+        </div>
+      
+      <div id="site-layer-welcome" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+    
+
+<div class="bottom-bar">
+  <div class="bottom-bar-left">
+    <a href="/passages/2018qs-g/" data-enable="true">
+      <i class="fa fa-arrow-left"></i>
+    </a>
+    <a href="/passages/hdu-1431/" data-enable="true">
+      <i class="fa fa-arrow-right"></i>
+    </a>
+  </div>
+  <div class="bottom-bar-right">
+    <a href="javascript:void(0);" data-enable="true" id="site-toc-show-btn">
+      <i class="fa fa-bars"></i>
+    </a>
+    
+      <a href="#site-comment" data-enable="true">
+        <i class="fa fa-commenting"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="site-toggle-share-btn">
+      <i class="fa fa-share-alt"></i>
+    </a>
+    
+      <a href="javascript:void(0);" id="site-reward">
+        <i class="fa fa-thumbs-up"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="back-top-btn">
+      <i class="fa fa-chevron-up"></i>
+    </a>
+  </div>
+</div>
+    <div id="share-btn">
+  
+    <a id="share-btn-twitter" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-twitter"></i>
+    </a>
+  
+  
+    <a id="share-btn-facebook" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-facebook"></i>
+    </a>
+  
+  
+    <a id="share-btn-weibo" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-weibo"></i>
+    </a>
+  
+  
+    <a id="share-btn-qq" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-qq"></i>
+    </a>
+  
+  
+    <a id="share-btn-wechat" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-wechat"></i>
+    </a>
+  
+</div>
+    
+
+
+
+
+
+    
+  </body>
+</html>

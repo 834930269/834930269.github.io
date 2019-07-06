@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html>
+  
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="author" content="张文涛">
+  
+  
+  <title>51nod 1020 逆序排列 | 山海经▪大荒经</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="51nod,全排列,动态规划,逆序数,逆序数,51nod,全排列,动态规划,">
+  
+
+  
+  <meta name="description" content="Winter Zhang的小站">
+
+  
+
+  
+    <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.1/dist/av-min.js" async></script>
+  
+
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+  
+
+  
+    <script src="//unpkg.com/valine/dist/Valine.min.js" async></script>
+  
+
+  
+
+  <script>
+  // theme-ad's config script
+  // it can be used in every script
+  
+  window.AD_CONFIG = {
+    leancloud: {"appid":"Hyq9wkH495DgNHWhDQCOfQSp-gzGzoHsz","appkey":"WaR7nrzhliHj9aVwdQzkdlGd","comment":true,"count":true},
+    welcome: {"enable":false,"interval":30},
+    start_time: "2015-02-10",
+    passwords: ["c035b468e47fd966ac2df15e3d7f7a64d89b1dbf209c24caad6e62bffd90d4c7", ],
+    is_post: true,
+    lock: false,
+    author: "张文涛",
+    share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
+    mathjax: true,
+    page_type: "",
+    root: "/"
+  };
+</script>
+
+  <script src="/vendor/sha256.min.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/index.js"></script>
+<script src="/vendor/qrcode.min.js"></script>
+
+  
+    <link rel="icon" href="/images/favicon2.ico">
+    <link rel="apple-touch-icon" href="/images/touch-icon.png">
+  
+
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/styles/components/highlight/highlight.css">
+
+  
+</head>
+  <body>
+    <header class="site-header">
+  <div class="site-header-brand">
+    
+      <span class="site-header-brand-title">
+        <a href="/">想你了</a>
+      </span>
+    
+    
+      <span class="site-header-brand-motto"> | 祝你平安幸福</span>
+    
+  </div>
+  <div class="site-header-right">
+    <nav class="site-header-navigation">
+      
+        <a href="/" target="_self">首页</a>
+      
+        <a href="/archives/" target="_self">归档</a>
+      
+        <a href="/tags/" target="_self">标签</a>
+      
+        <a href="/categories/" target="_self">分类</a>
+      
+        <a href="/friends/" target="_self">友链</a>
+      
+        <a href="/about/" target="_self">关于</a>
+      
+    </nav>
+    <div class="site-header-btn">
+      
+        <a href="https://github.com/834930269/" target="_blank" id="site-github">
+          <i class="fa fa-github-alt"></i>
+        </a>
+      
+      <a href="javascript:void(0);" id="site-search">
+        <i class="fa fa-search"></i>
+      </a>
+      <a href="javascript:void(0);" id="site-nav-btn">
+        <i class="fa fa-ellipsis-v"></i>
+      </a>
+    </div>
+  </div>
+</header>
+<nav class="table-content" id="site-nav">
+  <div class="table-content-title">
+    <span>导航</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc">
+      
+        <li class="toc-item">
+          <a href="/" target="_self">
+            首页
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/archives/" target="_self">
+            归档
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/tags/" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/categories/" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/friends/" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/about/" target="_self">
+            关于
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</nav>
+<div id="site-process"></div>
+    <main>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2018-03-05
+    </span>
+    
+      <span>
+        | <a href="/categories/51nod/"><i class="fa fa-bookmark"></i>51nod</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    51nod 1020 逆序排列
+  </h1>
+  
+  <article class="passage-article">
+    <h1 id="Type-DP-逆序数"><a href="#Type-DP-逆序数" class="headerlink" title="Type:DP,逆序数"></a>Type:DP,逆序数</h1><h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p>在一个排列中，如果一对数的前后位置与大小顺序相反，即前面的数大于后面的数，那么它们就称为一个逆序。一个排列中逆序的总数就称为这个排列的逆序数。 如2 4 3 1中，2 1，4 3，4 1，3 1是逆序，逆序数是4。 1-n的全排列中，逆序数最小为0（正序），最大为n*(n-1) / 2（倒序） 给出2个数n和k，求1-n的全排列中，逆序数为k的排列有多少种？ 例如：n = 4 k = 3。 1 2 3 4的排列中逆序为3的共有6个，分别是： 1 4 3 2 2 3 4 1 2 4 1 3 3 1 4 2 3 2 1 4 4 1 2 3 由于逆序排列的数量非常大，因此只需计算并输出该数 Mod 10^9 + 7的结果就可以了。</p>
+<h1 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h1><p>第1行：一个数T，表示后面用作输入测试的数的数量。（1 &lt;= T &lt;= 10000) 第2 - T + 1行：每行2个数n，k。中间用空格分隔。（2 &lt;= n &lt;= 1000, 0 &lt;= k &lt;= 20000)</p>
+<h1 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h1><p>共T行，对应逆序排列的数量 Mod (10^9 + 7)</p>
+<h1 id="Input示例"><a href="#Input示例" class="headerlink" title="Input示例"></a>Input示例</h1><p>1 4 3</p>
+<h1 id="Output示例"><a href="#Output示例" class="headerlink" title="Output示例"></a>Output示例</h1><p>6</p>
+<h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><blockquote>
+<p>考虑 dp[i][j] 表示 元素个数为 i 个时 逆序数为 j 的全排列个数为 dp[i][j] 个.</p>
+<blockquote>
+<p>设当前元素为 N ,则 N 可以放在原来 N-1 个元素的任意全排列的 N-i(i∈[0,N)) 上的位置.</p>
+<blockquote>
+<p>当 N 放在位置 N-i 上时,该排列的逆序数会增长 i (因为N最大,所以后面i个为逆序,前面为顺序),所以当我们想要找长度为 N ,逆序数为 k 的个数时,只需要找长度为 N-1 ,逆序数为 k-i 的全排列的个数即可.</p>
+<blockquote>
+<p>所以 dp[N][k] = lambda(dp[N-1][k-i] | i∈[0,N))</p>
+</blockquote>
+<p>复杂度为 O(k(N^2)) 会炸.</p>
+</blockquote>
+<p>考虑优化:</p>
+<blockquote>
+<p>① dp[N][k] = lambda(dp[N-1][k-i] | i∈[0,N)) ② dp[N][k-1] = lambda(dp[N-1][k-1-i] | i∈[0,N)) ①-②: dp[N][k]-dp[N][k-1] = dp[N-1][k]-dp[N-1][k-N] dp[N][k]=dp[N-1][k]-dp[N-1][k-N]+dp[N][k-1]</p>
+</blockquote>
+</blockquote>
+<p>得出递推公式:</p>
+<blockquote>
+<p>① dp[i][j]=1 j=0 ② dp[i][j]=dp[i-1][j]-dp[i-1][j-i]+dp[i][j-1]</p>
+</blockquote>
+<p>由题目的约束条件:</p>
+<blockquote>
+<p>逆序数最小为0（正序），最大为n*(n-1) / 2（倒序）</p>
+</blockquote>
+<p>故枚举逆序数只需要枚举到 i*(i-1)/2&amp;&amp;j\&lt;20000即可 注意j-i不能&lt;0</p>
+</blockquote>
+<h1 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h1><pre><code>#include&lt;bits/stdc++.h&gt;
+using namespace std;
+const int mod=1e9+7;
+int dp[1010][20010];
+
+void init(){
+    for(int i=1;i&lt;=1000;++i) dp[i][0]=1;
+    for(int i=2;i&lt;=1000;++i){
+        for(int j=1;j&lt;=i*(i-1)/2&amp;&amp;j&lt;=20000;++j){
+            dp[i][j]=(dp[i][j-1]+dp[i-1][j])%mod;
+            if(j-i&gt;=0)dp[i][j]=(((dp[i][j]-dp[i-1][j-i])%mod)+mod)%mod;
+        }
+    }
+}
+
+int main(){
+    init();
+    int T;
+    scanf(&quot;%d&quot;,&amp;T);
+    while(T--){
+        int n,k;
+        scanf(&quot;%d%d&quot;,&amp;n,&amp;k);
+        printf(&quot;%d\n&quot;,dp[n][k]);
+    }
+    return 0;
+}</code></pre>
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Type-DP-逆序数"><span class="toc-text">Type:DP,逆序数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#题目"><span class="toc-text">题目</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Input"><span class="toc-text">Input</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Output"><span class="toc-text">Output</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Input示例"><span class="toc-text">Input示例</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Output示例"><span class="toc-text">Output示例</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#题解"><span class="toc-text">题解</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Code"><span class="toc-text">Code</span></a></li></ol>
+  </div>
+</aside>
+  
+    <aside class="passage-copyright">
+      <div>本文作者: 张文涛</div>
+      
+        <div>
+          原文链接: 
+          <a href="" target="_blank">http://be-sunshine.cn/passages/51nod-1020-reverse/</a>
+        </div>
+      
+      <div>
+        版权声明: 本博客所有文章除特别声明外, 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议. 转载请注明出处!
+      </div>
+    </aside>
+  
+  
+    <div class="passage-tags">
+     
+      <a href="/tags/逆序数/"><i class="fa fa-tags"></i>逆序数</a>
+     
+      <a href="/tags/51nod/"><i class="fa fa-tags"></i>51nod</a>
+     
+      <a href="/tags/全排列/"><i class="fa fa-tags"></i>全排列</a>
+     
+      <a href="/tags/动态规划/"><i class="fa fa-tags"></i>动态规划</a>
+    
+    </div>
+  
+</div>
+
+    </main>
+    
+      
+<div class="site-comment-contanier" data-plateform="leancloud">
+  
+    <p id="site-comment-info">
+      <i class="fa fa-spinner fa-spin"></i> 评论加载中
+    </p>
+    <div id="site-comment"></div>
+  
+</div>
+    
+    <div class="site-footer-wrapper">
+  <footer class="site-footer">
+    
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">博客推荐</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/" target="_blank">GodBMW</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="http://ruanyifeng.com/" target="_blank">阮一峰的个人网站</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">系列教程</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/categories/webpack4%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B/" target="_blank">webpack4系列教程</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/design-patterns/" target="_blank">设计模式手册</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">抓到我</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://weibo.com/3260959934/" target="_blank">微博</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://github.com/834930269" target="_blank">Github</a>
+            </span>
+          
+        </div>
+      
+    
+    <div class="site-footer-info">
+      <i class="fa fa-clock-o"></i> 本站已稳定运行<span id="site-time"></span>
+    </div>
+    
+      <div class="site-footer-info">
+        <i class="fa fa-paw"></i> 您是本站第 <span id="site-count"></span> 位访客
+      </div>
+    
+    
+      <div class="site-footer-info">
+        <i class="fa fa-at"></i> Email: 834930269@qq.com
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-copyright"></i> 
+      2019 <a href="https://github.com/dongyuanxin/theme-ad/" target="_blank">Theme-AD</a>.
+      Created by <a href="https://godbmw.com/" target="_blank">GodBMW</a>.
+      All rights reserved.
+    </div>
+  </footer>
+</div>
+    <div id="site-layer" style="display:none;">
+  <div class="site-layer-content">
+    <div class="site-layer-header">
+      <span class="site-layer-header-title" id="site-layer-title"></span>
+      <i class="fa fa-close" id="site-layer-close"></i>
+    </div>
+    <div class="site-layer-body" id="site-layer-container">
+      <div class="site-layer-input" id="site-layer-search" style="display: none;">
+        <div class="site-layer-input-choose">
+          <a href="javascript:void(0);" title="Change Search Engine">Google</a>
+        </div>
+        <input type="text">
+        <i class="fa fa-search"></i>
+      </div>
+      
+        <div class="site-layer-reward" id="site-layer-reward" style="display: none;">
+          
+            <div>
+              <img src="/images/wechat.png" alt="WeChat">
+              
+                <p>WeChat</p>
+              
+            </div>
+          
+            <div>
+              <img src="/images/alipay.png" alt="AliPay">
+              
+                <p>AliPay</p>
+              
+            </div>
+          
+        </div>
+      
+      <div id="site-layer-welcome" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+    
+
+<div class="bottom-bar">
+  <div class="bottom-bar-left">
+    <a href="/passages/51nod-1084-jzqs-v2/" data-enable="true">
+      <i class="fa fa-arrow-left"></i>
+    </a>
+    <a href="/passages/51nod-1040-max-gcd-sum/" data-enable="true">
+      <i class="fa fa-arrow-right"></i>
+    </a>
+  </div>
+  <div class="bottom-bar-right">
+    <a href="javascript:void(0);" data-enable="true" id="site-toc-show-btn">
+      <i class="fa fa-bars"></i>
+    </a>
+    
+      <a href="#site-comment" data-enable="true">
+        <i class="fa fa-commenting"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="site-toggle-share-btn">
+      <i class="fa fa-share-alt"></i>
+    </a>
+    
+      <a href="javascript:void(0);" id="site-reward">
+        <i class="fa fa-thumbs-up"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="back-top-btn">
+      <i class="fa fa-chevron-up"></i>
+    </a>
+  </div>
+</div>
+    <div id="share-btn">
+  
+    <a id="share-btn-twitter" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-twitter"></i>
+    </a>
+  
+  
+    <a id="share-btn-facebook" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-facebook"></i>
+    </a>
+  
+  
+    <a id="share-btn-weibo" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-weibo"></i>
+    </a>
+  
+  
+    <a id="share-btn-qq" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-qq"></i>
+    </a>
+  
+  
+    <a id="share-btn-wechat" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-wechat"></i>
+    </a>
+  
+</div>
+    
+
+
+
+
+
+    
+  </body>
+</html>

@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html>
+  
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="author" content="张文涛">
+  
+  
+  <title>聊天室架构从0开始 – 2 TCP+UDP 实现搜索IP与端口 | 山海经▪大荒经</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="tcp,网络编程,随笔,网络编程,tcp,">
+  
+
+  
+  <meta name="description" content="Winter Zhang的小站">
+
+  
+
+  
+    <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.1/dist/av-min.js" async></script>
+  
+
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+  
+
+  
+    <script src="//unpkg.com/valine/dist/Valine.min.js" async></script>
+  
+
+  
+
+  <script>
+  // theme-ad's config script
+  // it can be used in every script
+  
+  window.AD_CONFIG = {
+    leancloud: {"appid":"Hyq9wkH495DgNHWhDQCOfQSp-gzGzoHsz","appkey":"WaR7nrzhliHj9aVwdQzkdlGd","comment":true,"count":true},
+    welcome: {"enable":false,"interval":30},
+    start_time: "2015-02-10",
+    passwords: ["c035b468e47fd966ac2df15e3d7f7a64d89b1dbf209c24caad6e62bffd90d4c7", ],
+    is_post: true,
+    lock: false,
+    author: "张文涛",
+    share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
+    mathjax: true,
+    page_type: "",
+    root: "/"
+  };
+</script>
+
+  <script src="/vendor/sha256.min.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/index.js"></script>
+<script src="/vendor/qrcode.min.js"></script>
+
+  
+    <link rel="icon" href="/images/favicon2.ico">
+    <link rel="apple-touch-icon" href="/images/touch-icon.png">
+  
+
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/styles/components/highlight/highlight.css">
+
+  
+</head>
+  <body>
+    <header class="site-header">
+  <div class="site-header-brand">
+    
+      <span class="site-header-brand-title">
+        <a href="/">想你了</a>
+      </span>
+    
+    
+      <span class="site-header-brand-motto"> | 祝你平安幸福</span>
+    
+  </div>
+  <div class="site-header-right">
+    <nav class="site-header-navigation">
+      
+        <a href="/" target="_self">首页</a>
+      
+        <a href="/archives/" target="_self">归档</a>
+      
+        <a href="/tags/" target="_self">标签</a>
+      
+        <a href="/categories/" target="_self">分类</a>
+      
+        <a href="/friends/" target="_self">友链</a>
+      
+        <a href="/about/" target="_self">关于</a>
+      
+    </nav>
+    <div class="site-header-btn">
+      
+        <a href="https://github.com/834930269/" target="_blank" id="site-github">
+          <i class="fa fa-github-alt"></i>
+        </a>
+      
+      <a href="javascript:void(0);" id="site-search">
+        <i class="fa fa-search"></i>
+      </a>
+      <a href="javascript:void(0);" id="site-nav-btn">
+        <i class="fa fa-ellipsis-v"></i>
+      </a>
+    </div>
+  </div>
+</header>
+<nav class="table-content" id="site-nav">
+  <div class="table-content-title">
+    <span>导航</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc">
+      
+        <li class="toc-item">
+          <a href="/" target="_self">
+            首页
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/archives/" target="_self">
+            归档
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/tags/" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/categories/" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/friends/" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/about/" target="_self">
+            关于
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</nav>
+<div id="site-process"></div>
+    <main>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2019-01-14
+    </span>
+    
+      <span>
+        | <a href="/categories/tcp/"><i class="fa fa-bookmark"></i>tcp</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    聊天室架构从0开始 – 2 TCP+UDP 实现搜索IP与端口
+  </h1>
+  
+  <article class="passage-article">
+    <h1 id="Root"><a href="#Root" class="headerlink" title="Root"></a>Root</h1><h1 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h1><ul>
+<li>java<ul>
+<li>client<ul>
+<li>bean<ul>
+<li>ServerInfo.java(记录服务端所需信息model)</li>
+</ul>
+</li>
+<li>Client.java(客户端执行)</li>
+<li>ClientSearcher.java(客户端广播向服务端,并且接受服务端返回的地址)</li>
+<li>TCPClient.java(TCP连接客户端)</li>
+</ul>
+</li>
+<li>clink(工具包)<ul>
+<li>utils<ul>
+<li>ByteUtils.java</li>
+</ul>
+</li>
+<li>Clink.java</li>
+</ul>
+</li>
+<li>constants(常量)<ul>
+<li>TCPConstants.java</li>
+<li>UDPConstants.java</li>
+</ul>
+</li>
+<li>server<ul>
+<li>Server.java</li>
+<li>ServerProvider.java(服务提供者)</li>
+<li>TCPServer.java(TCP连接服务端)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="UDP向服务端广播搜索TCP地址"><a href="#UDP向服务端广播搜索TCP地址" class="headerlink" title="UDP向服务端广播搜索TCP地址"></a>UDP向服务端广播搜索TCP地址</h2><blockquote>
+<p>老一套,先开启监听,再发送数据.</p>
+</blockquote>
+<h3 id="方式和流程和传输数据结构"><a href="#方式和流程和传输数据结构" class="headerlink" title="方式和流程和传输数据结构"></a>方式和流程和传输数据结构</h3><blockquote>
+<p>方式,利用UDP独有的广播向服务端request地址和端口.并通过监听的端口等待服务端的回复. 报文格式:</p>
+<blockquote>
+<p>包裹层(HEADER,用于验证) IP - String 数据 - Byte[]</p>
+</blockquote>
+<p>数据格式:</p>
+<blockquote>
+<p>HEADER(验证字段,正式的数据要跳过这一段) cmd - 命令(1为客户端发送,2为服务端回送) LISTEN_PORT - 请求服务端后回复信息时的端口号,或客户端代连接服务端的端口号 - INT</p>
+</blockquote>
+</blockquote>
+<h3 id="代码-IDEA-放在Github上"><a href="#代码-IDEA-放在Github上" class="headerlink" title="代码(IDEA,放在Github上)"></a>代码(IDEA,放在Github上)</h3><p><a href="https://github.com/834930269/TCP_AND_UDP/tree/master/SocketDemo-L5" target="_blank" rel="noopener">https://github.com/834930269/TCP_AND_UDP/tree/master/SocketDemo-L5</a></p>
+<h2 id="在上一步基础上建立TCP连接"><a href="#在上一步基础上建立TCP连接" class="headerlink" title="在上一步基础上建立TCP连接"></a>在上一步基础上建立TCP连接</h2><h3 id="方式"><a href="#方式" class="headerlink" title="方式"></a>方式</h3><blockquote>
+<p>通过UDP获取到的服务端的IP和端口.</p>
+<blockquote>
+<p>用Socket连接之.</p>
+</blockquote>
+</blockquote>
+<h3 id="通过键盘流输入"><a href="#通过键盘流输入" class="headerlink" title="通过键盘流输入"></a>通过键盘流输入</h3><pre><code>InputStream in=System.in;
+BufferedReader input=new BufferedReader(new InputStreamReader(in));
+//键盘读取一行
+String str=input.readLine();</code></pre><h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p><a href="https://github.com/834930269/TCP_AND_UDP/tree/master/SocketDemo-L5-2/SocketDemo-L5" target="_blank" rel="noopener">https://github.com/834930269/TCP_AND_UDP/tree/master/SocketDemo-L5-2/SocketDemo-L5</a></p>
+<h2 id="完成当前目标-服务端与客户端发送与接收并行"><a href="#完成当前目标-服务端与客户端发送与接收并行" class="headerlink" title="完成当前目标,服务端与客户端发送与接收并行"></a>完成当前目标,服务端与客户端发送与接收并行</h2><h3 id="方式-1"><a href="#方式-1" class="headerlink" title="方式"></a>方式</h3><blockquote>
+<p>将读写分开,读继承Thread,写重写Runnable. 广播： 用一个list记录,每当有客户端连接来时,就记录下那个客户端的Socket.</p>
+<blockquote>
+<p>遍历广播即可</p>
+</blockquote>
+</blockquote>
+<h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><p><a href="https://github.com/834930269/TCP_AND_UDP/tree/master/SocketDemo-L5-3/SocketDemo-L5" target="_blank" rel="noopener">https://github.com/834930269/TCP_AND_UDP/tree/master/SocketDemo-L5-3/SocketDemo-L5</a></p>
+
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Root"><span class="toc-text">Root</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#目录结构"><span class="toc-text">目录结构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#UDP向服务端广播搜索TCP地址"><span class="toc-text">UDP向服务端广播搜索TCP地址</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#方式和流程和传输数据结构"><span class="toc-text">方式和流程和传输数据结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码-IDEA-放在Github上"><span class="toc-text">代码(IDEA,放在Github上)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在上一步基础上建立TCP连接"><span class="toc-text">在上一步基础上建立TCP连接</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#方式"><span class="toc-text">方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#通过键盘流输入"><span class="toc-text">通过键盘流输入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码"><span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#完成当前目标-服务端与客户端发送与接收并行"><span class="toc-text">完成当前目标,服务端与客户端发送与接收并行</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#方式-1"><span class="toc-text">方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码-1"><span class="toc-text">代码</span></a></li></ol></li></ol></li></ol>
+  </div>
+</aside>
+  
+    <aside class="passage-copyright">
+      <div>本文作者: 张文涛</div>
+      
+        <div>
+          原文链接: 
+          <a href="" target="_blank">http://be-sunshine.cn/passages/ty2/</a>
+        </div>
+      
+      <div>
+        版权声明: 本博客所有文章除特别声明外, 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议. 转载请注明出处!
+      </div>
+    </aside>
+  
+  
+    <div class="passage-tags">
+     
+      <a href="/tags/网络编程/"><i class="fa fa-tags"></i>网络编程</a>
+     
+      <a href="/tags/tcp/"><i class="fa fa-tags"></i>tcp</a>
+    
+    </div>
+  
+</div>
+
+    </main>
+    
+      
+<div class="site-comment-contanier" data-plateform="leancloud">
+  
+    <p id="site-comment-info">
+      <i class="fa fa-spinner fa-spin"></i> 评论加载中
+    </p>
+    <div id="site-comment"></div>
+  
+</div>
+    
+    <div class="site-footer-wrapper">
+  <footer class="site-footer">
+    
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">博客推荐</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/" target="_blank">GodBMW</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="http://ruanyifeng.com/" target="_blank">阮一峰的个人网站</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">系列教程</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/categories/webpack4%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B/" target="_blank">webpack4系列教程</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/design-patterns/" target="_blank">设计模式手册</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">抓到我</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://weibo.com/3260959934/" target="_blank">微博</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://github.com/834930269" target="_blank">Github</a>
+            </span>
+          
+        </div>
+      
+    
+    <div class="site-footer-info">
+      <i class="fa fa-clock-o"></i> 本站已稳定运行<span id="site-time"></span>
+    </div>
+    
+      <div class="site-footer-info">
+        <i class="fa fa-paw"></i> 您是本站第 <span id="site-count"></span> 位访客
+      </div>
+    
+    
+      <div class="site-footer-info">
+        <i class="fa fa-at"></i> Email: 834930269@qq.com
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-copyright"></i> 
+      2019 <a href="https://github.com/dongyuanxin/theme-ad/" target="_blank">Theme-AD</a>.
+      Created by <a href="https://godbmw.com/" target="_blank">GodBMW</a>.
+      All rights reserved.
+    </div>
+  </footer>
+</div>
+    <div id="site-layer" style="display:none;">
+  <div class="site-layer-content">
+    <div class="site-layer-header">
+      <span class="site-layer-header-title" id="site-layer-title"></span>
+      <i class="fa fa-close" id="site-layer-close"></i>
+    </div>
+    <div class="site-layer-body" id="site-layer-container">
+      <div class="site-layer-input" id="site-layer-search" style="display: none;">
+        <div class="site-layer-input-choose">
+          <a href="javascript:void(0);" title="Change Search Engine">Google</a>
+        </div>
+        <input type="text">
+        <i class="fa fa-search"></i>
+      </div>
+      
+        <div class="site-layer-reward" id="site-layer-reward" style="display: none;">
+          
+            <div>
+              <img src="/images/wechat.png" alt="WeChat">
+              
+                <p>WeChat</p>
+              
+            </div>
+          
+            <div>
+              <img src="/images/alipay.png" alt="AliPay">
+              
+                <p>AliPay</p>
+              
+            </div>
+          
+        </div>
+      
+      <div id="site-layer-welcome" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+    
+
+<div class="bottom-bar">
+  <div class="bottom-bar-left">
+    <a href="/passages/2372/" data-enable="true">
+      <i class="fa fa-arrow-left"></i>
+    </a>
+    <a href="/passages/gamemaker-studio-2/" data-enable="true">
+      <i class="fa fa-arrow-right"></i>
+    </a>
+  </div>
+  <div class="bottom-bar-right">
+    <a href="javascript:void(0);" data-enable="true" id="site-toc-show-btn">
+      <i class="fa fa-bars"></i>
+    </a>
+    
+      <a href="#site-comment" data-enable="true">
+        <i class="fa fa-commenting"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="site-toggle-share-btn">
+      <i class="fa fa-share-alt"></i>
+    </a>
+    
+      <a href="javascript:void(0);" id="site-reward">
+        <i class="fa fa-thumbs-up"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="back-top-btn">
+      <i class="fa fa-chevron-up"></i>
+    </a>
+  </div>
+</div>
+    <div id="share-btn">
+  
+    <a id="share-btn-twitter" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-twitter"></i>
+    </a>
+  
+  
+    <a id="share-btn-facebook" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-facebook"></i>
+    </a>
+  
+  
+    <a id="share-btn-weibo" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-weibo"></i>
+    </a>
+  
+  
+    <a id="share-btn-qq" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-qq"></i>
+    </a>
+  
+  
+    <a id="share-btn-wechat" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-wechat"></i>
+    </a>
+  
+</div>
+    
+
+
+
+
+
+    
+  </body>
+</html>

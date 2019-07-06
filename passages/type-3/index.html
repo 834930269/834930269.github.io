@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html>
+  
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="author" content="张文涛">
+  
+  
+  <title>聊天室内核从0开始 – 2 处理语料库 | 山海经▪大荒经</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Python,聊天机器人内核,Python,聊天机器人内核,">
+  
+
+  
+  <meta name="description" content="Winter Zhang的小站">
+
+  
+
+  
+    <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.1/dist/av-min.js" async></script>
+  
+
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+  
+
+  
+    <script src="//unpkg.com/valine/dist/Valine.min.js" async></script>
+  
+
+  
+
+  <script>
+  // theme-ad's config script
+  // it can be used in every script
+  
+  window.AD_CONFIG = {
+    leancloud: {"appid":"Hyq9wkH495DgNHWhDQCOfQSp-gzGzoHsz","appkey":"WaR7nrzhliHj9aVwdQzkdlGd","comment":true,"count":true},
+    welcome: {"enable":false,"interval":30},
+    start_time: "2015-02-10",
+    passwords: ["c035b468e47fd966ac2df15e3d7f7a64d89b1dbf209c24caad6e62bffd90d4c7", ],
+    is_post: true,
+    lock: false,
+    author: "张文涛",
+    share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
+    mathjax: true,
+    page_type: "",
+    root: "/"
+  };
+</script>
+
+  <script src="/vendor/sha256.min.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/index.js"></script>
+<script src="/vendor/qrcode.min.js"></script>
+
+  
+    <link rel="icon" href="/images/favicon2.ico">
+    <link rel="apple-touch-icon" href="/images/touch-icon.png">
+  
+
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/styles/components/highlight/highlight.css">
+
+  
+</head>
+  <body>
+    <header class="site-header">
+  <div class="site-header-brand">
+    
+      <span class="site-header-brand-title">
+        <a href="/">想你了</a>
+      </span>
+    
+    
+      <span class="site-header-brand-motto"> | 祝你平安幸福</span>
+    
+  </div>
+  <div class="site-header-right">
+    <nav class="site-header-navigation">
+      
+        <a href="/" target="_self">首页</a>
+      
+        <a href="/archives/" target="_self">归档</a>
+      
+        <a href="/tags/" target="_self">标签</a>
+      
+        <a href="/categories/" target="_self">分类</a>
+      
+        <a href="/friends/" target="_self">友链</a>
+      
+        <a href="/about/" target="_self">关于</a>
+      
+    </nav>
+    <div class="site-header-btn">
+      
+        <a href="https://github.com/834930269/" target="_blank" id="site-github">
+          <i class="fa fa-github-alt"></i>
+        </a>
+      
+      <a href="javascript:void(0);" id="site-search">
+        <i class="fa fa-search"></i>
+      </a>
+      <a href="javascript:void(0);" id="site-nav-btn">
+        <i class="fa fa-ellipsis-v"></i>
+      </a>
+    </div>
+  </div>
+</header>
+<nav class="table-content" id="site-nav">
+  <div class="table-content-title">
+    <span>导航</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc">
+      
+        <li class="toc-item">
+          <a href="/" target="_self">
+            首页
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/archives/" target="_self">
+            归档
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/tags/" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/categories/" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/friends/" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/about/" target="_self">
+            关于
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</nav>
+<div id="site-process"></div>
+    <main>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2019-01-04
+    </span>
+    
+      <span>
+        | <a href="/categories/Python/"><i class="fa fa-bookmark"></i>Python</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    聊天室内核从0开始 – 2 处理语料库
+  </h1>
+  
+  <article class="passage-article">
+    <blockquote>
+<p>最后更新于2019/1/4</p>
+</blockquote>
+<h1 id="处理语料库"><a href="#处理语料库" class="headerlink" title="处理语料库"></a>处理语料库</h1><h2 id="简单处理提问与应答"><a href="#简单处理提问与应答" class="headerlink" title="简单处理提问与应答"></a>简单处理提问与应答</h2><blockquote>
+<p>这里我们本来可以用jieba或者其他的一些库来帮忙分词,但是因为网上存在已经分好词的语料库,所以可以省略这一步. 至于语料库,可以在github上直接搜索语料库即可以搜到. 一般语料库如下:</p>
+</blockquote>
+<pre><code>E
+M 呵/呵
+M 是/王/若/猫/的/。
+E
+M 不/是
+M 那/是/什/么/？
+E
+M 怎/么/了
+M 我/很/难/过/，/安/慰/我/~
+E
+M 开/心/点/哈/,/一/切/都/会/好/起/来
+M 嗯/ /会/的</code></pre><p>其中E代表是下一组应答的开始,M代表的是一句话. 可以认为是一问一答.</p>
+<h2 id="将一个句子编码化"><a href="#将一个句子编码化" class="headerlink" title="将一个句子编码化"></a>将一个句子编码化</h2><blockquote>
+<p>因为我们如果企图对一个句子进行判断和操作时,我们需要将这串句子编码化成为一组数字更为方便,且占内存更少. 当然,我们用这组句子编码成数字以后也可以重新根据数字编码回字符.</p>
+</blockquote>
+<p>举个栗子: map[3]=’a’,map[2]=’b’ 则 32 = ab,且 ba = 23</p>
+<blockquote>
+<p>Python的一个语法糖:</p>
+<blockquote>
+<p>[2]*2=[2,2]</p>
+</blockquote>
+<p>2019/1/9 日更新-完善注释</p>
+</blockquote>
+<pre><code>import numpy as np
+
+# 句子编码化
+class WordSequence(object):
+    #标注TAG
+    PAD_TAG=&apos;&lt;pad&gt;&apos;
+    UNK_TAG=&apos;&lt;unk&gt;&apos; # 未识别
+    START_TAG=&apos;&lt;s&gt;&apos;
+    END_TAG=&apos;&lt;/s&gt;&apos;
+
+    PAD=0
+    UNK=1
+    START=2
+    END=3
+
+    # 初始化标签
+    def __init__(self):
+        self.dict = {
+            WordSequence.PAD_TAG: WordSequence.PAD,
+            WordSequence.UNK_TAG: WordSequence.UNK,
+            WordSequence.START_TAG: WordSequence.START,
+            WordSequence.END_TAG: WordSequence.END
+        }
+        # 是否训练过了
+        self.fited=False
+
+    # 将word的词性转换为下标
+    def to_index(self,word):
+        assert self.fited,&apos;WordSequence尚未进行fit操作&apos;
+        # 如果有,返回下标
+        if word in self.dict:
+            return self.dict[word]
+        # 没有,返回UNKnow
+        return WordSequence.UNK
+
+    def to_word(self,index):
+        assert self.fited,&apos;WordSequence尚未进行fit操作&apos;
+        # 遍历dict,找到就返回value
+        for k,v in self.dict.items():
+            if v==index:
+                return k
+        # 否则返回不知道
+        return WordSequence.UNK_TAG
+
+    def size(self):
+        assert self.fited, &apos;WordSequence尚未进行fit操作&apos;
+        return len(self.dict) + 1
+
+    def __len__(self):
+        return self.size()
+
+    # 对数据进行处理
+    def fit(self,sentences,min_count=5,max_count=None,max_features=None):
+        assert not self.fited, &apos;WordSequence只能进行一次fit&apos;
+
+        count={}
+        # 遍历所有句子
+        for sentence in sentences:
+            arr=list(sentence)
+            # 统计词频
+            for a in arr:
+                if a not in count:
+                    count[a]=0
+                count[a]+=1
+        # 只统计词频大于最小值的
+        if min_count is not None:
+            count={k:v for k,v in count.items() if v&gt;=min_count}
+        # 仅统计词频小于最大值的
+        if max_count is not None:
+            count={k:v for k,v in count.items() if v&lt;=max_count}
+
+        # 如果有特征值数的限制,比如[1,2,3]max_features=2,则
+        # 需要用的是[1,2]
+        if isinstance(max_features,int):
+            # list(dict)=[(key,value),...]
+            count = sorted(list(count.items()),key=lambda x:x[1])
+            if max_features is not None and len(count) &gt; max_features:
+                count = count[-int(max_features):]# 从尾部向前
+            # 这个以及下面那个类似于前向星式存图法里的
+            # 下标递增式存法,即加入一个元素,该元素下标
+            # 变成当前已存在的元素个数
+            # 就是把count中的key作为dict的key
+            # 在dict中的下标作为dict的value
+            for w,_ in count:
+                self.dict[w]=len(self.dict)
+        else:
+            for w in sorted(count.keys()):
+                self.dict[w]=len(self.dict)
+
+        # 处理完成
+        self.fited=True
+
+    # 序列成数列
+    def transform(self, sentence, max_len=None):
+        assert self.fited, &apos;WordSequence尚未进行fit操作&apos;
+        # PAD -&gt; 填充标签,先填充本来的句子长度所有元素为PAD
+        # 如: [&apos;&lt;PAD&gt;&apos;,&apos;&lt;PAD&gt;&apos;...]
+        if max_len is not None:
+            r = [self.PAD] * max_len
+        else:
+            r = [self.PAD] * len(sentence)
+
+        for index, a in enumerate(sentence):
+            if max_len is not None and index &gt;= len(r):
+                break
+            r[index] = self.to_index(a)
+
+        return np.array(r)
+
+    # 序列转回字母
+    def inverse_transform(self, indices, ignore_pad=False, ignore_unk=False, ignore_start=False, ignore_end=False):
+        ret = []
+        for i in indices:
+            word = self.to_word(i)
+            if word == WordSequence.PAD_TAG and ignore_pad:
+                continue
+            if word == WordSequence.UNK_TAG and ignore_unk:
+                continue
+            if word == WordSequence.START_TAG and ignore_start:
+                continue
+            if word == WordSequence.END_TAG and ignore_end:
+                continue
+
+            ret.append(word)
+
+        return ret
+
+
+def test():
+    ws = WordSequence()
+    ws.fit([[&apos;你&apos;, &apos;好&apos;, &apos;啊&apos;], [&apos;你&apos;, &apos;好&apos;, &apos;哦&apos;], ])
+
+    indice = ws.transform([&apos;我&apos;, &apos;们&apos;, &apos;好&apos;])
+    print(indice)
+
+    back = ws.inverse_transform(indice)
+    print(back)
+
+
+if __name__ == &apos;__main__&apos;:
+    test()</code></pre><blockquote>
+<p>可以发现其实都是一些简单的映射.将每个字符都映射到一个整数上面去.</p>
+<blockquote>
+<p>这样做以后再将其打包成pkl会大大减少占用硬盘: 83MB-&gt;750kb 了解一下</p>
+</blockquote>
+</blockquote>
+<h2 id="对于语料中句子的规范化"><a href="#对于语料中句子的规范化" class="headerlink" title="对于语料中句子的规范化"></a>对于语料中句子的规范化</h2><blockquote>
+<p>这里我们提供三个函数(可自行编码):</p>
+</blockquote>
+<pre><code># 这个函数的作用是在有多个回答的条件下将回答合并起来
+def make_split(line):
+    if re.match(r&apos;.*([，···?!\.,!？])$&apos;, &apos;&apos;.join(line)):
+        return []
+
+    return [&apos;, &apos;]
+
+# 是否是一个有意义的句子(这里我们不做规则)
+def good_line(line):
+    #if len(re.findall(r&apos;[a-zA-Z0-9]&apos;, &apos;&apos;.join(line))) &gt; 2:
+        #return False
+    return True
+
+# 规范化语料,即对于已提取出的预料中的句子进行处理
+def regular(sen):
+    #sen = re.sub(r&apos;\.{3,100}&apos;, &apos;···&apos;, sen)
+    #sen = re.sub(r&apos;···{2,100}&apos;, &apos;···&apos;, sen)
+    #sen = re.sub(r&apos;[,]{1,100}&apos;, &apos;，&apos;, sen)
+    #sen = re.sub(r&apos;[\.]{1,100}&apos;, &apos;。&apos;, sen)
+    #sen = re.sub(r&apos;[\?]{1,100}&apos;, &apos;？&apos;, sen)
+    #sen = re.sub(r&apos;[!]{1,100}&apos;, &apos;！&apos;, sen)
+
+    return sen</code></pre><blockquote>
+<p>可以发现我基本都注释掉了,因为小黄鸡的语料库就是标准的一问一答,不是自然地语料库(微信随便提取的那类),所以不需要过多的处理.</p>
+</blockquote>
+<h2 id="打包成pkl文件"><a href="#打包成pkl文件" class="headerlink" title="打包成pkl文件"></a>打包成pkl文件</h2><blockquote>
+<p>首先说一下pkl文件:</p>
+<blockquote>
+<p>pkl文件是Python运行时产生的数据序列化后存储下来的文件格式,类似于其他语言的序列化.方便以后的继续使用和读取.</p>
+</blockquote>
+</blockquote>
+<p>具体的处理语料库和打包(一问一答Tuple)代码如下:</p>
+<pre><code># -*- coding:utf-8 -*-
+
+import re
+import pickle
+import sys
+from tqdm import tqdm
+
+
+def make_split(line):
+    if re.match(r&apos;.*([，···?!\.,!？])$&apos;, &apos;&apos;.join(line)):
+        return []
+
+    return [&apos;, &apos;]
+
+# 是否是一个有意义的句子(这里我们不做规则)
+def good_line(line):
+    #if len(re.findall(r&apos;[a-zA-Z0-9]&apos;, &apos;&apos;.join(line))) &gt; 2:
+        #return False
+    return True
+
+# 规范化语料
+def regular(sen):
+    #sen = re.sub(r&apos;\.{3,100}&apos;, &apos;···&apos;, sen)
+    #sen = re.sub(r&apos;···{2,100}&apos;, &apos;···&apos;, sen)
+    #sen = re.sub(r&apos;[,]{1,100}&apos;, &apos;，&apos;, sen)
+    #sen = re.sub(r&apos;[\.]{1,100}&apos;, &apos;。&apos;, sen)
+    #sen = re.sub(r&apos;[\?]{1,100}&apos;, &apos;？&apos;, sen)
+    #sen = re.sub(r&apos;[!]{1,100}&apos;, &apos;！&apos;, sen)
+
+    return sen
+
+# 这样设置的意思是无限制
+def main(limit=99999, x_limit=1, y_limit=1):
+    from word_sequence import WordSequence
+    print(&apos;extract lines&apos;)
+    fp=open(&quot;xiaohuangji.conv&quot;,&apos;r&apos;,errors=&apos;ignore&apos;,encoding=&apos;utf-8&apos;)
+
+    groups=[]
+    group=[]
+
+    # 提取出所有问答组
+    for line in tqdm(fp):
+        if line.startswith(&apos;M &apos;):
+            line=line.replace(&apos;\n&apos;,&apos;&apos;)
+            if &apos;/&apos; in line:
+                line = line[2:].split(&apos;/&apos;)
+            else:
+                line=list(line[2:])
+            line=line[:-1]
+
+            group.append(list(regular(&apos;&apos;.join(line))))
+        else:
+            if group:
+                groups.append(group)
+                group = []
+    if group:
+        groups.append(group)
+        group = []
+
+    print(&apos;extract group&apos;)
+
+    x_data = []
+    y_data = []
+    # 将问与答分开
+    for group in tqdm(groups):
+        for i,line in  enumerate(group):
+            last_line=None
+            # last_line是上一句
+            if i&gt;0:
+                last_line = group[i-1]
+                if not good_line(last_line):
+                    last_line = None
+            if i&lt;len(group)-1:
+                next_line=group[i+1]
+                if not good_line(next_line):
+                    next_line=None
+            # 如果有下一句
+            if not last_line:
+                x_data.append(line)
+                y_data.append(next_line)
+
+        #print(len(x_data), len(y_data))
+
+    print(len(x_data), len(y_data))
+    # 构建问答,测试前20个
+    for ask,answer in zip(x_data[:20],y_data[:20]):
+        print(&apos;&apos;.join(ask))
+        print(&apos;&apos;.join(answer))
+        print(&apos;-&apos; * 20)
+
+    # 生成pkl文件
+    data=list(zip(x_data,y_data))
+
+    data=[
+        (x,y) for x,y in data if limit&gt;len(x) &gt;=x_limit and limit &gt; len(y) &gt;= y_limit
+    ]
+
+    # 打包成pkl
+    x_data, y_data = zip(*data)
+    ws_input = WordSequence()
+    ws_input.fit(x_data + y_data)
+    print(&apos;dump&apos;)
+    pickle.dump(
+        (x_data, y_data), open(&apos;chatbot.pkl&apos;, &apos;wb&apos;))
+    pickle.dump(ws_input, open(&apos;ws.pkl&apos;, &apos;wb&apos;))
+    print(&apos;done&apos;)
+
+if __name__ == &apos;__main__&apos;:
+    main()</code></pre><h1 id="聊天室内核从0开始-–-3-Seq2Seq"><a href="#聊天室内核从0开始-–-3-Seq2Seq" class="headerlink" title="聊天室内核从0开始 – 3 Seq2Seq"></a>聊天室内核从0开始 – 3 Seq2Seq</h1><p><a href="http://ptzw9yyyp.bkt.clouddn.com/index.php/2019/01/06/seq2seq/" title="聊天室内核从0开始 – 3 Seq2Seq" target="_blank" rel="noopener">聊天室内核从0开始 – 3 Seq2Seq</a></p>
+
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#处理语料库"><span class="toc-text">处理语料库</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#简单处理提问与应答"><span class="toc-text">简单处理提问与应答</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#将一个句子编码化"><span class="toc-text">将一个句子编码化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#对于语料中句子的规范化"><span class="toc-text">对于语料中句子的规范化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#打包成pkl文件"><span class="toc-text">打包成pkl文件</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#聊天室内核从0开始-–-3-Seq2Seq"><span class="toc-text">聊天室内核从0开始 – 3 Seq2Seq</span></a></li></ol>
+  </div>
+</aside>
+  
+    <aside class="passage-copyright">
+      <div>本文作者: 张文涛</div>
+      
+        <div>
+          原文链接: 
+          <a href="" target="_blank">http://be-sunshine.cn/passages/type-3/</a>
+        </div>
+      
+      <div>
+        版权声明: 本博客所有文章除特别声明外, 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议. 转载请注明出处!
+      </div>
+    </aside>
+  
+  
+    <div class="passage-tags">
+     
+      <a href="/tags/Python/"><i class="fa fa-tags"></i>Python</a>
+     
+      <a href="/tags/聊天机器人内核/"><i class="fa fa-tags"></i>聊天机器人内核</a>
+    
+    </div>
+  
+</div>
+
+    </main>
+    
+      
+<div class="site-comment-contanier" data-plateform="leancloud">
+  
+    <p id="site-comment-info">
+      <i class="fa fa-spinner fa-spin"></i> 评论加载中
+    </p>
+    <div id="site-comment"></div>
+  
+</div>
+    
+    <div class="site-footer-wrapper">
+  <footer class="site-footer">
+    
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">博客推荐</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/" target="_blank">GodBMW</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="http://ruanyifeng.com/" target="_blank">阮一峰的个人网站</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">系列教程</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/categories/webpack4%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B/" target="_blank">webpack4系列教程</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/design-patterns/" target="_blank">设计模式手册</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">抓到我</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://weibo.com/3260959934/" target="_blank">微博</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://github.com/834930269" target="_blank">Github</a>
+            </span>
+          
+        </div>
+      
+    
+    <div class="site-footer-info">
+      <i class="fa fa-clock-o"></i> 本站已稳定运行<span id="site-time"></span>
+    </div>
+    
+      <div class="site-footer-info">
+        <i class="fa fa-paw"></i> 您是本站第 <span id="site-count"></span> 位访客
+      </div>
+    
+    
+      <div class="site-footer-info">
+        <i class="fa fa-at"></i> Email: 834930269@qq.com
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-copyright"></i> 
+      2019 <a href="https://github.com/dongyuanxin/theme-ad/" target="_blank">Theme-AD</a>.
+      Created by <a href="https://godbmw.com/" target="_blank">GodBMW</a>.
+      All rights reserved.
+    </div>
+  </footer>
+</div>
+    <div id="site-layer" style="display:none;">
+  <div class="site-layer-content">
+    <div class="site-layer-header">
+      <span class="site-layer-header-title" id="site-layer-title"></span>
+      <i class="fa fa-close" id="site-layer-close"></i>
+    </div>
+    <div class="site-layer-body" id="site-layer-container">
+      <div class="site-layer-input" id="site-layer-search" style="display: none;">
+        <div class="site-layer-input-choose">
+          <a href="javascript:void(0);" title="Change Search Engine">Google</a>
+        </div>
+        <input type="text">
+        <i class="fa fa-search"></i>
+      </div>
+      
+        <div class="site-layer-reward" id="site-layer-reward" style="display: none;">
+          
+            <div>
+              <img src="/images/wechat.png" alt="WeChat">
+              
+                <p>WeChat</p>
+              
+            </div>
+          
+            <div>
+              <img src="/images/alipay.png" alt="AliPay">
+              
+                <p>AliPay</p>
+              
+            </div>
+          
+        </div>
+      
+      <div id="site-layer-welcome" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+    
+
+<div class="bottom-bar">
+  <div class="bottom-bar-left">
+    <a href="/passages/seq2seq/" data-enable="true">
+      <i class="fa fa-arrow-left"></i>
+    </a>
+    <a href="/passages/type-2/" data-enable="true">
+      <i class="fa fa-arrow-right"></i>
+    </a>
+  </div>
+  <div class="bottom-bar-right">
+    <a href="javascript:void(0);" data-enable="true" id="site-toc-show-btn">
+      <i class="fa fa-bars"></i>
+    </a>
+    
+      <a href="#site-comment" data-enable="true">
+        <i class="fa fa-commenting"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="site-toggle-share-btn">
+      <i class="fa fa-share-alt"></i>
+    </a>
+    
+      <a href="javascript:void(0);" id="site-reward">
+        <i class="fa fa-thumbs-up"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="back-top-btn">
+      <i class="fa fa-chevron-up"></i>
+    </a>
+  </div>
+</div>
+    <div id="share-btn">
+  
+    <a id="share-btn-twitter" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-twitter"></i>
+    </a>
+  
+  
+    <a id="share-btn-facebook" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-facebook"></i>
+    </a>
+  
+  
+    <a id="share-btn-weibo" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-weibo"></i>
+    </a>
+  
+  
+    <a id="share-btn-qq" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-qq"></i>
+    </a>
+  
+  
+    <a id="share-btn-wechat" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-wechat"></i>
+    </a>
+  
+</div>
+    
+
+
+
+
+
+    
+  </body>
+</html>

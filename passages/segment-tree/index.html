@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html>
+  
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="author" content="张文涛">
+  
+  
+  <title>算法学习-线段树 | 山海经▪大荒经</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="segmentTree,算法学习,segmentTree,">
+  
+
+  
+  <meta name="description" content="Winter Zhang的小站">
+
+  
+
+  
+    <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.1/dist/av-min.js" async></script>
+  
+
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+  
+
+  
+    <script src="//unpkg.com/valine/dist/Valine.min.js" async></script>
+  
+
+  
+
+  <script>
+  // theme-ad's config script
+  // it can be used in every script
+  
+  window.AD_CONFIG = {
+    leancloud: {"appid":"Hyq9wkH495DgNHWhDQCOfQSp-gzGzoHsz","appkey":"WaR7nrzhliHj9aVwdQzkdlGd","comment":true,"count":true},
+    welcome: {"enable":false,"interval":30},
+    start_time: "2015-02-10",
+    passwords: ["c035b468e47fd966ac2df15e3d7f7a64d89b1dbf209c24caad6e62bffd90d4c7", ],
+    is_post: true,
+    lock: false,
+    author: "张文涛",
+    share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
+    mathjax: true,
+    page_type: "",
+    root: "/"
+  };
+</script>
+
+  <script src="/vendor/sha256.min.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/index.js"></script>
+<script src="/vendor/qrcode.min.js"></script>
+
+  
+    <link rel="icon" href="/images/favicon2.ico">
+    <link rel="apple-touch-icon" href="/images/touch-icon.png">
+  
+
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/styles/components/highlight/highlight.css">
+
+  
+</head>
+  <body>
+    <header class="site-header">
+  <div class="site-header-brand">
+    
+      <span class="site-header-brand-title">
+        <a href="/">想你了</a>
+      </span>
+    
+    
+      <span class="site-header-brand-motto"> | 祝你平安幸福</span>
+    
+  </div>
+  <div class="site-header-right">
+    <nav class="site-header-navigation">
+      
+        <a href="/" target="_self">首页</a>
+      
+        <a href="/archives/" target="_self">归档</a>
+      
+        <a href="/tags/" target="_self">标签</a>
+      
+        <a href="/categories/" target="_self">分类</a>
+      
+        <a href="/friends/" target="_self">友链</a>
+      
+        <a href="/about/" target="_self">关于</a>
+      
+    </nav>
+    <div class="site-header-btn">
+      
+        <a href="https://github.com/834930269/" target="_blank" id="site-github">
+          <i class="fa fa-github-alt"></i>
+        </a>
+      
+      <a href="javascript:void(0);" id="site-search">
+        <i class="fa fa-search"></i>
+      </a>
+      <a href="javascript:void(0);" id="site-nav-btn">
+        <i class="fa fa-ellipsis-v"></i>
+      </a>
+    </div>
+  </div>
+</header>
+<nav class="table-content" id="site-nav">
+  <div class="table-content-title">
+    <span>导航</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc">
+      
+        <li class="toc-item">
+          <a href="/" target="_self">
+            首页
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/archives/" target="_self">
+            归档
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/tags/" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/categories/" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/friends/" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/about/" target="_self">
+            关于
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</nav>
+<div id="site-process"></div>
+    <main>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2017-03-18
+    </span>
+    
+      <span>
+        | <a href="/categories/segmentTree/"><i class="fa fa-bookmark"></i>segmentTree</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    算法学习-线段树
+  </h1>
+  
+  <article class="passage-article">
+    <p>【概念】 线段树是擅长处理区间的,且是一颗完美二叉树(Perfect Binary Tree),树上每一个节点都维护一个区间,根维护的是整个区间,每个节点维护的是父亲的区间二等分后的其中一个子区间。当有n个元素时,对区间的操作可以在O(log n)的时间内完成. 以下我们以实现了Range Minimum Query(RMQ,范围最小值查询)操作的线段树为例,进行说明. 【基于线段树的RMQ的结构】 下面要建立的线段树在给定数列a0,a1,a2,….,an-1的情况下,可以在O(log n)时间内完成如下两种操作.</p>
+<ul>
+<li>给定s和t,求as,as+1,…,at的最小值.                                                                         ΘωΘ~</li>
+<li>给定i和x,把ai的值改成x.</li>
+</ul>
+<p>递归建树,在建树时只需要按从下到上的顺序分别取左右儿子的值中的较小者就可以了.(回溯实现) 【基于线段树的RMQ的查询】 如果要求a0,…,a6的最小值。我们只需要求[a0,a3],[a4,a5],[a6]这三个区间中的最小值即可。 要求某个区间的最小值,向下面这样递归处理就可以了.</p>
+<ul>
+<li>如果所查询的区间和当前节点对应的区间完全没有交集,那么就返回一个不影响答案的值(例如INT_MAX)。</li>
+<li>如果所查询的区间完全包含了当前节点对应的区间,那么就返回当前节点的值.</li>
+<li>以上两种情况都不满足的话,就对两个儿子递归处理,返回两个结果中的较小者.</li>
+</ul>
+<p>【基于线段树的RMQ的值的更新】 在更新a0(a0:5-&gt;2)的值时,需要重新计算a0往上的所有父节点的值.–即,在更新ai的值时,需要对包含i的所有区间对应的节点的值重新计算。在更新时,可以从下面的节点开始向上不断更新,把每个节点的值更新为左右两个儿子的值的较小者就可以了. 【实现】 为了简单起见,在建立线段树时,把数列所有的值都初始化为INT_MAX(limits.h文件中).此外,query的参数中不只传入节点的编号,还传入了节点对应的区间.</p>
+<blockquote>
+<p><strong>#include<iostream></iostream></strong> <strong>#include<algorithm></algorithm></strong> <strong>#include<climits></climits></strong> <strong>using namespace std;</strong> <strong>const int MAX_N=1&lt;&lt;17;</strong> <strong>//存储线段树的全局数组</strong> <strong>int n,dat[2*MAX_N-1];</strong> <strong>//initialize</strong> <strong>void init(int n_){</strong> <em>*    /*为了简便起见,把元素扩大到2的幂–满二叉树</em>/<em>* **    n=1;** **    while(n&lt;n_) n</em>=2;<em>* **    /*把所有的值都设为INT_MAX</em>/<em>* **    for(int i=0;i&lt;2<em>n-1;++i)dat[i]=INT_MAX;*</em> <strong>}</strong> *<em>/</em>把第k个值(0-indexed)更新为a</em>/<em>* <strong>void updata(int k,int a){</strong> **    /*叶子节点</em>/<em>* **    k+=n-1;** **    dat[k]=a;** **    /*向上更新</em>/<em>* **    while(k&gt;0){** **        k=(k-1)/2;** <strong>dat[k]=min(dat[k*2+1],dat[k*2+2]);</strong> **    }** <strong>}</strong> **/\</em> 查询<em>* <strong>*求[a,b)的最小值</strong> <strong>*后面的参数是为了计算起来方便而传入的</strong> <strong>*k是节点的编号,l(英文字母),r表示这个节点对应的是[l,r)区间</strong> <strong>*在外部调用时,用query(a,b,0，0，n)</strong> <strong>*这里n为换算成满二叉树后的叶子节点数,如n_=10，n=16</strong> <strong>*/</strong> <strong>int query(int a,int b,int k,int l,int r){</strong> **    /*如果[a,b]和[1,r]不相交,则返回INT_MAX</em>/<em>* **    if(r&lt;=a||b&lt;=l) return INT_MAX;** **    /*如果[a,b]完全包含[1，r],则返回当前节点的值</em>/<em>* **    if(a&lt;=l &amp;&amp; r&lt;=b) return dat[k];** **    else{** **        /*否则返回两个儿子中值的较小者</em>/** **        int v1=query(a,b,k<em>2+1,l,(l+r)/2);*</em> **        int v2=query(a,b,k<em>2+2,(l+r)/2,r);*</em> <strong>return min(v1,v2);</strong> <strong>}</strong> <strong>}</strong> <strong>int main(){</strong> <strong>init(10);//区间为[a0,a9]</strong> **    updata(5,-10);** **    updata(2,-20);** **    updata(0,2);** <strong>cout&lt;&lt;”[0,1) min: “&lt;&lt;query(0,1,0,0,16)&lt;&lt;endl;</strong> **    cout&lt;&lt;”[2,3) min: “&lt;&lt;query(2,3,0,0,16)&lt;&lt;endl;** **    cout&lt;&lt;”[5,6) min: “&lt;&lt;query(5,6,0,0,16)&lt;&lt;endl;** **    cout&lt;&lt;”[0,9) min: “&lt;&lt;query(0,9,0,0,16)&lt;&lt;endl;** **    cout&lt;&lt;”[0,4) min: “&lt;&lt;query(0,4,0,0,16)&lt;&lt;endl;** **    cout&lt;&lt;”[2,7) min: “&lt;&lt;query(2,7,0,0,16)&lt;&lt;endl;** **    cout&lt;&lt;”[3,7) min: “&lt;&lt;query(3,7,0,0,16)&lt;&lt;endl;** **    for(int i=0;i&lt;=32;++i)** <strong>cout&lt;&lt;”deg “&lt;&lt;i&lt;&lt;” = “&lt;&lt;dat[i]&lt;&lt;endl;</strong> <strong>return 0;</strong> <strong>}</strong></p>
+</blockquote>
+<p>【Tip】</p>
+<ol>
+<li>query中的n是叶子节点总数,不是区间的上界.</li>
+<li>query查询的是[a,b)半开半闭区间,如,a0=2,想查a0,就必须查[0,1).</li>
+<li>查询和建树/更新都是从下标0开始的.</li>
+</ol>
+<p>【运行结果】 <a href="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2017/03/QQ截图20170318190105.png" target="_blank" rel="noopener"><img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2017/03/QQ%E6%88%AA%E5%9B%BE20170318190105.png" alt></a>   【果断要画图啊】 以上代码建好的树是这样的(渣画质莫介意…): <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2017/03/IMG_20170318_185245_1489834380376-1.jpg" alt></p>
+
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
+    
+  </div>
+</aside>
+  
+    <aside class="passage-copyright">
+      <div>本文作者: 张文涛</div>
+      
+        <div>
+          原文链接: 
+          <a href="" target="_blank">http://be-sunshine.cn/passages/segment-tree/</a>
+        </div>
+      
+      <div>
+        版权声明: 本博客所有文章除特别声明外, 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议. 转载请注明出处!
+      </div>
+    </aside>
+  
+  
+    <div class="passage-tags">
+     
+      <a href="/tags/segmentTree/"><i class="fa fa-tags"></i>segmentTree</a>
+    
+    </div>
+  
+</div>
+
+    </main>
+    
+      
+<div class="site-comment-contanier" data-plateform="leancloud">
+  
+    <p id="site-comment-info">
+      <i class="fa fa-spinner fa-spin"></i> 评论加载中
+    </p>
+    <div id="site-comment"></div>
+  
+</div>
+    
+    <div class="site-footer-wrapper">
+  <footer class="site-footer">
+    
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">博客推荐</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/" target="_blank">GodBMW</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="http://ruanyifeng.com/" target="_blank">阮一峰的个人网站</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">系列教程</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/categories/webpack4%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B/" target="_blank">webpack4系列教程</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/design-patterns/" target="_blank">设计模式手册</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">抓到我</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://weibo.com/3260959934/" target="_blank">微博</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://github.com/834930269" target="_blank">Github</a>
+            </span>
+          
+        </div>
+      
+    
+    <div class="site-footer-info">
+      <i class="fa fa-clock-o"></i> 本站已稳定运行<span id="site-time"></span>
+    </div>
+    
+      <div class="site-footer-info">
+        <i class="fa fa-paw"></i> 您是本站第 <span id="site-count"></span> 位访客
+      </div>
+    
+    
+      <div class="site-footer-info">
+        <i class="fa fa-at"></i> Email: 834930269@qq.com
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-copyright"></i> 
+      2019 <a href="https://github.com/dongyuanxin/theme-ad/" target="_blank">Theme-AD</a>.
+      Created by <a href="https://godbmw.com/" target="_blank">GodBMW</a>.
+      All rights reserved.
+    </div>
+  </footer>
+</div>
+    <div id="site-layer" style="display:none;">
+  <div class="site-layer-content">
+    <div class="site-layer-header">
+      <span class="site-layer-header-title" id="site-layer-title"></span>
+      <i class="fa fa-close" id="site-layer-close"></i>
+    </div>
+    <div class="site-layer-body" id="site-layer-container">
+      <div class="site-layer-input" id="site-layer-search" style="display: none;">
+        <div class="site-layer-input-choose">
+          <a href="javascript:void(0);" title="Change Search Engine">Google</a>
+        </div>
+        <input type="text">
+        <i class="fa fa-search"></i>
+      </div>
+      
+        <div class="site-layer-reward" id="site-layer-reward" style="display: none;">
+          
+            <div>
+              <img src="/images/wechat.png" alt="WeChat">
+              
+                <p>WeChat</p>
+              
+            </div>
+          
+            <div>
+              <img src="/images/alipay.png" alt="AliPay">
+              
+                <p>AliPay</p>
+              
+            </div>
+          
+        </div>
+      
+      <div id="site-layer-welcome" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+    
+
+<div class="bottom-bar">
+  <div class="bottom-bar-left">
+    <a href="/passages/new-keng/" data-enable="true">
+      <i class="fa fa-arrow-left"></i>
+    </a>
+    <a href="/passages/android-abstract/" data-enable="true">
+      <i class="fa fa-arrow-right"></i>
+    </a>
+  </div>
+  <div class="bottom-bar-right">
+    <a href="javascript:void(0);" data-enable="true" id="site-toc-show-btn">
+      <i class="fa fa-bars"></i>
+    </a>
+    
+      <a href="#site-comment" data-enable="true">
+        <i class="fa fa-commenting"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="site-toggle-share-btn">
+      <i class="fa fa-share-alt"></i>
+    </a>
+    
+      <a href="javascript:void(0);" id="site-reward">
+        <i class="fa fa-thumbs-up"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="back-top-btn">
+      <i class="fa fa-chevron-up"></i>
+    </a>
+  </div>
+</div>
+    <div id="share-btn">
+  
+    <a id="share-btn-twitter" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-twitter"></i>
+    </a>
+  
+  
+    <a id="share-btn-facebook" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-facebook"></i>
+    </a>
+  
+  
+    <a id="share-btn-weibo" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-weibo"></i>
+    </a>
+  
+  
+    <a id="share-btn-qq" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-qq"></i>
+    </a>
+  
+  
+    <a id="share-btn-wechat" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-wechat"></i>
+    </a>
+  
+</div>
+    
+
+
+
+
+
+    
+  </body>
+</html>

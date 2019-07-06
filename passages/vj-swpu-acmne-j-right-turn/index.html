@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html>
+  
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="author" content="张文涛">
+  
+  
+  <title>VJ SWPU-ACM省赛集训赛ONE J Right turn | 山海经▪大荒经</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Floyd判圈法,VJ,模拟,模拟,Floyd判圈法,VJ,">
+  
+
+  
+  <meta name="description" content="Winter Zhang的小站">
+
+  
+
+  
+    <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.1/dist/av-min.js" async></script>
+  
+
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+  
+
+  
+    <script src="//unpkg.com/valine/dist/Valine.min.js" async></script>
+  
+
+  
+
+  <script>
+  // theme-ad's config script
+  // it can be used in every script
+  
+  window.AD_CONFIG = {
+    leancloud: {"appid":"Hyq9wkH495DgNHWhDQCOfQSp-gzGzoHsz","appkey":"WaR7nrzhliHj9aVwdQzkdlGd","comment":true,"count":true},
+    welcome: {"enable":false,"interval":30},
+    start_time: "2015-02-10",
+    passwords: ["c035b468e47fd966ac2df15e3d7f7a64d89b1dbf209c24caad6e62bffd90d4c7", ],
+    is_post: true,
+    lock: false,
+    author: "张文涛",
+    share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
+    mathjax: true,
+    page_type: "",
+    root: "/"
+  };
+</script>
+
+  <script src="/vendor/sha256.min.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/index.js"></script>
+<script src="/vendor/qrcode.min.js"></script>
+
+  
+    <link rel="icon" href="/images/favicon2.ico">
+    <link rel="apple-touch-icon" href="/images/touch-icon.png">
+  
+
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/styles/components/highlight/highlight.css">
+
+  
+</head>
+  <body>
+    <header class="site-header">
+  <div class="site-header-brand">
+    
+      <span class="site-header-brand-title">
+        <a href="/">想你了</a>
+      </span>
+    
+    
+      <span class="site-header-brand-motto"> | 祝你平安幸福</span>
+    
+  </div>
+  <div class="site-header-right">
+    <nav class="site-header-navigation">
+      
+        <a href="/" target="_self">首页</a>
+      
+        <a href="/archives/" target="_self">归档</a>
+      
+        <a href="/tags/" target="_self">标签</a>
+      
+        <a href="/categories/" target="_self">分类</a>
+      
+        <a href="/friends/" target="_self">友链</a>
+      
+        <a href="/about/" target="_self">关于</a>
+      
+    </nav>
+    <div class="site-header-btn">
+      
+        <a href="https://github.com/834930269/" target="_blank" id="site-github">
+          <i class="fa fa-github-alt"></i>
+        </a>
+      
+      <a href="javascript:void(0);" id="site-search">
+        <i class="fa fa-search"></i>
+      </a>
+      <a href="javascript:void(0);" id="site-nav-btn">
+        <i class="fa fa-ellipsis-v"></i>
+      </a>
+    </div>
+  </div>
+</header>
+<nav class="table-content" id="site-nav">
+  <div class="table-content-title">
+    <span>导航</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc">
+      
+        <li class="toc-item">
+          <a href="/" target="_self">
+            首页
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/archives/" target="_self">
+            归档
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/tags/" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/categories/" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/friends/" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/about/" target="_self">
+            关于
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</nav>
+<div id="site-process"></div>
+    <main>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2017-04-20
+    </span>
+    
+      <span>
+        | <a href="/categories/Floyd判圈法/"><i class="fa fa-bookmark"></i>Floyd判圈法</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    VJ SWPU-ACM省赛集训赛ONE J Right turn
+  </h1>
+  
+  <article class="passage-article">
+    <p><strong>【类型】</strong> <strong>模拟</strong> <strong>【Tip】</strong> <strong>我的代码感觉上很对…然而莫名其妙总WA.然后把代码改成网上搜的题解的思路,A了…</strong> <strong>我一开始的思路是floyd判圈法,若会碰到同一个路障第二次,则一定无法逃出去.</strong> <strong>这个思路是错的,因为有可能在同一个点转的方向不同,所以如果经过同一个点两次有可能逃出去.</strong> <strong>但每个点最多只能经过三次,第四次时一定是一个圈.所以判断是否经过一个点四次就好了.依然是floyd判圈法.不过要判四次.</strong> <strong>然后成型代码如下.</strong> <strong>【WA Code1】</strong></p>
+<blockquote>
+<p>**`#include &lt;bits/stdc++.h&gt;<br>using namespace std;<br>typedef long long ll;<br>const int INF = 0x3f3f3f3f;</p>
+<p>#define cle(a,val) memset(a,(val),sizeof(a))</p>
+<p>#define SI(N) scanf(“%lld”,&amp;(N))</p>
+<p>#define SII(N,M) scanf(“%d %d”,&amp;(N),&amp;(M))</p>
+<p>#define SIII(N,M,K) scanf(“%d %d %d”,&amp;(N),&amp;(M),&amp;(K))</p>
+<p>#define rep(i,b) for(int i=0;i&lt;(b);i++)</p>
+<p>#define rez(i,a,b) for(int i=(a);i&lt;=(b);i++)</p>
+<p>#define red(i,a,b) for(int i=(a);i&gt;=(b);i–)<br>const ll LINF = 0x3f3f3f3f3f3f3f3f;</p>
+<p>#define PU(x) puts(#x);</p>
+<p>#define PI(A) cout&lt;&lt;(A)&lt;&lt;endl;</p>
+<p>#define DG(x) cout&lt;&lt;#x&lt;&lt;”=”&lt;&lt;(x)&lt;&lt;endl;</p>
+<p>#define DGG(x,y) cout&lt;&lt;#x&lt;&lt;”=”&lt;&lt;(x)&lt;&lt;” “&lt;&lt;#y&lt;&lt;”=”&lt;&lt;(y)&lt;&lt;endl;</p>
+<p>#define DGGG(x,y,z) cout&lt;&lt;#x&lt;&lt;”=”&lt;&lt;(x)&lt;&lt;” “&lt;&lt;#y&lt;&lt;”=”&lt;&lt;(y)&lt;&lt;” “&lt;&lt;#z&lt;&lt;”=”&lt;&lt;(z)&lt;&lt;endl;</p>
+<p>#define PIar(a,n) rep(i,n)cout&lt;&lt;a[i]&lt;&lt;” “;cout&lt;&lt;endl;</p>
+<p>#define PIarr(a,n,m) rep(aa,n){rep(bb, m)cout&lt;&lt;a[aa][bb]&lt;&lt;” “;cout&lt;&lt;endl;}<br>const double EPS = 1e-9 ;<br>pair&lt;int,int&gt; node;<br>map&lt;pair&lt;int,int&gt;,bool&gt; mp;<br>map&lt;int,vector<int> &gt; EdgeX,EdgeY;<br>int N,X,Y,step;<br>int toward[4]={1,-2,-1,2},t=0;//右下左上</int></p>
+<p>bool floyd(){<br>    X=0,Y=0;<br>    while(1){<br>        if(toward[t]==1){<br>            vector<int>&amp; Just=EdgeY[Y];<br>            int si=Just.size(),flag=0;<br>            rep(i,si){<br>                if(Just[i]&gt;X){<br>                    if(mp[make_pair(Just[i],Y)]) return false;<br>                    t=(t+1)%4;<br>                    mp[make_pair(Just[i],Y)]=true;<br>                    flag=1;<br>                    X=Just[i]-1;<br>                    step++;<br>                    break;<br>                }<br>            }<br>            if(!flag) return true;<br>        }else if(toward[t]==-2){<br>            vector<int>&amp; Just=EdgeX[X];<br>            int si=Just.size(),flag=0;<br>            red(i,si-1,0){<br>                if(Just[i]&lt;Y){<br>                    if(mp[make_pair(X,Just[i])]) return false;<br>                    t=(t+1)%4;<br>                    mp[make_pair(X,Just[i])]=true;<br>                    Y=Just[i]+1;<br>                    step++;<br>                    flag=1;<br>                    break;<br>                }<br>            }<br>            if(!flag) return true;<br>        }else if(toward[t]==-1){<br>            vector<int>&amp; Just=EdgeY[Y];<br>            int si=Just.size(),flag=0;<br>            red(i,si-1,0){<br>                if(Just[i]&lt;X){<br>                    if(mp[make_pair(Just[i],Y)]) return false;<br>                    t=(t+1)%4;<br>                    mp[make_pair(Just[i],Y)]=true;<br>                    flag=1;<br>                    X=Just[i]+1;<br>                    step++;<br>                    break;<br>                }<br>            }<br>            if(!flag) return true;<br>        }else if(toward[t]==2){<br>            vector<int>&amp; Just=EdgeX[X];<br>            int si=Just.size(),flag=0;<br>            rep(i,si){<br>                if(Just[i]&gt;Y){<br>                    if(mp[make_pair(X,Just[i])]) return false;<br>                    t=(t+1)%4;<br>                    mp[make_pair(X,Just[i])]=true;<br>                    Y=Just[i]-1;<br>                    step++;<br>                    flag=1;<br>                    break;<br>                }<br>            }<br>            if(!flag) return true;<br>        }<br>    }<br>}</int></int></int></int></p>
+<p>int main(){<br>    while(~SI(N)){<br>        t=0;<br>        step=0;<br>        mp.clear();<br>        EdgeX.clear();<br>        EdgeY.clear();<br>        rep(i,N){<br>            scanf(“%d%d”,&amp;node.first,&amp;node.second);<br>            mp[node]=false;<br>            EdgeX[node.first].push_back(node.second);<br>            EdgeY[node.second].push_back(node.first);<br>        }<br>        map&lt;int,vector<int> &gt;::iterator it;<br>        for(it=EdgeX.begin();it!=EdgeX.end();it++){<br>            vector<int>&amp; Just=it-&gt;second;<br>            sort(Just.begin(),Just.end());<br>        }<br>        for(it=EdgeY.begin();it!=EdgeY.end();it++){<br>            vector<int>&amp; Just=it-&gt;second;<br>            sort(Just.begin(),Just.end());<br>        }<br>        if(floyd()){<br>            printf(“%d\n”,step);<br>        }else{<br>            printf(“-1\n”);<br>        }<br>    }<br>    return 0;<br>}`** </int></int></int></p>
+</blockquote>
+<p><strong>【简单修改后AC代码】</strong></p>
+<blockquote>
+<p><strong>#include &lt;bits/stdc++.h&gt;</strong> <strong>using namespace std;</strong> <strong>typedef long long ll;</strong> <strong>const int INF = 0x3f3f3f3f;</strong> <strong>#define cle(a,val) memset(a,(val),sizeof(a))</strong> <strong>#define SI(N) scanf(“%lld”,&amp;(N))</strong> <strong>#define SII(N,M) scanf(“%d %d”,&amp;(N),&amp;(M))</strong> <strong>#define SIII(N,M,K) scanf(“%d %d %d”,&amp;(N),&amp;(M),&amp;(K))</strong> <strong>#define rep(i,b) for(int i=0;i&lt;(b);i++)</strong> <strong>#define rez(i,a,b) for(int i=(a);i&lt;=(b);i++)</strong> <strong>#define red(i,a,b) for(int i=(a);i&gt;=(b);i–)</strong> <strong>const ll LINF = 0x3f3f3f3f3f3f3f3f;</strong> <strong>#define PU(x) puts(#x);</strong> <strong>#define PI(A) cout&lt;&lt;(A)&lt;&lt;endl;</strong> <strong>#define DG(x) cout&lt;&lt;#x&lt;&lt;”=”&lt;&lt;(x)&lt;&lt;endl;</strong> <strong>#define DGG(x,y) cout&lt;&lt;#x&lt;&lt;”=”&lt;&lt;(x)&lt;&lt;” “&lt;&lt;#y&lt;&lt;”=”&lt;&lt;(y)&lt;&lt;endl;</strong> <strong>#define DGGG(x,y,z) cout&lt;&lt;#x&lt;&lt;”=”&lt;&lt;(x)&lt;&lt;” “&lt;&lt;#y&lt;&lt;”=”&lt;&lt;(y)&lt;&lt;” “&lt;&lt;#z&lt;&lt;”=”&lt;&lt;(z)&lt;&lt;endl;</strong> <strong>#define PIar(a,n) rep(i,n)cout&lt;&lt;a[i]&lt;&lt;” “;cout&lt;&lt;endl;</strong> <strong>#define PIarr(a,n,m) rep(aa,n){rep(bb, m)cout&lt;&lt;a[aa][bb]&lt;&lt;” “;cout&lt;&lt;endl;}</strong> <strong>const double EPS = 1e-9 ;</strong> <strong>pair&lt;int,int&gt; node;</strong> <strong>map&lt;pair&lt;int,int&gt;,int&gt; mp;</strong> <strong>map&lt;int,vector<int> &gt; EdgeX,EdgeY;</int></strong> <strong>int N,X,Y,step;</strong> <strong>int toward[4]={1,-2,-1,2},t=0;//右下左上</strong> <strong>bool floyd(){</strong> **    X=0,Y=0;** **    while(1){** **        if(toward[t]==1){** **            vector<int>&amp; Just=EdgeY[Y];** **            int si=Just.size(),flag=0;** **            rep(i,si){** **                if(Just[i]&gt;X){** **                    if(mp[make_pair(Just[i],Y)]==3) return false;** **                    t=(t+1)%4;** **                    mp[make_pair(Just[i],Y)]++;** **                    flag=1;** **                    X=Just[i]-1;** **                    step++;** **                    break;** **                }** **            }** **            if(!flag) return true;** **        }else if(toward[t]==-2){** **            vector<int>&amp; Just=EdgeX[X];** **            int si=Just.size(),flag=0;** **            red(i,si-1,0){** **                if(Just[i]&lt;Y){** **                    if(mp[make_pair(X,Just[i])]==3) return false;** **                    t=(t+1)%4;** **                    mp[make_pair(X,Just[i])]++;** **                    Y=Just[i]+1;** **                    step++;** **                    flag=1;** **                    break;** **                }** **            }** **            if(!flag) return true;** **        }else if(toward[t]==-1){** **            vector<int>&amp; Just=EdgeY[Y];** **            int si=Just.size(),flag=0;** **            red(i,si-1,0){** **                if(Just[i]&lt;X){** **                    if(mp[make_pair(Just[i],Y)]==3) return false;** **                    t=(t+1)%4;** **                    mp[make_pair(Just[i],Y)]++;** **                    flag=1;** **                    X=Just[i]+1;** **                    step++;** **                    break;** **                }** **            }** **            if(!flag) return true;** **        }else if(toward[t]==2){** **            vector<int>&amp; Just=EdgeX[X];** **            int si=Just.size(),flag=0;** **            rep(i,si){** **                if(Just[i]&gt;Y){** **                    if(mp[make_pair(X,Just[i])]==3) return false;** **                    t=(t+1)%4;** **                    mp[make_pair(X,Just[i])]++;** **                    Y=Just[i]-1;** **                    step++;** **                    flag=1;** **                    break;** **                }** **            }** **            if(!flag) return true;** **        }** **    }** <strong>}</strong> <strong>int main(){</strong> **    while(~SI(N)){** **        t=0;** **        step=0;** **        mp.clear();** **        EdgeX.clear();** **        EdgeY.clear();** **        rep(i,N){** **            scanf(“%d%d”,&amp;node.first,&amp;node.second);** **            mp[node]=0;** **            EdgeX[node.first].push_back(node.second);** **            EdgeY[node.second].push_back(node.first);** **        }** **        map&lt;int,vector<int> &gt;::iterator it;** **        for(it=EdgeX.begin();it!=EdgeX.end();it++){** **            vector<int>&amp; Just=it-&gt;second;** **            sort(Just.begin(),Just.end());** **        }** **        for(it=EdgeY.begin();it!=EdgeY.end();it++){** **            vector<int>&amp; Just=it-&gt;second;** **            sort(Just.begin(),Just.end());** **        }** **        if(floyd()){** **            printf(“%d\n”,step);** **        }else{** **            printf(“-1\n”);** **        }** **    }** **    return 0;** <strong>}</strong></int></int></int></int></int></int></int></p>
+</blockquote>
+<p><strong>【跟着题解AC Code】</strong></p>
+<blockquote>
+<p><strong>#include &lt;bits/stdc++.h&gt;</strong> <strong>using namespace std;</strong> <strong>typedef long long ll;</strong> <strong>const int INF = 0x3f3f3f3f;</strong> <strong>#define cle(a,val) memset(a,(val),sizeof(a))</strong> <strong>#define SI(N) scanf(“%lld”,&amp;(N))</strong> <strong>#define SII(N,M) scanf(“%d %d”,&amp;(N),&amp;(M))</strong> <strong>#define SIII(N,M,K) scanf(“%d %d %d”,&amp;(N),&amp;(M),&amp;(K))</strong> <strong>#define rep(i,b) for(int i=0;i&lt;(b);i++)</strong> <strong>#define rez(i,a,b) for(int i=(a);i&lt;=(b);i++)</strong> <strong>#define red(i,a,b) for(int i=(a);i&gt;=(b);i–)</strong> <strong>const ll LINF = 0x3f3f3f3f3f3f3f3f;</strong> <strong>#define PU(x) puts(#x);</strong> <strong>#define PI(A) cout&lt;&lt;(A)&lt;&lt;endl;</strong> <strong>#define DG(x) cout&lt;&lt;#x&lt;&lt;”=”&lt;&lt;(x)&lt;&lt;endl;</strong> <strong>#define DGG(x,y) cout&lt;&lt;#x&lt;&lt;”=”&lt;&lt;(x)&lt;&lt;” “&lt;&lt;#y&lt;&lt;”=”&lt;&lt;(y)&lt;&lt;endl;</strong> <strong>#define DGGG(x,y,z) cout&lt;&lt;#x&lt;&lt;”=”&lt;&lt;(x)&lt;&lt;” “&lt;&lt;#y&lt;&lt;”=”&lt;&lt;(y)&lt;&lt;” “&lt;&lt;#z&lt;&lt;”=”&lt;&lt;(z)&lt;&lt;endl;</strong> <strong>#define PIar(a,n) rep(i,n)cout&lt;&lt;a[i]&lt;&lt;” “;cout&lt;&lt;endl;</strong> <strong>#define PIarr(a,n,m) rep(aa,n){rep(bb, m)cout&lt;&lt;a[aa][bb]&lt;&lt;” “;cout&lt;&lt;endl;}</strong> <strong>const double EPS = 1e-9 ;</strong> <strong>pair&lt;int,int&gt; node;</strong> <strong>map&lt;pair&lt;int,int&gt;,bool&gt; mp;</strong> <strong>map&lt;int,vector<int> &gt; EdgeX,EdgeY;</int></strong> <strong>int N,X,Y,step;</strong> <strong>int toward[4]={1,-2,-1,2},t=0;//右下左上</strong> <strong>bool floyd(){</strong> **    X=0,Y=0;** **    while(step&lt;=4<em>N+1){*</em> **        int tmpx=-INF,tmpy=-INF;** **        if(toward[t]==1){** **            vector<int>&amp; Just=EdgeY[Y];** **            int si=Just.size();** **            rep(i,si){** **                if(Just[i]&gt;X){** **                    tmpy=Y;** **                    if(tmpx!=-INF) tmpx=min(tmpx,Just[i]);** **                    else tmpx=Just[i];** **                }** **            }** **            if (tmpx == -INF || tmpy == -INF) return true;** **            else{** **    //            if(mp[make_pair(tmpx,Y)]) return false;** **     //           mp[make_pair(tmpx,Y)]=true;** **                X=tmpx-1;** **                step++;** **                t=(t+1)%4;** **            }** **        }else if(toward[t]==-2){** **            vector<int>&amp; Just=EdgeX[X];** **            int si=Just.size(),flag=0;** **            rep(i,si){** **                if(Just[i]&lt;Y){** **                    tmpx=X;** **                    flag=1;** **                    if(tmpy!=-INF) tmpy=max(tmpy,Just[i]);** **                    else tmpy=Just[i];** **                }** **            }** **            if (tmpx == -INF || tmpy == -INF) return true;** **            else{** **  //              if(mp[make_pair(X,tmpy)]) return false;** ** //               mp[make_pair(X,tmpy)]=true;** **                Y=tmpy+1;** **                step++;** **                t=(t+1)%4;** **            }** **        }else if(toward[t]==-1){** **            vector<int>&amp; Just=EdgeY[Y];** **            int si=Just.size(),flag=0;** **            rep(i,si){** **                if(Just[i]&lt;X){** **                    flag=1;** **                    tmpy=Y;** **                    if(tmpx!=-INF) tmpx=max(tmpx,Just[i]);** **                    else tmpx=Just[i];** **                }** **            }** **            if (tmpx == -INF || tmpy == -INF) return true;** **            else{** ** //               if(mp[make_pair(tmpx,Y)]) return false;** ** //               mp[make_pair(tmpx,Y)]=true;** **                X=tmpx+1;** **                step++;** **                t=(t+1)%4;** **            }** **        }else if(toward[t]==2){** **            vector<int>&amp; Just=EdgeX[X];** **            int si=Just.size(),flag=0;** **            rep(i,si){** **                if(Just[i]&gt;Y){** **                    tmpx=X;** **                    flag=1;** **                    if(tmpy!=-INF) tmpy=min(tmpy,Just[i]);** **                    else tmpy=Just[i];** **                }** **            }** **            if (tmpx == -INF || tmpy == -INF) return true;** **            else{** ** //              if(mp[make_pair(X,tmpy)]) return false;** **  //              mp[make_pair(X,tmpy)]=true;** **                Y=tmpy-1;** **                step++;** **                t=(t+1)%4;** **            }** **        }** **    }** **    return false;** <strong>}</strong> <strong>int main(){</strong> **    while(~SI(N)){** **        t=0;** **        step=0;** **        mp.clear();** **        EdgeX.clear();** **        EdgeY.clear();** **        rep(i,N){** **            scanf(“%d%d”,&amp;node.first,&amp;node.second);** <strong>//            mp[node]=false;</strong> **            EdgeX[node.first].push_back(node.second);** **            EdgeY[node.second].push_back(node.first);** **        }** **        if(floyd()){** **            printf(“%d\n”,step);** **        }else{** **            printf(“-1\n”);** **        }** **    }** **    return 0;** <strong>}</strong></int></int></int></int></p>
+</blockquote>
+
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
+    
+  </div>
+</aside>
+  
+    <aside class="passage-copyright">
+      <div>本文作者: 张文涛</div>
+      
+        <div>
+          原文链接: 
+          <a href="" target="_blank">http://be-sunshine.cn/passages/vj-swpu-acmne-j-right-turn/</a>
+        </div>
+      
+      <div>
+        版权声明: 本博客所有文章除特别声明外, 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议. 转载请注明出处!
+      </div>
+    </aside>
+  
+  
+    <div class="passage-tags">
+     
+      <a href="/tags/模拟/"><i class="fa fa-tags"></i>模拟</a>
+     
+      <a href="/tags/Floyd判圈法/"><i class="fa fa-tags"></i>Floyd判圈法</a>
+     
+      <a href="/tags/VJ/"><i class="fa fa-tags"></i>VJ</a>
+    
+    </div>
+  
+</div>
+
+    </main>
+    
+      
+<div class="site-comment-contanier" data-plateform="leancloud">
+  
+    <p id="site-comment-info">
+      <i class="fa fa-spinner fa-spin"></i> 评论加载中
+    </p>
+    <div id="site-comment"></div>
+  
+</div>
+    
+    <div class="site-footer-wrapper">
+  <footer class="site-footer">
+    
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">博客推荐</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/" target="_blank">GodBMW</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="http://ruanyifeng.com/" target="_blank">阮一峰的个人网站</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">系列教程</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/categories/webpack4%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B/" target="_blank">webpack4系列教程</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/design-patterns/" target="_blank">设计模式手册</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">抓到我</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://weibo.com/3260959934/" target="_blank">微博</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://github.com/834930269" target="_blank">Github</a>
+            </span>
+          
+        </div>
+      
+    
+    <div class="site-footer-info">
+      <i class="fa fa-clock-o"></i> 本站已稳定运行<span id="site-time"></span>
+    </div>
+    
+      <div class="site-footer-info">
+        <i class="fa fa-paw"></i> 您是本站第 <span id="site-count"></span> 位访客
+      </div>
+    
+    
+      <div class="site-footer-info">
+        <i class="fa fa-at"></i> Email: 834930269@qq.com
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-copyright"></i> 
+      2019 <a href="https://github.com/dongyuanxin/theme-ad/" target="_blank">Theme-AD</a>.
+      Created by <a href="https://godbmw.com/" target="_blank">GodBMW</a>.
+      All rights reserved.
+    </div>
+  </footer>
+</div>
+    <div id="site-layer" style="display:none;">
+  <div class="site-layer-content">
+    <div class="site-layer-header">
+      <span class="site-layer-header-title" id="site-layer-title"></span>
+      <i class="fa fa-close" id="site-layer-close"></i>
+    </div>
+    <div class="site-layer-body" id="site-layer-container">
+      <div class="site-layer-input" id="site-layer-search" style="display: none;">
+        <div class="site-layer-input-choose">
+          <a href="javascript:void(0);" title="Change Search Engine">Google</a>
+        </div>
+        <input type="text">
+        <i class="fa fa-search"></i>
+      </div>
+      
+        <div class="site-layer-reward" id="site-layer-reward" style="display: none;">
+          
+            <div>
+              <img src="/images/wechat.png" alt="WeChat">
+              
+                <p>WeChat</p>
+              
+            </div>
+          
+            <div>
+              <img src="/images/alipay.png" alt="AliPay">
+              
+                <p>AliPay</p>
+              
+            </div>
+          
+        </div>
+      
+      <div id="site-layer-welcome" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+    
+
+<div class="bottom-bar">
+  <div class="bottom-bar-left">
+    <a href="/passages/14zojby-tusimple/" data-enable="true">
+      <i class="fa fa-arrow-left"></i>
+    </a>
+    <a href="/passages/vj-swpu-acmone-e-rectangle/" data-enable="true">
+      <i class="fa fa-arrow-right"></i>
+    </a>
+  </div>
+  <div class="bottom-bar-right">
+    <a href="javascript:void(0);" data-enable="true" id="site-toc-show-btn">
+      <i class="fa fa-bars"></i>
+    </a>
+    
+      <a href="#site-comment" data-enable="true">
+        <i class="fa fa-commenting"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="site-toggle-share-btn">
+      <i class="fa fa-share-alt"></i>
+    </a>
+    
+      <a href="javascript:void(0);" id="site-reward">
+        <i class="fa fa-thumbs-up"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="back-top-btn">
+      <i class="fa fa-chevron-up"></i>
+    </a>
+  </div>
+</div>
+    <div id="share-btn">
+  
+    <a id="share-btn-twitter" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-twitter"></i>
+    </a>
+  
+  
+    <a id="share-btn-facebook" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-facebook"></i>
+    </a>
+  
+  
+    <a id="share-btn-weibo" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-weibo"></i>
+    </a>
+  
+  
+    <a id="share-btn-qq" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-qq"></i>
+    </a>
+  
+  
+    <a id="share-btn-wechat" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-wechat"></i>
+    </a>
+  
+</div>
+    
+
+
+
+
+
+    
+  </body>
+</html>

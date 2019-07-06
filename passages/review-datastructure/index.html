@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html>
+  
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="author" content="张文涛">
+  
+  
+  <title>手撸算法 | 山海经▪大荒经</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="数据结构,算法学习,算法学习,数据结构,">
+  
+
+  
+  <meta name="description" content="Winter Zhang的小站">
+
+  
+
+  
+    <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.1/dist/av-min.js" async></script>
+  
+
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+  
+
+  
+    <script src="//unpkg.com/valine/dist/Valine.min.js" async></script>
+  
+
+  
+
+  <script>
+  // theme-ad's config script
+  // it can be used in every script
+  
+  window.AD_CONFIG = {
+    leancloud: {"appid":"Hyq9wkH495DgNHWhDQCOfQSp-gzGzoHsz","appkey":"WaR7nrzhliHj9aVwdQzkdlGd","comment":true,"count":true},
+    welcome: {"enable":false,"interval":30},
+    start_time: "2015-02-10",
+    passwords: ["c035b468e47fd966ac2df15e3d7f7a64d89b1dbf209c24caad6e62bffd90d4c7", ],
+    is_post: true,
+    lock: false,
+    author: "张文涛",
+    share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
+    mathjax: true,
+    page_type: "",
+    root: "/"
+  };
+</script>
+
+  <script src="/vendor/sha256.min.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/index.js"></script>
+<script src="/vendor/qrcode.min.js"></script>
+
+  
+    <link rel="icon" href="/images/favicon2.ico">
+    <link rel="apple-touch-icon" href="/images/touch-icon.png">
+  
+
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/styles/components/highlight/highlight.css">
+
+  
+</head>
+  <body>
+    <header class="site-header">
+  <div class="site-header-brand">
+    
+      <span class="site-header-brand-title">
+        <a href="/">想你了</a>
+      </span>
+    
+    
+      <span class="site-header-brand-motto"> | 祝你平安幸福</span>
+    
+  </div>
+  <div class="site-header-right">
+    <nav class="site-header-navigation">
+      
+        <a href="/" target="_self">首页</a>
+      
+        <a href="/archives/" target="_self">归档</a>
+      
+        <a href="/tags/" target="_self">标签</a>
+      
+        <a href="/categories/" target="_self">分类</a>
+      
+        <a href="/friends/" target="_self">友链</a>
+      
+        <a href="/about/" target="_self">关于</a>
+      
+    </nav>
+    <div class="site-header-btn">
+      
+        <a href="https://github.com/834930269/" target="_blank" id="site-github">
+          <i class="fa fa-github-alt"></i>
+        </a>
+      
+      <a href="javascript:void(0);" id="site-search">
+        <i class="fa fa-search"></i>
+      </a>
+      <a href="javascript:void(0);" id="site-nav-btn">
+        <i class="fa fa-ellipsis-v"></i>
+      </a>
+    </div>
+  </div>
+</header>
+<nav class="table-content" id="site-nav">
+  <div class="table-content-title">
+    <span>导航</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc">
+      
+        <li class="toc-item">
+          <a href="/" target="_self">
+            首页
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/archives/" target="_self">
+            归档
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/tags/" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/categories/" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/friends/" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/about/" target="_self">
+            关于
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</nav>
+<div id="site-process"></div>
+    <main>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2017-05-26
+    </span>
+    
+      <span>
+        | <a href="/categories/数据结构/"><i class="fa fa-bookmark"></i>数据结构</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    手撸算法
+  </h1>
+  
+  <article class="passage-article">
+    <p>[toc]</p>
+<blockquote>
+<p>楼教主的男人八题: <a href="https://wenku.baidu.com/view/cb87fe8cb9d528ea81c779d1.html" title="https://wenku.baidu.com/view/cb87fe8cb9d528ea81c779d1.html" target="_blank" rel="noopener">https://wenku.baidu.com/view/cb87fe8cb9d528ea81c779d1.html</a></p>
+</blockquote>
+<p>远离之前的模板代码,从原理上开始手撸数据结构. <strong>代码均上传至github仓库.</strong></p>
+<h1 id="【Dijsktra-2017-5-26】"><a href="#【Dijsktra-2017-5-26】" class="headerlink" title="【Dijsktra 2017/5/26】"></a>【Dijsktra 2017/5/26】</h1><p>前向星+优先队列优化+路径回溯 <strong><a href="https://github.com/834930269/Review_DataStructure/blob/master/Dijsktra/Dijsktra.cpp" target="_blank" rel="noopener">Dijsktra.cpp</a></strong></p>
+<h1 id="【并查集-2017-5-27】"><a href="#【并查集-2017-5-27】" class="headerlink" title="【并查集 2017/5/27】"></a>【并查集 2017/5/27】</h1><p><strong>路径压缩,启发式rank优化,将rank较小的并到rank大的集合.</strong> <strong><a href="https://github.com/834930269/Review_DataStructure/blob/master/Union-Find-Set/Union-Find.cpp" target="_blank" rel="noopener">Union-Find-Set.cpp</a></strong></p>
+<h1 id="【树状数组-2017-6-21】"><a href="#【树状数组-2017-6-21】" class="headerlink" title="【树状数组 2017/6/21】"></a>【树状数组 2017/6/21】</h1><p><strong>lowbit() x&amp;(-x),前缀和,LA 4329</strong> <strong><a href="https://github.com/834930269/Review_DataStructure/blob/master/Range-Tree/%E7%AC%AC%E4%B8%80%E6%AC%A1/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84.cpp" target="_blank" rel="noopener">树状数组.cpp</a></strong></p>
+<h1 id="【快速排序-2017-11-4】"><a href="#【快速排序-2017-11-4】" class="headerlink" title="【快速排序 2017/11/4】"></a>【快速排序 2017/11/4】</h1><p><code>java</code></p>
+<pre><code>import java.util.Random;
+
+public class Quick
+{
+    private static int cnt=0;
+    public static void sort(int[] a){
+        Random rand = new Random();
+        System.out.println(&quot;快排之前:&quot;);
+        for(int i=0;i&lt;20;++i){
+            a[i]=rand.nextInt(100);
+            System.out.print(a[i]+&quot; &quot;);
+        }
+        sort(a,0,a.length - 1);
+    }
+    public static void sort(int[] a,int lo,int hi){
+        if(hi &lt;= lo) return;
+        int j = partition(a,lo,hi);//切分
+        sort(a,lo,j-1);
+        sort(a,j+1,hi);
+    }
+    public static int partition(int[] a,int lo,int hi){
+        //将数组切分为a[lo..i-1],a[i],a[i+1..hi]
+        int i=lo,j=hi+1;//左右扫描指针
+        int pt=a[lo];//切分元素
+        while(true){
+            //扫描左右,检查扫描是否结束并交换元素
+            while(a[++i]&lt;pt)if(i==hi) break;//扫描到最左边都没找到大于等于pt的
+            while(a[--j]&gt;pt)if(j==lo) break;
+            if(i&gt;=j) break;//指针重合
+            swap(a,i,j);//没有问题,交换两值
+        }
+        swap(a,lo,j);//将作为基准的数放回正确的位置,切分为两部分,大于基准,小于基准
+        return j;
+    }
+    public static void swap(int[] a,int x,int y){
+        if(x == y) return;
+        a[x]=a[x]^a[y];
+        a[y]=a[y]^a[x];
+        a[x]=a[x]^a[y];
+        cnt++;
+        System.out.println(&quot;\n第&quot;+cnt+&quot;次变化 &quot;+x+&quot; to &quot;+y+&quot; : &quot;);
+        for(int item: a){
+            System.out.print(item+&quot; &quot;);
+        }
+    }
+    public static void main(String[] args){
+        int[] a=new int[20];
+        sort(a);
+        System.out.println(&quot;\n快排之后:&quot;);
+        for(int item: a){
+            System.out.print(item+&quot; &quot;);
+        }
+    }
+}</code></pre><p><code>C++</code></p>
+<pre><code>#include&lt;cstdio&gt;
+#include&lt;cstdlib&gt;
+#include&lt;algorithm&gt;
+#include&lt;cmath&gt;
+#include&lt;ctime&gt;
+using namespace std;
+
+int qpartition(int *a,int lo,int hi){
+    int v=a[lo];
+    int i=lo,j=hi+1;
+    while(true){
+        while(a[++i]&lt;v)if(i==hi)break;
+        while(a[--j]&gt;v)if(j==lo)break;
+        if(i&gt;=j)break;
+        swap(a[i],a[j]);
+    }
+    swap(a[lo],a[j]);
+    return j;
+}
+
+void qsort(int *a,int lo,int hi){
+    if(lo&gt;=hi) return;
+    int j=qpartition(a,lo,hi);
+    qsort(a,lo,j-1);
+    qsort(a,j+1,hi);
+}
+
+int main(){
+    srand((unsigned)time(NULL));
+    int a[20];
+    for(int i=0;i&lt;20;++i){
+        a[i]=rand()%100;
+        printf(&quot;%d &quot;,a[i]);
+    }
+    printf(&quot;\n&quot;);
+    qsort(a,0,19);
+    for(int i=0;i&lt;20;++i){
+        printf(&quot;%d &quot;,a[i]);
+    }
+    return 0;
+}</code></pre><p><strong>Output:</strong></p>
+<pre><code>快排之前:
+29 41 75 80 82 60 0 51 10 57 26 5 84 70 60 78 10 29 11 56 
+第1次变化 1 to 18 : 
+29 11 75 80 82 60 0 51 10 57 26 5 84 70 60 78 10 29 41 56 
+第2次变化 2 to 17 : 
+29 11 29 80 82 60 0 51 10 57 26 5 84 70 60 78 10 75 41 56 
+第3次变化 3 to 16 : 
+29 11 29 10 82 60 0 51 10 57 26 5 84 70 60 78 80 75 41 56 
+第4次变化 4 to 11 : 
+29 11 29 10 5 60 0 51 10 57 26 82 84 70 60 78 80 75 41 56 
+第5次变化 5 to 10 : 
+29 11 29 10 5 26 0 51 10 57 60 82 84 70 60 78 80 75 41 56 
+第6次变化 7 to 8 : 
+29 11 29 10 5 26 0 10 51 57 60 82 84 70 60 78 80 75 41 56 
+第7次变化 0 to 7 : 
+10 11 29 10 5 26 0 29 51 57 60 82 84 70 60 78 80 75 41 56 
+第8次变化 1 to 6 : 
+10 0 29 10 5 26 11 29 51 57 60 82 84 70 60 78 80 75 41 56 
+第9次变化 2 to 4 : 
+10 0 5 10 29 26 11 29 51 57 60 82 84 70 60 78 80 75 41 56 
+第10次变化 0 to 3 : 
+10 0 5 10 29 26 11 29 51 57 60 82 84 70 60 78 80 75 41 56 
+第11次变化 0 to 2 : 
+5 0 10 10 29 26 11 29 51 57 60 82 84 70 60 78 80 75 41 56 
+第12次变化 0 to 1 : 
+0 5 10 10 29 26 11 29 51 57 60 82 84 70 60 78 80 75 41 56 
+第13次变化 4 to 6 : 
+0 5 10 10 11 26 29 29 51 57 60 82 84 70 60 78 80 75 41 56 
+第14次变化 9 to 18 : 
+0 5 10 10 11 26 29 29 51 41 60 82 84 70 60 78 80 75 57 56 
+第15次变化 8 to 9 : 
+0 5 10 10 11 26 29 29 41 51 60 82 84 70 60 78 80 75 57 56 
+第16次变化 11 to 19 : 
+0 5 10 10 11 26 29 29 41 51 60 56 84 70 60 78 80 75 57 82 
+第17次变化 12 to 18 : 
+0 5 10 10 11 26 29 29 41 51 60 56 57 70 60 78 80 75 84 82 
+第18次变化 13 to 14 : 
+0 5 10 10 11 26 29 29 41 51 60 56 57 60 70 78 80 75 84 82 
+第19次变化 10 to 13 : 
+0 5 10 10 11 26 29 29 41 51 60 56 57 60 70 78 80 75 84 82 
+第20次变化 10 to 12 : 
+0 5 10 10 11 26 29 29 41 51 57 56 60 60 70 78 80 75 84 82 
+第21次变化 10 to 11 : 
+0 5 10 10 11 26 29 29 41 51 56 57 60 60 70 78 80 75 84 82 
+第22次变化 16 to 17 : 
+0 5 10 10 11 26 29 29 41 51 56 57 60 60 70 78 75 80 84 82 
+第23次变化 15 to 16 : 
+0 5 10 10 11 26 29 29 41 51 56 57 60 60 70 75 78 80 84 82 
+第24次变化 18 to 19 : 
+0 5 10 10 11 26 29 29 41 51 56 57 60 60 70 75 78 80 82 84 
+快排之后:
+0 5 10 10 11 26 29 29 41 51 56 57 60 60 70 75 78 80 82 84 </code></pre><h1 id="【动态规划-划分数-2017-11-16】"><a href="#【动态规划-划分数-2017-11-16】" class="headerlink" title="【动态规划-划分数 2017/11/16】"></a>【动态规划-划分数 2017/11/16】</h1><p><code>java</code> 动态转移方程： dp[i][j]: j的i划分数 j&gt;=i: dp[i][j]=dp[i-1][j]+dp[i][j-i] i&gt;j: dp[i][j]=dp[i-1][j] 即有一个划分数为0时的目标状态是dp[i-1][j]</p>
+<pre><code>import java.util.*;
+public class stlin {
+    public static void main(String[] args){
+        Scanner in=new Scanner(System.in);
+        int n,m,M;
+        n=in.nextInt();
+        m=in.nextInt();
+        M=in.nextInt();
+        solve(n,m,M);
+    }
+    public static void solve(int n,int m,int M){
+        int[][] dp=new int[m+1][n+1]; 
+        //递推式=&gt;dp[i][j]=dp[i-1][j](ai=0时对应的是i-1划分)+dp[i][j-i]()
+        dp[0][0]=1;
+        for(int i=1;i&lt;=m;++i){
+            for(int j=0;j&lt;=n;++j){
+                if(i&gt;j){
+                    dp[i][j]=dp[i-1][j];
+                }else{
+                    dp[i][j]=(dp[i-1][j]+dp[i][j-i])%M;
+                }
+            }
+        }
+        System.out.println(dp[m][n]);
+    }
+}</code></pre><h1 id="【矩阵链乘-2017-11-17】"><a href="#【矩阵链乘-2017-11-17】" class="headerlink" title="【矩阵链乘 2017/11/17】"></a>【矩阵链乘 2017/11/17】</h1><blockquote>
+<p>输入保证有效,例:</p>
+<blockquote>
+<p>6 30 35 35 15 15 5 5 10 10 20 20 25 结果: 15125</p>
+</blockquote>
+</blockquote>
+<p>从每隔两个开始计算,即自底向上的动态规划. 仔细想一下吧,计算三个的时候,两个已经计算完成了,计算四个的时候,两个和三个已经计算完成了. 比如求<code>((M1)(M2M3M4M5))</code>,你就不需要再去递归求解<code>M2M3M4M5</code>,直接查表就可以了.</p>
+<pre><code>import java.util.*;
+
+public class VeDP {
+    public static final int MAXN=100;
+    public static final int INF=0x3f3f3f3f;
+    static int[] p=new int[MAXN+1];
+    static int[][] m=new int[MAXN+1][MAXN+1];
+    public static void main(String args[]){
+        Scanner cin=new Scanner(System.in);
+        int n;
+        n=cin.nextInt();
+        for(int i=1;i&lt;=n;++i){//因为中间肯定相同
+            p[i-1]=cin.nextInt();
+            p[i]=cin.nextInt();
+        }
+        for(int l=2;l&lt;=n;++l){
+            for(int i=1;i&lt;=n-l+1;++i){
+                int j=i+l-1;
+                m[i][j]=INF;
+                for(int k=i;k&lt;=j-1;++k){
+                    m[i][j]=Math.min(m[i][j],m[i][k]+m[k+1][j]+p[i-1]*p[k]*p[j]);
+                }
+            }
+        }
+        System.out.println(m[1][n]);
+    }
+}</code></pre><h1 id="【LIS-2017-11-18】"><a href="#【LIS-2017-11-18】" class="headerlink" title="【LIS 2017/11/18】"></a>【LIS 2017/11/18】</h1><p>O(n^2) java: dp[j]:以c[j]为结尾的最长子序列长度.</p>
+<pre><code>//O(n^2)
+import java.util.*;
+public class LIS {
+    private static int[] c=new int[100000+1];
+    private static int[] dp=new int[100000+1];
+    public static void main(String[] args){
+        int n;
+        Scanner cin=new Scanner(System.in);
+        n=cin.nextInt();
+        for(int i=0;i&lt;n;++i){
+            c[i]=cin.nextInt();
+        }
+        /*
+         * dp[j]: 以c[j]为结尾从0...i的LIS 
+         */
+        for(int i=1;i&lt;n;++i){
+            for(int j=0;j&lt;i;++j){
+                if(c[i]&gt;=c[j]){
+                    dp[i]=Math.max(dp[i],dp[j]+1);
+                }
+            }
+        }
+        System.out.println(dp[n-1]+1);
+    }
+}</code></pre><p>O(nlgn) c++: 二分搜索+dp 可以过51nod</p>
+<pre><code>//O(NlgN)
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+const int maxn=60000;
+
+int c[maxn],l[maxn];
+int n;
+
+int lis(){
+    l[0]=c[0];
+    int length=1;
+
+    for(int i=1;i&lt;n;++i){
+        if(l[length-1]&lt;c[i]){
+            l[length++]=c[i];
+        }else{
+            *lower_bound(l,l+length,c[i])=c[i];
+        }
+    }
+
+    return length;
+}
+
+int main(){
+    scanf(&quot;%d&quot;,&amp;n);
+    for(int i=0;i&lt;n;++i){
+        scanf(&quot;%d&quot;,&amp;c[i]);
+    }
+
+    printf(&quot;%d&quot;,lis());
+    return 0;
+}</code></pre><h1 id="【2017-11-19-最大正方形】"><a href="#【2017-11-19-最大正方形】" class="headerlink" title="【2017/11/19 最大正方形】"></a>【2017/11/19 最大正方形】</h1><p>原题连接: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DPL_3_A" title="AOJ-Lagest Square" target="_blank" rel="noopener">AOJ-Lagest Square</a> dp[i][j]为向左上方扩展最大的边长. dp[i][j]=min(dp[i-1][j-1],dp[i-1][j],dp[i][j-1])+1 Code C++:</p>
+<pre><code>#include&lt;cstdio&gt;
+#include&lt;algorithm&gt;
+#include&lt;cstring&gt;
+using namespace std;
+const int maxn=1500;
+
+int dp[maxn][maxn],G[maxn][maxn];
+int n,m;
+
+int main(){
+    int maxedge=0;
+    scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
+    for(int i=0;i&lt;n;++i){
+        for(int j=0;j&lt;m;++j){
+            scanf(&quot;%d&quot;,&amp;G[i][j]);
+            if(G[i][j]==1)dp[i][j]=0;
+            else dp[i][j]=1,maxedge=1;
+        }
+    }
+    for(int i=1;i&lt;n;++i){
+        for(int j=1;j&lt;m;++j){
+            if(!G[i][j]){
+                dp[i][j]=min(dp[i-1][j],min(dp[i][j-1],dp[i-1][j-1]))+1;
+                maxedge=max(maxedge,dp[i][j]);
+            }
+        }
+    }
+    printf(&quot;%d\n&quot;,maxedge*maxedge);
+    return 0;
+}</code></pre><h1 id="【2017-11-19-最大子矩阵】"><a href="#【2017-11-19-最大子矩阵】" class="headerlink" title="【2017/11/19 最大子矩阵】"></a>【2017/11/19 最大子矩阵】</h1><p>博客内写了题解 Code:</p>
+<pre><code>#include&lt;cstdio&gt;
+#include&lt;stack&gt;
+#include&lt;iostream&gt;
+#include&lt;algorithm&gt;
+#define MAX 1400
+using namespace std;
+
+struct Rectangle { int height; int pos; };
+
+int getLargestRectangle(int size,int buffer[]){
+    stack&lt;Rectangle&gt; S;
+    int maxv=0;
+    //通过后一位向前面的计算
+    //这里用到的DP大概是无参数getLargestRectangle里面的预处理
+    //这里用到的更多是思维吧,对每一行进行计算,最后求出最大值.
+    buffer[size]=0;
+
+    for(int i=0;i&lt;=size;++i){
+        Rectangle rect;
+        rect.height=buffer[i];
+        rect.pos=i;
+        if(S.empty()){
+            S.push(rect);
+        }else{
+            if(S.top().height &lt; rect.height){
+                S.push(rect);
+            }else if(S.top().height &gt; rect.height){
+                int target=i;
+                while(!S.empty() &amp;&amp; S.top().height &gt;= rect.height){
+                    Rectangle pre=S.top();S.pop();
+                    int area=pre.height*(i-pre.pos);
+                    maxv=max(maxv,area);
+                    target=pre.pos;
+                }
+                rect.pos=target;
+                S.push(rect);
+            }
+        }
+    }
+    //printf(&quot;\nmaxv: %d\n&quot;,maxv);
+    return maxv;
+}
+
+int H,W;
+int buffer[MAX][MAX];
+int T[MAX][MAX];
+
+int getLargestRectangle(){
+    //预处理每个点离他最近的上边未被污染地板的高度
+    for(int j=0;j&lt;W;++j){
+        for(int i=0;i&lt;H;++i){
+            if(buffer[i][j]){
+                T[i][j]=0;
+            }else{
+                T[i][j]=(i&gt;0)?T[i-1][j]+1:1;
+            }
+        }
+    }
+    /*
+    例:
+        0 0 1 0 0
+        1 0 0 0 0
+        0 0 0 1 0
+        0 0 0 1 0
+
+    After:
+        1 1 0 1 1
+        0 2 1 2 2
+        1 3 2 0 3
+        2 4 3 0 4
+    */
+    int maxv=0;
+    //传入两个值 W,列数,处理后T[i]第i行的首地址
+    for(int i=0;i&lt;H;++i){
+        maxv=max(maxv,getLargestRectangle(W,T[i]));
+    }
+
+    return maxv;
+}
+
+int main(){
+    scanf(&quot;%d %d&quot;,&amp;H,&amp;W);
+    for(int i=0;i&lt;H;++i){
+        for(int j=0;j&lt;W;++j){
+            scanf(&quot;%d&quot;,&amp;buffer[i][j]);
+        }
+    }
+
+    printf(&quot;%d\n&quot;,getLargestRectangle());
+    return 0;
+}</code></pre><h1 id="【2017-11-25-筛法求euler】"><a href="#【2017-11-25-筛法求euler】" class="headerlink" title="【2017/11/25 筛法求euler】"></a>【2017/11/25 筛法求euler】</h1><pre><code>#include&lt;iostream&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+
+///筛法求euler(1)~euler(n)
+const int maxn=101;
+int euler_1_n[maxn];
+
+void a_euler(){
+    euler_1_n[1]=1;
+    for(int i=2;i&lt;maxn;++i) euler_1_n[i]=i;
+    for(int i=2;i&lt;maxn;++i){
+        if(euler_1_n[i]==i){
+            for(int j=i;j&lt;maxn;j+=i){
+                euler_1_n[j]=euler_1_n[j]/i*(i-1);
+            }
+        }
+    }
+}
+
+int main(){
+    a_euler();
+    for(int i=1;i&lt;101;++i)
+        cout&lt;&lt;euler_1_n[i]&lt;&lt;endl;
+
+    return 0;
+}</code></pre><h1 id="【2018-1-8-开放式散列表】"><a href="#【2018-1-8-开放式散列表】" class="headerlink" title="【2018/1/8 开放式散列表】"></a>【2018/1/8 开放式散列表】</h1><pre><code>/*
+//alds1_4_c:Dictionary
+//算法:开放地址法散列表
+//Time: 2018/1/8 星期一
+*/
+#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+
+const int M=1000003;
+const int L=14;
+
+char H[M][L];
+
+//对于每个字符返回的定义值
+int getChar(char ch){
+    if(ch==&apos;A&apos;) return 1;
+    if(ch==&apos;C&apos;) return 2;
+    if(ch==&apos;D&apos;) return 3;
+    if(ch==&apos;T&apos;) return 4;
+    return 0;
+}
+//对于字符串返回的初始散列值
+long long getKey(char str[]){
+    long long len=strlen(str),sum=0,p=1;
+    for(int i=0;i&lt;len;++i){
+        sum+=p*getChar(str[i]);
+        //每次获取定义值后p*5,相当于转换成五进制,不会冲突
+        p*=5;
+    }
+    return sum;
+}
+
+//开放式散列值计算式: h(k,i)=(h1(k)+i*h2(k))%M
+int h1(int key){
+    return key%M;
+}
+//为了保证不会递归冲突(即往下算结果始终相同),必须使h2(key)与M互素
+//TLE最好的情况就是改这个函数= =
+//目前可以AC的: 1+(key%(M-1))
+//(1+key)%(M-1)
+int h2(int key){
+    return (1+key)%(M-1);
+}
+
+//查找
+//-1表示找到
+//h表示找到第一个可插入点
+int find(char str[]){
+    long long key=getKey(str),i,h;
+    for(i=0;;++i){
+        h=(h1(key)+i*h2(key))%M;
+        if(strcmp(H[h],str)==0) return -1;
+        else if(strlen(H[h])==0) return h;
+    }
+    return 0;
+}
+
+//插入
+void insert(char str[]){
+    int key=find(str);
+    if(key!=-1) strcpy(H[key],str);
+}
+
+int main(){
+    for(int i=0;i&lt;M;++i) H[M][0]=&apos;\0&apos;;
+    char str[L],com[L];
+    int n;
+    scanf(&quot;%d&quot;,&amp;n);
+    for(int i=0;i&lt;n;++i){
+        scanf(&quot;%s %s&quot;,com,str);
+
+        if(com[0]==&apos;i&apos;){
+            insert(str);
+        }else{
+            if(find(str)==-1)
+                printf(&quot;yes\n&quot;);
+            else
+                printf(&quot;no\n&quot;);
+        }
+    }
+
+    return 0;
+}</code></pre><h1 id="【2018-1-17-强连通分量算法-Tarjan】"><a href="#【2018-1-17-强连通分量算法-Tarjan】" class="headerlink" title="【2018/1/17 强连通分量算法 Tarjan】"></a>【2018/1/17 强连通分量算法 Tarjan】</h1><p>详解Tarjan: <a href="http://ptzw9yyyp.bkt.clouddn.com/index.php/2018/01/17/tarjan-scc-algorithm/" title="http://ptzw9yyyp.bkt.clouddn.com/index.php/2018/01/17/tarjan-scc-algorithm/" target="_blank" rel="noopener">http://ptzw9yyyp.bkt.clouddn.com/index.php/2018/01/17/tarjan-scc-algorithm/</a></p>
+<pre><code>#include&lt;bits/stdc++.h&gt;
+using namespace std;
+const int maxn=100000+10;
+
+vector&lt;int&gt; G[maxn];
+//lowlink[u] == 为u及其后代能追溯到的最早(最先被发现)的祖先节点v的pre[v]的值.
+int pre[maxn],lowlink[maxn],sccno[maxn],dfs_clock,scc_cnt;
+stack&lt;int&gt; S;
+//邻接表存储图
+void addAdge(int u,int v){
+    G[u].push_back(v);
+}
+
+void dfs(int u){
+    pre[u]=lowlink[u]= ++dfs_clock;
+    //边dfs将点入栈边Tarjan
+    S.push(u);
+    for(int i=0;i&lt;G[u].size();++i){
+        int v=G[u][i];
+        if(!pre[v]){
+            dfs(v);
+            //回溯时计算lowlink数组
+            lowlink[u]=min(lowlink[u],lowlink[v]);
+        }else if(!sccno[v]){
+            lowlink[u]=min(lowlink[u],pre[v]);
+        }
+    }
+    if(lowlink[u]==pre[u]){
+        scc_cnt++;
+        for(;;){
+            int x=S.top();S.pop();
+            sccno[x]=scc_cnt;
+            if(x==u)break;
+        }
+    }
+}
+
+void Tarjan(int n){
+    dfs_clock=scc_cnt=0;
+    memset(sccno,0,sizeof(sccno));
+    memset(pre,0,sizeof(pre));
+    for(int i=0;i&lt;n;++i){
+        if(!pre[i]) dfs(i);
+    }
+}
+
+int main(){
+    //边数
+    int n,m;
+    cin&gt;&gt;n&gt;&gt;m;
+    for(int i=0;i&lt;m;++i){
+        int u,v;
+        cin&gt;&gt;u&gt;&gt;v;
+        addAdge(u,v);
+    }
+
+    Tarjan(n);
+
+    printf(&quot;SCC个数: %d\n&quot;,scc_cnt);
+
+    for(int i=0;i&lt;n;++i){
+        printf(&quot;点 %d 的 SCC 编号是: %d\n&quot;,i,sccno[i]);
+    }
+    return 0;
+}
+/*
+6 6
+
+1 0
+0 4
+4 5
+5 1
+1 2
+2 3
+*/</code></pre><h1 id="【2018-2-5-排列递推公式-容斥-组合数学】"><a href="#【2018-2-5-排列递推公式-容斥-组合数学】" class="headerlink" title="【2018/2/5 排列递推公式+容斥 组合数学】"></a>【2018/2/5 排列递推公式+容斥 组合数学】</h1><blockquote>
+<p>原题以及题解连接</p>
+<blockquote>
+<p><a href="http://ptzw9yyyp.bkt.clouddn.com/index.php/2018/02/05/uva-11806/" title="UVa 11806" target="_blank" rel="noopener">UVa 11806</a></p>
+</blockquote>
+</blockquote>
+<pre><code>#include&lt;bits/stdc++.h&gt;
+using namespace std;
+const int mod=1e6+7;
+int T;
+
+const int MAXK=500;
+int C[MAXK+10][MAXK+10];
+void init(){
+    memset(C,0,sizeof(C));
+    C[0][0]=1;
+    for(int i=0;i&lt;=MAXK;++i){
+        C[i][0]=C[i][i]=1;
+        for(int j=1;j&lt;i;++j){
+            //组合的一个递推公式
+            C[i][j]=(C[i-1][j]+C[i-1][j-1])%mod;
+        }
+    }
+}
+
+int main(){
+    init();
+    cin&gt;&gt;T;
+    for(int kase=1;kase&lt;=T;++kase){
+        int n,m,k;
+        cin&gt;&gt;n&gt;&gt;m&gt;&gt;k;
+        int sum=0;
+        for(int i=0;i&lt;16;++i){
+            int nn=n,mm=m;
+            int b=0;
+            if(i&amp;1){mm--;b++;}
+            if(i&amp;2){nn--;b++;}
+            if(i&amp;4){mm--;b++;}
+            if(i&amp;8){nn--;b++;}
+            //奇数-偶数+
+            if(b&amp;1) sum=(sum+mod-C[nn*mm][k])%mod;
+            else sum=(sum+C[nn*mm][k])%mod;
+        }
+        cout&lt;&lt;&quot;Case &quot;&lt;&lt;kase&lt;&lt;&quot;: &quot;&lt;&lt;sum&lt;&lt;endl;
+    }
+    return 0;
+}</code></pre><h1 id="【2018-2-6-O-n-素数筛法-线性筛法】"><a href="#【2018-2-6-O-n-素数筛法-线性筛法】" class="headerlink" title="【2018/2/6 O(n)素数筛法 线性筛法】"></a>【2018/2/6 O(n)素数筛法 线性筛法】</h1><blockquote>
+<p>一道例题: <a href="http://acm.hdu.edu.cn/showproblem.php?pid=1431" target="_blank" rel="noopener">http://acm.hdu.edu.cn/showproblem.php?pid=1431</a></p>
+</blockquote>
+<pre><code>#include&lt;bits/stdc++.h&gt;
+#define maxn 100001000
+using namespace std;
+
+bool valid[maxn];
+int prime[maxn];
+/*素数筛法 O(n),对于每个素数只标记一次*/
+void getPrime(int n,int &amp;tot,int ans[maxn]){
+    memset(valid,true,sizeof(valid));
+    for(int i=2;i&lt;=n;++i){
+        if(valid[i]){
+            tot++;
+            ans[tot]=i;
+        }
+        for(int j=1;((j&lt;=tot) &amp;&amp; (i*ans[j]&lt;=n));++j){
+            valid[i*ans[j]]=false;
+            if(i%ans[j]==0) break;
+        }
+    }
+}
+
+int main(){
+    clock_t t1 = clock();
+    int tot=0;
+    getPrime(100000000,tot,prime);
+    clock_t t2 = clock();
+
+    cout&lt;&lt;tot&lt;&lt;endl;
+    cout&lt;&lt;prime[5760000]&lt;&lt;endl;
+    cout&lt;&lt;&quot;总运行时间为: &quot;&lt;&lt;(double)(t2-t1)/ CLOCKS_PER_SEC&lt;&lt;&quot;s&quot;&lt;&lt;endl;
+    return 0;
+}</code></pre><h1 id="【2018-3-10-逆元】"><a href="#【2018-3-10-逆元】" class="headerlink" title="【2018/3/10 逆元】"></a>【2018/3/10 逆元】</h1><h2 id="逆元递推式"><a href="#逆元递推式" class="headerlink" title="逆元递推式"></a>逆元递推式</h2><blockquote>
+<p>适用于较小数据的情况</p>
+</blockquote>
+<pre><code>LL inv[maxn];
+void init(){
+    inv[1]=1;
+    for(int i=2;i&lt;maxn;++i){
+        inv[i]=(mod-mod/i)*1ll*inv[mod%i]%mod;
+    }
+}</code></pre><h2 id="欧拉定理求逆元"><a href="#欧拉定理求逆元" class="headerlink" title="欧拉定理求逆元"></a>欧拉定理求逆元</h2><blockquote>
+<p>如果mod p 不是素数时最好用这个,比较少见</p>
+</blockquote>
+<pre><code>long long euler(int p)  
+{  
+    long long ans=p,a=p;  
+    long long i;  
+    for(i=2;i*i&lt;=a;i++)  
+    {  
+        if(a%i==0)  
+        {  
+            ans=ans/i*(i-1);  
+            while(a%i==0)  
+                a/=i;  
+        }  
+    }  
+    if(a&gt;1)  
+        ans=ans/a*(a-1);  
+    return ans;  
+}  
+
+long long eu=euler(mod)-1;  
+
+long long inv(long long a)  
+{  
+    return Pow(a,eu);  
+}  </code></pre><h2 id="费马小定理求逆元"><a href="#费马小定理求逆元" class="headerlink" title="费马小定理求逆元"></a>费马小定理求逆元</h2><blockquote>
+<p>a^(p-1)≡1(mod p)</p>
+<blockquote>
+<p>a^(p-2)就是 a 关于p的逆元</p>
+<blockquote>
+<p>前提 a与b互素</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<pre><code>long long fast_mod(long long a,long long n,long long Mod){
+    long long ans=1;
+    while(n){
+        if(n&amp;1){
+            ans=(ans*a)%Mod;
+        }
+        a=(a*a)%Mod;
+        n&gt;&gt;=1;
+    }
+    return ans;
+} 
+
+/*但p(即MOD)是素数时,inv[a]=fast_mod(a,p-2,p)*/</code></pre><h2 id="扩展欧几里得求逆元"><a href="#扩展欧几里得求逆元" class="headerlink" title="扩展欧几里得求逆元"></a>扩展欧几里得求逆元</h2><pre><code>void extgcd(LL a,LL b,LL&amp; d,LL&amp; x,LL&amp; y){
+    if(!b){ d=a; x=1; y=0;}
+    else{ extgcd(b,a%b,d,y,x); y-=x*(a/b); }
+}
+LL inverse(LL a,LL n){
+    LL d,x,y;
+    extgcd(a,n,d,x,y);
+    return d==1?(x+n)%n:-1;
+}</code></pre><h2 id="费马小预处理阶乘逆元-一般用于直接求组合数"><a href="#费马小预处理阶乘逆元-一般用于直接求组合数" class="headerlink" title="费马小预处理阶乘逆元(一般用于直接求组合数)"></a>费马小预处理阶乘逆元(一般用于直接求组合数)</h2><pre><code>ll inv[maxn+10],fac[maxn+10];
+///预处理N!的逆元
+//费马小定理
+/*
+ *假如p是质数，且gcd(a,p)=1，那么 a^(p-1)≡1（mod p）
+ *根据这个性质我们可以知道 a的逆元为a^(p-2)
+ */
+ll fast_pow(ll a,ll b)
+{
+    ll ans=1;
+    while(b){
+        if(b&amp;1ll)ans=a*ans%MOD;
+        a=a*a%MOD;
+        b&gt;&gt;=1ll;
+    }
+    return ans;
+}
+void pre()
+{
+    inv[0]=1ll;
+    fac[0]=1ll;
+    for(int i=1;i&lt;=maxn;i++){
+        fac[i]=fac[i-1]*i%MOD;
+        inv[i]=fast_pow(fac[i],MOD-2ll);
+    }
+}
+ll C(ll a,ll b)
+{
+    return fac[a]*inv[b]%MOD*inv[a-b]%MOD;
+}</code></pre>
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#【Dijsktra-2017-5-26】"><span class="toc-text">【Dijsktra 2017/5/26】</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#【并查集-2017-5-27】"><span class="toc-text">【并查集 2017/5/27】</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#【树状数组-2017-6-21】"><span class="toc-text">【树状数组 2017/6/21】</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#【快速排序-2017-11-4】"><span class="toc-text">【快速排序 2017/11/4】</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#【动态规划-划分数-2017-11-16】"><span class="toc-text">【动态规划-划分数 2017/11/16】</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#【矩阵链乘-2017-11-17】"><span class="toc-text">【矩阵链乘 2017/11/17】</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#【LIS-2017-11-18】"><span class="toc-text">【LIS 2017/11/18】</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#【2017-11-19-最大正方形】"><span class="toc-text">【2017/11/19 最大正方形】</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#【2017-11-19-最大子矩阵】"><span class="toc-text">【2017/11/19 最大子矩阵】</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#【2017-11-25-筛法求euler】"><span class="toc-text">【2017/11/25 筛法求euler】</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#【2018-1-8-开放式散列表】"><span class="toc-text">【2018/1/8 开放式散列表】</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#【2018-1-17-强连通分量算法-Tarjan】"><span class="toc-text">【2018/1/17 强连通分量算法 Tarjan】</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#【2018-2-5-排列递推公式-容斥-组合数学】"><span class="toc-text">【2018/2/5 排列递推公式+容斥 组合数学】</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#【2018-2-6-O-n-素数筛法-线性筛法】"><span class="toc-text">【2018/2/6 O(n)素数筛法 线性筛法】</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#【2018-3-10-逆元】"><span class="toc-text">【2018/3/10 逆元】</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#逆元递推式"><span class="toc-text">逆元递推式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#欧拉定理求逆元"><span class="toc-text">欧拉定理求逆元</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#费马小定理求逆元"><span class="toc-text">费马小定理求逆元</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#扩展欧几里得求逆元"><span class="toc-text">扩展欧几里得求逆元</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#费马小预处理阶乘逆元-一般用于直接求组合数"><span class="toc-text">费马小预处理阶乘逆元(一般用于直接求组合数)</span></a></li></ol></li></ol>
+  </div>
+</aside>
+  
+    <aside class="passage-copyright">
+      <div>本文作者: 张文涛</div>
+      
+        <div>
+          原文链接: 
+          <a href="" target="_blank">http://be-sunshine.cn/passages/review-datastructure/</a>
+        </div>
+      
+      <div>
+        版权声明: 本博客所有文章除特别声明外, 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议. 转载请注明出处!
+      </div>
+    </aside>
+  
+  
+    <div class="passage-tags">
+     
+      <a href="/tags/算法学习/"><i class="fa fa-tags"></i>算法学习</a>
+     
+      <a href="/tags/数据结构/"><i class="fa fa-tags"></i>数据结构</a>
+    
+    </div>
+  
+</div>
+
+    </main>
+    
+      
+<div class="site-comment-contanier" data-plateform="leancloud">
+  
+    <p id="site-comment-info">
+      <i class="fa fa-spinner fa-spin"></i> 评论加载中
+    </p>
+    <div id="site-comment"></div>
+  
+</div>
+    
+    <div class="site-footer-wrapper">
+  <footer class="site-footer">
+    
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">博客推荐</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/" target="_blank">GodBMW</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="http://ruanyifeng.com/" target="_blank">阮一峰的个人网站</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">系列教程</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/categories/webpack4%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B/" target="_blank">webpack4系列教程</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/design-patterns/" target="_blank">设计模式手册</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">抓到我</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://weibo.com/3260959934/" target="_blank">微博</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://github.com/834930269" target="_blank">Github</a>
+            </span>
+          
+        </div>
+      
+    
+    <div class="site-footer-info">
+      <i class="fa fa-clock-o"></i> 本站已稳定运行<span id="site-time"></span>
+    </div>
+    
+      <div class="site-footer-info">
+        <i class="fa fa-paw"></i> 您是本站第 <span id="site-count"></span> 位访客
+      </div>
+    
+    
+      <div class="site-footer-info">
+        <i class="fa fa-at"></i> Email: 834930269@qq.com
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-copyright"></i> 
+      2019 <a href="https://github.com/dongyuanxin/theme-ad/" target="_blank">Theme-AD</a>.
+      Created by <a href="https://godbmw.com/" target="_blank">GodBMW</a>.
+      All rights reserved.
+    </div>
+  </footer>
+</div>
+    <div id="site-layer" style="display:none;">
+  <div class="site-layer-content">
+    <div class="site-layer-header">
+      <span class="site-layer-header-title" id="site-layer-title"></span>
+      <i class="fa fa-close" id="site-layer-close"></i>
+    </div>
+    <div class="site-layer-body" id="site-layer-container">
+      <div class="site-layer-input" id="site-layer-search" style="display: none;">
+        <div class="site-layer-input-choose">
+          <a href="javascript:void(0);" title="Change Search Engine">Google</a>
+        </div>
+        <input type="text">
+        <i class="fa fa-search"></i>
+      </div>
+      
+        <div class="site-layer-reward" id="site-layer-reward" style="display: none;">
+          
+            <div>
+              <img src="/images/wechat.png" alt="WeChat">
+              
+                <p>WeChat</p>
+              
+            </div>
+          
+            <div>
+              <img src="/images/alipay.png" alt="AliPay">
+              
+                <p>AliPay</p>
+              
+            </div>
+          
+        </div>
+      
+      <div id="site-layer-welcome" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+    
+
+<div class="bottom-bar">
+  <div class="bottom-bar-left">
+    <a href="/passages/python-buglearning/" data-enable="true">
+      <i class="fa fa-arrow-left"></i>
+    </a>
+    <a href="/passages/github-commit/" data-enable="true">
+      <i class="fa fa-arrow-right"></i>
+    </a>
+  </div>
+  <div class="bottom-bar-right">
+    <a href="javascript:void(0);" data-enable="true" id="site-toc-show-btn">
+      <i class="fa fa-bars"></i>
+    </a>
+    
+      <a href="#site-comment" data-enable="true">
+        <i class="fa fa-commenting"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="site-toggle-share-btn">
+      <i class="fa fa-share-alt"></i>
+    </a>
+    
+      <a href="javascript:void(0);" id="site-reward">
+        <i class="fa fa-thumbs-up"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="back-top-btn">
+      <i class="fa fa-chevron-up"></i>
+    </a>
+  </div>
+</div>
+    <div id="share-btn">
+  
+    <a id="share-btn-twitter" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-twitter"></i>
+    </a>
+  
+  
+    <a id="share-btn-facebook" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-facebook"></i>
+    </a>
+  
+  
+    <a id="share-btn-weibo" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-weibo"></i>
+    </a>
+  
+  
+    <a id="share-btn-qq" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-qq"></i>
+    </a>
+  
+  
+    <a id="share-btn-wechat" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-wechat"></i>
+    </a>
+  
+</div>
+    
+
+
+
+
+
+    
+  </body>
+</html>
