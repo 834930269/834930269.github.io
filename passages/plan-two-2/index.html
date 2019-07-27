@@ -187,7 +187,7 @@
 <p>1.是计算机中的程序关于某数据集合上的一次运行活动. 2.是系统进行资源分配和调度的基本单位 3.是操作系统结构的基础 4.早期,进程是程序的基本执行实体 5.当代,进程是线程的容器 6.程序是指令、数据及其组织形式的描述,进程是程序的实体</p>
 </blockquote>
 <p>我们使用多线程而非使用多进程去进行并发程序的设计,是因为线程间的切换和调度的成本<strong>远小于进程</strong>.</p>
-<h2 id="线程的生命周期"><a href="#线程的生命周期" class="headerlink" title="线程的生命周期"></a>线程的生命周期</h2><p><img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/d705faf4fec8f9026144efa61d6b9b6d.png" alt> Java中的线程就是继承Runnable,故生命周期如上图所示. 以下是<code>Java.lang.Thread</code>中关于State的枚举定义源码:</p>
+<h2 id="线程的生命周期"><a href="#线程的生命周期" class="headerlink" title="线程的生命周期"></a>线程的生命周期</h2><p><img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/d705faf4fec8f9026144efa61d6b9b6d.png" alt> Java中的线程就是继承Runnable,故生命周期如上图所示. 以下是<code>Java.lang.Thread</code>中关于State的枚举定义源码:</p>
 <pre><code>public enum State {
     /**
      * Thread state for a thread which has not yet started.
@@ -251,7 +251,7 @@
      * The thread has completed execution.
      */
     TERMINATED;
-}</code></pre><p><img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/68a53d6f77b170185ae936fc85487b8c.png" alt></p>
+}</code></pre><p><img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/68a53d6f77b170185ae936fc85487b8c.png" alt></p>
 <h2 id="初始线程-线程的基本操作"><a href="#初始线程-线程的基本操作" class="headerlink" title="初始线程: 线程的基本操作"></a>初始线程: 线程的基本操作</h2><h3 id="新建线程"><a href="#新建线程" class="headerlink" title="新建线程"></a>新建线程</h3><p>线程启动时的调用顺序 start()-&gt;run() 所以,当我们使用start启动线程时是<code>真正</code>启动了一个线程,而在这个线程中调用run方法. 而如果使用了run(),则代表只是<code>调用了一次run函数</code>.</p>
 <blockquote>
 <p>使用匿名内部类修改run方法,然后启动线程</p>
@@ -298,7 +298,7 @@ public void run() {
     }
 
 }</code></pre><p>这样就避免了重载Thread的run()方法,也是最常用的做法</p>
-<h3 id="终止线程"><a href="#终止线程" class="headerlink" title="终止线程"></a>终止线程</h3><p>当我们在实现某些功能时,可能会让一些线程常驻在内存中. 那么我们该如何停止这些线程呢? Thread内部有一个Stop()的方法,但他已被标注为将废弃,因为该方法太过暴力,很有可能造成数据不一致的问题. 因为stop方法会在结束线程时,直接终止线程,并且释放掉这个线程的所有锁.而这些锁则是为了保证对象的一致性.如果此时,写线程写到一半,被强行终止,那么对象的完整性就可能会被破坏. 而因为锁被释放了,所以另一个线程就顺理成章的读到了这个不完整的对象… <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/d4573f33d24bfc236e8d0da6dae4a164.png" alt></p>
+<h3 id="终止线程"><a href="#终止线程" class="headerlink" title="终止线程"></a>终止线程</h3><p>当我们在实现某些功能时,可能会让一些线程常驻在内存中. 那么我们该如何停止这些线程呢? Thread内部有一个Stop()的方法,但他已被标注为将废弃,因为该方法太过暴力,很有可能造成数据不一致的问题. 因为stop方法会在结束线程时,直接终止线程,并且释放掉这个线程的所有锁.而这些锁则是为了保证对象的一致性.如果此时,写线程写到一半,被强行终止,那么对象的完整性就可能会被破坏. 而因为锁被释放了,所以另一个线程就顺理成章的读到了这个不完整的对象… <img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/d4573f33d24bfc236e8d0da6dae4a164.png" alt></p>
 <h4 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h4><p>我们用一个程序来模拟下上面说的情况: 具体思路为-&gt;开启读取线程,如果User名字和id不一样,输出-&gt;不停地创建修改线程,修改的id和name一样-&gt;修改完成后stop()-&gt;观察结果</p>
 <pre><code>public class p22 {
     public static User u=new User();
@@ -474,7 +474,7 @@ public void run() {
 <p>即线程中断不会使线程立即退出,而是给线程发一个通知,告知目标线程要中断了,至于如何处理,何时中断,<strong>由目标决定.</strong></p>
 </blockquote>
 </blockquote>
-<p><img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/ec4bce7b33d0b7bbbb972f5ef2404bc2.png" alt></p>
+<p><img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/ec4bce7b33d0b7bbbb972f5ef2404bc2.png" alt></p>
 <pre><code>public class p23 {
 
     public static void main(String[] args) throws Exception{
@@ -496,7 +496,7 @@ public void run() {
         t1.interrupt();
     }
 
-}</code></pre><h4 id="Thread-sleep函数"><a href="#Thread-sleep函数" class="headerlink" title="Thread.sleep函数"></a>Thread.sleep函数</h4><p>他的签名如下: <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/b5e83f7565ce436cf16a37f5917f11ad.png" alt> Thread.sleep()会让当前线程休眠若干时间,他会抛出一个InterruptedException中断异常,这个异常不是运行时异常,也就是说程序必须捕获并处理它,当线程休眠时,如果被中断,该异常就会产生.</p>
+}</code></pre><h4 id="Thread-sleep函数"><a href="#Thread-sleep函数" class="headerlink" title="Thread.sleep函数"></a>Thread.sleep函数</h4><p>他的签名如下: <img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/b5e83f7565ce436cf16a37f5917f11ad.png" alt> Thread.sleep()会让当前线程休眠若干时间,他会抛出一个InterruptedException中断异常,这个异常不是运行时异常,也就是说程序必须捕获并处理它,当线程休眠时,如果被中断,该异常就会产生.</p>
 <pre><code>public class p23 {
 
     public static void main(String[] args) throws Exception{
@@ -527,7 +527,7 @@ public void run() {
 }</code></pre><p>所以我们必须在捕捉该异常的同时再次放出中断异常,这样才能保证该线程被正常中断.</p>
 <h4 id="wait-与notify"><a href="#wait-与notify" class="headerlink" title="wait()与notify()"></a>wait()与notify()</h4><p>为了支持多线程间协作,JDK提供了等待wait()和通知notify()两个方法. 但这两个方法不存在Thread类中,而是输出Object类.这也就意味着任意的对象都可以调用该方法. 两个方法签名如下:</p>
 <pre><code>public final void wait() throws InterruptedException
-public final native void notify()</code></pre><p><img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/45787c634458f214da51856102ddff30.png" alt> <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/b5278147272b76af3b33e061e68201b6.png" alt> <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/b6d82ba876ebf51839908d5453046041.png" alt> <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/b48a839ed1fa92328e6d7d2b3533f3ac.png" alt> <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/34da980742c79e179903c43f753e473a.png" alt> 简单的例子:</p>
+public final native void notify()</code></pre><p><img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/45787c634458f214da51856102ddff30.png" alt> <img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/b5278147272b76af3b33e061e68201b6.png" alt> <img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/b6d82ba876ebf51839908d5453046041.png" alt> <img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/b48a839ed1fa92328e6d7d2b3533f3ac.png" alt> <img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/34da980742c79e179903c43f753e473a.png" alt> 简单的例子:</p>
 <pre><code>public class p24 {
     final static Object object = new Object();
     public static class T1 extends Thread{
@@ -641,7 +641,7 @@ public final native void notify()</code></pre><p><img src="http://ptzw9yyyp.bkt.
         }
     }
 }</code></pre><h3 id="驻守后台-守护线程-Daemon"><a href="#驻守后台-守护线程-Daemon" class="headerlink" title="驻守后台-守护线程(Daemon)"></a>驻守后台-守护线程(Daemon)</h3><p>JVM内部的实现是如果运行的程序只剩下守护线程的话，程序将终止运行，直接结束。所以守护线程是作为辅助线程存在的</p>
-<h3 id="线程优先级"><a href="#线程优先级" class="headerlink" title="线程优先级"></a>线程优先级</h3><p>Java可以自定义线程的优先级. <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/d05785fceddb6610ce2c0cf81eb21716.png" alt> 设置优先级用 (Thread).setPriority(优先级(1~10))</p>
+<h3 id="线程优先级"><a href="#线程优先级" class="headerlink" title="线程优先级"></a>线程优先级</h3><p>Java可以自定义线程的优先级. <img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/d05785fceddb6610ce2c0cf81eb21716.png" alt> 设置优先级用 (Thread).setPriority(优先级(1~10))</p>
 <h3 id="线程安全概念与synchronized"><a href="#线程安全概念与synchronized" class="headerlink" title="线程安全概念与synchronized"></a>线程安全概念与synchronized</h3><p>线程安全是并行程序开发的一大重点. 线程安全例子:</p>
 <pre><code>public class p28 implements Runnable{
     static p28 instance=new p28();
@@ -667,7 +667,7 @@ public final native void notify()</code></pre><p><img src="http://ptzw9yyyp.bkt.
     }
 }</code></pre><p>如果把t1.join()放到t1.start()后面的话,输出就为正常结果.但如上这样子放的话,也就代表了两个线程实际上是一起执行的.但在某一时刻t1.join开启以后t2就暂停执行等待t1执行完再继续. 我们可以使用synchronized关键字来对同步的代码加锁.使得每一次只能有一个线程进入同步块. 代码在书上的-P58,之前写过很多次了.</p>
 <h3 id="并发下的ArrayList"><a href="#并发下的ArrayList" class="headerlink" title="并发下的ArrayList"></a>并发下的ArrayList</h3><p>ArrayList是线程不安全的,用Vector代替线程不安全的ArrayList即可.</p>
-<h3 id="并发下的HashMap"><a href="#并发下的HashMap" class="headerlink" title="并发下的HashMap"></a>并发下的HashMap</h3><p>并发下的HashMap可能会出现死循环的现象,为什么?下面来看一段代码 <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/7be0b2035576e2b5202c4ba9360fb90d.png" alt> 这段代码证明HashMap的插入是按照链表的方法插入的.而当死循环时就代表当前的HashMap链表被破坏成了环.也就导致了死循环. (但JDK8已经避免了这种情况的产生)</p>
+<h3 id="并发下的HashMap"><a href="#并发下的HashMap" class="headerlink" title="并发下的HashMap"></a>并发下的HashMap</h3><p>并发下的HashMap可能会出现死循环的现象,为什么?下面来看一段代码 <img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/7be0b2035576e2b5202c4ba9360fb90d.png" alt> 这段代码证明HashMap的插入是按照链表的方法插入的.而当死循环时就代表当前的HashMap链表被破坏成了环.也就导致了死循环. (但JDK8已经避免了这种情况的产生)</p>
 <h3 id="jps和jstack工具"><a href="#jps和jstack工具" class="headerlink" title="jps和jstack工具"></a>jps和jstack工具</h3><p>jps是查看当前所有大线程 jstack是定位到对应的线程以及代码</p>
 <h3 id="Integer其实使用工厂方法进行赋值的"><a href="#Integer其实使用工厂方法进行赋值的" class="headerlink" title="Integer其实使用工厂方法进行赋值的"></a>Integer其实使用工厂方法进行赋值的</h3><p>如果我们想要给Integer加锁时,我们不能直接在Integer(int)变量上加锁,因为Integer是用工厂方法进行赋值,每次给int赋值时都会重新生成一个Integer对象. 所以我们需要在改变量所在的实例化对象上加锁. 比如: public class k implements Runnable{ int a; public void run(){ Code here. } } 我们就需要在实例化后的k对象上加锁,而不是在a上加锁.</p>
 

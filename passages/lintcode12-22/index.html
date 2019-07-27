@@ -15,7 +15,7 @@
   
 
   
-  <meta name="description" content="(12) - Min Stack一个栈维护最小值,另一个栈存数据为什么最小值同步插入可行,因为栈的pop只能从栈顶开始，所以:1.栈顶元素最小,minValue栈顶也是该元素 2.栈顶元素不是最小,minValue中没有该元素123456789101112131415161718192021222324252627282930313233343536373839public class MinStack &amp;#123;    private Stack&amp;lt;Integer&amp;gt; data;    private Stack&amp;lt;Integer&amp;gt; minValue;    public MinStack() &amp;#123;        // do intialization if necessary        data=new Stack&amp;lt;&amp;gt;();        minValue=new Stack&amp;lt;&amp;gt;();        minValue.push(0x3f3f3f3f);    &amp;#125;    /*     * @param number: An integer     * @return: nothing     */    public void push(int number) &amp;#123;        // write your code here        data.push(number);        if(number&amp;lt;=minValue.peek()) minValue.push(number);    &amp;#125;    /*     * @return: An integer     */    public int pop() &amp;#123;        // write your code here        if(data.peek().equals(minValue.peek())) minValue.pop();        return data.pop();    &amp;#125;    /*     * @return: An integer     */    public int min() &amp;#123;        // write your code here        return minValue.peek();    &amp;#125;&amp;#125;">
+  <meta name="description" content="Winter Zhang的小站">
 
   
 
@@ -182,7 +182,54 @@
   </h1>
   
   <article class="passage-article">
-    <h1 id="13-Implement-strStr"><a href="#13-Implement-strStr" class="headerlink" title="(13) - Implement strStr()"></a>(13) - Implement strStr()</h1><blockquote>
+    <h1 id="12-Min-Stack"><a href="#12-Min-Stack" class="headerlink" title="(12) - Min Stack"></a>(12) - Min Stack</h1><blockquote>
+<p>一个栈维护最小值,另一个栈存数据</p>
+<blockquote>
+<p>为什么最小值同步插入可行,因为栈的pop只能从栈顶开始，所以:</p>
+<blockquote>
+<p>1.栈顶元素最小,minValue栈顶也是该元素 2.栈顶元素不是最小,minValue中没有该元素</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<pre><code>public class MinStack {
+
+    private Stack&lt;Integer&gt; data;
+    private Stack&lt;Integer&gt; minValue;
+
+    public MinStack() {
+        // do intialization if necessary
+        data=new Stack&lt;&gt;();
+        minValue=new Stack&lt;&gt;();
+        minValue.push(0x3f3f3f3f);
+    }
+
+    /*
+     * @param number: An integer
+     * @return: nothing
+     */
+    public void push(int number) {
+        // write your code here
+        data.push(number);
+        if(number&lt;=minValue.peek()) minValue.push(number);
+    }
+
+    /*
+     * @return: An integer
+     */
+    public int pop() {
+        // write your code here
+        if(data.peek().equals(minValue.peek())) minValue.pop();
+        return data.pop();
+    }
+
+    /*
+     * @return: An integer
+     */
+    public int min() {
+        // write your code here
+        return minValue.peek();
+    }
+}</code></pre><h1 id="13-Implement-strStr"><a href="#13-Implement-strStr" class="headerlink" title="(13) - Implement strStr()"></a>(13) - Implement strStr()</h1><blockquote>
 <p>KMP模板,但是实际面试的时候不需要使用KMP,暴力O(N^2)即可</p>
 </blockquote>
 <pre><code>public class Solution {
@@ -408,7 +455,7 @@ public class Topic_18 {
     <span>目录</span>
   </div>
   <div class="table-content-main">
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#13-Implement-strStr"><span class="toc-text">(13) - Implement strStr()</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#14-First-Position-of-Target"><span class="toc-text">(14) - First Position of Target</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#C-偷懒用二分"><span class="toc-text">C++偷懒用二分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Java-实现二分"><span class="toc-text">Java 实现二分</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#15-Permutations"><span class="toc-text">(15) - Permutations</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#16-Permutations-II"><span class="toc-text">(16) - Permutations II</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#17-Subsets"><span class="toc-text">(17) - Subsets</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#18-Subsets-II"><span class="toc-text">(18) - Subsets II</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#12-Min-Stack"><span class="toc-text">(12) - Min Stack</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#13-Implement-strStr"><span class="toc-text">(13) - Implement strStr()</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#14-First-Position-of-Target"><span class="toc-text">(14) - First Position of Target</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#C-偷懒用二分"><span class="toc-text">C++偷懒用二分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Java-实现二分"><span class="toc-text">Java 实现二分</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#15-Permutations"><span class="toc-text">(15) - Permutations</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#16-Permutations-II"><span class="toc-text">(16) - Permutations II</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#17-Subsets"><span class="toc-text">(17) - Subsets</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#18-Subsets-II"><span class="toc-text">(18) - Subsets II</span></a></li></ol>
   </div>
 </aside>
   

@@ -182,7 +182,7 @@
   </h1>
   
   <article class="passage-article">
-    <p>先贴跟随书上的问题代码: 项目截图: <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2017/10/QQ%E6%88%AA%E5%9B%BE20171001144253.png" alt="Aaron"> 代码:</p>
+    <p>先贴跟随书上的问题代码: 项目截图: <img src="http://cdn.be-sunshine.cn/wp-content/uploads/2017/10/QQ%E6%88%AA%E5%9B%BE20171001144253.png" alt="Aaron"> 代码:</p>
 <pre><code>//Circle.ts
 class Circle extends egret.Sprite{
     public constructor(cx:number,cy:number,cr:number){
@@ -371,7 +371,7 @@ cancelable:表示是否要取消Event对象。</code></pre><p>这里我们用约
 }</code></pre><p>其中</p>
 <pre><code>static DATE:string</code></pre><p>代表DATE事件. **------------ 2.侦听器 事件侦听器也就是事件的处理者，负责接收事件携带的信息，并在接收到该事件后执行特定的代码。 Egret中，事件的侦听器必须是一个函数。事件的发送者必须是 egret.EventDispatcher 类或者子类的实例。只有事件发送者才能侦听事件，并且可以 注册侦听器。 注册侦听器:addEventListener(). 侦听器的定义:</p>
 <pre><code>public addEventListener(type:string, listener:Function, thisObject:any, useCapture:boolean = false, priority:number = 0)</code></pre><p>type: 事件类型. listener: 用来处理事件的侦听器,即函数. thisObject: this即可. 注册侦听器: 事件发送者.addEventListener(事件类型, 侦听器, this); 移除侦听器: 事件发送者.removeEventListener(事件类型, 侦听器, this); 最后一个 priority 参数的设置即侦听器的优先级. 而 侦听器 有一个参数是 e:Event.或者 e:any. e.data 即为发送过来的数据. 在项目中 Circle 有这样一个句:</p>
-<pre><code>par.dispatchEventWith(Circle.Event_Click,false,this.color);</code></pre><p>即当事件触发时 打包发送 this.color. 将其改为 0Xffffff 试试: <a href="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2017/10/QQ%E6%88%AA%E5%9B%BE20171001151826.png" target="_blank" rel="noopener"><img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2017/10/QQ%E6%88%AA%E5%9B%BE20171001151826.png" alt></a> 果然如此. 问题解决!****</p>
+<pre><code>par.dispatchEventWith(Circle.Event_Click,false,this.color);</code></pre><p>即当事件触发时 打包发送 this.color. 将其改为 0Xffffff 试试: <a href="http://cdn.be-sunshine.cn/wp-content/uploads/2017/10/QQ%E6%88%AA%E5%9B%BE20171001151826.png" target="_blank" rel="noopener"><img src="http://cdn.be-sunshine.cn/wp-content/uploads/2017/10/QQ%E6%88%AA%E5%9B%BE20171001151826.png" alt></a> 果然如此. 问题解决!****</p>
 
   </article>
   <aside class="table-content" id="site-toc">

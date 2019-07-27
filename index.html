@@ -163,8 +163,8 @@
       <div class="home">
   
     <div class="home-article-wrapper clearfix">
-      <div class="home-article" data-cover="true">
-        <div class="home-article-inner" data-cover="true">
+      <div class="home-article" data-cover="false">
+        <div class="home-article-inner" data-cover="false">
           <div class="passage-meta">
             <span>
               <i class="fa fa-calendar"></i>2019-04-12
@@ -194,16 +194,12 @@
           
         </div>
         
-          <div class="home-article-cover">
-            <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2019/04/wolf.png">
-          </div>
-        
       </div>
     </div>
   
     <div class="home-article-wrapper clearfix">
-      <div class="home-article" data-cover="true">
-        <div class="home-article-inner" data-cover="true">
+      <div class="home-article" data-cover="false">
+        <div class="home-article-inner" data-cover="false">
           <div class="passage-meta">
             <span>
               <i class="fa fa-calendar"></i>2019-04-08
@@ -224,16 +220,7 @@
           </h1>
           <div class="home-article-content passage-article">
             
-              <!--toc-->
-
-<h1 id="3-1-matra-vrtta"><a href="#3-1-matra-vrtta" class="headerlink" title="3.1 matra-vrtta"></a>3.1 matra-vrtta</h1><hr>
-<p>关于<code>递归方法</code>最早的例子之一是出现在距今2000多年前的<code>古印度</code>时期关于诗词韵律(arose)或者诗体韵律的学习中.古典梵语诗集(Classical Sanskrit poetry)有别于音节(syllables)的两种类型: 明亮和沉重.在一组韵律中(In one class of meters),韵律丰富的被叫做[matravrtta]或者[matrameru]或[matrachanda],诗的每一行都有固定个数的”beats”,如亮音节最后会有一个beat,而重音节最后会有两个beat.正规的matra-vrtta的学习要追溯到 Chandahsastra,出自Pingala学者(Scholar),公元前600年和200年间,Pingala发现 5-4节拍: –，-··，·-·，··-，····。（这里每个”-“代表了一个常寅杰,每个”·”代表了一个短音节.） 尽管Pingala的文章给计数音节一个系统化的<code>提示</code>了,这项规定仍花了大约一千年的时间才得以明确表述。【it took about,他花费了大约】在公元前七世纪,另一个印度学者Virahanka书写了一篇Pingala著作的评注,其中(in which)，他观察到n拍的节拍(meter)数是（n-2）拍的节拍数和（n-1）拍的节拍数之和。</p>
-<blockquote>
-<p>用更现代的符号表示,Virahanka的研究发现了总会出现一个循环当n-beat节拍的节拍总数M(n)满足</p>
-</blockquote>
-<p><code>M(n)=M(n-2)+M(n-1)</code> 不难看出<code>M(0)=1</code> (只存在一个空节拍)和<code>M(1)=1</code>(唯一的一个节拍由一个单独的短音节组成). 同样的循环结论出现在欧洲大约在Virahanka500年前,在Leonardo Pisano(莱昂纳多·比萨诺)的1202论文<code>Liber Abaci</code>中,这个欧洲最早关于”算法”的论文中,使用Virahanka的循环,用现代的<code>Fibonacci number</code> 定义了这一现象:</p>
-<p> <a href="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2019/04/QQ截图20190408205641.png" target="_blank" rel="noopener"><img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2019/04/QQ%E6%88%AA%E5%9B%BE20190408205641.png" alt></a></p>
-<p> 即,对于所有的n,我们规定 M(n)=F(n+1)</p>
+              
             
           </div>
           <a class="home-article-read" href="/passages/jeffe-3-1-dporigin/">
@@ -241,10 +228,6 @@
           </a>
           
         </div>
-        
-          <div class="home-article-cover">
-            <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2019/04/20170303182952_aNAR3-720x474.jpeg">
-          </div>
         
       </div>
     </div>
@@ -342,16 +325,7 @@
           </h1>
           <div class="home-article-content passage-article">
             
-              <h1 id="12-Min-Stack"><a href="#12-Min-Stack" class="headerlink" title="(12) - Min Stack"></a>(12) - Min Stack</h1><blockquote>
-<p>一个栈维护最小值,另一个栈存数据</p>
-<blockquote>
-<p>为什么最小值同步插入可行,因为栈的pop只能从栈顶开始，所以:</p>
-<blockquote>
-<p>1.栈顶元素最小,minValue栈顶也是该元素 2.栈顶元素不是最小,minValue中没有该元素</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> class MinStack &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="built_in">Stack</span>&lt;<span class="built_in">Integer</span>&gt; <span class="built_in">data</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="built_in">Stack</span>&lt;<span class="built_in">Integer</span>&gt; minValue;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> MinStack() &#123;</span><br><span class="line">        <span class="comment">// do intialization if necessary</span></span><br><span class="line">        <span class="built_in">data</span>=<span class="literal">new</span> <span class="built_in">Stack</span>&lt;&gt;();</span><br><span class="line">        minValue=<span class="literal">new</span> <span class="built_in">Stack</span>&lt;&gt;();</span><br><span class="line">        minValue.push(<span class="number">0x3f3f3f3f</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">     * @param number: An integer</span></span><br><span class="line"><span class="comment">     * @return: nothing</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="literal">void</span> push(int number) &#123;</span><br><span class="line">        <span class="comment">// write your code here</span></span><br><span class="line">        <span class="built_in">data</span>.push(number);</span><br><span class="line">        <span class="keyword">if</span>(number&lt;=minValue.peek()) minValue.push(number);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">     * @return: An integer</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> int pop() &#123;</span><br><span class="line">        <span class="comment">// write your code here</span></span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">data</span>.peek().<span class="keyword">equals</span>(minValue.peek())) minValue.pop();</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">data</span>.pop();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">     * @return: An integer</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> int <span class="keyword">min</span>() &#123;</span><br><span class="line">        <span class="comment">// write your code here</span></span><br><span class="line">        <span class="keyword">return</span> minValue.peek();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+              
             
           </div>
           <a class="home-article-read" href="/passages/lintcode12-22/">

@@ -198,8 +198,8 @@
 </li>
 </ol>
 </blockquote>
-<h2 id="应用3"><a href="#应用3" class="headerlink" title="应用3"></a>应用3</h2><h3 id="这一条要拿出来-因为比较重要"><a href="#这一条要拿出来-因为比较重要" class="headerlink" title="这一条要拿出来,因为比较重要"></a>这一条要拿出来,因为比较重要</h3><p><img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/01/QQ%E6%88%AA%E5%9B%BE20180125215134.png" alt></p>
-<h3 id="证明"><a href="#证明" class="headerlink" title="证明"></a>证明</h3><p>考虑$$m$$个和: $$a_1,a_1+a_2,a_1+a_2+a_3,…,a_1+a_2+a_3+…+a_m$$ 如果这些和当中的任意一个可被$$m$$整除,那么结论就成立。因此,我们可以假设这些和中的每一个除以$$m$$都有一个非零余数,余数等于$$1,2,3,4,…,m-1$$中的一个数。因为有$$m$$个和,而只有$$m-1$$个余数,所以必然有两个序列的和除以$$m$$有相同的余数.因此,存在整数$$k,l,k \&lt; l$$,使得$$a_1+a_2+…+a_k$$和$$a_1+a_2+…+a_l$$除以$$m$$有相同的余数$$r$$: $$a_1+a_2+…+a_k = bm+r,a_1+a_2+…+a_l = cm+r$$ 二式相减,我们发现$$ a_{k+1} $$+$$a_{k+2}+…+a_l = (c-b)m$$。 从而推断出,$$m$$个正整数的序列.一定存在一组序列的和为$$m$$的整数倍. <strong>上面的Latex公示如果没显示完全看下面的图片(PS:Latex公式好麻烦,而且支持也好麻烦):</strong> <a href="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/01/QQ截图20180125215217.png" target="_blank" rel="noopener"><img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/01/QQ%E6%88%AA%E5%9B%BE20180125215217.png" alt></a></p>
+<h2 id="应用3"><a href="#应用3" class="headerlink" title="应用3"></a>应用3</h2><h3 id="这一条要拿出来-因为比较重要"><a href="#这一条要拿出来-因为比较重要" class="headerlink" title="这一条要拿出来,因为比较重要"></a>这一条要拿出来,因为比较重要</h3><p><img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/01/QQ%E6%88%AA%E5%9B%BE20180125215134.png" alt></p>
+<h3 id="证明"><a href="#证明" class="headerlink" title="证明"></a>证明</h3><p>考虑$$m$$个和: $$a_1,a_1+a_2,a_1+a_2+a_3,…,a_1+a_2+a_3+…+a_m$$ 如果这些和当中的任意一个可被$$m$$整除,那么结论就成立。因此,我们可以假设这些和中的每一个除以$$m$$都有一个非零余数,余数等于$$1,2,3,4,…,m-1$$中的一个数。因为有$$m$$个和,而只有$$m-1$$个余数,所以必然有两个序列的和除以$$m$$有相同的余数.因此,存在整数$$k,l,k \&lt; l$$,使得$$a_1+a_2+…+a_k$$和$$a_1+a_2+…+a_l$$除以$$m$$有相同的余数$$r$$: $$a_1+a_2+…+a_k = bm+r,a_1+a_2+…+a_l = cm+r$$ 二式相减,我们发现$$ a_{k+1} $$+$$a_{k+2}+…+a_l = (c-b)m$$。 从而推断出,$$m$$个正整数的序列.一定存在一组序列的和为$$m$$的整数倍. <strong>上面的Latex公示如果没显示完全看下面的图片(PS:Latex公式好麻烦,而且支持也好麻烦):</strong> <a href="http://cdn.be-sunshine.cn/wp-content/uploads/2018/01/QQ截图20180125215217.png" target="_blank" rel="noopener"><img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/01/QQ%E6%88%AA%E5%9B%BE20180125215217.png" alt></a></p>
 <h3 id="具体应用POJ2356"><a href="#具体应用POJ2356" class="headerlink" title="具体应用POJ2356"></a>具体应用POJ2356</h3><p>题意:输入N个正整数,选择序列中的一些数字,使其和为$$N\*k$$(k为正整数). 代码:</p>
 <pre><code>//问从N个数中选取多少个数,使得这些数的和%N==0
 #include&lt;cstdio&gt;
@@ -314,7 +314,7 @@ int main(){
 <h1 id="生成函数"><a href="#生成函数" class="headerlink" title="生成函数"></a>生成函数</h1><blockquote>
 <p>母函数是用于解决组合问题计数的一种方法。 在了解它之前我们先看看熟悉的杨辉三角。</p>
 </blockquote>
-<p><img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/01/20170611212741764.jpg" alt></p>
+<p><img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/01/20170611212741764.jpg" alt></p>
 <blockquote>
 <p>杨辉三角的第n行(注意是从0开始标号的)的数字就是(1+x)^n的展开式从低项到高项的各项系数，也可以表示为组合数的形式C(i,n)。如果将两者联系起来我们会发现，(1+x)可以看成对于一件取舍，1=x^0就是不取，x就是取。这样在(1+x)^n的展开式中x^i项的系数就是从n件物品选取i件的方案数。</p>
 </blockquote>

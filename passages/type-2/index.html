@@ -221,7 +221,7 @@
 <li>既然它们的节点时简单的运算,那么就可以很方便地使用链式求导法则对其进行求导 &gt; 比如 Y=Z+b,Z=b+2 dY/db=dZ/db+d(b)/db</li>
 </ol>
 </blockquote>
-<p>则如下图所示 <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2019/01/1234352-13d969531284a9f9.png" alt> 计算图是正向传播的,而计算图中的反向计算梯度是反向计算的,即函数的上升方向. 故反向传播以后计算出来的梯度只需要取负即是梯度下降的方向了.</p>
+<p>则如下图所示 <img src="http://cdn.be-sunshine.cn/wp-content/uploads/2019/01/1234352-13d969531284a9f9.png" alt> 计算图是正向传播的,而计算图中的反向计算梯度是反向计算的,即函数的上升方向. 故反向传播以后计算出来的梯度只需要取负即是梯度下降的方向了.</p>
 </blockquote>
 <p>以上基础知识熟悉以后可以看这篇文章: <a href="https://www.jianshu.com/p/c7e642877b0e" title="深入浅出,梯度下降法及其实现" target="_blank" rel="noopener">深入浅出,梯度下降法及其实现</a></p>
 <h3 id="向量化"><a href="#向量化" class="headerlink" title="向量化"></a>向量化</h3><blockquote>
@@ -237,14 +237,14 @@ print(result)
 输出: [101 102 103]</code></pre><h3 id="激活函数"><a href="#激活函数" class="headerlink" title="激活函数"></a>激活函数</h3><blockquote>
 <p>计算图的每层节点将上一层的输出作为本层的输入,如果没有激活函数,那么最终的结果等效于F(x)=x即线性函数. 而激活函数则是在层与层间添加上一个激活函数,使之并不完全作为线性函数来传递数据(即进入什么数据,出来就一定是唯一结果) 即由激活函数判断是否输出</p>
 </blockquote>
-<h3 id="神经元模型-参考书籍-西瓜书"><a href="#神经元模型-参考书籍-西瓜书" class="headerlink" title="神经元模型(参考书籍-西瓜书)"></a>神经元模型(参考书籍-西瓜书)</h3><p><img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2019/01/20180507224752660.png" alt></p>
+<h3 id="神经元模型-参考书籍-西瓜书"><a href="#神经元模型-参考书籍-西瓜书" class="headerlink" title="神经元模型(参考书籍-西瓜书)"></a>神经元模型(参考书籍-西瓜书)</h3><p><img src="http://cdn.be-sunshine.cn/wp-content/uploads/2019/01/20180507224752660.png" alt></p>
 <blockquote>
 <p>在生物神经网络中,，每个神经元与其他神经元相连,当它”兴奋”时,就会向相连的神经元发送化学物质,从而改变这些神经元内的电位,如果某神经元的电位超过一个”阈值”,那么他就会被激活,即”兴奋”起来,向其他神经元发送化学物质. 现在最常用的组成神经网络的节点神经元模型是M-P神经元模型.在这个模型中,神经元接收到来自其它n个神经元传递过来的输入信号,这些输入信号通过带权重的连接进行传递,神经元接收到的总输入值将与神经元的阈值进行比较,然后通过”激活函数”处理以产生神经元的输出.</p>
 </blockquote>
 <h3 id="神经网络分类"><a href="#神经网络分类" class="headerlink" title="神经网络分类"></a>神经网络分类</h3><blockquote>
 <p>大部分在上述的视频中都有系统介绍,这里我只做总结</p>
 </blockquote>
-<h4 id="感知机与深层神经网络"><a href="#感知机与深层神经网络" class="headerlink" title="感知机与深层神经网络"></a>感知机与深层神经网络</h4><p><img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2019/01/p.png" alt></p>
+<h4 id="感知机与深层神经网络"><a href="#感知机与深层神经网络" class="headerlink" title="感知机与深层神经网络"></a>感知机与深层神经网络</h4><p><img src="http://cdn.be-sunshine.cn/wp-content/uploads/2019/01/p.png" alt></p>
 <blockquote>
 <p>即 输入层 -&gt; 隐藏层 -&gt; 输出层</p>
 </blockquote>
@@ -263,7 +263,7 @@ print(result)
 <h5 id="RNN"><a href="#RNN" class="headerlink" title="RNN"></a>RNN</h5><h6 id="前向传播"><a href="#前向传播" class="headerlink" title="前向传播"></a>前向传播</h6><blockquote>
 <p>普通的CNN模型即上述的神经网络模型,而NLP遵守的规则一般为对于一个句子的分析,每个单词的分析,如果采取上述的线性模型可能会导致语言没有一点逻辑,即 “我/爱/你” - 则针对我输出A,针对爱输出B,针对你输出C 得到结果ABC. 而RNN最大的特点在于其可记忆性.什么叫可记忆性呢?即上一个单词的结果要传递给下一层,使下一个单词运算出的结果可以结合上一个单词以及当前的单词一起得出最后的结果.</p>
 </blockquote>
-<p><img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2019/01/1042406-20170306142253375-175971779.png" alt></p>
+<p><img src="http://cdn.be-sunshine.cn/wp-content/uploads/2019/01/1042406-20170306142253375-175971779.png" alt></p>
 <blockquote>
 <p>如上图,右侧是拆分后的RNN,x(i)代表的是第i个单词,而计算后的h(i)会传递给h(i+1),y(i)是由上一层计算出来的词向量. 数学公式表达为:</p>
 <blockquote>
@@ -278,7 +278,7 @@ print(result)
 <p>反向传播作用依然是：减少误差,计算lost函数. 用倒数来计算某一个节点队最终结果的影响程度.训练完后,取平均值(大概,这点我没太仔细看).</p>
 </blockquote>
 <p>一个比较通俗易懂的链接: <a href="https://blog.csdn.net/shaomingliang499/article/details/50587300" title=" 一步一步教你反向传播" target="_blank" rel="noopener">一步一步教你反向传播</a></p>
-<h6 id="RNN的几种类型"><a href="#RNN的几种类型" class="headerlink" title="RNN的几种类型"></a>RNN的几种类型</h6><p><img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2019/01/20180719232051968.jpg" alt></p>
+<h6 id="RNN的几种类型"><a href="#RNN的几种类型" class="headerlink" title="RNN的几种类型"></a>RNN的几种类型</h6><p><img src="http://cdn.be-sunshine.cn/wp-content/uploads/2019/01/20180719232051968.jpg" alt></p>
 <h5 id="LSTM"><a href="#LSTM" class="headerlink" title="LSTM"></a>LSTM</h5><blockquote>
 <p>再清楚了RNN以后,LSTM其实就是基于RNN的一个变种.</p>
 <blockquote>
@@ -326,7 +326,7 @@ print(result)
 <li>统计词频、抽取文本特征、特征选择、计算特征权重、归一化</li>
 <li>划分训练集、测试集（先分几份,然后7-3划分）</li>
 </ol>
-<h1 id="聊天室内核从0开始-–-2-处理语料库"><a href="#聊天室内核从0开始-–-2-处理语料库" class="headerlink" title="聊天室内核从0开始 – 2 处理语料库"></a>聊天室内核从0开始 – 2 处理语料库</h1><p><a href="http://ptzw9yyyp.bkt.clouddn.com/index.php/2019/01/04/type-3/" target="_blank" rel="noopener">http://ptzw9yyyp.bkt.clouddn.com/index.php/2019/01/04/type-3/</a></p>
+<h1 id="聊天室内核从0开始-–-2-处理语料库"><a href="#聊天室内核从0开始-–-2-处理语料库" class="headerlink" title="聊天室内核从0开始 – 2 处理语料库"></a>聊天室内核从0开始 – 2 处理语料库</h1><p><a href="http://cdn.be-sunshine.cn/index.php/2019/01/04/type-3/" target="_blank" rel="noopener">http://cdn.be-sunshine.cn/index.php/2019/01/04/type-3/</a></p>
 
   </article>
   <aside class="table-content" id="site-toc">

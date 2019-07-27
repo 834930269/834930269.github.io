@@ -185,9 +185,9 @@
     <h1 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h1><h2 id="同步与异步"><a href="#同步与异步" class="headerlink" title="同步与异步"></a>同步与异步</h2><blockquote>
 <p>如图 同步是链式进行:只有当一个任务结束后才可以继续下一个 而异步则是前进-&gt;等待消息返回(同时继续前进进行其他的任务)-&gt;消息返回,继续前进.</p>
 </blockquote>
-<p><img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/89864d67883030d36838db52c72af586.png" alt></p>
+<p><img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/89864d67883030d36838db52c72af586.png" alt></p>
 <h2 id="并发-Concurrency-和并行-Parallelism"><a href="#并发-Concurrency-和并行-Parallelism" class="headerlink" title="并发(Concurrency)和并行(Parallelism)"></a>并发(Concurrency)和并行(Parallelism)</h2><blockquote>
-<p>如图 并发是以时间片为单位看似同步进行 并行是实际上的同步进行(一般为多核) <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/a580d15d23bbcbaa2c928b770d15b275.png" alt></p>
+<p>如图 并发是以时间片为单位看似同步进行 并行是实际上的同步进行(一般为多核) <img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/a580d15d23bbcbaa2c928b770d15b275.png" alt></p>
 </blockquote>
 <h2 id="临界区"><a href="#临界区" class="headerlink" title="临界区"></a>临界区</h2><blockquote>
 <p>即可以有多个线程来使用它,但同一时刻只能有一个线程来使用它. 一但临界区被一个线程占用,其他线程就必须等待.</p>
@@ -195,7 +195,7 @@
 <h2 id="阻塞-Blocking-和非阻塞-Non-Blocking"><a href="#阻塞-Blocking-和非阻塞-Non-Blocking" class="headerlink" title="阻塞(Blocking)和非阻塞(Non-Blocking)"></a>阻塞(Blocking)和非阻塞(Non-Blocking)</h2><blockquote>
 <p>阻塞: 一个线程占用了临界区资源,那么<code>其他所有</code>需要这个资源的线程就必须在这个临界区中进行等待. 非阻塞: 任何线程都不会阻碍其他线程的执行,所有的线程都会尝试不断向前继续执行.</p>
 </blockquote>
-<h2 id="死锁-Deadlock-、饥饿-Starvation-和活锁-Livelock"><a href="#死锁-Deadlock-、饥饿-Starvation-和活锁-Livelock" class="headerlink" title="死锁(Deadlock)、饥饿(Starvation)和活锁(Livelock)"></a>死锁(Deadlock)、饥饿(Starvation)和活锁(Livelock)</h2><p><img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/892f79594c910e601ccc98a27ec395f0.png" alt></p>
+<h2 id="死锁-Deadlock-、饥饿-Starvation-和活锁-Livelock"><a href="#死锁-Deadlock-、饥饿-Starvation-和活锁-Livelock" class="headerlink" title="死锁(Deadlock)、饥饿(Starvation)和活锁(Livelock)"></a>死锁(Deadlock)、饥饿(Starvation)和活锁(Livelock)</h2><p><img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/892f79594c910e601ccc98a27ec395f0.png" alt></p>
 <blockquote>
 <p><code>死锁</code>: 如上图,在专业课程中,我们所学到的死锁经常会这样描述-</p>
 <blockquote>
@@ -223,11 +223,11 @@
 <h3 id="无饥饿-Starvation-Free"><a href="#无饥饿-Starvation-Free" class="headerlink" title="无饥饿(Starvation-Free)"></a>无饥饿(Starvation-Free)</h3><blockquote>
 <p>如果线程有优先级,而<code>选用的线程调度算法</code>允许插队,成为非公平,如下图,那么最下面的很大可能会产生饥饿</p>
 </blockquote>
-<p><img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/552bc58e0ac12208199b9fad12fc3a04.png" alt></p>
+<p><img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/552bc58e0ac12208199b9fad12fc3a04.png" alt></p>
 <blockquote>
 <p>如果线程是公平的,就不会产生饥饿,不管来的线程优先级多么的高,要想获得资源,就必须 乖 ♂ 乖 ♂ 站 ♂ 好 ♂,所有的线程都会执行.</p>
 </blockquote>
-<p><img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/5a479a4139398cbca7e9b73bd2d8cfa5.png" alt></p>
+<p><img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/5a479a4139398cbca7e9b73bd2d8cfa5.png" alt></p>
 <h3 id="无障碍-Obstruction-Free"><a href="#无障碍-Obstruction-Free" class="headerlink" title="无障碍(Obstruction-Free)"></a>无障碍(Obstruction-Free)</h3><blockquote>
 <p>不对临界区设任何门栏,任何线程想进就进,想出就出,如果出现数据混乱了怎么办</p>
 <blockquote>
@@ -238,7 +238,7 @@
 <p>如下图</p>
 </blockquote>
 </blockquote>
-<p><img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/0982523d459a08c27cc6a2f902333ce0.png" alt></p>
+<p><img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/0982523d459a08c27cc6a2f902333ce0.png" alt></p>
 <h3 id="无锁-Lock-Free"><a href="#无锁-Lock-Free" class="headerlink" title="无锁(Lock-Free)"></a>无锁(Lock-Free)</h3><blockquote>
 <p>所有线程都可以尝试对临界区进行访问,但不同的是,无锁的并发保证必然有一个线程能够在有限步内完成操作离开临界区. 无锁是一个无穷循环。在这个循环中,线程会不断尝试修改共享变量,如果没有冲突,修改成功,则退出,否则继续尝试修改,但无论如何,无锁一定会有一个线程可以胜出.</p>
 <blockquote>
@@ -264,8 +264,8 @@
 <h2 id="有关并行的两个重要定律"><a href="#有关并行的两个重要定律" class="headerlink" title="有关并行的两个重要定律"></a>有关并行的两个重要定律</h2><blockquote>
 <p>主要作用,提高性能</p>
 </blockquote>
-<h3 id="Amdahl定律"><a href="#Amdahl定律" class="headerlink" title="Amdahl定律"></a>Amdahl定律</h3><p>加速比定义: <strong>加速比 = 优化前系统耗时 / 优化后系统耗时</strong> 加速比越高,表明优化效果越明显 T: 时间 T1: 一个处理器优化前耗时 Tn: n个处理器优化后的耗时 n: 处理器个数1 F: 程序中只能串行执行的比例 公式推导: <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/22598c64eec40f893a98249a57670466.png" alt> 通俗来讲: 1/n(1-F)就是将多核时一个核的比 加速比,当n-&gt;无穷,那么加速比与系统的串行率成反比,如果系统中必须有50%的代码串行执行,那么系统的最大加速比为2. 例: <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/f615f003b46f7c5ae3b6529423fb83b9.png" alt> <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/14a787b8048fee067f5ebdcc8387bd3d.png" alt> <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/3bc7ff881f0402493d61271248e5384f.png" alt> <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/4a703832b4c17c8c9b4b3cefe141296b.png" alt></p>
-<h3 id="Gustafson定律"><a href="#Gustafson定律" class="headerlink" title="Gustafson定律"></a>Gustafson定律</h3><p><img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/2cbd7c085f349d05f504677421c14862.png" alt> 可以发现Gf定律是通过时间来推导的.</p>
+<h3 id="Amdahl定律"><a href="#Amdahl定律" class="headerlink" title="Amdahl定律"></a>Amdahl定律</h3><p>加速比定义: <strong>加速比 = 优化前系统耗时 / 优化后系统耗时</strong> 加速比越高,表明优化效果越明显 T: 时间 T1: 一个处理器优化前耗时 Tn: n个处理器优化后的耗时 n: 处理器个数1 F: 程序中只能串行执行的比例 公式推导: <img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/22598c64eec40f893a98249a57670466.png" alt> 通俗来讲: 1/n(1-F)就是将多核时一个核的比 加速比,当n-&gt;无穷,那么加速比与系统的串行率成反比,如果系统中必须有50%的代码串行执行,那么系统的最大加速比为2. 例: <img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/f615f003b46f7c5ae3b6529423fb83b9.png" alt> <img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/14a787b8048fee067f5ebdcc8387bd3d.png" alt> <img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/3bc7ff881f0402493d61271248e5384f.png" alt> <img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/4a703832b4c17c8c9b4b3cefe141296b.png" alt></p>
+<h3 id="Gustafson定律"><a href="#Gustafson定律" class="headerlink" title="Gustafson定律"></a>Gustafson定律</h3><p><img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/2cbd7c085f349d05f504677421c14862.png" alt> 可以发现Gf定律是通过时间来推导的.</p>
 <h2 id="JMM"><a href="#JMM" class="headerlink" title="JMM"></a>JMM</h2><blockquote>
 <p>JVM是Java虚拟机 而JMM是Java的内存模型 故JMM多用于线程/进程管理</p>
 <blockquote>
@@ -309,17 +309,17 @@
         new Thread(new ChangeT(444L)).start();
         new Thread(new ReadT()).start();
     }
-}</code></pre><p>输出: <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/db56fde22062e276c391e1a6f6c9fc9b.png" alt> 会发现根本就不是输入的四个值中的一个,因为他们互相影响了. <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/2dbc843299c02770553d5e4c1ffa322b.png" alt></p>
-<h3 id="可见性-Visibility"><a href="#可见性-Visibility" class="headerlink" title="可见性(Visibility)"></a>可见性(Visibility)</h3><p>可见性是当一个线程修改了变量后,其他线程是否能够立即知道这个修改,显然,对于船型程序而言,可见性是不存在的.因为你在任何一个操作步骤中修改了某个变量,那么在后续步骤中,读取的这个变量,一定是修改后的(临界区被占用). 但在并行程序中就不同了.有可能知道,也可能不知道. 如: <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/627ac143df47fe3a851b7eb87fb4f1b8.png" alt> CPU2和CPU1在一开始读取了cache上的数据,但CPU2在某条路径上更快的修改了cache,而CPU1无法得知,故CPU1内还是一个旧的值.修改则一定会发生错误. <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/db7630826e2f662dd9a063f26a3e7bce.png" alt> 故<code>无法保证</code>能够从一个线程中观察另一个线程的变量.</p>
-<h3 id="编译器的向前优化"><a href="#编译器的向前优化" class="headerlink" title="编译器的向前优化"></a>编译器的向前优化</h3><p>一个复杂一点的例子 <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/810eb542db9f9f179f5f486d0416bf03.png" alt> 对于大部分编译器而言,可能会对线程1进行向前替换优化,也就是r5=r1.x这条指令会被直接替换成r5=r2.因为他们都读取了r1.x,又发生在同一个线程中,因此,编译器可能会认为没必要二次读取. <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/6456a7a1fec8e84fcec9d166bea5254d.png" alt></p>
-<h3 id="有序性-Ordering"><a href="#有序性-Ordering" class="headerlink" title="有序性(Ordering)"></a>有序性(Ordering)</h3><p>程序在执行时,会出现指令重排,重拍后的指令与原指令未必一致. 这就导致了有可能出现在前面的代码后执行，在后面的代码先执行. 如: <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/34204dc9edb67299da132429d63009d8.png" alt></p>
-<h4 id="指令重排"><a href="#指令重排" class="headerlink" title="指令重排"></a>指令重排</h4><p>可以保证与串行语义一致,但没义务保证多线程间的语义也一致. 为什么要进行指令重排呢? 指令的执行分以下几步: - 取值 IF - 译码和去寄存器操作数 ID - 执行或者有效地址计算 EX - 存储器访问 MEM - 写回 WB 汇编指令也不是一步就可以执行完的. ALU:算数逻辑单元,是CPU的执行单元,是CPU的核心组成部分,主要功能是进行二进制算术运算. 因为指令执行的每一步都使用不同的硬件完成,聪明的工程师就发明了流水线技术. <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/e0c81a1d89a95441a84f3253a391e34a.png" alt></p>
-<h4 id="防止流水线中断"><a href="#防止流水线中断" class="headerlink" title="防止流水线中断"></a>防止流水线中断</h4><p>流水线满载时,性能很不错,但是一旦中断,所有的硬件设备都会进入一个停顿期,再次满载又需要几个周期.因此,性能的损失蛮大的. 而指令重排则是防止流水线中断的一种方式. 我们来以一个例子看看中断到底是什么意思. 下图展示的是 A=B+C 这个操作的执行过程: LW: load LW R1,B 将B加载到R1寄存器中 ADD: 加法 ADD R3,R1,R2 将R1+R2的值放到R3寄存器中 SW: store 存储,就是将R3寄存器的值保存到变量A中. <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/606348f53bcc59044914f16b1f54f201.png" alt> 那两个<code>大X</code>代表的是等待R2的值,因为R2还未MEM,WB,所以R2寄存器内还没有值, 这就是一个中断,会直接的导致后面的慢一拍.</p>
+}</code></pre><p>输出: <img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/db56fde22062e276c391e1a6f6c9fc9b.png" alt> 会发现根本就不是输入的四个值中的一个,因为他们互相影响了. <img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/2dbc843299c02770553d5e4c1ffa322b.png" alt></p>
+<h3 id="可见性-Visibility"><a href="#可见性-Visibility" class="headerlink" title="可见性(Visibility)"></a>可见性(Visibility)</h3><p>可见性是当一个线程修改了变量后,其他线程是否能够立即知道这个修改,显然,对于船型程序而言,可见性是不存在的.因为你在任何一个操作步骤中修改了某个变量,那么在后续步骤中,读取的这个变量,一定是修改后的(临界区被占用). 但在并行程序中就不同了.有可能知道,也可能不知道. 如: <img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/627ac143df47fe3a851b7eb87fb4f1b8.png" alt> CPU2和CPU1在一开始读取了cache上的数据,但CPU2在某条路径上更快的修改了cache,而CPU1无法得知,故CPU1内还是一个旧的值.修改则一定会发生错误. <img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/db7630826e2f662dd9a063f26a3e7bce.png" alt> 故<code>无法保证</code>能够从一个线程中观察另一个线程的变量.</p>
+<h3 id="编译器的向前优化"><a href="#编译器的向前优化" class="headerlink" title="编译器的向前优化"></a>编译器的向前优化</h3><p>一个复杂一点的例子 <img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/810eb542db9f9f179f5f486d0416bf03.png" alt> 对于大部分编译器而言,可能会对线程1进行向前替换优化,也就是r5=r1.x这条指令会被直接替换成r5=r2.因为他们都读取了r1.x,又发生在同一个线程中,因此,编译器可能会认为没必要二次读取. <img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/6456a7a1fec8e84fcec9d166bea5254d.png" alt></p>
+<h3 id="有序性-Ordering"><a href="#有序性-Ordering" class="headerlink" title="有序性(Ordering)"></a>有序性(Ordering)</h3><p>程序在执行时,会出现指令重排,重拍后的指令与原指令未必一致. 这就导致了有可能出现在前面的代码后执行，在后面的代码先执行. 如: <img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/34204dc9edb67299da132429d63009d8.png" alt></p>
+<h4 id="指令重排"><a href="#指令重排" class="headerlink" title="指令重排"></a>指令重排</h4><p>可以保证与串行语义一致,但没义务保证多线程间的语义也一致. 为什么要进行指令重排呢? 指令的执行分以下几步: - 取值 IF - 译码和去寄存器操作数 ID - 执行或者有效地址计算 EX - 存储器访问 MEM - 写回 WB 汇编指令也不是一步就可以执行完的. ALU:算数逻辑单元,是CPU的执行单元,是CPU的核心组成部分,主要功能是进行二进制算术运算. 因为指令执行的每一步都使用不同的硬件完成,聪明的工程师就发明了流水线技术. <img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/e0c81a1d89a95441a84f3253a391e34a.png" alt></p>
+<h4 id="防止流水线中断"><a href="#防止流水线中断" class="headerlink" title="防止流水线中断"></a>防止流水线中断</h4><p>流水线满载时,性能很不错,但是一旦中断,所有的硬件设备都会进入一个停顿期,再次满载又需要几个周期.因此,性能的损失蛮大的. 而指令重排则是防止流水线中断的一种方式. 我们来以一个例子看看中断到底是什么意思. 下图展示的是 A=B+C 这个操作的执行过程: LW: load LW R1,B 将B加载到R1寄存器中 ADD: 加法 ADD R3,R1,R2 将R1+R2的值放到R3寄存器中 SW: store 存储,就是将R3寄存器的值保存到变量A中. <img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/606348f53bcc59044914f16b1f54f201.png" alt> 那两个<code>大X</code>代表的是等待R2的值,因为R2还未MEM,WB,所以R2寄存器内还没有值, 这就是一个中断,会直接的导致后面的慢一拍.</p>
 <blockquote>
 <p>如何防止呢?</p>
 </blockquote>
-<p>一个更复杂的例子: <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/4802b1724ff994decb93bf9f43eeb03a.png" alt> 好多中断是吧.为了减少中断,我们将将对程序没有影响的代码放到中断之前,将中断代码往后移一个单位即可,即充分利用时间. <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/ab4078495c1184503f0097c6e18f0a36.png" alt> 重排后的结果: <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/94dd41a67f8b3bded551e4ce0d6567e0.png" alt></p>
-<h4 id="哪些指令不能重排-Happen-Before-规则"><a href="#哪些指令不能重排-Happen-Before-规则" class="headerlink" title="哪些指令不能重排: Happen-Before 规则"></a>哪些指令不能重排: Happen-Before 规则</h4><p><img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/5b5ebdca081ab4893f7b990c4b05dcdb.png" alt> <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/ac2718210f9da072c0b9f966bed59f6a.png" alt></p>
+<p>一个更复杂的例子: <img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/4802b1724ff994decb93bf9f43eeb03a.png" alt> 好多中断是吧.为了减少中断,我们将将对程序没有影响的代码放到中断之前,将中断代码往后移一个单位即可,即充分利用时间. <img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/ab4078495c1184503f0097c6e18f0a36.png" alt> 重排后的结果: <img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/94dd41a67f8b3bded551e4ce0d6567e0.png" alt></p>
+<h4 id="哪些指令不能重排-Happen-Before-规则"><a href="#哪些指令不能重排-Happen-Before-规则" class="headerlink" title="哪些指令不能重排: Happen-Before 规则"></a>哪些指令不能重排: Happen-Before 规则</h4><p><img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/5b5ebdca081ab4893f7b990c4b05dcdb.png" alt> <img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/ac2718210f9da072c0b9f966bed59f6a.png" alt></p>
 <h1 id="第一章结束"><a href="#第一章结束" class="headerlink" title="第一章结束"></a>第一章结束</h1>
   </article>
   <aside class="table-content" id="site-toc">

@@ -182,7 +182,7 @@
   </h1>
   
   <article class="passage-article">
-    <p>首先是爬取的目的地址: :zap:<a href="http://www.zuihaodaxue.cn/zuihaodaxuepaiming2016.html" title="2016中国最好大学排名" target="_blank" rel="noopener">=&gt;2016中国最好大学排名</a> 这里我们使用的是Python的request库和BeautifulSoup库,IDE用的是Anaconda的Spyder,Python version=3.6. 首先我们现在html中搜索清华大学(废话= =). 结果如下: <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2017/08/17f778160b1fc4d8d2521e6846de2cbe.png" alt="结果"> 我们发现结果是在节点为’tbody’中,全部代码中也只有这一个地方有’tbody’.所以我们可以通过查找这个标签,然后再向下查找孩子来找到结果,但是我们知道,他的孩子可能会出现字符串类型,所以我们需要用isinstance(x,bs4.element.Tag),Tag–(标签)来过滤掉其它类型. 于是我们写出A程序:</p>
+    <p>首先是爬取的目的地址: :zap:<a href="http://www.zuihaodaxue.cn/zuihaodaxuepaiming2016.html" title="2016中国最好大学排名" target="_blank" rel="noopener">=&gt;2016中国最好大学排名</a> 这里我们使用的是Python的request库和BeautifulSoup库,IDE用的是Anaconda的Spyder,Python version=3.6. 首先我们现在html中搜索清华大学(废话= =). 结果如下: <img src="http://cdn.be-sunshine.cn/wp-content/uploads/2017/08/17f778160b1fc4d8d2521e6846de2cbe.png" alt="结果"> 我们发现结果是在节点为’tbody’中,全部代码中也只有这一个地方有’tbody’.所以我们可以通过查找这个标签,然后再向下查找孩子来找到结果,但是我们知道,他的孩子可能会出现字符串类型,所以我们需要用isinstance(x,bs4.element.Tag),Tag–(标签)来过滤掉其它类型. 于是我们写出A程序:</p>
 <pre><code>#CrawUnivRankingA.py
 import requests
 from bs4 import BeautifulSoup
@@ -216,7 +216,7 @@ def main():
     html = getHTMLText(url)
     fillUnivList(uinfo, html)
     printUnivList(uinfo, 20) # 20 univs
-main()</code></pre><p>打印结果: <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2017/08/807addc82e8f147efd10ff14afadcc03.png" alt> 可以看出中间的学校缩进不规范,这是因为中文的问题,他是默认按照英文补充空格的. 改进一下,空格用chr(12288)补充:</p>
+main()</code></pre><p>打印结果: <img src="http://cdn.be-sunshine.cn/wp-content/uploads/2017/08/807addc82e8f147efd10ff14afadcc03.png" alt> 可以看出中间的学校缩进不规范,这是因为中文的问题,他是默认按照英文补充空格的. 改进一下,空格用chr(12288)补充:</p>
 <pre><code>#CrawUnivRankingB.py
 import requests
 from bs4 import BeautifulSoup
@@ -251,7 +251,7 @@ def main():
     html = getHTMLText(url)
     fillUnivList(uinfo, html)
     printUnivList(uinfo, 20) # 20 univs
-main()</code></pre><p>打印结果: <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2017/08/a8ee56c437ee19d41e7e53a863779b97.png" alt> 结束.</p>
+main()</code></pre><p>打印结果: <img src="http://cdn.be-sunshine.cn/wp-content/uploads/2017/08/a8ee56c437ee19d41e7e53a863779b97.png" alt> 结束.</p>
 
   </article>
   <aside class="table-content" id="site-toc">

@@ -251,7 +251,7 @@
             initCanvas(canvasEle, colorsEle, controllersEle, result);
         })
     })
-})</code></pre><p>其中表单中<code>data</code>为图片加密信息,<code>idx</code>为假想当前记事本的id. 实践.发送post内容如下: <a href="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2017/10/QQ截图20171027191006.png" target="_blank" rel="noopener"><img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2017/10/QQ%E6%88%AA%E5%9B%BE20171027191006.png" alt></a> 注意这里只是介绍了前台代码,让大家看一下发送的表单数据,如果没编写后台接受<code>Post</code>的Route的话是会返回<code>404</code>的. 然后在后台的View视图中添加相应的Route:</p>
+})</code></pre><p>其中表单中<code>data</code>为图片加密信息,<code>idx</code>为假想当前记事本的id. 实践.发送post内容如下: <a href="http://cdn.be-sunshine.cn/wp-content/uploads/2017/10/QQ截图20171027191006.png" target="_blank" rel="noopener"><img src="http://cdn.be-sunshine.cn/wp-content/uploads/2017/10/QQ%E6%88%AA%E5%9B%BE20171027191006.png" alt></a> 注意这里只是介绍了前台代码,让大家看一下发送的表单数据,如果没编写后台接受<code>Post</code>的Route的话是会返回<code>404</code>的. 然后在后台的View视图中添加相应的Route:</p>
 <pre><code>from . import main
 from flask import Flask,render_template
 from flask import make_response,render_template, session, redirect, url_for, current_app,abort,flash,request
@@ -280,7 +280,7 @@ def show():
 <pre><code>// 初始化 context
 var ctx = canvasEle.getContext(&apos;2d&apos;);
 ctx.fillStyle=&quot;#fff&quot;;
-ctx.fillRect(0, 0, 500, 500);</code></pre><p>OK,我们获取图片后即为原图了! 至于如何在Canvas中将图片画出来.直接用<code>paint.js</code>中的 <code>initCanvas(canvasEle, colorsEle, controllersEle, result);</code> 即可.result为对应图片的地址<code>一般是发布网站的相对地址</code>. 上传结果: <a href="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2017/10/QQ截图20171027193747.png" target="_blank" rel="noopener"><img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2017/10/QQ%E6%88%AA%E5%9B%BE20171027193747.png" alt></a> 最后一个问题: <code>当我们试图读取图片的url时,浏览器多半会返回对应url的缓存图片文件,如何解决这个问题呢?</code> 我们只需要在<code>URL</code>中随便加入一个参数即可,保证每次的url不相同即可,比如:</p>
+ctx.fillRect(0, 0, 500, 500);</code></pre><p>OK,我们获取图片后即为原图了! 至于如何在Canvas中将图片画出来.直接用<code>paint.js</code>中的 <code>initCanvas(canvasEle, colorsEle, controllersEle, result);</code> 即可.result为对应图片的地址<code>一般是发布网站的相对地址</code>. 上传结果: <a href="http://cdn.be-sunshine.cn/wp-content/uploads/2017/10/QQ截图20171027193747.png" target="_blank" rel="noopener"><img src="http://cdn.be-sunshine.cn/wp-content/uploads/2017/10/QQ%E6%88%AA%E5%9B%BE20171027193747.png" alt></a> 最后一个问题: <code>当我们试图读取图片的url时,浏览器多半会返回对应url的缓存图片文件,如何解决这个问题呢?</code> 我们只需要在<code>URL</code>中随便加入一个参数即可,保证每次的url不相同即可,比如:</p>
 <pre><code>URL=URL+&apos;?t=&apos;+Math.random();</code></pre><p>OK,日志本的第一个难题攻关!</p>
 
   </article>

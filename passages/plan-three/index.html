@@ -367,7 +367,7 @@ public class p33 implements Runnable{
 <p>锁的创建:</p>
 <pre><code>private static ReentrantReadWriteLock readWriteLock=new RenntrantReadWriteLock();
 private static Lock readLock=readWriteLock.readLock();
-private static Lock WriteLock=readWriteLock.WriteLock();</code></pre><h4 id="倒计时器-CountDownLatch"><a href="#倒计时器-CountDownLatch" class="headerlink" title="倒计时器: CountDownLatch"></a>倒计时器: CountDownLatch</h4><p>它可以让一个线程在倒计时结束后再执行. 执行方式如下: <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/482e4b0a1461a4d73d554ac253836c8a.png" alt> 必须所有的线程都完成任务后,等待在CountDownLatch上的线程才能继续执行. 例:</p>
+private static Lock WriteLock=readWriteLock.WriteLock();</code></pre><h4 id="倒计时器-CountDownLatch"><a href="#倒计时器-CountDownLatch" class="headerlink" title="倒计时器: CountDownLatch"></a>倒计时器: CountDownLatch</h4><p>它可以让一个线程在倒计时结束后再执行. 执行方式如下: <img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/482e4b0a1461a4d73d554ac253836c8a.png" alt> 必须所有的线程都完成任务后,等待在CountDownLatch上的线程才能继续执行. 例:</p>
 <pre><code>import java.util.Random;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
@@ -492,11 +492,11 @@ public class p35 {
         //do sth
     }
 }).start();</code></pre><p>这样的线程在run完后就会自动回收,但线程量过大时,则会耗尽CPU和内存资源. 而且如果为每一个小程序都创建一个线程,就可能出现销毁时间远大于该线程实际工作所消耗的时间. 其次,可能因线程过多而爆栈/堆. 大量的线程回收也会给GC造成很大压力,延长GC的停顿时间.</p>
-<h4 id="什么是线程池"><a href="#什么是线程池" class="headerlink" title="什么是线程池"></a>什么是线程池</h4><p>为了避免系统频繁的创建和销毁线程,我们会尽量的让线程复用. <strong>数据库连接池:</strong> 为了避免每次数据库查询都重新建立和销毁数据库连接,我们可以使用数据库连接池保护一些数据库连接,让他们长期在激活状态.当系统需要数据库时,并不是真正创建一个新的连接,而是从连接池中获得一个可用的连接即可.反之,当需要关闭连接时,并不是真的把链接关闭,而是将这个链接还给连接池即可. <strong>线程池</strong>: 线程池中,总有那么几个活跃线程,当你需要时,可以从池子中随便拿一个空闲线程,当完成工作时,并不着急关闭线程,而是将这个线程退回到池子,方便别人使用. <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/88267587709716bb6b7d5a183b7bea85.png" alt> 换言之,创建线程变成了从池子中获得线程,销毁变成了归还.</p>
+<h4 id="什么是线程池"><a href="#什么是线程池" class="headerlink" title="什么是线程池"></a>什么是线程池</h4><p>为了避免系统频繁的创建和销毁线程,我们会尽量的让线程复用. <strong>数据库连接池:</strong> 为了避免每次数据库查询都重新建立和销毁数据库连接,我们可以使用数据库连接池保护一些数据库连接,让他们长期在激活状态.当系统需要数据库时,并不是真正创建一个新的连接,而是从连接池中获得一个可用的连接即可.反之,当需要关闭连接时,并不是真的把链接关闭,而是将这个链接还给连接池即可. <strong>线程池</strong>: 线程池中,总有那么几个活跃线程,当你需要时,可以从池子中随便拿一个空闲线程,当完成工作时,并不着急关闭线程,而是将这个线程退回到池子,方便别人使用. <img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/88267587709716bb6b7d5a183b7bea85.png" alt> 换言之,创建线程变成了从池子中获得线程,销毁变成了归还.</p>
 <h4 id="JDK内置线程池框架-Executor"><a href="#JDK内置线程池框架-Executor" class="headerlink" title="JDK内置线程池框架: Executor"></a>JDK内置线程池框架: Executor</h4><blockquote>
 <p>框架结构图</p>
 </blockquote>
-<p><img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/2c1925682e53b6a81146256a57ce2e88.png" alt> 关于Executor的设计模式: 生产者-消费者模式和工厂方法 <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/6085df9c51bc40c12d4bee50128f9130.png" alt> <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/25117913abc15c1b6a431d930ac4c390.png" alt> 例子:</p>
+<p><img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/2c1925682e53b6a81146256a57ce2e88.png" alt> 关于Executor的设计模式: 生产者-消费者模式和工厂方法 <img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/6085df9c51bc40c12d4bee50128f9130.png" alt> <img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/25117913abc15c1b6a431d930ac4c390.png" alt> 例子:</p>
 <pre><code>import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -561,7 +561,7 @@ public class p36 {
     }
 
 }</code></pre><p>打印后会发现,结果并不是正确的,甚至10000的数据前提下9990也不能保证. 当然,加上锁以后就正常了.</p>
-<h4 id="刨根问底-核心线程池的内部实现"><a href="#刨根问底-核心线程池的内部实现" class="headerlink" title="刨根问底: 核心线程池的内部实现"></a>刨根问底: 核心线程池的内部实现</h4><p><img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/7c53caa4fa9b345ab9b03b92bda61465.png" alt></p>
+<h4 id="刨根问底-核心线程池的内部实现"><a href="#刨根问底-核心线程池的内部实现" class="headerlink" title="刨根问底: 核心线程池的内部实现"></a>刨根问底: 核心线程池的内部实现</h4><p><img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/7c53caa4fa9b345ab9b03b92bda61465.png" alt></p>
 <h4 id="拒接策略"><a href="#拒接策略" class="headerlink" title="拒接策略"></a>拒接策略</h4><p>P108</p>
 <h4 id="扩展线程池"><a href="#扩展线程池" class="headerlink" title="扩展线程池"></a>扩展线程池</h4><blockquote>
 <p>ThreadPoolExecutor是一个可扩展的线程池 它为我们提供了三个接口</p>
@@ -569,7 +569,7 @@ public class p36 {
 <p>beforeExecute() afterExecute() terminated()</p>
 </blockquote>
 </blockquote>
-<p>字面意思 <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/852095dd0c714bd6f84dfbab510688f6.png" alt> 我们重写一下试试:</p>
+<p>字面意思 <img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/852095dd0c714bd6f84dfbab510688f6.png" alt> 我们重写一下试试:</p>
 <pre><code>import java.util.concurrent.ExecutorService;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -618,10 +618,10 @@ public class p37 {
         es.shutdown();
     }
 }</code></pre><p>注: shutdown方法会等所有的线程执行结束后才关闭线程池.</p>
-<h4 id="合理的选择-优化线程池线程数量"><a href="#合理的选择-优化线程池线程数量" class="headerlink" title="合理的选择: 优化线程池线程数量"></a>合理的选择: 优化线程池线程数量</h4><p>线程池的大小对系统的性能也有影响.过大或过小都不可以.但也不需要特别精确. 一般来说确定线程池的大小需要考虑CPU的数量,内存大小等因素. <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/2fdb2eba1f1763034b55e7c321ef1bab.png" alt></p>
+<h4 id="合理的选择-优化线程池线程数量"><a href="#合理的选择-优化线程池线程数量" class="headerlink" title="合理的选择: 优化线程池线程数量"></a>合理的选择: 优化线程池线程数量</h4><p>线程池的大小对系统的性能也有影响.过大或过小都不可以.但也不需要特别精确. 一般来说确定线程池的大小需要考虑CPU的数量,内存大小等因素. <img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/2fdb2eba1f1763034b55e7c321ef1bab.png" alt></p>
 <h4 id="注-线程池可能会吃掉异常"><a href="#注-线程池可能会吃掉异常" class="headerlink" title="注:线程池可能会吃掉异常"></a>注:线程池可能会吃掉异常</h4><p>而 execute方法会打印出部分异常, 或者修改submit的使用: Future re=pools.submit(new DivTask(100,0)); re.get(); 这样也可以.</p>
-<h4 id="扩展ThreadPoolExecutor以显示异常"><a href="#扩展ThreadPoolExecutor以显示异常" class="headerlink" title="扩展ThreadPoolExecutor以显示异常"></a>扩展ThreadPoolExecutor以显示异常</h4><p><img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/be5bdfeba0ba5e3d7cf870cdd78a0747.png" alt> <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/ca0feb96b4362f4ca128ce48747e546a.png" alt> <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/bf9c0ac33c3b0339653f64917ef6eb1b.png" alt> <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/bf1b6e3a4fae52e8b048039894cc3cd6.png" alt></p>
-<h3 id="分而治之-Fork-Join框架"><a href="#分而治之-Fork-Join框架" class="headerlink" title="分而治之: Fork/Join框架"></a>分而治之: Fork/Join框架</h3><p>著名的MapReduce也是采用了分而治之的思想,简单来说,如果你要处理1000个数据,但是你并不具备处理1000个数据的能力,那么你可以只处理10个,然后,分阶段处理100个,将100个结果进行合成.就是1000个结果. JDK为我们提供了ForkJoinPool线程池. <strong>Fork/join执行逻辑</strong> <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/c06d16d76d0568a8e5133f62436d4b68.png" alt> <strong>互相帮助的线程</strong> <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/c68c5120e1a1f1e9216f0948c0e543ff.png" alt> 其中ForkJoinTask有两个重要的子类.关系如下: <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/c706a5a90f343ea864742a01af91ca8e.png" alt> RecursiveTask&lt;&gt; 是实现一个compute函数(返回值要与泛型一致)即可. 例:</p>
+<h4 id="扩展ThreadPoolExecutor以显示异常"><a href="#扩展ThreadPoolExecutor以显示异常" class="headerlink" title="扩展ThreadPoolExecutor以显示异常"></a>扩展ThreadPoolExecutor以显示异常</h4><p><img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/be5bdfeba0ba5e3d7cf870cdd78a0747.png" alt> <img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/ca0feb96b4362f4ca128ce48747e546a.png" alt> <img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/bf9c0ac33c3b0339653f64917ef6eb1b.png" alt> <img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/bf1b6e3a4fae52e8b048039894cc3cd6.png" alt></p>
+<h3 id="分而治之-Fork-Join框架"><a href="#分而治之-Fork-Join框架" class="headerlink" title="分而治之: Fork/Join框架"></a>分而治之: Fork/Join框架</h3><p>著名的MapReduce也是采用了分而治之的思想,简单来说,如果你要处理1000个数据,但是你并不具备处理1000个数据的能力,那么你可以只处理10个,然后,分阶段处理100个,将100个结果进行合成.就是1000个结果. JDK为我们提供了ForkJoinPool线程池. <strong>Fork/join执行逻辑</strong> <img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/c06d16d76d0568a8e5133f62436d4b68.png" alt> <strong>互相帮助的线程</strong> <img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/c68c5120e1a1f1e9216f0948c0e543ff.png" alt> 其中ForkJoinTask有两个重要的子类.关系如下: <img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/c706a5a90f343ea864742a01af91ca8e.png" alt> RecursiveTask&lt;&gt; 是实现一个compute函数(返回值要与泛型一致)即可. 例:</p>
 <pre><code>import java.util.ArrayList;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.ForkJoinTask;
@@ -682,7 +682,7 @@ public class p38 extends RecursiveTask&lt;Long&gt; {
     }
 
 }</code></pre><h4 id="什么时候要加锁"><a href="#什么时候要加锁" class="headerlink" title="什么时候要加锁?"></a>什么时候要加锁?</h4><p>如果只是读操作，没有写操作，则可以不用加锁，此种情形下，变量加上final关键字； 如果有写操作，但是变量的写操作跟当前的值无关联，且与其他的变量也无关联，则可考虑变量加上volatile关键字，同时写操作方法通过synchronized加锁； 如果有写操作，且写操作依赖变量的当前值(如：i++)，则getXXX和写操作方法都要通过synchronized加锁。 线程池是自带锁的.</p>
-<h3 id="JDK-并发容器"><a href="#JDK-并发容器" class="headerlink" title="JDK 并发容器"></a>JDK 并发容器</h3><p><img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/0096034273dcb98f075add481ae7e975.png" alt> <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/a783c28c5e7b94a1fe4171318ae14cf4.png" alt> Tip: <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2018/06/2dda3fce55b9b7aac0ae9da17b57d594.png" alt> 这点有点迷:P128 其中CopyOnWrite是高效的读取,在这个容器中,写入不会阻塞读取.</p>
+<h3 id="JDK-并发容器"><a href="#JDK-并发容器" class="headerlink" title="JDK 并发容器"></a>JDK 并发容器</h3><p><img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/0096034273dcb98f075add481ae7e975.png" alt> <img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/a783c28c5e7b94a1fe4171318ae14cf4.png" alt> Tip: <img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/2dda3fce55b9b7aac0ae9da17b57d594.png" alt> 这点有点迷:P128 其中CopyOnWrite是高效的读取,在这个容器中,写入不会阻塞读取.</p>
 <h4 id="跳表"><a href="#跳表" class="headerlink" title="跳表"></a>跳表</h4><p>跳表是一种可以快速查找的数据结构,它有点类似于平衡树,它只需要部分锁即可,而跳表的时间复杂度也是O(log n) 更多的数据结构可以见线程那个包 Done</p>
 
   </article>

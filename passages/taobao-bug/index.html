@@ -190,7 +190,7 @@
         r.encoding=r.apparent_encoding
         return r.text
     except:
-        print(&quot;&quot;)</code></pre><p>然后我们分析代码,比如第一页第一件商品的价钱如下: <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2017/09/1-1.png" alt="第一件" title="第一件"> 我们在代码页搜索对应的价格89.00,发现对应的标记是’view_price’: <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2017/09/2-1.png" alt="89.00" title="89.00"> 然后是对应的标题,这里有一些问题,因为第一个东西的标题和显示的对不上,显示的是放在’title’标记中,而不知道什么的标题放在’raw_title’中: <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2017/09/3-1.png" alt> 然后我们开始编写parse方法:</p>
+        print(&quot;&quot;)</code></pre><p>然后我们分析代码,比如第一页第一件商品的价钱如下: <img src="http://cdn.be-sunshine.cn/wp-content/uploads/2017/09/1-1.png" alt="第一件" title="第一件"> 我们在代码页搜索对应的价格89.00,发现对应的标记是’view_price’: <img src="http://cdn.be-sunshine.cn/wp-content/uploads/2017/09/2-1.png" alt="89.00" title="89.00"> 然后是对应的标题,这里有一些问题,因为第一个东西的标题和显示的对不上,显示的是放在’title’标记中,而不知道什么的标题放在’raw_title’中: <img src="http://cdn.be-sunshine.cn/wp-content/uploads/2017/09/3-1.png" alt> 然后我们开始编写parse方法:</p>
 <pre><code>def parsePage(til,text):
     try:
         r1=re.compile(r&apos;&quot;view_price&quot;:&quot;[\d.]*&quot;&apos;)
@@ -252,7 +252,7 @@ def main():
             continue
     printResult(infolist)
 
-main()</code></pre><p>结果: <img src="http://ptzw9yyyp.bkt.clouddn.com/wp-content/uploads/2017/09/4-1.png" alt></p>
+main()</code></pre><p>结果: <img src="http://cdn.be-sunshine.cn/wp-content/uploads/2017/09/4-1.png" alt></p>
 
   </article>
   <aside class="table-content" id="site-toc">
