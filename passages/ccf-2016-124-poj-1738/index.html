@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html>
+  
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="author" content="张文涛">
+  
+  
+  <title>CCF 2016-12/4 &amp; POJ 1738 | 山海经▪大荒经</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="ccf,GarsiaWachs,POJ,GarsiaWachs,">
+  
+
+  
+  <meta name="description" content="Winter Zhang的小站">
+
+  
+
+  
+    <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.1/dist/av-min.js" async></script>
+  
+
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+  
+
+  
+    <script src="//unpkg.com/valine/dist/Valine.min.js" async></script>
+  
+
+  
+
+  <script>
+  // theme-ad's config script
+  // it can be used in every script
+  
+  window.AD_CONFIG = {
+    leancloud: {"appid":"J7nVGeFex3em3P8A4ktCiv3b-gzGzoHsz","appkey":"XiR0DX1Kvlh3Et3UalbFN4Dq","comment":true,"count":true},
+    welcome: {"enable":false,"interval":30},
+    start_time: "2015-02-10",
+    passwords: ["c035b468e47fd966ac2df15e3d7f7a64d89b1dbf209c24caad6e62bffd90d4c7", ],
+    is_post: true,
+    lock: false,
+    author: "张文涛",
+    share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
+    mathjax: true,
+    page_type: "",
+    root: "/"
+  };
+</script>
+
+  <script src="/vendor/sha256.min.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/index.js"></script>
+<script src="/vendor/qrcode.min.js"></script>
+
+  
+    <link rel="icon" href="/images/favicon2.ico">
+    <link rel="apple-touch-icon" href="/images/touch-icon.png">
+  
+
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/styles/components/highlight/highlight.css">
+
+  
+</head>
+  <body>
+    <header class="site-header">
+  <div class="site-header-brand">
+    
+      <span class="site-header-brand-title">
+        <a href="/">1900</a>
+      </span>
+    
+    
+      <span class="site-header-brand-motto"> | 祝你平安幸福 我就不下船了</span>
+    
+  </div>
+  <div class="site-header-right">
+    <nav class="site-header-navigation">
+      
+        <a href="/" target="_self">首页</a>
+      
+        <a href="/archives/" target="_self">归档</a>
+      
+        <a href="/tags/" target="_self">标签</a>
+      
+        <a href="/categories/" target="_self">分类</a>
+      
+        <a href="/friends/" target="_self">友链</a>
+      
+        <a href="/about/" target="_self">关于</a>
+      
+    </nav>
+    <div class="site-header-btn">
+      
+        <a href="https://github.com/834930269/" target="_blank" id="site-github">
+          <i class="fa fa-github-alt"></i>
+        </a>
+      
+      <a href="javascript:void(0);" id="site-search">
+        <i class="fa fa-search"></i>
+      </a>
+      <a href="javascript:void(0);" id="site-nav-btn">
+        <i class="fa fa-ellipsis-v"></i>
+      </a>
+    </div>
+  </div>
+</header>
+<nav class="table-content" id="site-nav">
+  <div class="table-content-title">
+    <span>导航</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc">
+      
+        <li class="toc-item">
+          <a href="/" target="_self">
+            首页
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/archives/" target="_self">
+            归档
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/tags/" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/categories/" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/friends/" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/about/" target="_self">
+            关于
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</nav>
+<div id="site-process"></div>
+    <main>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2017-08-31
+    </span>
+    
+      <span>
+        | <a href="/categories/ccf/"><i class="fa fa-bookmark"></i>ccf</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    CCF 2016-12/4 & POJ 1738
+  </h1>
+  
+  <article class="passage-article">
+    <p>类型: 石子合并问题 算法: GarsiaWachs算法。时间复杂度为O(n^2),平衡树来优化，使得最终复杂度为O(nlogn),也可以用动态规划,等等学一下再补充. GarsiaWachs算法(摘自别人的blog):</p>
+<pre><code>具体的算法及证明可以参见《The Art of Computer Programming》第3卷6.2.2节Algorithm G和Lemma W,Lemma X,Lemma Y,Lemma Z。
+只能说一个概要吧：
+设一个序列是A[0..n-1]，每次寻找最小的一个满足A[k-1]&lt;=A[k+1]的k，（方便起见设A[-1]和A[n]等于正无穷大）
+那么我们就把A[k]与A[k-1]合并，之后找最大的一个满足A[j]&gt;A[k]+A[k-1]的j,把合并后的值A[k]+A[k-1]插入A[j]的后面。
+有定理保证，如此操作后问题的答案不会改变。
+举个例子：
+186 64 35 32 103
+因为35&lt;103，所以最小的k是3，我们先把35和32删除，得到他们的和67，并向前寻找一个第一个超过67的数，把67插入到他后面
+186 64（k=3,A[3]与A[2]都被删除了） 103
+186 67（遇到了从右向左第一个比67大的数，我们把67插入到他后面） 64 103
+186 67 64 103 （有定理保证这个序列的答案加上67就等于原序列的答案）
+现在由5个数变为4个数了，继续！
+186 （k=2,67和64被删除了）103
+186 131（就插入在这里） 103
+186 131 103
+现在k=2（别忘了，设A[-1]和A[n]等于正无穷大）
+234 186
+420
+最后的答案呢？就是各次合并的重量之和呗。420+234+131+67=852，哈哈，算对了。
+
+证明嘛，基本思想是通过树的最优性得到一个节点间深度的约束，之后
+证明操作一次之后的解可以和原来的解一一对应，并保证节点移动之后他所在的
+深度不会改变。详见TAOCP。
+
+具体实现这个算法需要一点技巧，精髓在于不停快速寻找最小的k，即维护一个“2-递减序列”
+朴素的实现的时间复杂度是O(n*n)，但可以用一个平衡树来优化（好熟悉的优化方法），使得最终复杂度为O(nlogn)
+
+
+解题思路:（这是我找到的一个关于GarsiaWachs算法的解释）
+
+      1. 这类题目一开始想到是DP, 设dp[i][j]表示第i堆石子到第j堆石子合并最小得分.
+
+         状态方程: dp[i][j] = min(dp[i][k]+dp[k+1][j]+sum[j]-sum[i-1]);
+
+         sum[i]表示第1到第i堆石子总和. 递归记忆化搜索即可.
+
+      2. 不过此题有些不一样, 1&lt;=n&lt;=50000范围特大, dp[50000][50000]开不到这么大数组.
+
+         问题分析:
+
+         (1). 假设我们只对3堆石子a,b,c进行比较, 先合并哪2堆, 使得得分最小.
+
+              score1 = (a+b) + ( (a+b)+c )
+
+              score2 = (b+c) + ( (b+c)+a )
+
+              再次加上score1 &lt;= score2, 化简得: a &lt;= c, 可以得出只要a和c的关系确定,
+
+              合并的顺序也确定.
+
+         (2). GarsiaWachs算法, 就是基于(1)的结论实现.找出序列中满足stone[i-1] &lt;=
+
+              stone[i+1]最小的i, 合并temp = stone[i]+stone[i-1], 接着往前面找是否
+
+              有满足stone[j] &gt; temp, 把temp值插入stone[j]的后面(数组的右边). 循环
+
+              这个过程一直到只剩下一堆石子结束.
+
+        (3). 为什么要将temp插入stone[j]的后面, 可以理解为(1)的情况
+
+             从stone[j+1]到stone[i-2]看成一个整体 stone[mid],现在stone[j],
+
+             stone[mid], temp(stone[i-1]+stone[i-1]), 情况因为temp &lt; stone[j],
+
+             因此不管怎样都是stone[mid]和temp先合并, 所以讲temp值插入stone[j]
+
+             的后面是不影响结果.</code></pre><p>代码实现:</p>
+<pre><code>///186 64 35 32 103
+///GarsiaWachs算法。时间复杂度为O(n^2),平衡树来优化，使得最终复杂度为O(nlogn)
+/*
+设序列是stone[]，从左往右，找一个满足
+stone[k-1] &lt;= stone[k+1]的k，找到后合
+并stone[k]和stone[k-1]，再从当前位置
+开始向左找最大的j，使其满足
+stone[j] &gt; stone[k]+stone[k-1]，
+插到j的后面就行。一直重复，直到只剩下
+一堆石子就可以了。在这个过程中，可以假设
+stone[-1]和stone[n]是正无穷的。
+*/
+
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+const int maxn=50005;
+
+int stone[maxn];
+int N,ans,T;
+///186 64 35 32 103
+void combine(int k){
+    int tmp=stone[k]+stone[k-1];
+    ans+=tmp;
+    for(int i=k;i&lt;T-1;++i)
+        stone[i]=stone[i+1];
+    T--;
+    int j=0;
+    for(j=k-1;j&gt;0&amp;&amp;stone[j-1]&lt;tmp;--j)
+        stone[j]=stone[j-1];
+    stone[j]=tmp;
+    while(j&gt;=2&amp;&amp;stone[j]&gt;=stone[j-2]){
+        int d=T-j;
+        combine(j-1);
+        j=T-d;
+    }
+}
+
+int main(){
+    while(~scanf(&quot;%d&quot;,&amp;N)&amp;&amp;N){
+        for(int i=0;i&lt;N;++i) scanf(&quot;%d&quot;,&amp;stone[i]);
+        T=1;
+        ans=0;
+        for(int i=1;i&lt;N;++i){
+            stone[T++]=stone[i];
+            while(T&gt;=3&amp;&amp;stone[T-3]&lt;=stone[T-1]){
+                combine(T-2);
+            }
+        }
+        while(T&gt;1)combine(T-1);
+        printf(&quot;%d\n&quot;,ans);
+    }
+    return 0;
+}
+///186 64 35 32 103</code></pre>
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
+    
+  </div>
+</aside>
+  
+    <aside class="passage-copyright">
+      <div>本文作者: 张文涛</div>
+      
+        <div>
+          原文链接: 
+          <a href="" target="_blank">http://be-sunshine.cn/passages/ccf-2016-124-poj-1738/</a>
+        </div>
+      
+      <div>
+        版权声明: 本博客所有文章除特别声明外, 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议. 转载请注明出处!
+      </div>
+    </aside>
+  
+  
+    <div class="passage-tags">
+     
+      <a href="/tags/GarsiaWachs/"><i class="fa fa-tags"></i>GarsiaWachs</a>
+    
+    </div>
+  
+</div>
+
+    </main>
+    
+      
+<div class="site-comment-contanier" data-plateform="leancloud">
+  
+    <p id="site-comment-info">
+      <i class="fa fa-spinner fa-spin"></i> 评论加载中
+    </p>
+    <div id="site-comment"></div>
+  
+</div>
+    
+    <div class="site-footer-wrapper">
+  <footer class="site-footer">
+    
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">博客推荐</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/" target="_blank">GodBMW</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="http://ruanyifeng.com/" target="_blank">阮一峰的个人网站</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">系列教程</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/categories/webpack4%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B/" target="_blank">webpack4系列教程</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/design-patterns/" target="_blank">设计模式手册</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">抓到我</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://weibo.com/3260959934/" target="_blank">微博</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://github.com/834930269" target="_blank">Github</a>
+            </span>
+          
+        </div>
+      
+    
+    <div class="site-footer-info">
+      <i class="fa fa-clock-o"></i> 本站已稳定运行<span id="site-time"></span>
+    </div>
+    
+      <div class="site-footer-info">
+        <i class="fa fa-paw"></i> 您是本站第 <span id="site-count"></span> 位访客
+      </div>
+    
+    
+      <div class="site-footer-info">
+        <i class="fa fa-at"></i> Email: 834930269@qq.com
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-copyright"></i> 
+      2019 <a href="https://github.com/dongyuanxin/theme-ad/" target="_blank">Theme-AD</a>.
+      Created by <a href="https://godbmw.com/" target="_blank">GodBMW</a>.
+      All rights reserved.
+    </div>
+  </footer>
+</div>
+    <div id="site-layer" style="display:none;">
+  <div class="site-layer-content">
+    <div class="site-layer-header">
+      <span class="site-layer-header-title" id="site-layer-title"></span>
+      <i class="fa fa-close" id="site-layer-close"></i>
+    </div>
+    <div class="site-layer-body" id="site-layer-container">
+      <div class="site-layer-input" id="site-layer-search" style="display: none;">
+        <div class="site-layer-input-choose">
+          <a href="javascript:void(0);" title="Change Search Engine">Google</a>
+        </div>
+        <input type="text">
+        <i class="fa fa-search"></i>
+      </div>
+      
+        <div class="site-layer-reward" id="site-layer-reward" style="display: none;">
+          
+            <div>
+              <img src="/images/wechat.png" alt="WeChat">
+              
+                <p>WeChat</p>
+              
+            </div>
+          
+            <div>
+              <img src="/images/alipay.png" alt="AliPay">
+              
+                <p>AliPay</p>
+              
+            </div>
+          
+        </div>
+      
+      <div id="site-layer-welcome" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+    
+
+<div class="bottom-bar">
+  <div class="bottom-bar-left">
+    <a href="/passages/asp-net-recode/" data-enable="true">
+      <i class="fa fa-arrow-left"></i>
+    </a>
+    <a href="/passages/python-chut/" data-enable="true">
+      <i class="fa fa-arrow-right"></i>
+    </a>
+  </div>
+  <div class="bottom-bar-right">
+    <a href="javascript:void(0);" data-enable="true" id="site-toc-show-btn">
+      <i class="fa fa-bars"></i>
+    </a>
+    
+      <a href="#site-comment" data-enable="true">
+        <i class="fa fa-commenting"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="site-toggle-share-btn">
+      <i class="fa fa-share-alt"></i>
+    </a>
+    
+      <a href="javascript:void(0);" id="site-reward">
+        <i class="fa fa-thumbs-up"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="back-top-btn">
+      <i class="fa fa-chevron-up"></i>
+    </a>
+  </div>
+</div>
+    <div id="share-btn">
+  
+    <a id="share-btn-twitter" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-twitter"></i>
+    </a>
+  
+  
+    <a id="share-btn-facebook" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-facebook"></i>
+    </a>
+  
+  
+    <a id="share-btn-weibo" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-weibo"></i>
+    </a>
+  
+  
+    <a id="share-btn-qq" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-qq"></i>
+    </a>
+  
+  
+    <a id="share-btn-wechat" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-wechat"></i>
+    </a>
+  
+</div>
+    
+
+
+
+
+
+    
+  </body>
+</html>

@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html>
+  
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="author" content="张文涛">
+  
+  
+  <title>基础概念、项目结构和配置 | 山海经▪大荒经</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Spring,随笔,Spring,">
+  
+
+  
+  <meta name="description" content="Winter Zhang的小站">
+
+  
+
+  
+    <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.1/dist/av-min.js" async></script>
+  
+
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+  
+
+  
+    <script src="//unpkg.com/valine/dist/Valine.min.js" async></script>
+  
+
+  
+
+  <script>
+  // theme-ad's config script
+  // it can be used in every script
+  
+  window.AD_CONFIG = {
+    leancloud: {"appid":"J7nVGeFex3em3P8A4ktCiv3b-gzGzoHsz","appkey":"XiR0DX1Kvlh3Et3UalbFN4Dq","comment":true,"count":true},
+    welcome: {"enable":false,"interval":30},
+    start_time: "2015-02-10",
+    passwords: ["c035b468e47fd966ac2df15e3d7f7a64d89b1dbf209c24caad6e62bffd90d4c7", ],
+    is_post: true,
+    lock: false,
+    author: "张文涛",
+    share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
+    mathjax: true,
+    page_type: "",
+    root: "/"
+  };
+</script>
+
+  <script src="/vendor/sha256.min.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/index.js"></script>
+<script src="/vendor/qrcode.min.js"></script>
+
+  
+    <link rel="icon" href="/images/favicon2.ico">
+    <link rel="apple-touch-icon" href="/images/touch-icon.png">
+  
+
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/styles/components/highlight/highlight.css">
+
+  
+</head>
+  <body>
+    <header class="site-header">
+  <div class="site-header-brand">
+    
+      <span class="site-header-brand-title">
+        <a href="/">1900</a>
+      </span>
+    
+    
+      <span class="site-header-brand-motto"> | 祝你平安幸福 我就不下船了</span>
+    
+  </div>
+  <div class="site-header-right">
+    <nav class="site-header-navigation">
+      
+        <a href="/" target="_self">首页</a>
+      
+        <a href="/archives/" target="_self">归档</a>
+      
+        <a href="/tags/" target="_self">标签</a>
+      
+        <a href="/categories/" target="_self">分类</a>
+      
+        <a href="/friends/" target="_self">友链</a>
+      
+        <a href="/about/" target="_self">关于</a>
+      
+    </nav>
+    <div class="site-header-btn">
+      
+        <a href="https://github.com/834930269/" target="_blank" id="site-github">
+          <i class="fa fa-github-alt"></i>
+        </a>
+      
+      <a href="javascript:void(0);" id="site-search">
+        <i class="fa fa-search"></i>
+      </a>
+      <a href="javascript:void(0);" id="site-nav-btn">
+        <i class="fa fa-ellipsis-v"></i>
+      </a>
+    </div>
+  </div>
+</header>
+<nav class="table-content" id="site-nav">
+  <div class="table-content-title">
+    <span>导航</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc">
+      
+        <li class="toc-item">
+          <a href="/" target="_self">
+            首页
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/archives/" target="_self">
+            归档
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/tags/" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/categories/" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/friends/" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/about/" target="_self">
+            关于
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</nav>
+<div id="site-process"></div>
+    <main>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2019-01-18
+    </span>
+    
+      <span>
+        | <a href="/categories/Spring/"><i class="fa fa-bookmark"></i>Spring</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    基础概念、项目结构和配置
+  </h1>
+  
+  <article class="passage-article">
+    <h1 id="1-实现简单三层架构单体应用-登入"><a href="#1-实现简单三层架构单体应用-登入" class="headerlink" title="1 - 实现简单三层架构单体应用(登入)"></a>1 - 实现简单三层架构单体应用(登入)</h1><h2 id="项目架构"><a href="#项目架构" class="headerlink" title="项目架构"></a>项目架构</h2><p><img src="http://cdn.be-sunshine.cn/wp-content/uploads/2019/01/%E6%8D%95%E8%8E%B72.png" alt></p>
+<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><blockquote>
+<p>不使用新建项目,而采用单独新建文件夹架构项目的方式.</p>
+</blockquote>
+<ol>
+<li>Mark Directory <code>src/main/java</code> as Sources Root</li>
+<li>Mark Directory <code>src/main/resources</code> as Resources Root</li>
+<li>将webapp设置为web目录</li>
+</ol>
+<h2 id="宏观流程"><a href="#宏观流程" class="headerlink" title="宏观流程"></a>宏观流程</h2><blockquote>
+<p>即不深入运行过程,仅从简单逻辑层面来判断.</p>
+</blockquote>
+<p>document.write(“graph TD\nA[客户端请求] –&gt;|请求到达| B(Controller中 Get/Post处理方法)\nB –&gt; C(ServiceImpl - extends Service)\nC –&gt; D(DaoImpl - extends Dao)\nD –&gt; E(Model实体)\n”);</p>
+<h2 id="xml配置以及基本框架"><a href="#xml配置以及基本框架" class="headerlink" title="xml配置以及基本框架"></a>xml配置以及基本框架</h2><blockquote>
+<p>对于servlet的配置</p>
+<blockquote>
+<p>WEB-INF下web.xml -&gt; 将Controller映射到某一个Uri上</p>
+</blockquote>
+<p>pom.xml</p>
+<blockquote>
+<p>Maven配置依赖项</p>
+</blockquote>
+<p>spring-context.xml</p>
+<blockquote>
+<p>控制反转,将bean交给SpringIoC容器</p>
+</blockquote>
+</blockquote>
+<h3 id="web-xml"><a href="#web-xml" class="headerlink" title="web.xml"></a>web.xml</h3><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;web-app xmlns=&quot;http://xmlns.jcp.org/xml/ns/javaee&quot;
+         xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+         xsi:schemaLocation=&quot;http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd&quot;
+         version=&quot;4.0&quot;&gt;
+&lt;/web-app&gt;</code></pre><h3 id="pom-xml"><a href="#pom-xml" class="headerlink" title="pom.xml"></a>pom.xml</h3><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot;
+         xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+         xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+
+    &lt;groupId&gt;com.funtl&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-demo&lt;/artifactId&gt;
+    &lt;version&gt;1.0.0-SNAPSHOT&lt;/version&gt;
+    &lt;packaging&gt;war&lt;/packaging&gt;
+
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-context&lt;/artifactId&gt;
+            &lt;version&gt;4.3.17.RELEASE&lt;/version&gt;
+        &lt;/dependency&gt;
+
+        &lt;dependency&gt;
+            &lt;groupId&gt;junit&lt;/groupId&gt;
+            &lt;artifactId&gt;junit&lt;/artifactId&gt;
+            &lt;version&gt;4.12&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;javax.servlet&lt;/groupId&gt;
+            &lt;artifactId&gt;javax.servlet-api&lt;/artifactId&gt;
+            &lt;version&gt;4.0.1&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.slf4j&lt;/groupId&gt;
+            &lt;artifactId&gt;log4j-over-slf4j&lt;/artifactId&gt;
+            &lt;version&gt;1.7.25&lt;/version&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+&lt;/project&gt;</code></pre><h3 id="spring-context-xml"><a href="#spring-context-xml" class="headerlink" title="spring-context.xml"></a>spring-context.xml</h3><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+       xsi:schemaLocation=&quot;
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd&quot;&gt;
+
+&lt;/beans&gt;</code></pre><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p><a href="https://github.com/834930269/Spring_demo/tree/master/demo/login-demo" target="_blank" rel="noopener">https://github.com/834930269/Spring_demo/tree/master/demo/login-demo</a></p>
+<hr>
+<h1 id="2-理解依赖注入和控制反转"><a href="#2-理解依赖注入和控制反转" class="headerlink" title="2 - 理解依赖注入和控制反转"></a>2 - 理解依赖注入和控制反转</h1><h2 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h2><p><img src="http://cdn.be-sunshine.cn/wp-content/uploads/2019/01/SPRING-DEMO.png" alt> Tip: 如果文件名显示,而没有任何错误，大抵是开了版本控制,比如Git.在.idea的vcs.xml文件中将git删掉即可</p>
+<h2 id="依赖注入"><a href="#依赖注入" class="headerlink" title="依赖注入"></a>依赖注入</h2><h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>DI: Dependency injection From Spring实战(第四版) P5</p>
+<blockquote>
+<p>背景: 任何一个实际意义的应用,都会由两个或者更多的类组成.这些类相互协作形成应用.</p>
+<blockquote>
+<p>这样子导致的直接结果是耦合度过高.</p>
+</blockquote>
+<p>DI: 为了解决这一问题,Spring提供了依赖注入这一解决方案.</p>
+</blockquote>
+<h3 id="什么叫依赖注入"><a href="#什么叫依赖注入" class="headerlink" title="什么叫依赖注入?"></a>什么叫依赖注入?</h3><p>举个栗子: 我们想要实现骑士探险这一类,可以自由的为骑士选择探险任务. Knight.java</p>
+<pre><code>package DI;
+
+public interface Knights {
+    public void embarkOnQuest();
+}</code></pre><p>探险任务</p>
+<pre><code>package DI;
+
+public class RescueDamselQuest {
+    public void embark(){
+        System.out.println(&quot;已接收&quot;);
+    }
+}</code></pre><p>骑士接受任务</p>
+<pre><code>package DI;
+
+public class DamselRescuingKnight implements Knights {
+    private RescueDamselQuest quest;
+
+    public DamselRescuingKnight() {
+        quest=new RescueDamselQuest();
+    }
+
+    @Override
+    public void embarkOnQuest() {
+        quest.embark();
+    }
+}</code></pre><p>我们会发现这样写代码使得探险和骑士的耦合度达到了密不可分的地步,写一个探险就要新建一个结合类. 改进措施,提出了依赖注入:</p>
+<blockquote>
+<p>构造器注入</p>
+<blockquote>
+<p>这个比较简单,即将探险类作为构造参数传递进来,但这样依然没有达到代码层面的解耦.</p>
+</blockquote>
+</blockquote>
+<pre><code>public class DamselRescuingKnight implements Knights {
+    private RescueDamselQuest quest;
+
+    public DamselRescuingKnight(Quest quest) {
+        this.quest=quest;
+    }
+
+    @Override
+    public void embarkOnQuest() {
+        quest.embark();
+    }
+}</code></pre><blockquote>
+<p>mock注入</p>
+<blockquote>
+<p>和Spring的依赖注入很像.</p>
+</blockquote>
+</blockquote>
+<h3 id="Spring的依赖注入"><a href="#Spring的依赖注入" class="headerlink" title="Spring的依赖注入"></a>Spring的依赖注入</h3><blockquote>
+<p>接上本小节一开始的那张项目结构图.</p>
+</blockquote>
+<p>Spring是这样做的.你将需要解耦的类交给Spring的容器去保管,需要使用时直接从Spring中取出来即可,而不需要有任何new出来的类.</p>
+<blockquote>
+<p>比如Service,Bean等,都可以交给Spring保管.</p>
+</blockquote>
+<p>举个栗子: UserService.java(接口)</p>
+<pre><code>package com.funtl.spring.service;
+
+public interface UserService {
+    public void sayhi();
+}</code></pre><p>UserServiceImpl.java</p>
+<pre><code>package com.funtl.spring.service.impl;
+
+import com.funtl.spring.service.UserService;
+
+public class UserServiceImpl implements UserService {
+    public void sayhi() {
+        System.out.println(&quot;hello&quot;);
+    }
+}</code></pre><p>resources/spring-context.xml</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+       xsi:schemaLocation=&quot;
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd&quot;&gt;
+
+    &lt;bean id=&quot;userService&quot; class=&quot;com.funtl.spring.service.impl.UserServiceImpl&quot; /&gt;
+&lt;/beans&gt;</code></pre><p>OK,前序工作做完了,我们在运行时就已经将这个类托管给了Spring容器. 那么我们该如何取出来呢? MyTest.java</p>
+<pre><code>package com.funtl.spring;
+
+import com.funtl.spring.service.UserService;
+import com.funtl.spring.service.impl.UserServiceImpl;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class MyTest {
+    public static void main(String[] args){
+        //获取Spring容器
+        ApplicationContext applicationContext=new ClassPathXmlApplicationContext(&quot;spring-context.xml&quot;);
+
+        //从Spring容器中获取对象
+        UserService userService= (UserService) applicationContext.getBean(&quot;userService&quot;);
+        userService.sayhi();
+
+    }
+}</code></pre><p>我们可以看到,上面的代码并没有new一个Service,而是从Spring上下文中取出了userService这个对象. 仔细想想,这样是不是就类似于调用静态的工具类那样轻松了呢?</p>
+<blockquote>
+<p>依赖注入的魅力就在于此.</p>
+<blockquote>
+<p>而将类的加载交给容器时,这个容器的模式就叫做 IoC(控制反转)</p>
+</blockquote>
+</blockquote>
+<h1 id="最终架构"><a href="#最终架构" class="headerlink" title="最终架构"></a>最终架构</h1><p><img src="http://cdn.be-sunshine.cn/wp-content/uploads/2019/01/%E6%8D%95%E8%8E%B73.png" alt></p>
+
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-实现简单三层架构单体应用-登入"><span class="toc-text">1 - 实现简单三层架构单体应用(登入)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#项目架构"><span class="toc-text">项目架构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注意"><span class="toc-text">注意</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#宏观流程"><span class="toc-text">宏观流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#xml配置以及基本框架"><span class="toc-text">xml配置以及基本框架</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#web-xml"><span class="toc-text">web.xml</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pom-xml"><span class="toc-text">pom.xml</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#spring-context-xml"><span class="toc-text">spring-context.xml</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码"><span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-理解依赖注入和控制反转"><span class="toc-text">2 - 理解依赖注入和控制反转</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#项目结构"><span class="toc-text">项目结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#依赖注入"><span class="toc-text">依赖注入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#背景"><span class="toc-text">背景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#什么叫依赖注入"><span class="toc-text">什么叫依赖注入?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Spring的依赖注入"><span class="toc-text">Spring的依赖注入</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#最终架构"><span class="toc-text">最终架构</span></a></li></ol>
+  </div>
+</aside>
+  
+    <aside class="passage-copyright">
+      <div>本文作者: 张文涛</div>
+      
+        <div>
+          原文链接: 
+          <a href="" target="_blank">http://be-sunshine.cn/passages/spring/</a>
+        </div>
+      
+      <div>
+        版权声明: 本博客所有文章除特别声明外, 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议. 转载请注明出处!
+      </div>
+    </aside>
+  
+  
+    <div class="passage-tags">
+     
+      <a href="/tags/Spring/"><i class="fa fa-tags"></i>Spring</a>
+    
+    </div>
+  
+</div>
+
+    </main>
+    
+      
+<div class="site-comment-contanier" data-plateform="leancloud">
+  
+    <p id="site-comment-info">
+      <i class="fa fa-spinner fa-spin"></i> 评论加载中
+    </p>
+    <div id="site-comment"></div>
+  
+</div>
+    
+    <div class="site-footer-wrapper">
+  <footer class="site-footer">
+    
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">博客推荐</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/" target="_blank">GodBMW</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="http://ruanyifeng.com/" target="_blank">阮一峰的个人网站</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">系列教程</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/categories/webpack4%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B/" target="_blank">webpack4系列教程</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/design-patterns/" target="_blank">设计模式手册</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">抓到我</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://weibo.com/3260959934/" target="_blank">微博</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://github.com/834930269" target="_blank">Github</a>
+            </span>
+          
+        </div>
+      
+    
+    <div class="site-footer-info">
+      <i class="fa fa-clock-o"></i> 本站已稳定运行<span id="site-time"></span>
+    </div>
+    
+      <div class="site-footer-info">
+        <i class="fa fa-paw"></i> 您是本站第 <span id="site-count"></span> 位访客
+      </div>
+    
+    
+      <div class="site-footer-info">
+        <i class="fa fa-at"></i> Email: 834930269@qq.com
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-copyright"></i> 
+      2019 <a href="https://github.com/dongyuanxin/theme-ad/" target="_blank">Theme-AD</a>.
+      Created by <a href="https://godbmw.com/" target="_blank">GodBMW</a>.
+      All rights reserved.
+    </div>
+  </footer>
+</div>
+    <div id="site-layer" style="display:none;">
+  <div class="site-layer-content">
+    <div class="site-layer-header">
+      <span class="site-layer-header-title" id="site-layer-title"></span>
+      <i class="fa fa-close" id="site-layer-close"></i>
+    </div>
+    <div class="site-layer-body" id="site-layer-container">
+      <div class="site-layer-input" id="site-layer-search" style="display: none;">
+        <div class="site-layer-input-choose">
+          <a href="javascript:void(0);" title="Change Search Engine">Google</a>
+        </div>
+        <input type="text">
+        <i class="fa fa-search"></i>
+      </div>
+      
+        <div class="site-layer-reward" id="site-layer-reward" style="display: none;">
+          
+            <div>
+              <img src="/images/wechat.png" alt="WeChat">
+              
+                <p>WeChat</p>
+              
+            </div>
+          
+            <div>
+              <img src="/images/alipay.png" alt="AliPay">
+              
+                <p>AliPay</p>
+              
+            </div>
+          
+        </div>
+      
+      <div id="site-layer-welcome" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+    
+
+<div class="bottom-bar">
+  <div class="bottom-bar-left">
+    <a href="/passages/2444/" data-enable="true">
+      <i class="fa fa-arrow-left"></i>
+    </a>
+    <a href="/passages/mybatis/" data-enable="true">
+      <i class="fa fa-arrow-right"></i>
+    </a>
+  </div>
+  <div class="bottom-bar-right">
+    <a href="javascript:void(0);" data-enable="true" id="site-toc-show-btn">
+      <i class="fa fa-bars"></i>
+    </a>
+    
+      <a href="#site-comment" data-enable="true">
+        <i class="fa fa-commenting"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="site-toggle-share-btn">
+      <i class="fa fa-share-alt"></i>
+    </a>
+    
+      <a href="javascript:void(0);" id="site-reward">
+        <i class="fa fa-thumbs-up"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="back-top-btn">
+      <i class="fa fa-chevron-up"></i>
+    </a>
+  </div>
+</div>
+    <div id="share-btn">
+  
+    <a id="share-btn-twitter" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-twitter"></i>
+    </a>
+  
+  
+    <a id="share-btn-facebook" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-facebook"></i>
+    </a>
+  
+  
+    <a id="share-btn-weibo" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-weibo"></i>
+    </a>
+  
+  
+    <a id="share-btn-qq" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-qq"></i>
+    </a>
+  
+  
+    <a id="share-btn-wechat" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-wechat"></i>
+    </a>
+  
+</div>
+    
+
+
+
+
+
+    
+  </body>
+</html>

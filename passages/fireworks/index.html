@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html>
+  
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="author" content="张文涛">
+  
+  
+  <title>山东省第八届ACM省赛 fireworks | 山海经▪大荒经</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Sdut,二项式定理,数论,第八届ACM山东省赛,组合数学,数论,组合数学,sdut,第八届ACM山东省赛,">
+  
+
+  
+  <meta name="description" content="Winter Zhang的小站">
+
+  
+
+  
+    <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.1/dist/av-min.js" async></script>
+  
+
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+  
+
+  
+    <script src="//unpkg.com/valine/dist/Valine.min.js" async></script>
+  
+
+  
+
+  <script>
+  // theme-ad's config script
+  // it can be used in every script
+  
+  window.AD_CONFIG = {
+    leancloud: {"appid":"J7nVGeFex3em3P8A4ktCiv3b-gzGzoHsz","appkey":"XiR0DX1Kvlh3Et3UalbFN4Dq","comment":true,"count":true},
+    welcome: {"enable":false,"interval":30},
+    start_time: "2015-02-10",
+    passwords: ["c035b468e47fd966ac2df15e3d7f7a64d89b1dbf209c24caad6e62bffd90d4c7", ],
+    is_post: true,
+    lock: false,
+    author: "张文涛",
+    share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
+    mathjax: true,
+    page_type: "",
+    root: "/"
+  };
+</script>
+
+  <script src="/vendor/sha256.min.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/index.js"></script>
+<script src="/vendor/qrcode.min.js"></script>
+
+  
+    <link rel="icon" href="/images/favicon2.ico">
+    <link rel="apple-touch-icon" href="/images/touch-icon.png">
+  
+
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/styles/components/highlight/highlight.css">
+
+  
+</head>
+  <body>
+    <header class="site-header">
+  <div class="site-header-brand">
+    
+      <span class="site-header-brand-title">
+        <a href="/">1900</a>
+      </span>
+    
+    
+      <span class="site-header-brand-motto"> | 祝你平安幸福 我就不下船了</span>
+    
+  </div>
+  <div class="site-header-right">
+    <nav class="site-header-navigation">
+      
+        <a href="/" target="_self">首页</a>
+      
+        <a href="/archives/" target="_self">归档</a>
+      
+        <a href="/tags/" target="_self">标签</a>
+      
+        <a href="/categories/" target="_self">分类</a>
+      
+        <a href="/friends/" target="_self">友链</a>
+      
+        <a href="/about/" target="_self">关于</a>
+      
+    </nav>
+    <div class="site-header-btn">
+      
+        <a href="https://github.com/834930269/" target="_blank" id="site-github">
+          <i class="fa fa-github-alt"></i>
+        </a>
+      
+      <a href="javascript:void(0);" id="site-search">
+        <i class="fa fa-search"></i>
+      </a>
+      <a href="javascript:void(0);" id="site-nav-btn">
+        <i class="fa fa-ellipsis-v"></i>
+      </a>
+    </div>
+  </div>
+</header>
+<nav class="table-content" id="site-nav">
+  <div class="table-content-title">
+    <span>导航</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc">
+      
+        <li class="toc-item">
+          <a href="/" target="_self">
+            首页
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/archives/" target="_self">
+            归档
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/tags/" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/categories/" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/friends/" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/about/" target="_self">
+            关于
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</nav>
+<div id="site-process"></div>
+    <main>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2018-02-18
+    </span>
+    
+      <span>
+        | <a href="/categories/Sdut/"><i class="fa fa-bookmark"></i>Sdut</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    山东省第八届ACM省赛 fireworks
+  </h1>
+  
+  <article class="passage-article">
+    <blockquote>
+<p>迟来的祝福,新年快乐.</p>
+</blockquote>
+<h1 id="Link"><a href="#Link" class="headerlink" title="Link"></a>Link</h1><blockquote>
+<p>要登录</p>
+</blockquote>
+<p><a href="http://acm.sdut.edu.cn/onlinejudge2/index.php/Home/Index/problemdetail/pid/3895.html" title="http://acm.sdut.edu.cn/onlinejudge2/index.php/Home/Index/problemdetail/pid/3895.html" target="_blank" rel="noopener">http://acm.sdut.edu.cn/onlinejudge2/index.php/Home/Index/problemdetail/pid/3895.html</a></p>
+<h1 id="Type-杨辉三角-lt-组合数学-逆元"><a href="#Type-杨辉三角-lt-组合数学-逆元" class="headerlink" title="Type: 杨辉三角&lt;-组合数学,逆元"></a>Type: 杨辉三角&lt;-组合数学,逆元</h1><h1 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h1><blockquote>
+<p>假设x位置有一个烟花,则每秒烟花都会分裂到x+1与x-1这两个位置. 给你n个烟花的初始位置xi和个数ci,问你T秒后,位置w上的烟花个数有多少个.</p>
+</blockquote>
+<h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><blockquote>
+<p>画一下样例的图会发现很像杨辉三角,我们可以将每个初始点分开计算,最后的结果就是所有初始点分裂后落在目标点的烟花个数和. 但我们发现它们的初始值大小与杨辉三角不同,并且比杨辉三角多了许多0, 然后我们考虑如何解决这两个情况.</p>
+<blockquote>
+<p>(1) 初始值ci,因为只有一个初始点,这点和杨辉三角一样.所以答案是</p>
+<blockquote>
+<p>ans(原杨辉三角在该位置的结果)*ci</p>
+</blockquote>
+<p>(2) 中间有0,这点好想,我们只需要通过推导公式将实际坐标转换为逻辑坐标即可.</p>
+</blockquote>
+<p>然后我们分情况讨论,我们在图上可以发现</p>
+<blockquote>
+<p>(1) 当 <code>分裂次数</code> 与 <code>目标位置和原位置的距离差</code> 同奇偶时该位置结果为0. (2) 当距离大于T+1时(即杨辉三角第T行值的个数),永远不可能分裂到.</p>
+</blockquote>
+<p>因为只需要考虑最后一次分裂的结果,所以只需要计算杨辉三角第T行即可,即 C(T,0<del>T) 预处理组合公式我们用 <code>组合数学</code> 性质4那个公式. 所以我们需要预处理一下1</del>1e5的逆元,将除法转换为乘法. 最后答案就是</p>
+<blockquote>
+<p>ans=Sigma(i=1~n,c*C[实际位置] | 根据情况忽略i)</p>
+</blockquote>
+</blockquote>
+<h1 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h1><pre><code>#include&lt;bits/stdc++.h&gt;
+using namespace std;
+typedef long long LL;
+const int MOD = 1e9+7;
+const int maxn = 1e5+7;
+
+LL C[maxn];
+///逆元
+LL inv[maxn];
+void init_(){
+    inv[1]=1;
+    for(int i=2;i&lt;maxn;++i){
+        inv[i]=(MOD-MOD/i)*1ll*inv[MOD%i]%MOD;
+    }
+}
+
+///快速幂模求逆元,调动方式quick_mod(i,MOD-2)
+//这里我们用预处理.
+LL quick_mod(LL x, int n){
+    LL ret = 1;
+    while(n){
+        if(n &amp; 1) ret = ret * x % MOD;
+        x = x * x %MOD;
+        n &gt;&gt;= 1;
+    }
+    return ret;
+}
+
+void init(int t){
+    C[0]=1;
+    for(int i=1;i&lt;=t;++i){
+        C[i]=C[i-1]*(t-i+1)*1ll%MOD*inv[i]%MOD;
+        //printf(&quot;Num: %d %lld, INV: %lld\n&quot;,i,C[i],inv[i]);
+    }
+}
+//判断是否同奇同偶
+bool same(int x,int y){
+    if((x&amp;1)^(y&amp;1)) return false;
+    return true;
+}
+
+int query(int t,int d){
+    if(t&amp;1){
+        return t/2-d/2;
+    }
+    return t/2+(d-1)/2;
+}
+
+int main(){
+    init_();
+    int n,T,w;
+    while(~scanf(&quot;%d%d%d&quot;,&amp;n,&amp;T,&amp;w)){
+        init(T);
+        LL ans=0;
+        for(int i=1;i&lt;=n;++i){
+            int x,c;
+            scanf(&quot;%d%d&quot;,&amp;x,&amp;c);
+            int dist=abs(x-w);
+            if(!same(T+1,dist) &amp;&amp; dist&lt;T+1){
+                ans=(ans+c*C[query(T+1,dist)]%MOD)%MOD;
+            }
+        }
+        printf(&quot;%lld\n&quot;,ans);
+    }
+
+    return 0;
+}</code></pre>
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Link"><span class="toc-text">Link</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Type-杨辉三角-lt-组合数学-逆元"><span class="toc-text">Type: 杨辉三角&lt;-组合数学,逆元</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#题意"><span class="toc-text">题意</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#题解"><span class="toc-text">题解</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Code"><span class="toc-text">Code</span></a></li></ol>
+  </div>
+</aside>
+  
+    <aside class="passage-copyright">
+      <div>本文作者: 张文涛</div>
+      
+        <div>
+          原文链接: 
+          <a href="" target="_blank">http://be-sunshine.cn/passages/fireworks/</a>
+        </div>
+      
+      <div>
+        版权声明: 本博客所有文章除特别声明外, 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议. 转载请注明出处!
+      </div>
+    </aside>
+  
+  
+    <div class="passage-tags">
+     
+      <a href="/tags/数论/"><i class="fa fa-tags"></i>数论</a>
+     
+      <a href="/tags/组合数学/"><i class="fa fa-tags"></i>组合数学</a>
+     
+      <a href="/tags/sdut/"><i class="fa fa-tags"></i>sdut</a>
+     
+      <a href="/tags/第八届ACM山东省赛/"><i class="fa fa-tags"></i>第八届ACM山东省赛</a>
+    
+    </div>
+  
+</div>
+
+    </main>
+    
+      
+<div class="site-comment-contanier" data-plateform="leancloud">
+  
+    <p id="site-comment-info">
+      <i class="fa fa-spinner fa-spin"></i> 评论加载中
+    </p>
+    <div id="site-comment"></div>
+  
+</div>
+    
+    <div class="site-footer-wrapper">
+  <footer class="site-footer">
+    
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">博客推荐</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/" target="_blank">GodBMW</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="http://ruanyifeng.com/" target="_blank">阮一峰的个人网站</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">系列教程</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/categories/webpack4%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B/" target="_blank">webpack4系列教程</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/design-patterns/" target="_blank">设计模式手册</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">抓到我</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://weibo.com/3260959934/" target="_blank">微博</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://github.com/834930269" target="_blank">Github</a>
+            </span>
+          
+        </div>
+      
+    
+    <div class="site-footer-info">
+      <i class="fa fa-clock-o"></i> 本站已稳定运行<span id="site-time"></span>
+    </div>
+    
+      <div class="site-footer-info">
+        <i class="fa fa-paw"></i> 您是本站第 <span id="site-count"></span> 位访客
+      </div>
+    
+    
+      <div class="site-footer-info">
+        <i class="fa fa-at"></i> Email: 834930269@qq.com
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-copyright"></i> 
+      2019 <a href="https://github.com/dongyuanxin/theme-ad/" target="_blank">Theme-AD</a>.
+      Created by <a href="https://godbmw.com/" target="_blank">GodBMW</a>.
+      All rights reserved.
+    </div>
+  </footer>
+</div>
+    <div id="site-layer" style="display:none;">
+  <div class="site-layer-content">
+    <div class="site-layer-header">
+      <span class="site-layer-header-title" id="site-layer-title"></span>
+      <i class="fa fa-close" id="site-layer-close"></i>
+    </div>
+    <div class="site-layer-body" id="site-layer-container">
+      <div class="site-layer-input" id="site-layer-search" style="display: none;">
+        <div class="site-layer-input-choose">
+          <a href="javascript:void(0);" title="Change Search Engine">Google</a>
+        </div>
+        <input type="text">
+        <i class="fa fa-search"></i>
+      </div>
+      
+        <div class="site-layer-reward" id="site-layer-reward" style="display: none;">
+          
+            <div>
+              <img src="/images/wechat.png" alt="WeChat">
+              
+                <p>WeChat</p>
+              
+            </div>
+          
+            <div>
+              <img src="/images/alipay.png" alt="AliPay">
+              
+                <p>AliPay</p>
+              
+            </div>
+          
+        </div>
+      
+      <div id="site-layer-welcome" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+    
+
+<div class="bottom-bar">
+  <div class="bottom-bar-left">
+    <a href="/passages/charset-algorithm/" data-enable="true">
+      <i class="fa fa-arrow-left"></i>
+    </a>
+    <a href="/passages/datastruct-add/" data-enable="true">
+      <i class="fa fa-arrow-right"></i>
+    </a>
+  </div>
+  <div class="bottom-bar-right">
+    <a href="javascript:void(0);" data-enable="true" id="site-toc-show-btn">
+      <i class="fa fa-bars"></i>
+    </a>
+    
+      <a href="#site-comment" data-enable="true">
+        <i class="fa fa-commenting"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="site-toggle-share-btn">
+      <i class="fa fa-share-alt"></i>
+    </a>
+    
+      <a href="javascript:void(0);" id="site-reward">
+        <i class="fa fa-thumbs-up"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="back-top-btn">
+      <i class="fa fa-chevron-up"></i>
+    </a>
+  </div>
+</div>
+    <div id="share-btn">
+  
+    <a id="share-btn-twitter" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-twitter"></i>
+    </a>
+  
+  
+    <a id="share-btn-facebook" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-facebook"></i>
+    </a>
+  
+  
+    <a id="share-btn-weibo" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-weibo"></i>
+    </a>
+  
+  
+    <a id="share-btn-qq" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-qq"></i>
+    </a>
+  
+  
+    <a id="share-btn-wechat" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-wechat"></i>
+    </a>
+  
+</div>
+    
+
+
+
+
+
+    
+  </body>
+</html>

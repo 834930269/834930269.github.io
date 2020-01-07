@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html>
+  
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="author" content="张文涛">
+  
+  
+  <title>pygame 碰撞检测 | 山海经▪大荒经</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="pygame,Python,游戏制作,Python,游戏制作,pygame,">
+  
+
+  
+  <meta name="description" content="Winter Zhang的小站">
+
+  
+
+  
+    <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.1/dist/av-min.js" async></script>
+  
+
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+  
+
+  
+    <script src="//unpkg.com/valine/dist/Valine.min.js" async></script>
+  
+
+  
+
+  <script>
+  // theme-ad's config script
+  // it can be used in every script
+  
+  window.AD_CONFIG = {
+    leancloud: {"appid":"J7nVGeFex3em3P8A4ktCiv3b-gzGzoHsz","appkey":"XiR0DX1Kvlh3Et3UalbFN4Dq","comment":true,"count":true},
+    welcome: {"enable":false,"interval":30},
+    start_time: "2015-02-10",
+    passwords: ["c035b468e47fd966ac2df15e3d7f7a64d89b1dbf209c24caad6e62bffd90d4c7", ],
+    is_post: true,
+    lock: false,
+    author: "张文涛",
+    share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
+    mathjax: true,
+    page_type: "",
+    root: "/"
+  };
+</script>
+
+  <script src="/vendor/sha256.min.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/index.js"></script>
+<script src="/vendor/qrcode.min.js"></script>
+
+  
+    <link rel="icon" href="/images/favicon2.ico">
+    <link rel="apple-touch-icon" href="/images/touch-icon.png">
+  
+
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/styles/components/highlight/highlight.css">
+
+  
+</head>
+  <body>
+    <header class="site-header">
+  <div class="site-header-brand">
+    
+      <span class="site-header-brand-title">
+        <a href="/">1900</a>
+      </span>
+    
+    
+      <span class="site-header-brand-motto"> | 祝你平安幸福 我就不下船了</span>
+    
+  </div>
+  <div class="site-header-right">
+    <nav class="site-header-navigation">
+      
+        <a href="/" target="_self">首页</a>
+      
+        <a href="/archives/" target="_self">归档</a>
+      
+        <a href="/tags/" target="_self">标签</a>
+      
+        <a href="/categories/" target="_self">分类</a>
+      
+        <a href="/friends/" target="_self">友链</a>
+      
+        <a href="/about/" target="_self">关于</a>
+      
+    </nav>
+    <div class="site-header-btn">
+      
+        <a href="https://github.com/834930269/" target="_blank" id="site-github">
+          <i class="fa fa-github-alt"></i>
+        </a>
+      
+      <a href="javascript:void(0);" id="site-search">
+        <i class="fa fa-search"></i>
+      </a>
+      <a href="javascript:void(0);" id="site-nav-btn">
+        <i class="fa fa-ellipsis-v"></i>
+      </a>
+    </div>
+  </div>
+</header>
+<nav class="table-content" id="site-nav">
+  <div class="table-content-title">
+    <span>导航</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc">
+      
+        <li class="toc-item">
+          <a href="/" target="_self">
+            首页
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/archives/" target="_self">
+            归档
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/tags/" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/categories/" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/friends/" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/about/" target="_self">
+            关于
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</nav>
+<div id="site-process"></div>
+    <main>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2017-12-30
+    </span>
+    
+      <span>
+        | <a href="/categories/pygame/"><i class="fa fa-bookmark"></i>pygame</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    pygame 碰撞检测
+  </h1>
+  
+  <article class="passage-article">
+    <p>碰撞检测 即两个Sprite是否碰撞-重叠之类的(你懂得) :horse_racing: github: <a href="https://github.com/834930269/Pygame-Learn/tree/master/EatApple" title="https://github.com/834930269/Pygame-Learn/tree/master/EatApple" target="_blank" rel="noopener">https://github.com/834930269/Pygame-Learn/tree/master/EatApple</a> 吃苹果游戏:</p>
+<pre><code># MyLibrary.py
+from pygame import *
+import sys, time, random, math, pygame
+
+def print_text(font,x,y,text,color=(255,255,255)):
+    imgText = font.render(text,True,color)
+    #req&apos;d when function moved into MyLibrary
+    screen = pygame.display.get_surface()
+    #移动
+    screen.blit(imgText,(x,y))
+
+class MySprite(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.master_image = None
+        self.frame = 0
+        self.old_frame = -1
+        self.frame_width = 1
+        self.frame_height = 1
+        self.first_frame = 0
+        self.last_frame = 0
+        self.columns = 1
+        self.last_time = 0
+        self.row = 1
+        self.direction = 0
+        self.velocity = Point(0.0,0.0)
+
+    #x property
+    def _getx(self): return self.rect.x
+    def _setx(self,value): self.rect.x = value
+    X = property(_getx,_setx)
+
+    #y property
+    def _gety(self): return self.rect.y
+    def _sety(self,value): self.rect.y = value
+    Y = property(_gety,_sety)
+
+    # position property
+    def _getpos(self): return self.rect.topleft
+    def _setpos(self,pos):self.rect.topleft = pos
+    position = property(_getpos,_setpos)
+
+    # filename 帧图宽度,帧图高度,帧图行,帧图列
+    def load(self,filename,width,height,columns,row):
+        self.master_image = pygame.image.load(filename).convert_alpha()
+        self.frame_width = width
+        self.frame_height = height
+        self.rect = Rect(0,0,width,height)
+        self.columns = columns
+        self.row = row
+        rect = self.master_image.get_rect()
+        self.last_frame = (rect.width // width)*(rect.height // height) - 1
+
+    def update(self,current_time,rate=30):
+        if current_time &gt; self.last_time +rate:
+            self.frame += 1
+            if self.frame &gt; self.last_frame:
+                self.frame = self.first_frame
+            self.last_frame = current_time
+
+        if self.frame != self.old_frame:
+            frame_x = (self.frame % self.columns) * self.frame_width
+            #添加了row以后每次计算对row取余即可计算出当前列数
+            frame_y = (self.frame // self.columns) % self.row * self.frame_height
+            #如果把frame_y置为0,则表示始终都是在位图的第一行
+            # 多行的话,可以通过frame_y来解决,但是要注意,y=0则返回
+            rect = Rect(frame_x, frame_y, self.frame_width, self.frame_height)
+            self.image = self.master_image.subsurface(rect)
+            self.old_frame = self.frame
+
+    def __str__(self):
+        return str(self.frame) + &quot;,&quot; + str(self.first_frame) + \
+            &quot;,&quot; + str(self.last_frame) + &quot;,&quot; + str(self.frame_width) + \
+            &quot;,&quot; + str(self.frame_height) + &quot;,&quot; + str(self.columns) + \
+            &quot;,&quot; + str(self.rect)
+
+#Point class
+class Point(object):
+    def __init__(self,x,y):
+        self.__x = x
+        self.__y = y
+    #X property
+    def getx(self): return self.__x
+    def setx(self, x): self.__x = x
+    x = property(getx, setx)
+
+    #Y property
+    def gety(self): return self.__y
+    def sety(self, y): self.__y = y
+    y = property(gety, sety)
+
+    def __str__(self):
+        return &quot;{X:&quot; + &quot;{:.0f}&quot;.format(self.__x) + \
+            &quot;,Y:&quot; + &quot;{:.0f}&quot;.format(self.__y) + &quot;}&quot;
+
+
+#app.py
+import itertools, sys, time, random, math, pygame
+from pygame import *
+from MyLibrary import *
+
+def calc_velocity(direction,vel=1.0):
+    velocity = Point(0,0)
+    if direction == 0 :#上
+        velocity.y = -vel
+    elif direction == 2:#右
+        velocity.x=vel
+    elif direction == 4:#下
+        velocity.y=vel
+    elif direction == 6:#左
+        velocity.x=-vel
+    return velocity
+
+pygame.init()
+screen = pygame.display.set_mode((800,600))
+pygame.display.set_caption(&quot;吃苹果&quot;)
+font = pygame.font.Font(None,36)
+timer = pygame.time.Clock()
+
+#创建精灵组
+player_group = pygame.sprite.Group()
+food_group = pygame.sprite.Group()
+
+#初始化玩家精灵组
+player = MySprite()
+player.load(&quot;farmer walk.png&quot;,96,96,8,8)
+#初始位置
+player.position = 80,80
+#初始方向
+player.direction = 4
+#添加进组
+player_group.add(player)
+
+#初始化食物精灵组
+for n in range(1,50):
+    food = MySprite()
+    food.load(&quot;food_low.png&quot;,35,35,1,1)
+    #随机分布
+    food.position = random.randint(0,780),random.randint(0,580)
+    food_group.add(food)
+
+game_over=False
+player_moving = False
+player_health = 0
+
+while True:
+    timer.tick(30)
+    ticks = pygame.time.get_ticks()
+
+    for event in pygame.event.get():
+        if event.type == QUIT:
+            pygame.quit()
+            sys.exit()
+    #获取当前按键
+    keys = pygame.key.get_pressed()
+    if keys[K_ESCAPE]:
+        sys.exit()
+    elif keys[K_UP] or keys[K_w]:#上
+        player.direction = 0
+        player_moving = True
+    elif keys[K_RIGHT] or keys[K_d]:#右
+        player.direction = 2
+        player_moving = True
+    elif keys[K_DOWN] or keys[K_s]:#下
+        player.direction = 4
+        player_moving = True
+    elif keys[K_LEFT] or keys[K_a]:#左
+        player.direction = 6
+        player_moving = True
+    else:
+        player_moving = False
+
+    if not game_over:
+        #根据角色方向不同,使用不同的动画帧
+        player.first_frame = player.direction * player.columns
+        player.last_frame = player.first_frame + player.columns-1
+        if player.frame &lt; player.first_frame:
+            player.frame = player.first_frame
+
+        if not player_moving:
+            # 当停止按键（即人物停止移动的时候），停止更新动画帧
+            player.frame = player.first_frame = player.last_frame
+        else:
+            player.velocity = calc_velocity(player.direction,1.5)
+            player.velocity.x *= 1.5
+            player.velocity.y *= 1.5
+
+        #更新玩家精灵组
+        player_group.update(ticks, 50)
+        # 移动玩家
+        if player_moving:
+            player.X += player.velocity.x
+            player.Y += player.velocity.y
+            if player.X &lt; 0:
+                player.X = 0
+            elif player.X &gt; 700:
+                player.X = 700
+            if player.Y &lt; 0:
+                player.Y = 0
+            elif player.Y &gt; 500:
+                player.Y = 500
+
+        attacker = None
+        #判断是否有碰撞产生
+        attacker = pygame.sprite.spritecollideany(player,food_group)
+        if attacker!=None:
+            #有,增加精度
+            if pygame.sprite.collide_circle_ratio(0.65)(player,attacker):
+                player_health += 2
+                food_group.remove(attacker)
+        if player_health &gt; 100:
+            player_health = 100
+        #更新食物精灵组
+        food_group.update(ticks,50)
+        if len(food_group)==0:
+            game_over = True
+
+    #清屏
+    screen.fill((50,50,100))
+    # 绘制精灵
+    food_group.draw(screen)
+    player_group.draw(screen)
+
+    # 绘制玩家血量条
+    pygame.draw.rect(screen, (50, 150, 50, 180), Rect(300, 570, player_health * 2, 25))
+    pygame.draw.rect(screen, (100, 200, 100, 180), Rect(300, 570, 200, 25), 2)
+
+    if game_over:
+        print_text(font, 300, 100, &quot;GAME OVER&quot;)
+
+    pygame.display.update()</code></pre><p>接下来才是难中之难…如果想要实现人物随场景移动. 估计要自己撸框架了. 大体思路如下: 1:近景(左侧)1/2前景不随人物移动 2:1/2以后景随人物移动 3:远景(右侧)1/2前景不随人物移动 4:景采用大地图形式,造可封装类(障碍物,场景地图,宽度,高度等信息) 5:考虑如何移动场景,数学公式想好,-移动方向,移动速度,景中心… 6:加油!</p>
+
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
+    
+  </div>
+</aside>
+  
+    <aside class="passage-copyright">
+      <div>本文作者: 张文涛</div>
+      
+        <div>
+          原文链接: 
+          <a href="" target="_blank">http://be-sunshine.cn/passages/pygame-collision-detection/</a>
+        </div>
+      
+      <div>
+        版权声明: 本博客所有文章除特别声明外, 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议. 转载请注明出处!
+      </div>
+    </aside>
+  
+  
+    <div class="passage-tags">
+     
+      <a href="/tags/Python/"><i class="fa fa-tags"></i>Python</a>
+     
+      <a href="/tags/游戏制作/"><i class="fa fa-tags"></i>游戏制作</a>
+     
+      <a href="/tags/pygame/"><i class="fa fa-tags"></i>pygame</a>
+    
+    </div>
+  
+</div>
+
+    </main>
+    
+      
+<div class="site-comment-contanier" data-plateform="leancloud">
+  
+    <p id="site-comment-info">
+      <i class="fa fa-spinner fa-spin"></i> 评论加载中
+    </p>
+    <div id="site-comment"></div>
+  
+</div>
+    
+    <div class="site-footer-wrapper">
+  <footer class="site-footer">
+    
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">博客推荐</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/" target="_blank">GodBMW</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="http://ruanyifeng.com/" target="_blank">阮一峰的个人网站</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">系列教程</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/categories/webpack4%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B/" target="_blank">webpack4系列教程</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/design-patterns/" target="_blank">设计模式手册</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">抓到我</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://weibo.com/3260959934/" target="_blank">微博</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://github.com/834930269" target="_blank">Github</a>
+            </span>
+          
+        </div>
+      
+    
+    <div class="site-footer-info">
+      <i class="fa fa-clock-o"></i> 本站已稳定运行<span id="site-time"></span>
+    </div>
+    
+      <div class="site-footer-info">
+        <i class="fa fa-paw"></i> 您是本站第 <span id="site-count"></span> 位访客
+      </div>
+    
+    
+      <div class="site-footer-info">
+        <i class="fa fa-at"></i> Email: 834930269@qq.com
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-copyright"></i> 
+      2019 <a href="https://github.com/dongyuanxin/theme-ad/" target="_blank">Theme-AD</a>.
+      Created by <a href="https://godbmw.com/" target="_blank">GodBMW</a>.
+      All rights reserved.
+    </div>
+  </footer>
+</div>
+    <div id="site-layer" style="display:none;">
+  <div class="site-layer-content">
+    <div class="site-layer-header">
+      <span class="site-layer-header-title" id="site-layer-title"></span>
+      <i class="fa fa-close" id="site-layer-close"></i>
+    </div>
+    <div class="site-layer-body" id="site-layer-container">
+      <div class="site-layer-input" id="site-layer-search" style="display: none;">
+        <div class="site-layer-input-choose">
+          <a href="javascript:void(0);" title="Change Search Engine">Google</a>
+        </div>
+        <input type="text">
+        <i class="fa fa-search"></i>
+      </div>
+      
+        <div class="site-layer-reward" id="site-layer-reward" style="display: none;">
+          
+            <div>
+              <img src="/images/wechat.png" alt="WeChat">
+              
+                <p>WeChat</p>
+              
+            </div>
+          
+            <div>
+              <img src="/images/alipay.png" alt="AliPay">
+              
+                <p>AliPay</p>
+              
+            </div>
+          
+        </div>
+      
+      <div id="site-layer-welcome" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+    
+
+<div class="bottom-bar">
+  <div class="bottom-bar-left">
+    <a href="/passages/python-web-django/" data-enable="true">
+      <i class="fa fa-arrow-left"></i>
+    </a>
+    <a href="/passages/pygame-sprite/" data-enable="true">
+      <i class="fa fa-arrow-right"></i>
+    </a>
+  </div>
+  <div class="bottom-bar-right">
+    <a href="javascript:void(0);" data-enable="true" id="site-toc-show-btn">
+      <i class="fa fa-bars"></i>
+    </a>
+    
+      <a href="#site-comment" data-enable="true">
+        <i class="fa fa-commenting"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="site-toggle-share-btn">
+      <i class="fa fa-share-alt"></i>
+    </a>
+    
+      <a href="javascript:void(0);" id="site-reward">
+        <i class="fa fa-thumbs-up"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="back-top-btn">
+      <i class="fa fa-chevron-up"></i>
+    </a>
+  </div>
+</div>
+    <div id="share-btn">
+  
+    <a id="share-btn-twitter" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-twitter"></i>
+    </a>
+  
+  
+    <a id="share-btn-facebook" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-facebook"></i>
+    </a>
+  
+  
+    <a id="share-btn-weibo" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-weibo"></i>
+    </a>
+  
+  
+    <a id="share-btn-qq" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-qq"></i>
+    </a>
+  
+  
+    <a id="share-btn-wechat" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-wechat"></i>
+    </a>
+  
+</div>
+    
+
+
+
+
+
+    
+  </body>
+</html>

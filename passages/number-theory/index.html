@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html>
+  
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="author" content="张文涛">
+  
+  
+  <title>数论 | 山海经▪大荒经</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="数论,算法学习,数论,算法学习,">
+  
+
+  
+  <meta name="description" content="Winter Zhang的小站">
+
+  
+
+  
+    <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.1/dist/av-min.js" async></script>
+  
+
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+  
+
+  
+    <script src="//unpkg.com/valine/dist/Valine.min.js" async></script>
+  
+
+  
+
+  <script>
+  // theme-ad's config script
+  // it can be used in every script
+  
+  window.AD_CONFIG = {
+    leancloud: {"appid":"J7nVGeFex3em3P8A4ktCiv3b-gzGzoHsz","appkey":"XiR0DX1Kvlh3Et3UalbFN4Dq","comment":true,"count":true},
+    welcome: {"enable":false,"interval":30},
+    start_time: "2015-02-10",
+    passwords: ["c035b468e47fd966ac2df15e3d7f7a64d89b1dbf209c24caad6e62bffd90d4c7", ],
+    is_post: true,
+    lock: false,
+    author: "张文涛",
+    share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
+    mathjax: true,
+    page_type: "",
+    root: "/"
+  };
+</script>
+
+  <script src="/vendor/sha256.min.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/index.js"></script>
+<script src="/vendor/qrcode.min.js"></script>
+
+  
+    <link rel="icon" href="/images/favicon2.ico">
+    <link rel="apple-touch-icon" href="/images/touch-icon.png">
+  
+
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/styles/components/highlight/highlight.css">
+
+  
+</head>
+  <body>
+    <header class="site-header">
+  <div class="site-header-brand">
+    
+      <span class="site-header-brand-title">
+        <a href="/">1900</a>
+      </span>
+    
+    
+      <span class="site-header-brand-motto"> | 祝你平安幸福 我就不下船了</span>
+    
+  </div>
+  <div class="site-header-right">
+    <nav class="site-header-navigation">
+      
+        <a href="/" target="_self">首页</a>
+      
+        <a href="/archives/" target="_self">归档</a>
+      
+        <a href="/tags/" target="_self">标签</a>
+      
+        <a href="/categories/" target="_self">分类</a>
+      
+        <a href="/friends/" target="_self">友链</a>
+      
+        <a href="/about/" target="_self">关于</a>
+      
+    </nav>
+    <div class="site-header-btn">
+      
+        <a href="https://github.com/834930269/" target="_blank" id="site-github">
+          <i class="fa fa-github-alt"></i>
+        </a>
+      
+      <a href="javascript:void(0);" id="site-search">
+        <i class="fa fa-search"></i>
+      </a>
+      <a href="javascript:void(0);" id="site-nav-btn">
+        <i class="fa fa-ellipsis-v"></i>
+      </a>
+    </div>
+  </div>
+</header>
+<nav class="table-content" id="site-nav">
+  <div class="table-content-title">
+    <span>导航</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc">
+      
+        <li class="toc-item">
+          <a href="/" target="_self">
+            首页
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/archives/" target="_self">
+            归档
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/tags/" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/categories/" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/friends/" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/about/" target="_self">
+            关于
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</nav>
+<div id="site-process"></div>
+    <main>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2018-02-06
+    </span>
+    
+      <span>
+        | <a href="/categories/数论/"><i class="fa fa-bookmark"></i>数论</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    数论
+  </h1>
+  
+  <article class="passage-article">
+    <blockquote>
+<p>对于这一个知识点的学习,我大概会通过 《ACM国际大学生程序设计竞赛:知识与入门》 以及 lrj的蓝书以及《ACM/ICPC数论及应用》来学习.</p>
+</blockquote>
+<h1 id="素数"><a href="#素数" class="headerlink" title="素数"></a>素数</h1><h2 id="素数筛法"><a href="#素数筛法" class="headerlink" title="素数筛法"></a>素数筛法</h2><h3 id="艾氏筛法-O-nloglogn"><a href="#艾氏筛法-O-nloglogn" class="headerlink" title="艾氏筛法(O(nloglogn))"></a>艾氏筛法(O(nloglogn))</h3><blockquote>
+<p>通常使用艾氏筛法,而艾氏筛法的思想也可用于很多地方.</p>
+</blockquote>
+<h3 id="线性筛法"><a href="#线性筛法" class="headerlink" title="线性筛法"></a>线性筛法</h3><h4 id="伪码表述"><a href="#伪码表述" class="headerlink" title="伪码表述"></a>伪码表述</h4><blockquote>
+<p>算法: 线性的素数筛法 输出: 一个集合S,表示1~n以内的素数集合 具体流程:</p>
+<blockquote>
+<p>(1) 将S初始化为{2,…,n} (2) 维护当前确定的素数的列表L,并初始化为空 (3) 对于 2 到 n 的每一个i</p>
+<blockquote>
+<p>(3.1) 如果当前i∈S,将i加入L (3.2) 对于L中的每一个元素p</p>
+<blockquote>
+<p>(3.2.1) 若i×p&gt;n,结束循环 (3.2) (3.2.2) 将i×p移出S (3.2.3) 如果p整除i,结束循环 (3.2)</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+<h4 id="代码-1亿数据量1s"><a href="#代码-1亿数据量1s" class="headerlink" title="代码(1亿数据量1s)"></a>代码(1亿数据量1s)</h4><blockquote>
+<p>实锤完毕…我的电脑竟然可以存下1亿的数组…</p>
+</blockquote>
+<pre><code>#include&lt;bits/stdc++.h&gt;
+#define maxn 100001000
+using namespace std;
+
+bool valid[maxn];
+int prime[maxn];
+/*素数筛法 O(n),对于每个素数只标记一次*/
+void getPrime(int n,int &amp;tot,int ans[maxn]){
+    memset(valid,true,sizeof(valid));
+    for(int i=2;i&lt;=n;++i){
+        if(valid[i]){
+            tot++;
+            ans[tot]=i;
+        }
+        for(int j=1;((j&lt;=tot) &amp;&amp; (i*ans[j]&lt;=n));++j){
+            valid[i*ans[j]]=false;
+            if(i%ans[j]==0) break;
+        }
+    }
+}
+
+int main(){
+    clock_t t1 = clock();
+    int tot=0;
+    getPrime(100000000,tot,prime);
+    clock_t t2 = clock();
+
+    cout&lt;&lt;tot&lt;&lt;endl;
+    cout&lt;&lt;prime[5760000]&lt;&lt;endl;
+    cout&lt;&lt;&quot;总运行时间为: &quot;&lt;&lt;(double)(t2-t1)/ CLOCKS_PER_SEC&lt;&lt;&quot;s&quot;&lt;&lt;endl;
+    return 0;
+}</code></pre><h2 id="素数估计"><a href="#素数估计" class="headerlink" title="素数估计"></a>素数估计</h2><blockquote>
+<p>如果我们设Pi(x)表示不超过x的素数的个数.可以用</p>
+<blockquote>
+<p>x/lnx对Pi(x)进行估计</p>
+</blockquote>
+<p>不到万不得已别用,误差蛮大的</p>
+</blockquote>
+<h2 id="素数判定-Miller-Rabin"><a href="#素数判定-Miller-Rabin" class="headerlink" title="素数判定(*Miller-Rabin)"></a>素数判定(*Miller-Rabin)</h2><blockquote>
+<p>朴素的素数判定法是通过枚举从2到n^0.5内所有的整数,看他是否能整除n.时间复杂度为O(n^0.5) 此外有一个基于概率的常数时间的素数判定法</p>
+<blockquote>
+<p>Miller-Rabin素数判定</p>
+</blockquote>
+</blockquote>
+<h1 id="欧几里得算法"><a href="#欧几里得算法" class="headerlink" title="欧几里得算法"></a>欧几里得算法</h1><blockquote>
+<p>求gcd(a,b),欧几里得的一个结论是</p>
+<blockquote>
+<p>gcd(a,b)=gcd(b,a%b) 求得最后结果即可</p>
+</blockquote>
+</blockquote>
+<h2 id="gcd性质"><a href="#gcd性质" class="headerlink" title="gcd性质"></a>gcd性质</h2><pre><code> gcd(a,b)=gcd(b,a) （交换律）
+gcd(-a,b)=gcd(a,b)
+gcd(a,a)=|a|
+gcd(a,0)=|a|
+gcd(a,1)=1
+gcd(a,b)=gcd(b, a mod b)
+gcd(a,b)=gcd(b, a-b)
+如果有附加的一个自然数m,
+则: gcd(ma,mb)=m * gcd(a,b) (分配律)
+gcd(a+mb ,b)=gcd(a,b)
+如果m是a和b的最大公约数，
+则： gcd(a/m ,b/m)=gcd(a,b)/m
+在乘法函数中有：
+gcd(ab,m)=gcd(a,m) * gcd(b,m)
+两个整数的最大公约数主要有两种寻找方法：
+* 两数各分解质因数，然后取出同样有的质因数乘起来
+*辗转相除法（扩展版）
+和最小公倍数（lcm）的关系：
+gcd(a, b) * lcm(a, b) = ab
+a与b有最大公约数，
+两个整数的最大公因子可用于计算两数的最小公倍数，或分数化简成最简分数。
+两个整数的最大公因子和最小公倍数中存在分配律：
+* gcd(a, lcm(b, c)) = lcm(gcd(a, b), gcd(a, c))
+* lcm(a, gcd(b, c)) = gcd(lcm(a, b), lcm(a, c))
+在坐标里，将点(0, 0)和(a, b)连起来，通过整数坐标的点的数目（除了(0, 0)一点之外）就是gcd(a, b)。</code></pre><h2 id="扩展欧几里得"><a href="#扩展欧几里得" class="headerlink" title="扩展欧几里得"></a>扩展欧几里得</h2><blockquote>
+<p>扩展算法可以求出两个整数x和y,使得ax+by=gcd(a,b)。在此前提下|x|+|y|取最小值。 对此证明: <a href="http://blog.csdn.net/qq_20200047/article/details/71159677" title="http://blog.csdn.net/qq_20200047/article/details/71159677" target="_blank" rel="noopener">http://blog.csdn.net/qq_20200047/article/details/71159677</a></p>
+<blockquote>
+<p>即可以证明a和b的最大公约数可以写成a和b的线性表示.</p>
+</blockquote>
+</blockquote>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><pre><code>#include&lt;bits/stdc++.h&gt;
+using namespace std;
+
+typedef long long LL;
+
+LL gcd(LL a,LL b){
+    return b ==0?a:gcd(b,a%b);
+}
+
+//求整数x和y,使得ax+by=d,在此前提下|x|+|y|取最小值.
+//即使a,b在int范围内,也可能超出int
+void exgcd(LL a,LL b,LL &amp;d,LL &amp;x,LL &amp;y){
+    if(!b){d=a;x=1;y=0;}
+    else {exgcd(b,a%b,d,y,x);y-=x*(a/b);}
+}
+
+int main(){
+
+    return 0;
+}</code></pre><h1 id="一些性质"><a href="#一些性质" class="headerlink" title="一些性质"></a>一些性质</h1><blockquote>
+<p>记(a,b)为gcd(a,b)</p>
+<blockquote>
+<p>则</p>
+<blockquote>
+<p>(a,b)=(b,a) 且 (a,b,c)=((a,b),c)=(a,(b,c))</p>
+</blockquote>
+</blockquote>
+<p>记[a,b]为lcm(a,b)</p>
+<blockquote>
+<p>有同上结论</p>
+</blockquote>
+<p>(a,b)*[a,b]=ab (gcd求lcm的由来)</p>
+</blockquote>
+<h1 id="唯一分解定理"><a href="#唯一分解定理" class="headerlink" title="唯一分解定理"></a>唯一分解定理</h1><blockquote>
+<p>简单说吧,对于任意一个整数,都可以化简成素数次幂乘积的形式.</p>
+</blockquote>
+<h2 id="确定正整数n的正约数个数"><a href="#确定正整数n的正约数个数" class="headerlink" title="确定正整数n的正约数个数"></a>确定正整数n的正约数个数</h2><blockquote>
+<p>由唯一分解定理得到的所有素数的幂可以推出约数个数 设第i个素数的幂为{ai}</p>
+<blockquote>
+<p>count=(a1+1)<em>(a2+1)</em>(a3+1)<em>…</em>(as+1)</p>
+</blockquote>
+</blockquote>
+<h2 id="而这玩意也有一个玄学快速分解算法"><a href="#而这玩意也有一个玄学快速分解算法" class="headerlink" title="而这玩意也有一个玄学快速分解算法"></a>而这玩意也有一个玄学快速分解算法</h2><h3 id="Pollard’s-Rho"><a href="#Pollard’s-Rho" class="headerlink" title="Pollard’s Rho"></a>Pollard’s Rho</h3><blockquote>
+<p>因为目前题目出现的概率很低,所以延迟学习,先学其他的.</p>
+</blockquote>
+<h1 id="不定方程"><a href="#不定方程" class="headerlink" title="不定方程"></a>不定方程</h1><h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><blockquote>
+<p>变量个数多于方程个数,并且只考虑整数解的方程被称之为不定方程。典型的二元一次不定式形式为ax+by=c,其中a、b、c皆为已知整数,a、b都不为0,x、y为未知数.</p>
+</blockquote>
+<h2 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h2><blockquote>
+<p>我们清楚以上方程的形式相当于前面提到过的扩展欧几里得式. 以下我们用python中的整除 ‘//‘ 代表数学记号整除 1.二元一次方程ax+by=c有解的充要条件:</p>
+<blockquote>
+<p>(a,b)//c 并且当(a,b)//c的时候该方程等价于</p>
+<blockquote>
+<p>(a/(a,b))*x+(b/(a,b))*y=(c/(a,b))</p>
+</blockquote>
+</blockquote>
+<p>2.假设二元一次不定方程ax+by=c有解,并且x0、y0为方程的一组解,则他的所有解可以表示为:</p>
+<blockquote>
+<p>x=x0-(b/(a,b))*t y=y0+(a/(a,b))*t t为任意整数</p>
+</blockquote>
+<p>3.不定方程非负解 暂略</p>
+</blockquote>
+<h1 id="同余方程与欧拉定理"><a href="#同余方程与欧拉定理" class="headerlink" title="同余方程与欧拉定理"></a>同余方程与欧拉定理</h1><h2 id="同余方程"><a href="#同余方程" class="headerlink" title="同余方程"></a>同余方程</h2><blockquote>
+<p>假设m≠0.若m//(a-b)则称a同余于b模m,记为</p>
+<blockquote>
+<p>a≡b(mod m)</p>
+<blockquote>
+<p>证:</p>
+<blockquote>
+<p>a=rm+d b=km+d a-b=(r-k)m mod m = 0</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+<h3 id="定理1"><a href="#定理1" class="headerlink" title="定理1"></a>定理1</h3><blockquote>
+<p>a≡b(mod m),当且仅当m//(a-b)</p>
+</blockquote>
+<h3 id="定理2"><a href="#定理2" class="headerlink" title="定理2"></a>定理2</h3><blockquote>
+<p>a≡b(mod m),当且仅当存在整数k,使得a=b+km</p>
+</blockquote>
+<h3 id="定理3"><a href="#定理3" class="headerlink" title="定理3"></a>定理3</h3><blockquote>
+<p>同余关系是等价关系,即满足以下三条:</p>
+<blockquote>
+<ol>
+<li>自反性 a≡a(mod m)</li>
+<li>对称性 a≡b(mod m),b≡a(mod m)</li>
+<li>传递性 a≡b(mod m),b≡c(mod m),则a≡c(mod m)</li>
+</ol>
+</blockquote>
+</blockquote>
+<h3 id="※剩余系"><a href="#※剩余系" class="headerlink" title="※剩余系"></a><strong>※</strong>剩余系</h3><blockquote>
+<p>指对于一个正整数n,一个整数集合中的数mod n所得的余数域.</p>
+</blockquote>
+<h4 id="完全剩余系"><a href="#完全剩余系" class="headerlink" title="完全剩余系"></a>完全剩余系</h4><blockquote>
+<p>如果一个整数集合的剩余系包含 1~n-1 所有n可能的余数,则该剩余系被称为完全剩余系,我们简记为 Zn.</p>
+<blockquote>
+<p>比如 Z6={0,1,2,3,4,5}</p>
+</blockquote>
+</blockquote>
+<h5 id="缩系"><a href="#缩系" class="headerlink" title="缩系"></a>缩系</h5><blockquote>
+<p>指在模n意义下完全剩余系中与n互素的剩余系,简记为Zn*.</p>
+</blockquote>
+<h4 id="Zn的同余等价类"><a href="#Zn的同余等价类" class="headerlink" title="Zn的同余等价类"></a>Zn的同余等价类</h4><blockquote>
+<p>Zn中的每个元素都代表所有与他同余的整数,比如n=5时,Z5中的元素”3”实际上代表了3,3+5,3+10…,所有这些整数除以5的余数都是3.</p>
+<blockquote>
+<p>我们把满足同余关系的所有整数看成一个同余等价类,比如 3,8,13,18 都属于”模5等于3” 这个同余等价类</p>
+</blockquote>
+</blockquote>
+<h4 id="※关于取余等式-k-a-b-的一些性质"><a href="#※关于取余等式-k-a-b-的一些性质" class="headerlink" title="※关于取余等式 k=a%b 的一些性质"></a><strong>※</strong>关于取余等式 k=a%b 的一些性质</h4><h5 id="即-a-b-n等-Zn同于等价类意义下四则运算"><a href="#即-a-b-n等-Zn同于等价类意义下四则运算" class="headerlink" title="即(a+b)%n等,Zn同于等价类意义下四则运算"></a>即(a+b)%n等,Zn同于等价类意义下四则运算</h5><blockquote>
+<p>加法</p>
+<blockquote>
+<p>(a+b)%n = ((a%n)+(b%n))%n</p>
+</blockquote>
+<p>减法</p>
+<blockquote>
+<p>(a-b)%n = ((a%n)-(b%n)+n)%n</p>
+</blockquote>
+<p>乘法</p>
+<blockquote>
+<p>ab%n=(a%n)(b%n)%n</p>
+</blockquote>
+<p>异或</p>
+<blockquote>
+<p>(a^b)%n=((a%n)^b)%n</p>
+</blockquote>
+</blockquote>
+<h4 id="※Zn意义下的除法-模乘法的逆、逆元"><a href="#※Zn意义下的除法-模乘法的逆、逆元" class="headerlink" title="※Zn意义下的除法(模乘法的逆、逆元)"></a><strong>※</strong>Zn意义下的除法(模乘法的逆、<strong>逆元</strong>)</h4><blockquote>
+<p>首先说下用处,通常在大整数 a/b 时,或者 c/d<em>p/x…但最后结果*</em>一定是整数**时,并且对ans%n,为了避免中间除法运算,我们会用逆元(刚开始学,只知道这些用途,如有缺漏,欢迎补充). 那么向下进行吧</p>
+<blockquote>
+<p>模乘法的逆:</p>
+<blockquote>
+<p>在某些情况下 Zn中的两个元素a和b满足 Zn意义下 ab=1,即ab≡1(mod n).比如</p>
+<blockquote>
+<p>在 Z15 中,7*13=1</p>
+<blockquote>
+<p>即(7*13)%15=1</p>
+</blockquote>
+</blockquote>
+<p>在这种情况下,我们称a和b互为乘法的逆,记为 b=a(-1),a=b(-1) [-1代表上标]. 这个逆的运算很像”倒数”,因为在剩余系中,模n意义下当a(-1)存在时,”除以”一个数a等价于乘以他的乘法逆a(-1),比如在 Z15 中 7(-1)=13,因此3/7=3*7(-1)=3*13=9</p>
+<blockquote>
+<p>这时我们会产生疑问,3/7甚至不是整数,怎么可能等于9? 请注意:</p>
+<blockquote>
+<p>1 我们是在模n意义下对除法进行运算. 2 剩余系中每个元素对应一个同余等价类, 3/7=9的实际含义是”假定有两个整数a和b,其中a/b是整数,且a和b除以15的余数分别为3和7,则a/b除以15的余数等于 9”</p>
+<blockquote>
+<p>比如a=528,b=22就是一例</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+<h5 id="除法逆元合理性证明"><a href="#除法逆元合理性证明" class="headerlink" title="除法逆元合理性证明"></a>除法逆元合理性证明</h5><blockquote>
+<p>设我们要求 （a / b） mod p 且 b * k ≡ 1 (mod p),即k为b的逆元</p>
+<blockquote>
+<p>注意这里我们可以用扩展欧几里得求出是否存在k,以及k的值 即 答案为 (a * k) mod p 因为 b * k ≡ 1 (mod p) 则有 b * k = p* x+1 得到 k = (p * x + 1) / b 将 k 代入(a * k) mod p</p>
+<blockquote>
+<p>得到： (a * (p * x + 1) / b) mod p =((a * p * x) / b + a / b) mod p =[((a * p * x) / b) mod p +(a / b)] mod p =[(p * ((a * x) / b)) mod p +(a / b)] mod p =(0 + (a / b)) mod p = (a/b) mod p</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<h3 id="定理4"><a href="#定理4" class="headerlink" title="定理4"></a>定理4</h3><blockquote>
+<p>若a,b,c是整数,m是正整数,且 a≡b(mod m) ,则</p>
+<blockquote>
+<p>(1) a+c ≡ b+c(mod m) (2) a-c ≡ b-c(mod m) (3) ac ≡ bc(mod m)</p>
+</blockquote>
+</blockquote>
+<h3 id="定理5"><a href="#定理5" class="headerlink" title="定理5"></a>定理5</h3><blockquote>
+<p>设a,b,c,d为整数,m为正整数,若a≡b(mod m),c≡d(mod m)则(注: 一下定理两边值不一定相等,只是mod m相等):</p>
+<blockquote>
+<p>(1) ax+cy≡bx+dy(mod m) 其中x,y为任意整数,即同余式可以相加 (2) ac≡bd(mod m) 即同余式可以相乘 (3) a^n≡b^n(mod m) 由上面那个可以推得,n&gt;0 (4) f(a)≡f(b)(mod m) 其中f(x)为任一整数系数多项式</p>
+</blockquote>
+</blockquote>
+<h3 id="定理6"><a href="#定理6" class="headerlink" title="定理6"></a>定理6</h3><blockquote>
+<p>设a,b,c,d为整数,m为正整数,则</p>
+<blockquote>
+<p>(1) 若 a≡b(mod m),且d//m,则a≡b(mod d) (2) 若 a≡b(mod m),则gcd(a,m)≡gcd(b,m) (3) a≡b(mod mi)(1&lt;=i&lt;=n)同时成立,当且仅当 a≡b(mod[m1,m2,m3…mn])</p>
+</blockquote>
+</blockquote>
+<h3 id="定理7"><a href="#定理7" class="headerlink" title="定理7"></a>定理7</h3><blockquote>
+<p>若ac≡bc(mod m),且gcd(c,m)=d,则a≡b(mod m/d) 证:</p>
+<blockquote>
+<p>记 c=dc1,m=dm1,其中c1,m1互素</p>
+<blockquote>
+<p>由 ac≡bc(mod m) 得 m//(ac-bc) 即 dm1//d(a-b)c1 故 m1//(a-b)c1 由下面那个整除的性质,因为 m1,c1 互质 则 m1//(a-b) 得 a≡b(mod m1) 即 a≡b(mod m/d)</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<h4 id="整除的性质"><a href="#整除的性质" class="headerlink" title="整除的性质"></a>整除的性质</h4><blockquote>
+<p>若m | nk, 且m与k互素, 则m | n</p>
+</blockquote>
+<h1 id="欧拉函数"><a href="#欧拉函数" class="headerlink" title="欧拉函数"></a>欧拉函数</h1><blockquote>
+<p>以前写过一次: 连接: <a href="http://cdn.be-sunshine.cn/index.php/2017/11/25/aoj-ntl_1_d-eulers-phi-function/" title="http://cdn.be-sunshine.cn/index.php/2017/11/25/aoj-ntl_1_d-eulers-phi-function/" target="_blank" rel="noopener">http://cdn.be-sunshine.cn/index.php/2017/11/25/aoj-ntl_1_d-eulers-phi-function/</a></p>
+</blockquote>
+
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#素数"><span class="toc-text">素数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#素数筛法"><span class="toc-text">素数筛法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#艾氏筛法-O-nloglogn"><span class="toc-text">艾氏筛法(O(nloglogn))</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#线性筛法"><span class="toc-text">线性筛法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#伪码表述"><span class="toc-text">伪码表述</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#代码-1亿数据量1s"><span class="toc-text">代码(1亿数据量1s)</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#素数估计"><span class="toc-text">素数估计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#素数判定-Miller-Rabin"><span class="toc-text">素数判定(*Miller-Rabin)</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#欧几里得算法"><span class="toc-text">欧几里得算法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#gcd性质"><span class="toc-text">gcd性质</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#扩展欧几里得"><span class="toc-text">扩展欧几里得</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#代码"><span class="toc-text">代码</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#一些性质"><span class="toc-text">一些性质</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#唯一分解定理"><span class="toc-text">唯一分解定理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#确定正整数n的正约数个数"><span class="toc-text">确定正整数n的正约数个数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#而这玩意也有一个玄学快速分解算法"><span class="toc-text">而这玩意也有一个玄学快速分解算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Pollard’s-Rho"><span class="toc-text">Pollard’s Rho</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#不定方程"><span class="toc-text">不定方程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#基本概念"><span class="toc-text">基本概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#性质"><span class="toc-text">性质</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#同余方程与欧拉定理"><span class="toc-text">同余方程与欧拉定理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#同余方程"><span class="toc-text">同余方程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#定理1"><span class="toc-text">定理1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#定理2"><span class="toc-text">定理2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#定理3"><span class="toc-text">定理3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#※剩余系"><span class="toc-text">※剩余系</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#完全剩余系"><span class="toc-text">完全剩余系</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#缩系"><span class="toc-text">缩系</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Zn的同余等价类"><span class="toc-text">Zn的同余等价类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#※关于取余等式-k-a-b-的一些性质"><span class="toc-text">※关于取余等式 k=a%b 的一些性质</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#即-a-b-n等-Zn同于等价类意义下四则运算"><span class="toc-text">即(a+b)%n等,Zn同于等价类意义下四则运算</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#※Zn意义下的除法-模乘法的逆、逆元"><span class="toc-text">※Zn意义下的除法(模乘法的逆、逆元)</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#除法逆元合理性证明"><span class="toc-text">除法逆元合理性证明</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#定理4"><span class="toc-text">定理4</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#定理5"><span class="toc-text">定理5</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#定理6"><span class="toc-text">定理6</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#定理7"><span class="toc-text">定理7</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#整除的性质"><span class="toc-text">整除的性质</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#欧拉函数"><span class="toc-text">欧拉函数</span></a></li></ol>
+  </div>
+</aside>
+  
+    <aside class="passage-copyright">
+      <div>本文作者: 张文涛</div>
+      
+        <div>
+          原文链接: 
+          <a href="" target="_blank">http://be-sunshine.cn/passages/number-theory/</a>
+        </div>
+      
+      <div>
+        版权声明: 本博客所有文章除特别声明外, 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议. 转载请注明出处!
+      </div>
+    </aside>
+  
+  
+    <div class="passage-tags">
+     
+      <a href="/tags/数论/"><i class="fa fa-tags"></i>数论</a>
+     
+      <a href="/tags/算法学习/"><i class="fa fa-tags"></i>算法学习</a>
+    
+    </div>
+  
+</div>
+
+    </main>
+    
+      
+<div class="site-comment-contanier" data-plateform="leancloud">
+  
+    <p id="site-comment-info">
+      <i class="fa fa-spinner fa-spin"></i> 评论加载中
+    </p>
+    <div id="site-comment"></div>
+  
+</div>
+    
+    <div class="site-footer-wrapper">
+  <footer class="site-footer">
+    
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">博客推荐</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/" target="_blank">GodBMW</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="http://ruanyifeng.com/" target="_blank">阮一峰的个人网站</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">系列教程</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/categories/webpack4%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B/" target="_blank">webpack4系列教程</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/design-patterns/" target="_blank">设计模式手册</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">抓到我</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://weibo.com/3260959934/" target="_blank">微博</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://github.com/834930269" target="_blank">Github</a>
+            </span>
+          
+        </div>
+      
+    
+    <div class="site-footer-info">
+      <i class="fa fa-clock-o"></i> 本站已稳定运行<span id="site-time"></span>
+    </div>
+    
+      <div class="site-footer-info">
+        <i class="fa fa-paw"></i> 您是本站第 <span id="site-count"></span> 位访客
+      </div>
+    
+    
+      <div class="site-footer-info">
+        <i class="fa fa-at"></i> Email: 834930269@qq.com
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-copyright"></i> 
+      2019 <a href="https://github.com/dongyuanxin/theme-ad/" target="_blank">Theme-AD</a>.
+      Created by <a href="https://godbmw.com/" target="_blank">GodBMW</a>.
+      All rights reserved.
+    </div>
+  </footer>
+</div>
+    <div id="site-layer" style="display:none;">
+  <div class="site-layer-content">
+    <div class="site-layer-header">
+      <span class="site-layer-header-title" id="site-layer-title"></span>
+      <i class="fa fa-close" id="site-layer-close"></i>
+    </div>
+    <div class="site-layer-body" id="site-layer-container">
+      <div class="site-layer-input" id="site-layer-search" style="display: none;">
+        <div class="site-layer-input-choose">
+          <a href="javascript:void(0);" title="Change Search Engine">Google</a>
+        </div>
+        <input type="text">
+        <i class="fa fa-search"></i>
+      </div>
+      
+        <div class="site-layer-reward" id="site-layer-reward" style="display: none;">
+          
+            <div>
+              <img src="/images/wechat.png" alt="WeChat">
+              
+                <p>WeChat</p>
+              
+            </div>
+          
+            <div>
+              <img src="/images/alipay.png" alt="AliPay">
+              
+                <p>AliPay</p>
+              
+            </div>
+          
+        </div>
+      
+      <div id="site-layer-welcome" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+    
+
+<div class="bottom-bar">
+  <div class="bottom-bar-left">
+    <a href="/passages/hdu-1431/" data-enable="true">
+      <i class="fa fa-arrow-left"></i>
+    </a>
+    <a href="/passages/uva-11806/" data-enable="true">
+      <i class="fa fa-arrow-right"></i>
+    </a>
+  </div>
+  <div class="bottom-bar-right">
+    <a href="javascript:void(0);" data-enable="true" id="site-toc-show-btn">
+      <i class="fa fa-bars"></i>
+    </a>
+    
+      <a href="#site-comment" data-enable="true">
+        <i class="fa fa-commenting"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="site-toggle-share-btn">
+      <i class="fa fa-share-alt"></i>
+    </a>
+    
+      <a href="javascript:void(0);" id="site-reward">
+        <i class="fa fa-thumbs-up"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="back-top-btn">
+      <i class="fa fa-chevron-up"></i>
+    </a>
+  </div>
+</div>
+    <div id="share-btn">
+  
+    <a id="share-btn-twitter" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-twitter"></i>
+    </a>
+  
+  
+    <a id="share-btn-facebook" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-facebook"></i>
+    </a>
+  
+  
+    <a id="share-btn-weibo" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-weibo"></i>
+    </a>
+  
+  
+    <a id="share-btn-qq" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-qq"></i>
+    </a>
+  
+  
+    <a id="share-btn-wechat" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-wechat"></i>
+    </a>
+  
+</div>
+    
+
+
+
+
+
+    
+  </body>
+</html>

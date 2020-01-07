@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html>
+  
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="author" content="张文涛">
+  
+  
+  <title>Python Learnning Record | 山海经▪大荒经</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Python,Python,">
+  
+
+  
+  <meta name="description" content="Winter Zhang的小站">
+
+  
+
+  
+    <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.1/dist/av-min.js" async></script>
+  
+
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+  
+
+  
+    <script src="//unpkg.com/valine/dist/Valine.min.js" async></script>
+  
+
+  
+
+  <script>
+  // theme-ad's config script
+  // it can be used in every script
+  
+  window.AD_CONFIG = {
+    leancloud: {"appid":"J7nVGeFex3em3P8A4ktCiv3b-gzGzoHsz","appkey":"XiR0DX1Kvlh3Et3UalbFN4Dq","comment":true,"count":true},
+    welcome: {"enable":false,"interval":30},
+    start_time: "2015-02-10",
+    passwords: ["c035b468e47fd966ac2df15e3d7f7a64d89b1dbf209c24caad6e62bffd90d4c7", ],
+    is_post: true,
+    lock: false,
+    author: "张文涛",
+    share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
+    mathjax: true,
+    page_type: "",
+    root: "/"
+  };
+</script>
+
+  <script src="/vendor/sha256.min.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/index.js"></script>
+<script src="/vendor/qrcode.min.js"></script>
+
+  
+    <link rel="icon" href="/images/favicon2.ico">
+    <link rel="apple-touch-icon" href="/images/touch-icon.png">
+  
+
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/styles/components/highlight/highlight.css">
+
+  
+</head>
+  <body>
+    <header class="site-header">
+  <div class="site-header-brand">
+    
+      <span class="site-header-brand-title">
+        <a href="/">1900</a>
+      </span>
+    
+    
+      <span class="site-header-brand-motto"> | 祝你平安幸福 我就不下船了</span>
+    
+  </div>
+  <div class="site-header-right">
+    <nav class="site-header-navigation">
+      
+        <a href="/" target="_self">首页</a>
+      
+        <a href="/archives/" target="_self">归档</a>
+      
+        <a href="/tags/" target="_self">标签</a>
+      
+        <a href="/categories/" target="_self">分类</a>
+      
+        <a href="/friends/" target="_self">友链</a>
+      
+        <a href="/about/" target="_self">关于</a>
+      
+    </nav>
+    <div class="site-header-btn">
+      
+        <a href="https://github.com/834930269/" target="_blank" id="site-github">
+          <i class="fa fa-github-alt"></i>
+        </a>
+      
+      <a href="javascript:void(0);" id="site-search">
+        <i class="fa fa-search"></i>
+      </a>
+      <a href="javascript:void(0);" id="site-nav-btn">
+        <i class="fa fa-ellipsis-v"></i>
+      </a>
+    </div>
+  </div>
+</header>
+<nav class="table-content" id="site-nav">
+  <div class="table-content-title">
+    <span>导航</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc">
+      
+        <li class="toc-item">
+          <a href="/" target="_self">
+            首页
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/archives/" target="_self">
+            归档
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/tags/" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/categories/" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/friends/" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/about/" target="_self">
+            关于
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</nav>
+<div id="site-process"></div>
+    <main>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2017-05-21
+    </span>
+    
+      <span>
+        | <a href="/categories/Python/"><i class="fa fa-bookmark"></i>Python</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    Python Learnning Record
+  </h1>
+  
+  <article class="passage-article">
+    <p><strong>【Link】</strong> <strong><a href="http://www.liaoxuefeng.com/wiki/001434446689867b27157e896e74d51a89c25cc8b43bdb3000" target="_blank" rel="noopener">廖雪峰的python教程</a></strong> <strong>【直接运行py文件】</strong> <strong>有同学问，能不能像.exe文件那样直接运行<code>.py</code>文件呢？在Windows上是不行的，但是，在Mac和Linux上是可以的，方法是在<code>.py</code>文件的第一行加上一个特殊的注释：</strong></p>
+<p>**`#!/usr/bin/env python3</p>
+<p>print(‘hello, world’)`** </p>
+<p><strong>然后，通过命令给<code>hello.py</code>以执行权限：</strong></p>
+<p><strong><code>$ chmod a+x hello.py</code></strong> </p>
+<p><strong>就可以直接运行<code>hello.py</code>了，比如在Mac下运行：</strong> <strong><img src="http://cdn.be-sunshine.cn/wp-content/uploads/2017/05/0.png" alt></strong> <strong>【数据类型和变量】</strong> <strong>Python可以处理任意大小的整数，当然包括负整数. (惊了</strong> <strong>注意：Python的整数没有大小限制，而某些语言的整数根据其存储长度是有大小限制的，例如Java对32位整数的范围限制在<code>-2147483648</code>-<code>2147483647</code>。</strong> <strong>Python的浮点数也没有大小限制，但是超出一定范围就直接表示为<code>inf</code>（无限大）。</strong> <strong>整数和浮点数在计算机内部存储的方式是不同的，整数运算永远是精确的（除法难道也是精确的？是的！），而浮点数运算则可能会有四舍五入的误差。</strong></p>
+<h4 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a><strong>字符串</strong></h4><p><strong>字符串是以单引号<code>&#39;</code>或双引号<code>&quot;</code>括起来的任意文本，比如<code>&#39;abc&#39;</code>，<code>&quot;xyz&quot;</code>等等。请注意，<code>&#39;&#39;</code>或<code>&quot;&quot;</code>本身只是一种表示方式，不是字符串的一部分，因此，字符串<code>&#39;abc&#39;</code>只有<code>a</code>，<code>b</code>，<code>c</code>这3个字符。如果<code>&#39;</code>本身也是一个字符，那就可以用<code>&quot;&quot;</code>括起来，比如<code>&quot;I&#39;m OK&quot;</code>包含的字符是<code>I</code>，<code>&#39;</code>，<code>m</code>，空格，<code>O</code>，<code>K</code>这6个字符。</strong> <strong>如果字符串内部既包含<code>&#39;</code>又包含<code>&quot;</code>怎么办？可以用转义字符<code>\</code>来标识，比如：</strong></p>
+<p><strong><code>&#39;I\&#39;m \&quot;OK\&quot;!&#39;</code></strong> </p>
+<p><strong>表示的字符串内容是：</strong></p>
+<p><strong><code>I&#39;m &quot;OK&quot;!</code></strong> </p>
+<p><strong>如果字符串里面有很多字符都需要转义，就需要加很多<code>\</code>，为了简化，Python还允许用<code>r&#39;&#39;</code>表示<code>&#39;&#39;</code>内部的字符串默认不转义，可以自己试试：</strong></p>
+<p>**`&gt;&gt;&gt; print(‘\\t\‘)<br>\       \</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>print(r’\\t\‘)<br>\\t\`** </p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p><strong>如果字符串内部有很多换行，用<code>\n</code>写在一行里不好阅读，为了简化，Python允许用<code>&#39;&#39;&#39;...&#39;&#39;&#39;</code>的格式表示多行内容，可以自己试试：</strong></p>
+<p><strong><code>&gt;&gt;&gt; print(&#39;&#39;&#39;line1
+... line2
+... line3&#39;&#39;&#39;)
+line1
+line2
+line3</code></strong> </p>
+<p><strong>上面是在交互式命令行内输入，注意在输入多行内容时，提示符由<code>&gt;&gt;&gt;</code>变为<code>...</code>，提示你可以接着上一行输入。如果写成程序，就是：</strong></p>
+<p><strong><code>print(&#39;&#39;&#39;line1
+line2
+line3&#39;&#39;&#39;)</code></strong> </p>
+<p><strong>多行字符串<code>&#39;&#39;&#39;...&#39;&#39;&#39;</code>还可以在前面加上<code>r</code>使用，请自行测试。</strong></p>
+<h4 id="空值"><a href="#空值" class="headerlink" title="空值"></a><strong>空值</strong></h4><p><strong>空值是Python里一个特殊的值，用<code>None</code>表示。<code>None</code>不能理解为<code>0</code>，因为<code>0</code>是有意义的，而<code>None</code>是一个特殊的空值。</strong> <strong>此外，Python还提供了列表、字典等多种数据类型，还允许创建自定义数据类型，我们后面会继续讲到。</strong> <strong>在Python中，等号<code>=</code>是赋值语句，可以把任意数据类型赋值给变量，同一个变量可以反复赋值，而且可以是不同类型的变量，例如：</strong></p>
+<p><strong><code>a = 123 # a是整数
+print(a)
+a = &#39;ABC&#39; # a变为字符串
+print(a)</code></strong> </p>
+<p><strong>【整数的除法】</strong> <strong>最后解释一下整数的除法为什么也是精确的。在Python中，有两种除法，一种除法是<code>/</code>：</strong></p>
+<p><strong><code>&gt;&gt;&gt; 10 / 3
+3.3333333333333335</code></strong> </p>
+<p><strong><code>/</code>除法计算结果是浮点数，即使是两个整数恰好整除，结果也是浮点数：</strong></p>
+<p><strong><code>&gt;&gt;&gt; 9 / 3
+3.0</code></strong> </p>
+<p><strong>还有一种除法是<code>//</code>，称为地板除，两个整数的除法仍然是整数：</strong></p>
+<p><strong><code>&gt;&gt;&gt; 10 // 3
+3</code></strong> </p>
+<p><strong>你没有看错，整数的地板除<code>//</code>永远是整数，即使除不尽。要做精确的除法，使用<code>/</code>就可以。</strong></p>
+<p><strong>因为<code>//</code>除法只取结果的整数部分，所以Python还提供一个余数运算，可以得到两个整数相除的余数：</strong></p>
+<p><strong><code>&gt;&gt;&gt; 10 % 3
+1</code></strong> </p>
+<p><strong>无论整数做<code>//</code>除法还是取余数，结果永远是整数，所以，整数运算结果永远是精确的。</strong> <strong>【字节】</strong> <strong>最早的计算机在设计时采用8个比特（bit）作为一个字节（byte），所以，一个字节能表示的最大的整数就是255（二进制11111111=十进制255），如果要表示更大的整数，就必须用更多的字节。比如两个字节可以表示的最大整数是<code>65535</code>，4个字节可以表示的最大整数是<code>4294967295</code>。</strong> <strong>【编码】</strong> <strong>由于计算机是美国人发明的，因此，最早只有127个字符被编码到计算机里，也就是大小写英文字母、数字和一些符号，这个编码表被称为<code>ASCII</code>编码，比如大写字母<code>A</code>的编码是<code>65</code>，小写字母<code>z</code>的编码是<code>122</code>。</strong> <strong>但是要处理中文显然一个字节是不够的，至少需要两个字节，而且还不能和ASCII编码冲突，所以，中国制定了<code>GB2312</code>编码，用来把中文编进去。</strong> <strong>UTF-8:可变长编码.</strong> <strong>Unicode:不可变长全码.</strong> <strong>转换过程:</strong> <strong><img src="http://cdn.be-sunshine.cn/wp-content/uploads/2017/05/1-1.png" alt></strong>   <strong>浏览网页的时候，服务器会把动态生成的Unicode内容转换为UTF-8再传输到浏览器：</strong> <strong><img src="http://cdn.be-sunshine.cn/wp-content/uploads/2017/05/2.png" alt></strong> <strong>所以你看到很多网页的源码上会有类似<code>&lt;meta charset=&quot;UTF-8&quot; /&gt;</code>的信息，表示该网页正是用的UTF-8编码。</strong> ** 【python的字符串】** ** 搞清楚了令人头疼的字符编码问题后，我们再来研究Python的字符串。** <strong>在最新的Python 3版本中，字符串是以Unicode编码的，也就是说，Python的字符串支持多语言，例如：</strong></p>
+<p><strong><code>&gt;&gt;&gt; print(&#39;包含中文的str&#39;)
+包含中文的str</code></strong> </p>
+<p><strong>对于单个字符的编码，Python提供了<code>ord()</code>函数获取字符的整数表示，<code>chr()</code>函数把编码转换为对应的字符：</strong></p>
+<p>**`&gt;&gt;&gt; ord(‘A’)<br>65</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>ord(‘中’)<br>20013<br>chr(66)<br>‘B’<br>chr(25991)<br>‘文’`** </p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p><strong>如果知道字符的整数编码，还可以用十六进制这么写<code>str</code>：</strong></p>
+<p><strong><code>&gt;&gt;&gt; &#39;\u4e2d\u6587&#39;
+&#39;中文&#39;</code></strong> </p>
+<p><strong>【网络中文本的比特流传输转换】</strong> <strong>Python对<code>bytes</code>类型的数据用带<code>b</code>前缀的单引号或双引号表示：</strong></p>
+<p><strong><code>x = b&#39;ABC&#39;</code></strong> </p>
+<p><strong>要注意区分<code>&#39;ABC&#39;</code>和<code>b&#39;ABC&#39;</code>，前者是<code>str</code>，后者虽然内容显示得和前者一样，但<code>bytes</code>的每个字符都只占用一个字节。</strong></p>
+<p><strong>以Unicode表示的<code>str</code>通过<code>encode()</code>方法可以编码为指定的<code>bytes</code>，例如：</strong></p>
+<p>**`&gt;&gt;&gt; ‘ABC’.encode(‘ascii’)<br>b’ABC’</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>‘中文’.encode(‘utf-8’)<br>b’\xe4\xb8\xad\xe6\x96\x87’<br>‘中文’.encode(‘ascii’)<br>Traceback (most recent call last):<br>  File “<stdin>“, line 1, in <module><br>UnicodeEncodeError: ‘ascii’ codec can’t encode characters in position 0-1: ordinal not in range(128)`** </module></stdin></p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p><strong>纯英文的<code>str</code>可以用<code>ASCII</code>编码为<code>bytes</code>，内容是一样的，含有中文的<code>str</code>可以用<code>UTF-8</code>编码为<code>bytes</code>。含有中文的<code>str</code>无法用<code>ASCII</code>编码，因为中文编码的范围超过了<code>ASCII</code>编码的范围，Python会报错。</strong></p>
+<p><strong>在<code>bytes</code>中，无法显示为ASCII字符的字节，用<code>\x##</code>显示。</strong></p>
+<p><strong>反过来，如果我们从网络或磁盘上读取了字节流，那么读到的数据就是<code>bytes</code>。要把<code>bytes</code>变为<code>str</code>，就需要用<code>decode()</code>方法：</strong></p>
+<p>**`&gt;&gt;&gt; b’ABC’.decode(‘ascii’)<br>‘ABC’</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>b’\xe4\xb8\xad\xe6\x96\x87’.decode(‘utf-8’)<br>‘中文’`** </p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p><strong>要计算<code>str</code>包含多少个字符，可以用<code>len()</code>函数：</strong></p>
+<p>**`&gt;&gt;&gt; len(‘ABC’)<br>3</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>len(‘中文’)<br>2`** </p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p><strong><code>len()</code>函数计算的是<code>str</code>的字符数，如果换成<code>bytes</code>，<code>len()</code>函数就计算字节数：</strong></p>
+<p>**`&gt;&gt;&gt; len(b’ABC’)<br>3</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>len(b’\xe4\xb8\xad\xe6\x96\x87’)<br>6<br>len(‘中文’.encode(‘utf-8’))<br>6`** </p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p><strong>可见，1个中文字符经过UTF-8编码后通常会占用3个字节，而1个英文字符只占用1个字节。</strong></p>
+<p><strong>【格式化输入输出】</strong></p>
+<p><strong>最后一个常见的问题是如何输出格式化的字符串。我们经常会输出类似<code>&#39;亲爱的xxx你好！你xx月的话费是xx，余额是xx&#39;</code>之类的字符串，而xxx的内容都是根据变量变化的，所以，需要一种简便的格式化字符串的方式。</strong> <strong><img src="http://cdn.be-sunshine.cn/wp-content/uploads/2017/05/3.png" alt></strong> <strong>在Python中，采用的格式化方式和C语言是一致的，用<code>%</code>实现，举例如下：</strong></p>
+<p>**`&gt;&gt;&gt; ‘Hello, %s’ % ‘world’<br>‘Hello, world’</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>‘Hi, %s, you have $%d.’ % (‘Michael’, 1000000)<br>‘Hi, Michael, you have $1000000.’`** </p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p><strong>你可能猜到了，<code>%</code>运算符就是用来格式化字符串的。在字符串内部，<code>%s</code>表示用字符串替换，<code>%d</code>表示用整数替换，有几个<code>%?</code>占位符，后面就跟几个变量或者值，顺序要对应好。如果只有一个<code>%?</code>，括号可以省略。</strong> <strong>常见的占位符有：</strong></p>
+<p><strong>%d</strong></p>
+<p><strong>整数</strong></p>
+<p><strong>%f</strong></p>
+<p><strong>浮点数</strong></p>
+<p><strong>%s</strong></p>
+<p><strong>字符串</strong></p>
+<p><strong>%x</strong></p>
+<p><strong>十六进制整数</strong></p>
+<p><strong>其中，格式化整数和浮点数还可以指定是否补0和整数与小数的位数：</strong></p>
+<p>**`&gt;&gt;&gt; ‘%2d-%02d’ % (3, 1)<br>‘ 3-01’</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>‘%.2f’ % 3.1415926<br>‘3.14’`** </p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p><strong>如果你不太确定应该用什么，<code>%s</code>永远起作用，它会把任何数据类型转换为字符串：</strong></p>
+<p><strong><code>&gt;&gt;&gt; &#39;Age: %s. Gender: %s&#39; % (25, True)
+&#39;Age: 25. Gender: True&#39;</code></strong> </p>
+<p><strong>有些时候，字符串里面的<code>%</code>是一个普通字符怎么办？这个时候就需要转义，用<code>%%</code>来表示一个<code>%</code>：</strong></p>
+<p><strong><code>&gt;&gt;&gt; &#39;growth rate: %d %%&#39; % 7
+&#39;growth rate: 7 %&#39;</code></strong> </p>
+<p><strong>【list】</strong> <strong>如果要取最后一个元素，除了计算索引位置外，还可以用<code>-1</code>做索引，直接获取最后一个元素：</strong></p>
+<blockquote>
+<p><strong><code>&gt; classmates[-1] &#39;Tracy&#39;</code></strong> <strong><code>往后分块记笔记...</code></strong></p>
+</blockquote>
+<p><strong>【python3学习 模块】</strong> <strong>python3内置模块文档: <a href="https://docs.python.org/3/library/functions.html" target="_blank" rel="noopener">https://docs.python.org/3/library/functions.html</a></strong> <strong>python3自己写模块及使用: <a href="http://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000/001431845183474e20ee7e7828b47f7b7607f2dc1e90dbb000" target="_blank" rel="noopener">廖雪峰-使用模块</a></strong> <strong>python3安装第三方模块:</strong> <a href="http://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000/00143186362353505516c5d4e38456fb225c18cc5b54ffb000#0" target="_blank" rel="noopener"><strong>安装第三方模块</strong></a></p>
+
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#字符串"><span class="toc-text">字符串</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#空值"><span class="toc-text">空值</span></a></li></ol>
+  </div>
+</aside>
+  
+    <aside class="passage-copyright">
+      <div>本文作者: 张文涛</div>
+      
+        <div>
+          原文链接: 
+          <a href="" target="_blank">http://be-sunshine.cn/passages/python-learnning-record/</a>
+        </div>
+      
+      <div>
+        版权声明: 本博客所有文章除特别声明外, 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议. 转载请注明出处!
+      </div>
+    </aside>
+  
+  
+    <div class="passage-tags">
+     
+      <a href="/tags/Python/"><i class="fa fa-tags"></i>Python</a>
+    
+    </div>
+  
+</div>
+
+    </main>
+    
+      
+<div class="site-comment-contanier" data-plateform="leancloud">
+  
+    <p id="site-comment-info">
+      <i class="fa fa-spinner fa-spin"></i> 评论加载中
+    </p>
+    <div id="site-comment"></div>
+  
+</div>
+    
+    <div class="site-footer-wrapper">
+  <footer class="site-footer">
+    
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">博客推荐</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/" target="_blank">GodBMW</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="http://ruanyifeng.com/" target="_blank">阮一峰的个人网站</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">系列教程</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/categories/webpack4%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B/" target="_blank">webpack4系列教程</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/design-patterns/" target="_blank">设计模式手册</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">抓到我</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://weibo.com/3260959934/" target="_blank">微博</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://github.com/834930269" target="_blank">Github</a>
+            </span>
+          
+        </div>
+      
+    
+    <div class="site-footer-info">
+      <i class="fa fa-clock-o"></i> 本站已稳定运行<span id="site-time"></span>
+    </div>
+    
+      <div class="site-footer-info">
+        <i class="fa fa-paw"></i> 您是本站第 <span id="site-count"></span> 位访客
+      </div>
+    
+    
+      <div class="site-footer-info">
+        <i class="fa fa-at"></i> Email: 834930269@qq.com
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-copyright"></i> 
+      2019 <a href="https://github.com/dongyuanxin/theme-ad/" target="_blank">Theme-AD</a>.
+      Created by <a href="https://godbmw.com/" target="_blank">GodBMW</a>.
+      All rights reserved.
+    </div>
+  </footer>
+</div>
+    <div id="site-layer" style="display:none;">
+  <div class="site-layer-content">
+    <div class="site-layer-header">
+      <span class="site-layer-header-title" id="site-layer-title"></span>
+      <i class="fa fa-close" id="site-layer-close"></i>
+    </div>
+    <div class="site-layer-body" id="site-layer-container">
+      <div class="site-layer-input" id="site-layer-search" style="display: none;">
+        <div class="site-layer-input-choose">
+          <a href="javascript:void(0);" title="Change Search Engine">Google</a>
+        </div>
+        <input type="text">
+        <i class="fa fa-search"></i>
+      </div>
+      
+        <div class="site-layer-reward" id="site-layer-reward" style="display: none;">
+          
+            <div>
+              <img src="/images/wechat.png" alt="WeChat">
+              
+                <p>WeChat</p>
+              
+            </div>
+          
+            <div>
+              <img src="/images/alipay.png" alt="AliPay">
+              
+                <p>AliPay</p>
+              
+            </div>
+          
+        </div>
+      
+      <div id="site-layer-welcome" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+    
+
+<div class="bottom-bar">
+  <div class="bottom-bar-left">
+    <a href="/passages/ecnucodera/" data-enable="true">
+      <i class="fa fa-arrow-left"></i>
+    </a>
+    <a href="/passages/javascriptsdy/" data-enable="true">
+      <i class="fa fa-arrow-right"></i>
+    </a>
+  </div>
+  <div class="bottom-bar-right">
+    <a href="javascript:void(0);" data-enable="true" id="site-toc-show-btn">
+      <i class="fa fa-bars"></i>
+    </a>
+    
+      <a href="#site-comment" data-enable="true">
+        <i class="fa fa-commenting"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="site-toggle-share-btn">
+      <i class="fa fa-share-alt"></i>
+    </a>
+    
+      <a href="javascript:void(0);" id="site-reward">
+        <i class="fa fa-thumbs-up"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="back-top-btn">
+      <i class="fa fa-chevron-up"></i>
+    </a>
+  </div>
+</div>
+    <div id="share-btn">
+  
+    <a id="share-btn-twitter" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-twitter"></i>
+    </a>
+  
+  
+    <a id="share-btn-facebook" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-facebook"></i>
+    </a>
+  
+  
+    <a id="share-btn-weibo" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-weibo"></i>
+    </a>
+  
+  
+    <a id="share-btn-qq" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-qq"></i>
+    </a>
+  
+  
+    <a id="share-btn-wechat" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-wechat"></i>
+    </a>
+  
+</div>
+    
+
+
+
+
+
+    
+  </body>
+</html>

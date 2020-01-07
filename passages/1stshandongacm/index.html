@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html>
+  
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="author" content="张文涛">
+  
+  
+  <title>山东省第一届省赛 | 山海经▪大荒经</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Sdut,STL,Trie,中途相遇法,二分搜索,数据结构,第一届ACM山东省塞,sdut,中途相遇法,Trie,第一届ACM山东省塞,">
+  
+
+  
+  <meta name="description" content="Winter Zhang的小站">
+
+  
+
+  
+    <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.1/dist/av-min.js" async></script>
+  
+
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+  
+
+  
+    <script src="//unpkg.com/valine/dist/Valine.min.js" async></script>
+  
+
+  
+
+  <script>
+  // theme-ad's config script
+  // it can be used in every script
+  
+  window.AD_CONFIG = {
+    leancloud: {"appid":"J7nVGeFex3em3P8A4ktCiv3b-gzGzoHsz","appkey":"XiR0DX1Kvlh3Et3UalbFN4Dq","comment":true,"count":true},
+    welcome: {"enable":false,"interval":30},
+    start_time: "2015-02-10",
+    passwords: ["c035b468e47fd966ac2df15e3d7f7a64d89b1dbf209c24caad6e62bffd90d4c7", ],
+    is_post: true,
+    lock: false,
+    author: "张文涛",
+    share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
+    mathjax: true,
+    page_type: "",
+    root: "/"
+  };
+</script>
+
+  <script src="/vendor/sha256.min.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/index.js"></script>
+<script src="/vendor/qrcode.min.js"></script>
+
+  
+    <link rel="icon" href="/images/favicon2.ico">
+    <link rel="apple-touch-icon" href="/images/touch-icon.png">
+  
+
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/styles/components/highlight/highlight.css">
+
+  
+</head>
+  <body>
+    <header class="site-header">
+  <div class="site-header-brand">
+    
+      <span class="site-header-brand-title">
+        <a href="/">1900</a>
+      </span>
+    
+    
+      <span class="site-header-brand-motto"> | 祝你平安幸福 我就不下船了</span>
+    
+  </div>
+  <div class="site-header-right">
+    <nav class="site-header-navigation">
+      
+        <a href="/" target="_self">首页</a>
+      
+        <a href="/archives/" target="_self">归档</a>
+      
+        <a href="/tags/" target="_self">标签</a>
+      
+        <a href="/categories/" target="_self">分类</a>
+      
+        <a href="/friends/" target="_self">友链</a>
+      
+        <a href="/about/" target="_self">关于</a>
+      
+    </nav>
+    <div class="site-header-btn">
+      
+        <a href="https://github.com/834930269/" target="_blank" id="site-github">
+          <i class="fa fa-github-alt"></i>
+        </a>
+      
+      <a href="javascript:void(0);" id="site-search">
+        <i class="fa fa-search"></i>
+      </a>
+      <a href="javascript:void(0);" id="site-nav-btn">
+        <i class="fa fa-ellipsis-v"></i>
+      </a>
+    </div>
+  </div>
+</header>
+<nav class="table-content" id="site-nav">
+  <div class="table-content-title">
+    <span>导航</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc">
+      
+        <li class="toc-item">
+          <a href="/" target="_self">
+            首页
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/archives/" target="_self">
+            归档
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/tags/" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/categories/" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/friends/" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/about/" target="_self">
+            关于
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</nav>
+<div id="site-process"></div>
+    <main>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2018-02-25
+    </span>
+    
+      <span>
+        | <a href="/categories/Sdut/"><i class="fa fa-bookmark"></i>Sdut</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    山东省第一届省赛
+  </h1>
+  
+  <article class="passage-article">
+    <h1 id="A-可水可Trie-Trie解法"><a href="#A-可水可Trie-Trie解法" class="headerlink" title="A: 可水可Trie,Trie解法"></a>A: 可水可Trie,Trie解法</h1><blockquote>
+<p>数据不大,因为题目没有给出字符串的大小,害怕暴力超时,所以用Trie写的.</p>
+</blockquote>
+<pre><code>#include&lt;bits/stdc++.h&gt;
+using namespace std;
+const int CHARSET=10,BASE=&apos;0&apos;,MAX_NODE=10100;
+struct Trie{
+    int tot,root,child[MAX_NODE][CHARSET];
+    bool flag[MAX_NODE];
+    bool has_prefix;
+    bool is_root[MAX_NODE][CHARSET];
+    Trie(){
+        //printf(&quot;New Trie\n&quot;);
+        memset(child[1],0,sizeof(child[1]));
+        memset(is_root,false,sizeof(is_root));
+        flag[1]=false;
+        has_prefix=false;
+        root=tot=1;
+    }
+    void insert(const char *str){
+        int *cur=&amp;root;
+        char last_char;
+        for(const char *p=str;*p;++p){
+            cur=&amp;child[*cur][*p-BASE];
+            last_char=*p;
+            if(is_root[*cur][last_char])has_prefix=true;
+            if(*cur==0){
+                *cur=++tot;
+                memset(child[tot],0,sizeof(child[tot]));
+                flag[tot]=false;
+            }
+        }
+        flag[*cur]=true;
+        is_root[*cur][last_char]=true;
+    }
+
+};
+int main(){
+    int n;
+    while(~scanf(&quot;%d&quot;,&amp;n) &amp;&amp; n){
+        Trie te;
+        char str[10000];
+        for(int i=0;i&lt;n;++i){
+            scanf(&quot;%s&quot;,str);
+            if(!te.has_prefix){
+                te.insert(str);
+            }
+        }
+        if(te.has_prefix){
+            printf(&quot;NO\n&quot;);
+        }else{
+            printf(&quot;YES\n&quot;);
+        }
+    }
+    return 0;
+}</code></pre><h1 id="B-思路比较清晰-就是写的时间长-我写了两份代码"><a href="#B-思路比较清晰-就是写的时间长-我写了两份代码" class="headerlink" title="B:思路比较清晰,就是写的时间长,我写了两份代码"></a>B:思路比较清晰,就是写的时间长,我写了两份代码</h1><h2 id="单树-map-套结构体Point重载-lt-二分-内存小-时间长"><a href="#单树-map-套结构体Point重载-lt-二分-内存小-时间长" class="headerlink" title="单树(map)套结构体Point重载&lt;+二分: 内存小,时间长"></a>单树(map)套结构体Point重载&lt;+二分: 内存小,时间长</h2><pre><code>#include&lt;bits/stdc++.h&gt;
+using namespace std;
+const int maxn=310;
+struct Point{
+    int x,y;
+    bool operator &lt; (const Point&amp; a)const{
+        if(x&lt;a.x) return true;
+        else if(x==a.x &amp;&amp; y&lt;a.y) return true;
+        return false;
+    }
+    bool operator == (const Point&amp; a)const{
+        if(x==a.x &amp;&amp; y==a.y) return true;
+        return false;
+    }
+
+};
+int N,kase=1;
+
+int xx,yy;
+char opt[10];
+
+map&lt;Point,bool&gt; G;//x点集0,true为未删除,false为删除
+map&lt;Point,bool&gt;::iterator it;
+
+void init(){
+    G.clear();
+}
+
+bool cmp(Point a,Point b){
+    if(a.x&lt;b.x &amp;&amp; a.y&lt;b.y)
+        return true;
+    return false;
+}
+
+void add(){
+    G[(Point){xx,yy}]=true;
+}
+
+void find_(int a,int b){
+    it=G.upper_bound((Point){a,b});
+    if(it==G.end()){
+        printf(&quot;-1\n&quot;);
+        return;
+    }
+    Point nw=it-&gt;first;
+    if(it-&gt;second &amp;&amp; nw.x&gt;xx &amp;&amp; nw.y&gt;yy){
+        printf(&quot;%d %d\n&quot;,nw.x,nw.y);
+    }else{
+        do{
+            it++;
+            if(it==G.end()){printf(&quot;-1\n&quot;);return;}
+            if(it-&gt;second &amp;&amp; (it-&gt;first).x&gt;xx &amp;&amp; (it-&gt;first).y&gt;yy){
+                printf(&quot;%d %d\n&quot;,(it-&gt;first).x, (it-&gt;first).y);
+                return;
+            }
+        }while(1);
+    }
+}
+
+void remove_(){
+    G[(Point){xx,yy}]=false;
+}
+
+int main(){
+    while(~scanf(&quot;%d&quot;,&amp;N) &amp;&amp; N){
+        init();
+        printf(&quot;Case %d:\n&quot;,kase++);
+        for(int i=0;i&lt;N;++i){
+            scanf(&quot;%s %d %d&quot;,opt,&amp;xx,&amp;yy);
+            if(opt[0]==&apos;a&apos;){
+                add();
+            }else if(opt[0]==&apos;f&apos;){
+                find_(xx,yy);
+            }else{
+                remove_();
+            }
+        }
+        printf(&quot;\n&quot;);
+    }
+    return 0;
+}
+
+/***************************************************
+User name: 奥术大师大所大
+Result: Accepted
+Take time: 904ms
+Take Memory: 5752KB
+Submit time: 2018-02-27 17:08:24
+****************************************************/</code></pre><h2 id="树-map-二分套树-map-二分-代码少-时间短-内存大"><a href="#树-map-二分套树-map-二分-代码少-时间短-内存大" class="headerlink" title="树(map)+二分套树(map)+二分,代码少,时间短,内存大"></a>树(map)+二分套树(map)+二分,代码少,时间短,内存大</h2><pre><code>#include&lt;bits/stdc++.h&gt;
+using namespace std;
+const int maxn=310;
+
+int N,kase=1;
+
+int xx,yy;
+char opt[10];
+
+map&lt;int,map&lt;int,bool&gt; &gt; G;//x点集0,true为未删除,false为删除
+map&lt;int,bool&gt;::iterator ity;
+map&lt;int,map&lt;int,bool&gt; &gt;::iterator itx;
+
+void init(){
+    G.clear();
+}
+
+void add(){
+    (G[xx])[yy]=true;
+}
+
+void find_(){
+    itx=G.upper_bound(xx);
+    while(1){
+        if(itx!=G.end()){
+            ity=(itx-&gt;second).upper_bound(yy);
+            if(ity!=(itx-&gt;second).end() &amp;&amp; ity-&gt;second){
+                printf(&quot;%d %d\n&quot;,itx-&gt;first,ity-&gt;first);
+                return;
+            }
+            if(ity!=(itx-&gt;second).end()){
+                for(ity++;ity!=(itx-&gt;second).end();ity++){
+                    if(ity-&gt;second){
+                        printf(&quot;%d %d\n&quot;,itx-&gt;first,ity-&gt;first);
+                        return;
+                    }
+                }
+            }
+        }else break;
+        itx++;
+    }
+    printf(&quot;-1\n&quot;);
+}
+
+void remove_(){
+    (G[xx])[yy]=false;
+}
+
+int main(){
+    while(~scanf(&quot;%d&quot;,&amp;N) &amp;&amp; N){
+        init();
+        printf(&quot;Case %d:\n&quot;,kase++);
+        for(int i=0;i&lt;N;++i){
+            scanf(&quot;%s %d %d&quot;,opt,&amp;xx,&amp;yy);
+            if(opt[0]==&apos;a&apos;){
+                add();
+            }else if(opt[0]==&apos;f&apos;){
+                find_();
+            }else{
+                remove_();
+            }
+        }
+        printf(&quot;\n&quot;);
+    }
+    return 0;
+}
+
+
+/***************************************************
+User name: 奥术大师大所大
+Result: Accepted
+Take time: 516ms
+Take Memory: 12712KB
+Submit time: 2018-02-27 17:24:44
+****************************************************/</code></pre><h2 id="然后我百度一下原题-发现set直接删除就好…还是STL不太熟-内存小-用时也少-不过没第二份少"><a href="#然后我百度一下原题-发现set直接删除就好…还是STL不太熟-内存小-用时也少-不过没第二份少" class="headerlink" title="然后我百度一下原题,发现set直接删除就好…还是STL不太熟,内存小,用时也少,不过没第二份少"></a>然后我百度一下原题,发现set直接删除就好…还是STL不太熟,内存小,用时也少,不过没第二份少</h2><pre><code>#include &lt;iostream&gt;  
+#include &lt;stdio.h&gt;  
+#include &lt;algorithm&gt;  
+#include &lt;set&gt;  
+#include &lt;string&gt;  
+using namespace std;  
+
+int main()  
+{  
+    pair&lt;int,int&gt;p;  
+    int n;char str[10];  
+    int c=1;  
+    while(cin&gt;&gt;n&amp;&amp;n)  
+    {  
+        cout&lt;&lt;&quot;Case &quot;&lt;&lt;c++&lt;&lt;&quot;:&quot;&lt;&lt;endl;  
+        set&lt; pair&lt;int,int&gt; &gt;s;  
+        while(n--)  
+        {  
+            scanf(&quot;%s&quot;,str);  
+            scanf(&quot;%d%d&quot;,&amp;p.first,&amp;p.second);  
+            if(str[0]==&apos;a&apos;)  
+                s.insert(p);  
+            else if(str[0]==&apos;r&apos;)  
+                s.erase(p);  
+            else if(str[0]==&apos;f&apos;)  
+            {  
+                set&lt; pair&lt;int,int&gt; &gt;::iterator it;  
+                it=s.lower_bound(p);//找到set中第一个比p大的元素的位置，找不到则为s.end()  
+                for(;it!=s.end();it++)  
+                {  
+                    if(it-&gt;first&gt;p.first&amp;&amp;it-&gt;second&gt;p.second)//都大于才符合题意  
+                    {  
+                        cout&lt;&lt;it-&gt;first&lt;&lt;&quot; &quot;&lt;&lt;it-&gt;second&lt;&lt;endl;  
+                        break;  
+                    }  
+                }  
+                if(it==s.end())//找不到  
+                    cout&lt;&lt;-1&lt;&lt;endl;  
+            }  
+        }  
+        cout&lt;&lt;endl;  
+    }  
+    return 0;  
+}  </code></pre><h2 id="貌似还可以用线段树优化"><a href="#貌似还可以用线段树优化" class="headerlink" title="貌似还可以用线段树优化.."></a>貌似还可以用线段树优化..</h2><h3 id="F-k"><a href="#F-k" class="headerlink" title="F**k"></a>F**k</h3><h1 id="C-排序水过-别问我为啥写的那么麻烦…因为我半截才想到-懒得改了"><a href="#C-排序水过-别问我为啥写的那么麻烦…因为我半截才想到-懒得改了" class="headerlink" title="C:排序水过,别问我为啥写的那么麻烦…因为我半截才想到,懒得改了"></a>C:排序水过,别问我为啥写的那么麻烦…因为我半截才想到,懒得改了</h1><pre><code>#include&lt;bits/stdc++.h&gt;
+using namespace std;
+const int maxn=310;
+struct Query{
+    int s,t;
+};
+int N,kase=1;
+int main(){
+    while(~scanf(&quot;%d&quot;,&amp;N) &amp;&amp; N){
+        priority_queue&lt;int,vector&lt;int&gt;,greater&lt;int&gt; &gt; G[maxn];
+        priority_queue&lt;int,vector&lt;int&gt;,greater&lt;int&gt; &gt; it;
+        vector&lt;Query&gt; Q;
+        for(int i=1;i&lt;=N;++i){
+            int s,t;
+            scanf(&quot;%d%d&quot;,&amp;s,&amp;t);
+            G[s].push(t);
+            Q.push_back((Query){s,t});
+        }
+        printf(&quot;Case %d:\n&quot;,kase++);
+        for(int i=0;i&lt;Q.size();++i){
+            int s=Q[i].s,t=Q[i].t;
+            bool has_ans=false;
+            for(int j=s+1;j&lt;=309 &amp;&amp; !has_ans;++j){
+                it=G[j];
+                while(!it.empty()){
+                    int nw=it.top();it.pop();
+                    if(nw&gt;t){
+                        has_ans=true;
+                        printf(&quot;%d %d\n&quot;,j,nw);
+                        break;
+                    }
+                }
+            }
+            if(!has_ans){
+                printf(&quot;-1 -1\n&quot;);
+            }
+        }
+        printf(&quot;\n&quot;);
+    }
+    return 0;
+}</code></pre><h1 id="D-中途相遇法-负值二分"><a href="#D-中途相遇法-负值二分" class="headerlink" title="D:中途相遇法+负值二分"></a>D:中途相遇法+负值二分</h1><blockquote>
+<p>因为内置的lower_bound只能查找第一个大于等于的,而我们需要的是小于等于的,所以将所有的值变成负数插入到vector中即可. 这道题N^4肯定是不可行的.所以我们考虑用中途相遇法,</p>
+<blockquote>
+<p>即先处理出任意两个值的和,然后遍历和数组,在原数组中查找是否存在一个值和当前和相加&lt;=M,如果等于M,break即可.</p>
+</blockquote>
+</blockquote>
+<pre><code>#include&lt;bits/stdc++.h&gt;
+#define INF 0x3f3f3f3f
+using namespace std;
+typedef long long LL;
+const int maxn=2000;
+int N,M,KASE=1;
+int arr[maxn];
+vector&lt;int&gt; first;
+int main(){
+    while(~scanf(&quot;%d%d&quot;,&amp;N,&amp;M) &amp;&amp; N+M){
+        first.clear();
+        int ans=0;
+        for(int i=0;i&lt;N;++i) scanf(&quot;%d&quot;,&amp;arr[i]);
+        for(int i=0;i&lt;N;++i){
+            for(int j=i;j&lt;N;++j){
+                first.push_back(-(arr[i]+arr[j]));
+            }
+        }
+        sort(first.begin(),first.end());
+        for(int i=0;i&lt;first.size();++i){
+            int need=M+first[i];
+            if(need&lt;=0) continue;
+            else{
+                int id=lower_bound(first.begin(),first.end(),-need)-first.begin();
+                int nw=-(first[i]+first[id]);
+                if(nw&lt;=M) ans=max(ans,nw);
+            }
+            if(ans==M)break;
+        }
+        printf(&quot;Case %d: %d\n\n&quot;,KASE++,ans);
+    }
+    return 0;
+}</code></pre><h1 id="G-排序水过"><a href="#G-排序水过" class="headerlink" title="G:排序水过"></a>G:排序水过</h1><blockquote>
+<p>一开始没读懂题意时最难受的</p>
+</blockquote>
+<pre><code>#include&lt;bits/stdc++.h&gt;
+using namespace std;
+typedef long long LL;
+const int maxn=100100;
+int Dist[maxn],N;
+int main(){
+    while(~scanf(&quot;%d&quot;,&amp;N) &amp;&amp; N){
+        for(int i=0;i&lt;N;++i){
+            scanf(&quot;%d&quot;,&amp;Dist[i]);
+        }
+        sort(Dist,Dist+N);
+        LL ans=0ll;
+        for(int i=1;i&lt;N;++i){
+            ans+=((Dist[i]-Dist[i-1])&lt;&lt;1);
+        }
+        printf(&quot;%lld\n&quot;,ans);
+    }
+    return 0;
+}</code></pre><h1 id="I-分别进行两个dfs即可-四方向和八方向"><a href="#I-分别进行两个dfs即可-四方向和八方向" class="headerlink" title="I:分别进行两个dfs即可,四方向和八方向"></a>I:分别进行两个dfs即可,四方向和八方向</h1><pre><code>#include&lt;bits/stdc++.h&gt;
+using namespace std;
+
+int move1[4][2]={ {0,-1},{0,1},{-1,0},{1,0}};
+int move2[8][2]={ {0,-1},{0,1},{-1,0},{1,0},
+                 {1,-1},{1,1},{-1,-1},{-1,1}};
+char mp[110][110];
+int N,kase=1;
+int vis1[110][110],vis2[110][110];
+
+void init(){
+    memset(vis1,0,sizeof(vis1));
+    memset(vis2,0,sizeof(vis2));
+}
+
+bool check(int x,int y){
+    if(x&gt;=N || y&gt;=N || x&lt;0 || y&lt;0 || mp[x][y]==&apos;0&apos;)
+        return false;
+    return true;
+}
+
+void dfs4(int x,int y){
+    if(!check(x,y) || vis1[x][y]) return;
+    vis1[x][y]=1;
+    for(int i=0;i&lt;4;++i){
+        int nx=x+move1[i][0],ny=y+move1[i][1];
+        dfs4(nx,ny);
+    }
+}
+
+void dfs8(int x,int y){
+    if(!check(x,y) || vis2[x][y]) return;
+    vis2[x][y]=1;
+    for(int i=0;i&lt;8;++i){
+        int nx=x+move2[i][0],ny=y+move2[i][1];
+        dfs8(nx,ny);
+    }
+}
+
+int main(){
+    while(~scanf(&quot;%d&quot;,&amp;N) &amp;&amp; N){
+        init();
+        for(int i=0;i&lt;N;++i){
+            scanf(&quot;%s&quot;,mp[i]);
+        }
+        int ans4=0,ans8=0;
+        for(int i=0;i&lt;N;++i){
+            for(int j=0;j&lt;N;++j){
+                if(mp[i][j]==&apos;1&apos; &amp;&amp; !vis1[i][j]){
+                    ans4++,dfs4(i,j);
+                }
+                if(mp[i][j]==&apos;1&apos; &amp;&amp; !vis2[i][j]){
+                    ans8++,dfs8(i,j);
+                }
+            }
+        }
+        printf(&quot;Case %d: %d %d\n\n&quot;,kase++,ans4,ans8);
+    }
+    return 0;
+}</code></pre><h1 id="E-大模拟"><a href="#E-大模拟" class="headerlink" title="E:大模拟"></a>E:大模拟</h1><p>大模拟</p>
+<pre><code>#include&lt;bits/stdc++.h&gt;
+using namespace std;
+#define INF 0x3f3f3f3f
+typedef long long LL;
+const int maxn=35;
+int N,kase=1;
+char mp[maxn][maxn];
+int vis[maxn][maxn][maxn][maxn][5];
+///EWSN东西南北
+int dis[4][2]={ {0,1},{0,-1},{1,0},{-1,0}};
+///saya更喜欢EWNS
+int nt[4][2]={ {0,1},{0,-1},{-1,0},{1,0}};
+
+bool check(int x,int y){
+    if(x&lt;0||y&lt;0||x&gt;=N||y&gt;=N)return false;
+    return true;
+}
+///返回当前的朝向在,数组为dis
+int now_dir(int x,int y,int t){
+    char str=mp[x][y];
+    int in=0;
+    if(str==&apos;E&apos;) in=0;
+    else if(str==&apos;W&apos;) in=1;
+    else if(str==&apos;S&apos;) in=2;
+    else in=3;
+    in+=t;
+    return in%4;
+}
+
+int dist(int x,int y,int tx,int ty){
+    return (x-tx)*(x-tx)+(y-ty)*(y-ty);
+}
+
+int query_dir(int x,int y,int tx,int ty){
+    int mind=INF,dir_=-1;
+    for(int i=0;i&lt;4;++i){
+        int xx=x+nt[i][0],yy=y+nt[i][1];
+        if(!check(xx,yy)) continue;
+        int d=dist(xx,yy,tx,ty);
+        if(mind&gt;d){
+            mind=d;
+            dir_=i;
+        }
+    }
+    ///返回第一个想走的方向
+    return dir_;
+}
+
+int main(){
+    while(scanf(&quot;%d&quot;,&amp;N)!=EOF &amp;&amp; N!=0){
+        memset(vis,0,sizeof(vis));
+        for(int i=0;i&lt;N;++i){
+            scanf(&quot;%s&quot;,&amp;mp[i]);
+        }
+        int x=0,y=0,tx=N-1,ty=N-1,step=0;
+        int xx,yy,txx,tyy;
+        printf(&quot;Case %d:\n&quot;,kase++);
+        while(1){
+            if(step&gt;=100){
+                printf(&quot;Not sure.\n&quot;);
+                break;
+            }
+            if(tx==x&amp;&amp;ty==y){
+                printf(&quot;Get the treasure! At step %d.\n&quot;,step);
+                break;
+            }
+            ///saya第一步
+            int saya=now_dir(x,y,step);
+            xx=x+dis[saya][0],yy=y+dis[saya][1];
+            if(check(xx,yy)){
+                x=xx,y=yy;
+            }
+            ///saya第二步
+            if(!(x==tx&amp;&amp;y==ty)){
+                int goal=query_dir(x,y,tx,ty);
+                xx=x+nt[goal][0],yy=y+nt[goal][1];
+                if(check(xx,yy)){
+                    x=xx,y=yy;
+                }
+            }
+            ///宝藏走
+            int tres=now_dir(tx,ty,step);
+            txx=tx+dis[tres][0],tyy=ty+dis[tres][1];
+            if(check(txx,tyy)){
+                tx=txx,ty=tyy;
+            }
+
+            if(vis[x][y][tx][ty][step%4]){
+                printf(&quot;Impossible. At step %d.\n&quot;,step);
+                break;
+            }else{
+                vis[x][y][tx][ty][step%4]=1;
+            }
+            step+=1;
+        }
+        printf(&quot;\n&quot;);
+    }
+    return 0;
+}</code></pre>
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#A-可水可Trie-Trie解法"><span class="toc-text">A: 可水可Trie,Trie解法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#B-思路比较清晰-就是写的时间长-我写了两份代码"><span class="toc-text">B:思路比较清晰,就是写的时间长,我写了两份代码</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#单树-map-套结构体Point重载-lt-二分-内存小-时间长"><span class="toc-text">单树(map)套结构体Point重载&lt;+二分: 内存小,时间长</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#树-map-二分套树-map-二分-代码少-时间短-内存大"><span class="toc-text">树(map)+二分套树(map)+二分,代码少,时间短,内存大</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#然后我百度一下原题-发现set直接删除就好…还是STL不太熟-内存小-用时也少-不过没第二份少"><span class="toc-text">然后我百度一下原题,发现set直接删除就好…还是STL不太熟,内存小,用时也少,不过没第二份少</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#貌似还可以用线段树优化"><span class="toc-text">貌似还可以用线段树优化..</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#F-k"><span class="toc-text">F**k</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#C-排序水过-别问我为啥写的那么麻烦…因为我半截才想到-懒得改了"><span class="toc-text">C:排序水过,别问我为啥写的那么麻烦…因为我半截才想到,懒得改了</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#D-中途相遇法-负值二分"><span class="toc-text">D:中途相遇法+负值二分</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#G-排序水过"><span class="toc-text">G:排序水过</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#I-分别进行两个dfs即可-四方向和八方向"><span class="toc-text">I:分别进行两个dfs即可,四方向和八方向</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#E-大模拟"><span class="toc-text">E:大模拟</span></a></li></ol>
+  </div>
+</aside>
+  
+    <aside class="passage-copyright">
+      <div>本文作者: 张文涛</div>
+      
+        <div>
+          原文链接: 
+          <a href="" target="_blank">http://be-sunshine.cn/passages/1stshandongacm/</a>
+        </div>
+      
+      <div>
+        版权声明: 本博客所有文章除特别声明外, 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议. 转载请注明出处!
+      </div>
+    </aside>
+  
+  
+    <div class="passage-tags">
+     
+      <a href="/tags/sdut/"><i class="fa fa-tags"></i>sdut</a>
+     
+      <a href="/tags/中途相遇法/"><i class="fa fa-tags"></i>中途相遇法</a>
+     
+      <a href="/tags/Trie/"><i class="fa fa-tags"></i>Trie</a>
+     
+      <a href="/tags/第一届ACM山东省塞/"><i class="fa fa-tags"></i>第一届ACM山东省塞</a>
+    
+    </div>
+  
+</div>
+
+    </main>
+    
+      
+<div class="site-comment-contanier" data-plateform="leancloud">
+  
+    <p id="site-comment-info">
+      <i class="fa fa-spinner fa-spin"></i> 评论加载中
+    </p>
+    <div id="site-comment"></div>
+  
+</div>
+    
+    <div class="site-footer-wrapper">
+  <footer class="site-footer">
+    
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">博客推荐</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/" target="_blank">GodBMW</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="http://ruanyifeng.com/" target="_blank">阮一峰的个人网站</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">系列教程</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/categories/webpack4%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B/" target="_blank">webpack4系列教程</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/design-patterns/" target="_blank">设计模式手册</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">抓到我</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://weibo.com/3260959934/" target="_blank">微博</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://github.com/834930269" target="_blank">Github</a>
+            </span>
+          
+        </div>
+      
+    
+    <div class="site-footer-info">
+      <i class="fa fa-clock-o"></i> 本站已稳定运行<span id="site-time"></span>
+    </div>
+    
+      <div class="site-footer-info">
+        <i class="fa fa-paw"></i> 您是本站第 <span id="site-count"></span> 位访客
+      </div>
+    
+    
+      <div class="site-footer-info">
+        <i class="fa fa-at"></i> Email: 834930269@qq.com
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-copyright"></i> 
+      2019 <a href="https://github.com/dongyuanxin/theme-ad/" target="_blank">Theme-AD</a>.
+      Created by <a href="https://godbmw.com/" target="_blank">GodBMW</a>.
+      All rights reserved.
+    </div>
+  </footer>
+</div>
+    <div id="site-layer" style="display:none;">
+  <div class="site-layer-content">
+    <div class="site-layer-header">
+      <span class="site-layer-header-title" id="site-layer-title"></span>
+      <i class="fa fa-close" id="site-layer-close"></i>
+    </div>
+    <div class="site-layer-body" id="site-layer-container">
+      <div class="site-layer-input" id="site-layer-search" style="display: none;">
+        <div class="site-layer-input-choose">
+          <a href="javascript:void(0);" title="Change Search Engine">Google</a>
+        </div>
+        <input type="text">
+        <i class="fa fa-search"></i>
+      </div>
+      
+        <div class="site-layer-reward" id="site-layer-reward" style="display: none;">
+          
+            <div>
+              <img src="/images/wechat.png" alt="WeChat">
+              
+                <p>WeChat</p>
+              
+            </div>
+          
+            <div>
+              <img src="/images/alipay.png" alt="AliPay">
+              
+                <p>AliPay</p>
+              
+            </div>
+          
+        </div>
+      
+      <div id="site-layer-welcome" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+    
+
+<div class="bottom-bar">
+  <div class="bottom-bar-left">
+    <a href="/passages/jql-qaq/" data-enable="true">
+      <i class="fa fa-arrow-left"></i>
+    </a>
+    <a href="/passages/20185-g/" data-enable="true">
+      <i class="fa fa-arrow-right"></i>
+    </a>
+  </div>
+  <div class="bottom-bar-right">
+    <a href="javascript:void(0);" data-enable="true" id="site-toc-show-btn">
+      <i class="fa fa-bars"></i>
+    </a>
+    
+      <a href="#site-comment" data-enable="true">
+        <i class="fa fa-commenting"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="site-toggle-share-btn">
+      <i class="fa fa-share-alt"></i>
+    </a>
+    
+      <a href="javascript:void(0);" id="site-reward">
+        <i class="fa fa-thumbs-up"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="back-top-btn">
+      <i class="fa fa-chevron-up"></i>
+    </a>
+  </div>
+</div>
+    <div id="share-btn">
+  
+    <a id="share-btn-twitter" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-twitter"></i>
+    </a>
+  
+  
+    <a id="share-btn-facebook" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-facebook"></i>
+    </a>
+  
+  
+    <a id="share-btn-weibo" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-weibo"></i>
+    </a>
+  
+  
+    <a id="share-btn-qq" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-qq"></i>
+    </a>
+  
+  
+    <a id="share-btn-wechat" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-wechat"></i>
+    </a>
+  
+</div>
+    
+
+
+
+
+
+    
+  </body>
+</html>

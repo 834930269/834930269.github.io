@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html>
+  
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="author" content="张文涛">
+  
+  
+  <title>UVa 11538 | 山海经▪大荒经</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="UVa,数论,组合数学,数论,组合数学,UVa,">
+  
+
+  
+  <meta name="description" content="Winter Zhang的小站">
+
+  
+
+  
+    <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.1/dist/av-min.js" async></script>
+  
+
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+  
+
+  
+    <script src="//unpkg.com/valine/dist/Valine.min.js" async></script>
+  
+
+  
+
+  <script>
+  // theme-ad's config script
+  // it can be used in every script
+  
+  window.AD_CONFIG = {
+    leancloud: {"appid":"J7nVGeFex3em3P8A4ktCiv3b-gzGzoHsz","appkey":"XiR0DX1Kvlh3Et3UalbFN4Dq","comment":true,"count":true},
+    welcome: {"enable":false,"interval":30},
+    start_time: "2015-02-10",
+    passwords: ["c035b468e47fd966ac2df15e3d7f7a64d89b1dbf209c24caad6e62bffd90d4c7", ],
+    is_post: true,
+    lock: false,
+    author: "张文涛",
+    share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
+    mathjax: true,
+    page_type: "",
+    root: "/"
+  };
+</script>
+
+  <script src="/vendor/sha256.min.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/index.js"></script>
+<script src="/vendor/qrcode.min.js"></script>
+
+  
+    <link rel="icon" href="/images/favicon2.ico">
+    <link rel="apple-touch-icon" href="/images/touch-icon.png">
+  
+
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/styles/components/highlight/highlight.css">
+
+  
+</head>
+  <body>
+    <header class="site-header">
+  <div class="site-header-brand">
+    
+      <span class="site-header-brand-title">
+        <a href="/">1900</a>
+      </span>
+    
+    
+      <span class="site-header-brand-motto"> | 祝你平安幸福 我就不下船了</span>
+    
+  </div>
+  <div class="site-header-right">
+    <nav class="site-header-navigation">
+      
+        <a href="/" target="_self">首页</a>
+      
+        <a href="/archives/" target="_self">归档</a>
+      
+        <a href="/tags/" target="_self">标签</a>
+      
+        <a href="/categories/" target="_self">分类</a>
+      
+        <a href="/friends/" target="_self">友链</a>
+      
+        <a href="/about/" target="_self">关于</a>
+      
+    </nav>
+    <div class="site-header-btn">
+      
+        <a href="https://github.com/834930269/" target="_blank" id="site-github">
+          <i class="fa fa-github-alt"></i>
+        </a>
+      
+      <a href="javascript:void(0);" id="site-search">
+        <i class="fa fa-search"></i>
+      </a>
+      <a href="javascript:void(0);" id="site-nav-btn">
+        <i class="fa fa-ellipsis-v"></i>
+      </a>
+    </div>
+  </div>
+</header>
+<nav class="table-content" id="site-nav">
+  <div class="table-content-title">
+    <span>导航</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc">
+      
+        <li class="toc-item">
+          <a href="/" target="_self">
+            首页
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/archives/" target="_self">
+            归档
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/tags/" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/categories/" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/friends/" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/about/" target="_self">
+            关于
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</nav>
+<div id="site-process"></div>
+    <main>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2018-02-04
+    </span>
+    
+      <span>
+        | <a href="/categories/UVa/"><i class="fa fa-bookmark"></i>UVa</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    UVa 11538
+  </h1>
+  
+  <article class="passage-article">
+    <h1 id="题目连接："><a href="#题目连接：" class="headerlink" title="题目连接："></a>题目连接：</h1><p><a href="https://odzkskevi.qnssl.com/865929a003dafabd8556e993f05c6637?v=1517622087" title="https://odzkskevi.qnssl.com/865929a003dafabd8556e993f05c6637?v=1517622087" target="_blank" rel="noopener">https://odzkskevi.qnssl.com/865929a003dafabd8556e993f05c6637?v=1517622087</a> PS: 蓝书P105，书上有一个错误的地方,Sigma(1<del>n-1) i(i-1)那里书上得到的结果是2*Sigma(1</del>n-1) i(i-1)的结果.我在代码中标注了.</p>
+<h1 id="Link"><a href="#Link" class="headerlink" title="Link:"></a>Link:</h1><p><a href="https://vjudge.net/problem/UVA-11538" target="_blank" rel="noopener">https://vjudge.net/problem/UVA-11538</a> type: 组合数学,乘法/加法原理,以及初中数学n^2和=n(n+1)(2n+1)/6</p>
+<h1 id="题意"><a href="#题意" class="headerlink" title="题意:"></a>题意:</h1><p>有N×M大小的棋盘,问,给你两个皇后,使他们可以互相攻击对方的可能有多少种.</p>
+<h1 id="题解"><a href="#题解" class="headerlink" title="题解:"></a>题解:</h1><blockquote>
+<p>分为三个方向,第一个方向为同一行,第二个方向为同一列,第三个方向为同一斜线</p>
+<blockquote>
+<p>同一行: 对于白皇后有nm种取法,每种取法中黑皇后有(m-1)种取法,所以结果是nm(m-1) 同一列: 合同一行类似,结果是nm(n-1) 同一斜线: 画图观察,假设n&lt;=m,(n&gt;m可以不用看,因为等价于n&lt;=m转置)</p>
+<blockquote>
+<p>可以观测到所有’/‘方向的斜线长度为: 1,2,3,…,n,n,n,n-1,n-2…,2,1 其中n的个数 = 总条数-2×(n-1) = m+n-1-2n+2 = m-n+1(m&gt;n时反过来即可) 其中每条斜线上的取法种数 = i<em>(i-1) diagonal=Sigma(1~n-1) i(i-1) =&gt; i==1时确实是0种可能,因为皇后是放在块内而不是点上的. 则 All_diagonal = 2(2*diagonal+(m-n+1)*n</em>(n-1)) =&gt; 这里的乘2是因为有两种斜线’/‘和’\‘的可能 其中</p>
+<blockquote>
+<p>diagonal =Sigma(1<del>n-1) i^2 - Sigma(1</del>n-1) i =n(n-1)(2n-1)/6 - n(n-1)/2 =n(n-1)(2n-4)/6 All_diagonal = 2(2<em>(n(n-1)(2n-4)/6)+(m-n+1)*n\</em>(n-1)) = 2n(n-1)(3m-n-1)/3</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>这三种情况互不相交,最终答案就等于三者和.</p>
+</blockquote>
+<p>Code:</p>
+<pre><code>/*
+Link: https://vjudge.net/problem/UVA-11538
+type: 组合数学,乘法/加法原理,以及初中数学n^2和=n(n+1)(2n+1)/6
+
+题意: 有N×M大小的棋盘,问,给你两个皇后,使他们可以互相攻击对方的可能有多少种.
+
+题解: 分为三个方向,第一个方向为同一行,第二个方向为同一列,第三个方向为同一斜线
+
+同一行: 对于白皇后有nm种取法,每种取法中黑皇后有(m-1)种取法,所以结果是nm(m-1)
+同一列: 合同一行类似,结果是nm(n-1)
+同一斜线: 画图观察,假设n&lt;=m,(n&gt;m可以不用看,因为等价于n&lt;=m转置)
+    可以观测到所有&apos;/&apos;方向的斜线长度为: 1,2,3,...,n,n,n,n-1,n-2...,2,1
+    其中n的个数 = 总条数-2×(n-1) = m+n-1-2n+2 = m-n+1(m&gt;n时反过来即可)
+    其中每条斜线上的取法种数 = i*(i-1)
+    diagonal=Sigma(1~n-1) i(i-1)   =&gt;   i==1时确实是0种可能,因为皇后是放在块内而不是点上的.
+    则   All_diagonal = 2(2*diagonal+(m-n+1)*n*(n-1))  =&gt; 这里的乘2是因为有两种斜线&apos;/&apos;和&apos;\&apos;的可能
+    其中diagonal=Sigma(1~n-1) i^2 - Sigma(1~n-1) i  =&gt;n方和展开公式,等差数列求和
+                =n(n-1)(2n-1)/6 - n(n-1)/2
+                =n(n-1)(2n-4)/6
+
+        All_diagonal = 2(2*(n(n-1)(2n-4)/6)+(m-n+1)*n*(n-1))
+                     = 2n(n-1)(3m-n-1)/3
+
+这三种情况互不相交,最终答案就等于三者和.
+*/
+
+//Code
+#include&lt;bits/stdc++.h&gt;
+using namespace std;
+unsigned long long N,M;
+int main(){
+    while(cin&gt;&gt;N&gt;&gt;M){
+        if(N==0&amp;&amp;M==0)break;
+        unsigned long long row=N*M*(M-1);
+        unsigned long long column=N*M*(N-1);
+
+        if(N&gt;M) swap(N,M);
+        cout&lt;&lt;row+column+2*N*(N-1)*(3*M-N-1)/3&lt;&lt;endl;
+    }
+    return 0;
+}</code></pre>
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#题目连接："><span class="toc-text">题目连接：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Link"><span class="toc-text">Link:</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#题意"><span class="toc-text">题意:</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#题解"><span class="toc-text">题解:</span></a></li></ol>
+  </div>
+</aside>
+  
+    <aside class="passage-copyright">
+      <div>本文作者: 张文涛</div>
+      
+        <div>
+          原文链接: 
+          <a href="" target="_blank">http://be-sunshine.cn/passages/uva-11538/</a>
+        </div>
+      
+      <div>
+        版权声明: 本博客所有文章除特别声明外, 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议. 转载请注明出处!
+      </div>
+    </aside>
+  
+  
+    <div class="passage-tags">
+     
+      <a href="/tags/数论/"><i class="fa fa-tags"></i>数论</a>
+     
+      <a href="/tags/组合数学/"><i class="fa fa-tags"></i>组合数学</a>
+     
+      <a href="/tags/UVa/"><i class="fa fa-tags"></i>UVa</a>
+    
+    </div>
+  
+</div>
+
+    </main>
+    
+      
+<div class="site-comment-contanier" data-plateform="leancloud">
+  
+    <p id="site-comment-info">
+      <i class="fa fa-spinner fa-spin"></i> 评论加载中
+    </p>
+    <div id="site-comment"></div>
+  
+</div>
+    
+    <div class="site-footer-wrapper">
+  <footer class="site-footer">
+    
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">博客推荐</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/" target="_blank">GodBMW</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="http://ruanyifeng.com/" target="_blank">阮一峰的个人网站</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">系列教程</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/categories/webpack4%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B/" target="_blank">webpack4系列教程</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/design-patterns/" target="_blank">设计模式手册</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">抓到我</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://weibo.com/3260959934/" target="_blank">微博</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://github.com/834930269" target="_blank">Github</a>
+            </span>
+          
+        </div>
+      
+    
+    <div class="site-footer-info">
+      <i class="fa fa-clock-o"></i> 本站已稳定运行<span id="site-time"></span>
+    </div>
+    
+      <div class="site-footer-info">
+        <i class="fa fa-paw"></i> 您是本站第 <span id="site-count"></span> 位访客
+      </div>
+    
+    
+      <div class="site-footer-info">
+        <i class="fa fa-at"></i> Email: 834930269@qq.com
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-copyright"></i> 
+      2019 <a href="https://github.com/dongyuanxin/theme-ad/" target="_blank">Theme-AD</a>.
+      Created by <a href="https://godbmw.com/" target="_blank">GodBMW</a>.
+      All rights reserved.
+    </div>
+  </footer>
+</div>
+    <div id="site-layer" style="display:none;">
+  <div class="site-layer-content">
+    <div class="site-layer-header">
+      <span class="site-layer-header-title" id="site-layer-title"></span>
+      <i class="fa fa-close" id="site-layer-close"></i>
+    </div>
+    <div class="site-layer-body" id="site-layer-container">
+      <div class="site-layer-input" id="site-layer-search" style="display: none;">
+        <div class="site-layer-input-choose">
+          <a href="javascript:void(0);" title="Change Search Engine">Google</a>
+        </div>
+        <input type="text">
+        <i class="fa fa-search"></i>
+      </div>
+      
+        <div class="site-layer-reward" id="site-layer-reward" style="display: none;">
+          
+            <div>
+              <img src="/images/wechat.png" alt="WeChat">
+              
+                <p>WeChat</p>
+              
+            </div>
+          
+            <div>
+              <img src="/images/alipay.png" alt="AliPay">
+              
+                <p>AliPay</p>
+              
+            </div>
+          
+        </div>
+      
+      <div id="site-layer-welcome" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+    
+
+<div class="bottom-bar">
+  <div class="bottom-bar-left">
+    <a href="/passages/uva-11401/" data-enable="true">
+      <i class="fa fa-arrow-left"></i>
+    </a>
+    <a href="/passages/machine-learning-knn/" data-enable="true">
+      <i class="fa fa-arrow-right"></i>
+    </a>
+  </div>
+  <div class="bottom-bar-right">
+    <a href="javascript:void(0);" data-enable="true" id="site-toc-show-btn">
+      <i class="fa fa-bars"></i>
+    </a>
+    
+      <a href="#site-comment" data-enable="true">
+        <i class="fa fa-commenting"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="site-toggle-share-btn">
+      <i class="fa fa-share-alt"></i>
+    </a>
+    
+      <a href="javascript:void(0);" id="site-reward">
+        <i class="fa fa-thumbs-up"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="back-top-btn">
+      <i class="fa fa-chevron-up"></i>
+    </a>
+  </div>
+</div>
+    <div id="share-btn">
+  
+    <a id="share-btn-twitter" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-twitter"></i>
+    </a>
+  
+  
+    <a id="share-btn-facebook" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-facebook"></i>
+    </a>
+  
+  
+    <a id="share-btn-weibo" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-weibo"></i>
+    </a>
+  
+  
+    <a id="share-btn-qq" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-qq"></i>
+    </a>
+  
+  
+    <a id="share-btn-wechat" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-wechat"></i>
+    </a>
+  
+</div>
+    
+
+
+
+
+
+    
+  </body>
+</html>

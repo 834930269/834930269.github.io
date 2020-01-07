@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html>
+  
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="author" content="张文涛">
+  
+  
+  <title>第七届山东省ACM/ICPC H Memory Leak | 山海经▪大荒经</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Sdut,模拟,第七届ACM山东省赛,模拟,sdut,第七届ACM山东省赛,">
+  
+
+  
+  <meta name="description" content="Winter Zhang的小站">
+
+  
+
+  
+    <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.1/dist/av-min.js" async></script>
+  
+
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+  
+
+  
+    <script src="//unpkg.com/valine/dist/Valine.min.js" async></script>
+  
+
+  
+
+  <script>
+  // theme-ad's config script
+  // it can be used in every script
+  
+  window.AD_CONFIG = {
+    leancloud: {"appid":"J7nVGeFex3em3P8A4ktCiv3b-gzGzoHsz","appkey":"XiR0DX1Kvlh3Et3UalbFN4Dq","comment":true,"count":true},
+    welcome: {"enable":false,"interval":30},
+    start_time: "2015-02-10",
+    passwords: ["c035b468e47fd966ac2df15e3d7f7a64d89b1dbf209c24caad6e62bffd90d4c7", ],
+    is_post: true,
+    lock: false,
+    author: "张文涛",
+    share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
+    mathjax: true,
+    page_type: "",
+    root: "/"
+  };
+</script>
+
+  <script src="/vendor/sha256.min.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/index.js"></script>
+<script src="/vendor/qrcode.min.js"></script>
+
+  
+    <link rel="icon" href="/images/favicon2.ico">
+    <link rel="apple-touch-icon" href="/images/touch-icon.png">
+  
+
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/styles/components/highlight/highlight.css">
+
+  
+</head>
+  <body>
+    <header class="site-header">
+  <div class="site-header-brand">
+    
+      <span class="site-header-brand-title">
+        <a href="/">1900</a>
+      </span>
+    
+    
+      <span class="site-header-brand-motto"> | 祝你平安幸福 我就不下船了</span>
+    
+  </div>
+  <div class="site-header-right">
+    <nav class="site-header-navigation">
+      
+        <a href="/" target="_self">首页</a>
+      
+        <a href="/archives/" target="_self">归档</a>
+      
+        <a href="/tags/" target="_self">标签</a>
+      
+        <a href="/categories/" target="_self">分类</a>
+      
+        <a href="/friends/" target="_self">友链</a>
+      
+        <a href="/about/" target="_self">关于</a>
+      
+    </nav>
+    <div class="site-header-btn">
+      
+        <a href="https://github.com/834930269/" target="_blank" id="site-github">
+          <i class="fa fa-github-alt"></i>
+        </a>
+      
+      <a href="javascript:void(0);" id="site-search">
+        <i class="fa fa-search"></i>
+      </a>
+      <a href="javascript:void(0);" id="site-nav-btn">
+        <i class="fa fa-ellipsis-v"></i>
+      </a>
+    </div>
+  </div>
+</header>
+<nav class="table-content" id="site-nav">
+  <div class="table-content-title">
+    <span>导航</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc">
+      
+        <li class="toc-item">
+          <a href="/" target="_self">
+            首页
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/archives/" target="_self">
+            归档
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/tags/" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/categories/" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/friends/" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/about/" target="_self">
+            关于
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</nav>
+<div id="site-process"></div>
+    <main>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2017-04-18
+    </span>
+    
+      <span>
+        | <a href="/categories/Sdut/"><i class="fa fa-bookmark"></i>Sdut</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    第七届山东省ACM/ICPC H Memory Leak
+  </h1>
+  
+  <article class="passage-article">
+    <p><strong>【类型】</strong> <strong>模拟,感受一下什么叫绝望吧…</strong> <strong>【Tip】</strong> <strong>F</strong>k!…..QNMD鲁棒性….QAQ** <strong>后记…发现自己的代码可以过…但是忘了关freopean..所以才WA…尴尬//= // =//</strong> <strong>【Code】</strong> <strong>鲁棒形比我好,一点的,代码.</strong></p>
+<blockquote>
+<p><strong>#include&lt;bits/stdc++.h&gt;</strong> <strong>#define INF 0x3f3f3f3f</strong> <strong>using namespace std;</strong> <strong>int T;</strong> <strong>char name[10010],stri[10010];</strong> <strong>int num;</strong> <strong>struct Star{</strong> **    char s[2000];** **    char contain[10010];** **    int ind;** **    bool has_end;** <strong>};</strong> <strong>Star S[10010];</strong> <strong>int main(){</strong> ** //   #ifndef DEF** ** //    freopen(“in.txt”,”r”,stdin);** ** //    freopen(“out.txt”,”w”,stdout);** ** //  #endif // DEF** **    scanf(“%d”,&amp;T);** **        while(T–){** **            char op[100],def[10100];** **            num=0;** **            while(scanf(“%s”,op)){** **                if(op[3]==’u’){** **                    scanf(“%<em>s”);*</em> **                    break;** **                }** **                if(op[3]==’r’){** **                    while(scanf(“%s”,def)){** **                        int flag=1,star_num=0,ind_num=0,len=strlen(def);** **                        for(int i=0;i&lt;len;++i){** **                            if(flag==1 &amp;&amp; def[i]!=’[‘){** **                                S[num].s[star_num++]=def[i];** **                            }** **                            if(def[i]==’[‘){** **                                S[num].s[star_num]=0;** **                                flag=2;** **                                continue;** **                            }** **                            if(flag==2 &amp;&amp; def[i]!=’]‘){** **                                ind_num=ind_num<em>10+(def[i]-‘0’);*</em> **                            }** **                            if(def[i]==’]‘){** **                                S[num].contain[0]=0;//初始化** **                                S[num].has_end=true;** **                                S[num].ind=ind_num;** **                                star_num=0;** **                                ind_num=0;** **                                num++;** **                                continue;** **                            }** **                        }** **                        if(def[len-1]==’;’) break;** **                    }** **                }** **                if(op[3]==’s’){** **                    scanf(“%s%<em>c”,name);*</em> **                    gets(stri);** **                    int index=num;** **                    for(int i=0;i&lt;num;++i){** **                        if(!strcmp(S[i].s,name))** **                            index=i;** **                    }** **                    int len=strlen(stri);** **                    if(len&gt;=S[index].ind){** **                        S[index].has_end=false;** **                        stri[S[index].ind]=0;//‘\0’** **                    }else S[index].has_end=true;** **                    strcpy(S[index].contain,stri);** **                }** **                if(op[3]==’t’){** **                    scanf(“%s”,name);** **                    int index=num;** **                    for(int i=0;i&lt;num;++i){** **                        if(!strcmp(S[i].s,name))** **                            index=i;** **                    }** **                    for(int i=index;i&lt;num;++i){** **                        printf(“%s”,S[i].contain);** **                        if(S[i].has_end) break;** **                    }** **                    printf(“\n”);** **                }** **            }** **        }** **    return 0;** <strong>}</strong></p>
+</blockquote>
+<p><strong>我的代码</strong></p>
+<blockquote>
+<p><strong>#include&lt;bits/stdc++.h&gt;</strong> <strong>#define INF 0x3f3f3f3f</strong> <strong>using namespace std;</strong> <strong>int T;</strong> <strong>char name[10010],stri[10010];</strong> <strong>int num=0;</strong> <strong>struct Star{</strong> **    char s[2000];** **    char contain[10010];** **    int ind;** **    bool has_end;** <strong>};</strong> <strong>Star S[10010];</strong> <strong>int main(){</strong> <strong>//   #ifndef DEF  //&lt;-F</strong>k U** **  //   freopen(“in.txt”,”r”,stdin);** **  //   freopen(“out.txt”,”w”,stdout);** ** //  #endif // DEF** **    scanf(“%d”,&amp;T);** **        while(T–){** **            char op[10],def[10100];** **            num=0;** **            while(scanf(“%s”,op)){** **                scanf(“ “);** **                if(op[3]==’u’){** **                    scanf(“%<em>s”);*</em> **                    break;** **                }** **                if(op[3]==’r’){** **                    int flag=1,star_num=0,ind_num=0;** **                    gets(def);** **                    for(int i=0,start=0;def[i]!=’\0’;++i){** **                        if(def[i]==’ ‘ || def[i]==’,’) continue;** **                        if(flag==1 &amp;&amp; def[i]!=’[‘){** **                            S[num].s[star_num++]=def[i];** **                        }else if(def[i]==’[‘){** **                            S[num].s[star_num]=0;** **                            flag=2;** **                        }else if(flag==2 &amp;&amp; def[i]!=’]‘){** **                            ind_num=ind_num<em>10+(def[i]-‘0’);*</em> **                        }else if(def[i]==’]‘){** **                            S[num].contain[0]=0;//初始化** **                            S[num].has_end=true;** **                            S[num].ind=ind_num;** **                            star_num=0;** **                            ind_num=0;** **                            num++;** **                            flag=1;** **                        }else if(def[i]==’;’)** **                            break;** **                    }** **                }** **                if(op[3]==’s’){** **                    scanf(“%s%<em>c”,name);*</em> **                    gets(stri);** **                    int index;** **                    for(int i=0;i&lt;num;++i){** **                        if(!strcmp(S[i].s,name))** **                            index=i;** **                    }** **                    int len=strlen(stri);** **                    if(len&gt;=S[index].ind){** **                        S[index].has_end=false;** **                        stri[S[index].ind]=0;//‘\0’** **                    }else S[index].has_end=true;** **                    strcpy(S[index].contain,stri);** **                }** **                if(op[3]==’t’){** **                    scanf(“ “);** **                    gets(name);** **                    int index;** **                    for(int i=0;i&lt;num;++i){** **                        if(!strcmp(S[i].s,name))** **                            index=i;** **                    }** **                    for(int i=index;i&lt;num;++i){** **                        printf(“%s”,S[i].contain);** **                        if(S[i].has_end) break;** **                    }** **                    printf(“\n”);** **                }** **            }** **        }** **    return 0;** <strong>}</strong></p>
+</blockquote>
+
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
+    
+  </div>
+</aside>
+  
+    <aside class="passage-copyright">
+      <div>本文作者: 张文涛</div>
+      
+        <div>
+          原文链接: 
+          <a href="" target="_blank">http://be-sunshine.cn/passages/qjsdaihacmicpc-h-memory-leak/</a>
+        </div>
+      
+      <div>
+        版权声明: 本博客所有文章除特别声明外, 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议. 转载请注明出处!
+      </div>
+    </aside>
+  
+  
+    <div class="passage-tags">
+     
+      <a href="/tags/模拟/"><i class="fa fa-tags"></i>模拟</a>
+     
+      <a href="/tags/sdut/"><i class="fa fa-tags"></i>sdut</a>
+     
+      <a href="/tags/第七届ACM山东省赛/"><i class="fa fa-tags"></i>第七届ACM山东省赛</a>
+    
+    </div>
+  
+</div>
+
+    </main>
+    
+      
+<div class="site-comment-contanier" data-plateform="leancloud">
+  
+    <p id="site-comment-info">
+      <i class="fa fa-spinner fa-spin"></i> 评论加载中
+    </p>
+    <div id="site-comment"></div>
+  
+</div>
+    
+    <div class="site-footer-wrapper">
+  <footer class="site-footer">
+    
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">博客推荐</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/" target="_blank">GodBMW</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="http://ruanyifeng.com/" target="_blank">阮一峰的个人网站</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">系列教程</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/categories/webpack4%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B/" target="_blank">webpack4系列教程</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/design-patterns/" target="_blank">设计模式手册</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">抓到我</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://weibo.com/3260959934/" target="_blank">微博</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://github.com/834930269" target="_blank">Github</a>
+            </span>
+          
+        </div>
+      
+    
+    <div class="site-footer-info">
+      <i class="fa fa-clock-o"></i> 本站已稳定运行<span id="site-time"></span>
+    </div>
+    
+      <div class="site-footer-info">
+        <i class="fa fa-paw"></i> 您是本站第 <span id="site-count"></span> 位访客
+      </div>
+    
+    
+      <div class="site-footer-info">
+        <i class="fa fa-at"></i> Email: 834930269@qq.com
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-copyright"></i> 
+      2019 <a href="https://github.com/dongyuanxin/theme-ad/" target="_blank">Theme-AD</a>.
+      Created by <a href="https://godbmw.com/" target="_blank">GodBMW</a>.
+      All rights reserved.
+    </div>
+  </footer>
+</div>
+    <div id="site-layer" style="display:none;">
+  <div class="site-layer-content">
+    <div class="site-layer-header">
+      <span class="site-layer-header-title" id="site-layer-title"></span>
+      <i class="fa fa-close" id="site-layer-close"></i>
+    </div>
+    <div class="site-layer-body" id="site-layer-container">
+      <div class="site-layer-input" id="site-layer-search" style="display: none;">
+        <div class="site-layer-input-choose">
+          <a href="javascript:void(0);" title="Change Search Engine">Google</a>
+        </div>
+        <input type="text">
+        <i class="fa fa-search"></i>
+      </div>
+      
+        <div class="site-layer-reward" id="site-layer-reward" style="display: none;">
+          
+            <div>
+              <img src="/images/wechat.png" alt="WeChat">
+              
+                <p>WeChat</p>
+              
+            </div>
+          
+            <div>
+              <img src="/images/alipay.png" alt="AliPay">
+              
+                <p>AliPay</p>
+              
+            </div>
+          
+        </div>
+      
+      <div id="site-layer-welcome" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+    
+
+<div class="bottom-bar">
+  <div class="bottom-bar-left">
+    <a href="/passages/qjsdaikacmicpc-k-reversed-words/" data-enable="true">
+      <i class="fa fa-arrow-left"></i>
+    </a>
+    <a href="/passages/shandongacmacmicpc-f-feed-the-monkey/" data-enable="true">
+      <i class="fa fa-arrow-right"></i>
+    </a>
+  </div>
+  <div class="bottom-bar-right">
+    <a href="javascript:void(0);" data-enable="true" id="site-toc-show-btn">
+      <i class="fa fa-bars"></i>
+    </a>
+    
+      <a href="#site-comment" data-enable="true">
+        <i class="fa fa-commenting"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="site-toggle-share-btn">
+      <i class="fa fa-share-alt"></i>
+    </a>
+    
+      <a href="javascript:void(0);" id="site-reward">
+        <i class="fa fa-thumbs-up"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="back-top-btn">
+      <i class="fa fa-chevron-up"></i>
+    </a>
+  </div>
+</div>
+    <div id="share-btn">
+  
+    <a id="share-btn-twitter" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-twitter"></i>
+    </a>
+  
+  
+    <a id="share-btn-facebook" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-facebook"></i>
+    </a>
+  
+  
+    <a id="share-btn-weibo" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-weibo"></i>
+    </a>
+  
+  
+    <a id="share-btn-qq" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-qq"></i>
+    </a>
+  
+  
+    <a id="share-btn-wechat" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-wechat"></i>
+    </a>
+  
+</div>
+    
+
+
+
+
+
+    
+  </body>
+</html>

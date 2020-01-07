@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html>
+  
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="author" content="张文涛">
+  
+  
+  <title>深入分析Java Web技术内幕-第二章 | 山海经▪大荒经</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Java,技术,技术,Java,">
+  
+
+  
+  <meta name="description" content="Winter Zhang的小站">
+
+  
+
+  
+    <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.1/dist/av-min.js" async></script>
+  
+
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+  
+
+  
+    <script src="//unpkg.com/valine/dist/Valine.min.js" async></script>
+  
+
+  
+
+  <script>
+  // theme-ad's config script
+  // it can be used in every script
+  
+  window.AD_CONFIG = {
+    leancloud: {"appid":"J7nVGeFex3em3P8A4ktCiv3b-gzGzoHsz","appkey":"XiR0DX1Kvlh3Et3UalbFN4Dq","comment":true,"count":true},
+    welcome: {"enable":false,"interval":30},
+    start_time: "2015-02-10",
+    passwords: ["c035b468e47fd966ac2df15e3d7f7a64d89b1dbf209c24caad6e62bffd90d4c7", ],
+    is_post: true,
+    lock: false,
+    author: "张文涛",
+    share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
+    mathjax: true,
+    page_type: "",
+    root: "/"
+  };
+</script>
+
+  <script src="/vendor/sha256.min.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/index.js"></script>
+<script src="/vendor/qrcode.min.js"></script>
+
+  
+    <link rel="icon" href="/images/favicon2.ico">
+    <link rel="apple-touch-icon" href="/images/touch-icon.png">
+  
+
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/styles/components/highlight/highlight.css">
+
+  
+</head>
+  <body>
+    <header class="site-header">
+  <div class="site-header-brand">
+    
+      <span class="site-header-brand-title">
+        <a href="/">1900</a>
+      </span>
+    
+    
+      <span class="site-header-brand-motto"> | 祝你平安幸福 我就不下船了</span>
+    
+  </div>
+  <div class="site-header-right">
+    <nav class="site-header-navigation">
+      
+        <a href="/" target="_self">首页</a>
+      
+        <a href="/archives/" target="_self">归档</a>
+      
+        <a href="/tags/" target="_self">标签</a>
+      
+        <a href="/categories/" target="_self">分类</a>
+      
+        <a href="/friends/" target="_self">友链</a>
+      
+        <a href="/about/" target="_self">关于</a>
+      
+    </nav>
+    <div class="site-header-btn">
+      
+        <a href="https://github.com/834930269/" target="_blank" id="site-github">
+          <i class="fa fa-github-alt"></i>
+        </a>
+      
+      <a href="javascript:void(0);" id="site-search">
+        <i class="fa fa-search"></i>
+      </a>
+      <a href="javascript:void(0);" id="site-nav-btn">
+        <i class="fa fa-ellipsis-v"></i>
+      </a>
+    </div>
+  </div>
+</header>
+<nav class="table-content" id="site-nav">
+  <div class="table-content-title">
+    <span>导航</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc">
+      
+        <li class="toc-item">
+          <a href="/" target="_self">
+            首页
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/archives/" target="_self">
+            归档
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/tags/" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/categories/" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/friends/" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/about/" target="_self">
+            关于
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</nav>
+<div id="site-process"></div>
+    <main>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2018-06-21
+    </span>
+    
+      <span>
+        | <a href="/categories/Java/"><i class="fa fa-bookmark"></i>Java</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    深入分析Java Web技术内幕-第二章
+  </h1>
+  
+  <article class="passage-article">
+    <h1 id="深入分析Java-I-O机制"><a href="#深入分析Java-I-O机制" class="headerlink" title="深入分析Java I/O机制"></a>深入分析Java I/O机制</h1><h2 id="Java-I-O类库的基础架构"><a href="#Java-I-O类库的基础架构" class="headerlink" title="Java I/O类库的基础架构"></a>Java I/O类库的基础架构</h2><p>类库大概分为四组:</p>
+<blockquote>
+<p>基于字节操作的I/O接口:InputStream 和 OutputStream 基于字符操作的I/O接口: Writer和Reader 基于磁盘操作的I/O接口: File 基于网络操作的I/O接口: Socket (这尼玛也能划到一起,不过这样好像也行)</p>
+</blockquote>
+<h2 id="基于字节的I-O操作接口"><a href="#基于字节的I-O操作接口" class="headerlink" title="基于字节的I/O操作接口"></a>基于字节的I/O操作接口</h2><blockquote>
+<p>InputStream</p>
+</blockquote>
+<p><img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/1ad8ecc702cf83a89ac412c4e586aed3.png" alt></p>
+<blockquote>
+<p>OutputStream</p>
+</blockquote>
+<p><img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/268a47ba3edf2add83c46b8f5a2a5342.png" alt></p>
+<blockquote>
+<blockquote>
+<p>详见JDK API.</p>
+</blockquote>
+</blockquote>
+<p>Tip: 操作数据可以组合使用-&gt;某流转某流 OutputStream out=new PipeOutputStream(new ObjectOutputStream(new FileOutputStream(“fileName”))); 还有一点是一定要制定流最终要写到哪里</p>
+<h2 id="基于字符的I-O操作接口"><a href="#基于字符的I-O操作接口" class="headerlink" title="基于字符的I/O操作接口"></a>基于字符的I/O操作接口</h2><blockquote>
+<p>I/O接口一般都是字节流,但是为了方便起见,也有字符流.</p>
+</blockquote>
+<p><strong>字符到字节必须经过编码转换,而编码很耗时</strong></p>
+<blockquote>
+<p>写字符接口以及涉及到的类</p>
+</blockquote>
+<p><img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/d1c5a427e25d73e1ea7d0e04af57c65f.png" alt> Writer类提供了一个抽象接口:Write(char cbuf[],int off,int len)</p>
+<blockquote>
+<p>读字符</p>
+</blockquote>
+<p><img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/0b3cd200a1da4d54aaa17d095e16cf42.png" alt> int Read(char cbuf[],int off,int len) 返回读到的n个字节数 他们只规定了读取和写入的方式,但没有规定读和写到哪里去.</p>
+<h2 id="字节与字符的转化接口"><a href="#字节与字符的转化接口" class="headerlink" title="字节与字符的转化接口"></a>字节与字符的转化接口</h2><blockquote>
+<p>数据持久化或网络传输都是以字节进行的，所以必要有对应的接口</p>
+</blockquote>
+<p><img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/8aa6ff0a0ffe1b15ad470370844d78b5.png" alt> InputStreamReader是<strong>字节到字符</strong>的桥梁,InputStream到Reader的过程<strong>要指定编码字符集</strong>,否则将采用操作系统默认字符集,很可能会出现乱码. StreamDecoder是<strong>字节到字符</strong>解码的实现类. StreamEncoder类似 <img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/f38fb77be5e4351910897b9df42403e3.png" alt></p>
+<h2 id="磁盘I-O工作机制"><a href="#磁盘I-O工作机制" class="headerlink" title="磁盘I/O工作机制"></a>磁盘I/O工作机制</h2><h3 id="应用程序访问文件的几种方式"><a href="#应用程序访问文件的几种方式" class="headerlink" title="应用程序访问文件的几种方式"></a>应用程序访问文件的几种方式</h3><p>read()和write()这两个是系统调用. 系统调用可能会存在内核空间地址和用户空间地址切换的问题,这是操作系统为了保护系统本身的运行安全而将<strong>内核程序运行使用的内存空间和用户活动使用的内核空间隔离</strong>,但是这样虽然保证了内核程序运行的安全性,但是也必然存在<strong>时间耗费的问题</strong> 磁盘I/O非常缓慢,所以操作系统使用了缓存的机制.</p>
+<h4 id="标准访问文件方式"><a href="#标准访问文件方式" class="headerlink" title="标准访问文件方式"></a>标准访问文件方式</h4><p><img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/6de33c5d864a218b1d3a0fe38565f411.png" alt></p>
+<h4 id="直接I-O方式"><a href="#直接I-O方式" class="headerlink" title="直接I/O方式"></a>直接I/O方式</h4><blockquote>
+<p>直接IO就是直接访问磁盘数据,来减少从内和缓冲区到用户活动区的复制.</p>
+<blockquote>
+<p>这种思想常用于 由应用实现的数据库管理系统. 提前将热点数据加入内存,可以加速数据的访问速度.</p>
+</blockquote>
+<p>但操作系统并不知道哪些是热点数据,所以直接I/O也有负面影响.而我们一般将异步IO和直接IO结合使用.</p>
+</blockquote>
+<p>直接IO方式如图(没有穿过高速页缓存): <img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/74d178a897ed7f8fd8ba0439ccaceba1.png" alt></p>
+<h4 id="同步访问文件方式"><a href="#同步访问文件方式" class="headerlink" title="同步访问文件方式"></a>同步访问文件方式</h4><blockquote>
+<p>即读取与写入都是同步操作的.</p>
+</blockquote>
+<p>但他的标志是:<strong>只有写入完成才是成功的标志</strong> 性能较差</p>
+<h4 id="异步访问文件方式"><a href="#异步访问文件方式" class="headerlink" title="异步访问文件方式"></a>异步访问文件方式</h4><blockquote>
+<p>异步访问就是,当访问数据的线程发出请求后,线程会继续去处理其它事情,而不是阻塞等待,当请求的数据返回后再继续处理接下来的操作.</p>
+</blockquote>
+<p>这种方式可以明显的提高应用程序的效率,但并不会改变访问文件的效率. <img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/423d961b94b4779ba7212af4db51017c.png" alt></p>
+<h4 id="内存映射方式"><a href="#内存映射方式" class="headerlink" title="内存映射方式"></a>内存映射方式</h4><blockquote>
+<p>将操作系统某一块区域与磁盘中的文件关联起来,增加缓冲区的个数,减少缓冲区-&gt;用户活动区的复制操作</p>
+</blockquote>
+<p><img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/246dcd50203f24f93da00714daae2db3.png" alt></p>
+<h3 id="Java访问磁盘文件"><a href="#Java访问磁盘文件" class="headerlink" title="Java访问磁盘文件"></a>Java访问磁盘文件</h3><p>接下来我们来讨论数据的流向</p>
+<h4 id="数据持久化到磁盘"><a href="#数据持久化到磁盘" class="headerlink" title="数据持久化到磁盘"></a>数据持久化到磁盘</h4><p>数据在磁盘中唯一<strong>最小描述</strong>就是<strong>文件</strong>. 文件也是操作系统和磁盘驱动器交互的<strong>最小单元</strong> Java中的File<strong>并不代表一个真实存在的对象</strong>.而是一个路径和虚拟对象. 因为我们更多关心的是操作,而不是整个文件. <img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/76a6f5098ea16378295a325a05064602.png" alt> 从磁盘中读取文件流程: <img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/06/f6b5aefd246cf978ed0563d0f999191e.png" alt></p>
+<ul>
+<li>先创建一个FileDescriptor对象</li>
+<li>然后创建FileInputStream</li>
+<li>因为要读取的是字符格式,所以需要StreamDecoder类将byte解码为char格式…</li>
+</ul>
+
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#深入分析Java-I-O机制"><span class="toc-text">深入分析Java I/O机制</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Java-I-O类库的基础架构"><span class="toc-text">Java I/O类库的基础架构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基于字节的I-O操作接口"><span class="toc-text">基于字节的I/O操作接口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基于字符的I-O操作接口"><span class="toc-text">基于字符的I/O操作接口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#字节与字符的转化接口"><span class="toc-text">字节与字符的转化接口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#磁盘I-O工作机制"><span class="toc-text">磁盘I/O工作机制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#应用程序访问文件的几种方式"><span class="toc-text">应用程序访问文件的几种方式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#标准访问文件方式"><span class="toc-text">标准访问文件方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#直接I-O方式"><span class="toc-text">直接I/O方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#同步访问文件方式"><span class="toc-text">同步访问文件方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#异步访问文件方式"><span class="toc-text">异步访问文件方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#内存映射方式"><span class="toc-text">内存映射方式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Java访问磁盘文件"><span class="toc-text">Java访问磁盘文件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#数据持久化到磁盘"><span class="toc-text">数据持久化到磁盘</span></a></li></ol></li></ol></li></ol></li></ol>
+  </div>
+</aside>
+  
+    <aside class="passage-copyright">
+      <div>本文作者: 张文涛</div>
+      
+        <div>
+          原文链接: 
+          <a href="" target="_blank">http://be-sunshine.cn/passages/javaweb-two/</a>
+        </div>
+      
+      <div>
+        版权声明: 本博客所有文章除特别声明外, 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议. 转载请注明出处!
+      </div>
+    </aside>
+  
+  
+    <div class="passage-tags">
+     
+      <a href="/tags/技术/"><i class="fa fa-tags"></i>技术</a>
+     
+      <a href="/tags/Java/"><i class="fa fa-tags"></i>Java</a>
+    
+    </div>
+  
+</div>
+
+    </main>
+    
+      
+<div class="site-comment-contanier" data-plateform="leancloud">
+  
+    <p id="site-comment-info">
+      <i class="fa fa-spinner fa-spin"></i> 评论加载中
+    </p>
+    <div id="site-comment"></div>
+  
+</div>
+    
+    <div class="site-footer-wrapper">
+  <footer class="site-footer">
+    
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">博客推荐</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/" target="_blank">GodBMW</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="http://ruanyifeng.com/" target="_blank">阮一峰的个人网站</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">系列教程</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/categories/webpack4%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B/" target="_blank">webpack4系列教程</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/design-patterns/" target="_blank">设计模式手册</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">抓到我</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://weibo.com/3260959934/" target="_blank">微博</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://github.com/834930269" target="_blank">Github</a>
+            </span>
+          
+        </div>
+      
+    
+    <div class="site-footer-info">
+      <i class="fa fa-clock-o"></i> 本站已稳定运行<span id="site-time"></span>
+    </div>
+    
+      <div class="site-footer-info">
+        <i class="fa fa-paw"></i> 您是本站第 <span id="site-count"></span> 位访客
+      </div>
+    
+    
+      <div class="site-footer-info">
+        <i class="fa fa-at"></i> Email: 834930269@qq.com
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-copyright"></i> 
+      2019 <a href="https://github.com/dongyuanxin/theme-ad/" target="_blank">Theme-AD</a>.
+      Created by <a href="https://godbmw.com/" target="_blank">GodBMW</a>.
+      All rights reserved.
+    </div>
+  </footer>
+</div>
+    <div id="site-layer" style="display:none;">
+  <div class="site-layer-content">
+    <div class="site-layer-header">
+      <span class="site-layer-header-title" id="site-layer-title"></span>
+      <i class="fa fa-close" id="site-layer-close"></i>
+    </div>
+    <div class="site-layer-body" id="site-layer-container">
+      <div class="site-layer-input" id="site-layer-search" style="display: none;">
+        <div class="site-layer-input-choose">
+          <a href="javascript:void(0);" title="Change Search Engine">Google</a>
+        </div>
+        <input type="text">
+        <i class="fa fa-search"></i>
+      </div>
+      
+        <div class="site-layer-reward" id="site-layer-reward" style="display: none;">
+          
+            <div>
+              <img src="/images/wechat.png" alt="WeChat">
+              
+                <p>WeChat</p>
+              
+            </div>
+          
+            <div>
+              <img src="/images/alipay.png" alt="AliPay">
+              
+                <p>AliPay</p>
+              
+            </div>
+          
+        </div>
+      
+      <div id="site-layer-welcome" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+    
+
+<div class="bottom-bar">
+  <div class="bottom-bar-left">
+    <a href="/passages/corplus/" data-enable="true">
+      <i class="fa fa-arrow-left"></i>
+    </a>
+    <a href="/passages/maven/" data-enable="true">
+      <i class="fa fa-arrow-right"></i>
+    </a>
+  </div>
+  <div class="bottom-bar-right">
+    <a href="javascript:void(0);" data-enable="true" id="site-toc-show-btn">
+      <i class="fa fa-bars"></i>
+    </a>
+    
+      <a href="#site-comment" data-enable="true">
+        <i class="fa fa-commenting"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="site-toggle-share-btn">
+      <i class="fa fa-share-alt"></i>
+    </a>
+    
+      <a href="javascript:void(0);" id="site-reward">
+        <i class="fa fa-thumbs-up"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="back-top-btn">
+      <i class="fa fa-chevron-up"></i>
+    </a>
+  </div>
+</div>
+    <div id="share-btn">
+  
+    <a id="share-btn-twitter" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-twitter"></i>
+    </a>
+  
+  
+    <a id="share-btn-facebook" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-facebook"></i>
+    </a>
+  
+  
+    <a id="share-btn-weibo" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-weibo"></i>
+    </a>
+  
+  
+    <a id="share-btn-qq" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-qq"></i>
+    </a>
+  
+  
+    <a id="share-btn-wechat" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-wechat"></i>
+    </a>
+  
+</div>
+    
+
+
+
+
+
+    
+  </body>
+</html>

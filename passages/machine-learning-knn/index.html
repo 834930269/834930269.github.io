@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html>
+  
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="author" content="张文涛">
+  
+  
+  <title>机器学习实战(一) K-近邻 | 山海经▪大荒经</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="K-邻近,Python,机器学习,Python,机器学习,K-邻近,">
+  
+
+  
+  <meta name="description" content="Winter Zhang的小站">
+
+  
+
+  
+    <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.1/dist/av-min.js" async></script>
+  
+
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+  
+
+  
+    <script src="//unpkg.com/valine/dist/Valine.min.js" async></script>
+  
+
+  
+
+  <script>
+  // theme-ad's config script
+  // it can be used in every script
+  
+  window.AD_CONFIG = {
+    leancloud: {"appid":"J7nVGeFex3em3P8A4ktCiv3b-gzGzoHsz","appkey":"XiR0DX1Kvlh3Et3UalbFN4Dq","comment":true,"count":true},
+    welcome: {"enable":false,"interval":30},
+    start_time: "2015-02-10",
+    passwords: ["c035b468e47fd966ac2df15e3d7f7a64d89b1dbf209c24caad6e62bffd90d4c7", ],
+    is_post: true,
+    lock: false,
+    author: "张文涛",
+    share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
+    mathjax: true,
+    page_type: "",
+    root: "/"
+  };
+</script>
+
+  <script src="/vendor/sha256.min.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/index.js"></script>
+<script src="/vendor/qrcode.min.js"></script>
+
+  
+    <link rel="icon" href="/images/favicon2.ico">
+    <link rel="apple-touch-icon" href="/images/touch-icon.png">
+  
+
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/styles/components/highlight/highlight.css">
+
+  
+</head>
+  <body>
+    <header class="site-header">
+  <div class="site-header-brand">
+    
+      <span class="site-header-brand-title">
+        <a href="/">1900</a>
+      </span>
+    
+    
+      <span class="site-header-brand-motto"> | 祝你平安幸福 我就不下船了</span>
+    
+  </div>
+  <div class="site-header-right">
+    <nav class="site-header-navigation">
+      
+        <a href="/" target="_self">首页</a>
+      
+        <a href="/archives/" target="_self">归档</a>
+      
+        <a href="/tags/" target="_self">标签</a>
+      
+        <a href="/categories/" target="_self">分类</a>
+      
+        <a href="/friends/" target="_self">友链</a>
+      
+        <a href="/about/" target="_self">关于</a>
+      
+    </nav>
+    <div class="site-header-btn">
+      
+        <a href="https://github.com/834930269/" target="_blank" id="site-github">
+          <i class="fa fa-github-alt"></i>
+        </a>
+      
+      <a href="javascript:void(0);" id="site-search">
+        <i class="fa fa-search"></i>
+      </a>
+      <a href="javascript:void(0);" id="site-nav-btn">
+        <i class="fa fa-ellipsis-v"></i>
+      </a>
+    </div>
+  </div>
+</header>
+<nav class="table-content" id="site-nav">
+  <div class="table-content-title">
+    <span>导航</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc">
+      
+        <li class="toc-item">
+          <a href="/" target="_self">
+            首页
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/archives/" target="_self">
+            归档
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/tags/" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/categories/" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/friends/" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/about/" target="_self">
+            关于
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</nav>
+<div id="site-process"></div>
+    <main>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2018-01-27
+    </span>
+    
+      <span>
+        | <a href="/categories/K-邻近/"><i class="fa fa-bookmark"></i>K-邻近</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    机器学习实战(一) K-近邻
+  </h1>
+  
+  <article class="passage-article">
+    <h1 id="K临近算法概述"><a href="#K临近算法概述" class="headerlink" title="K临近算法概述"></a>K临近算法概述</h1><p>简单地说,k临近算法就是采用不同的特征值之间的距离方法进行分类. 通过数据与数据集间的距离进行分类,以及断定新数据的类别. 这里我们选择使用欧氏距离来当做两点间的距离.</p>
+<h2 id="实现KNN算法"><a href="#实现KNN算法" class="headerlink" title="实现KNN算法"></a>实现KNN算法</h2><h3 id="伪码"><a href="#伪码" class="headerlink" title="伪码"></a>伪码</h3><blockquote>
+<p>对未知类别属性的数据集中的每个点依次执行以下操作</p>
+<blockquote>
+<p>计算已知类别数据集中的点 按照距离递增次序排序 选取与当前点距离最小的k个点 确定前k个点所在的类别的出现频率 返回前k个点出现频率最高的类别作为当前点的预测分类</p>
+</blockquote>
+</blockquote>
+<h3 id="实现算法前"><a href="#实现算法前" class="headerlink" title="实现算法前"></a>实现算法前</h3><p>我们来学习一下需要用到的一些库函数.</p>
+<h4 id="numpy"><a href="#numpy" class="headerlink" title="numpy"></a>numpy</h4><p>1.list转array</p>
+<pre><code>from numpy import *
+array([1,1])</code></pre><p>2.zeros()初始化向量</p>
+<pre><code>import numpy
+from numpy import *
+a=(3,4)
+zeros(a)
+# 初始化一个3行四列的0矩阵</code></pre><p>3.矩阵操作</p>
+<pre><code>import numpy
+from numpy import *
+
+Mat = array([[1,2],[3,4]])
+
+# 每行最小
+Mat.min(0)
+# 每列最小
+Mat.min(1)
+# 每行和
+Mat.sum(0)
+# 上面传递的参数都是axis=1 or 0,0代表行,1代表列
+
+# shape返回一个tuple,代表矩阵的行数和列数
+Mat.shape</code></pre><p>3.1矩阵排序argsort()</p>
+<pre><code>import numpy
+from numpy import *
+
+k = array([1,2,8.5,-1,0])
+t = k.argsort()
+# 输出升序排序后每位数字的下标数组</code></pre><p>输出升序排序后每位数字的下标数组,比如上面那个输出是:</p>
+<pre><code>array([3,4,0,1,2],dtype=int64)
+# 第一个是k[3],第二个是k[4]</code></pre><p>4.tile</p>
+<pre><code>import numpy
+from numpy import *
+
+# 有两个参数,第一个参数是初始矩阵,第二个参数是一个tuple,代表
+# 向行拓展次数,以及向列拓展次数,具体调用一下就知道了
+tile([1,2],(1))# 原矩阵
+tile([1,2],(2,2))# 行两倍,列两倍</code></pre><p>5.运算 直接使用运算符号,是相当于每行与每列进行运算. 真正的矩阵运算需要通过库来实现.</p>
+<h4 id="数据读取"><a href="#数据读取" class="headerlink" title="数据读取"></a>数据读取</h4><p>与本例相关的数据集地址: <a href="http://cdn.be-sunshine.cn:9011/static/file/datingTestSet2.txt" title="datingTestSet2.txt" target="_blank" rel="noopener">datingTestSet2.txt</a></p>
+<pre><code># 打开数据文件
+fr = open(&apos;datingTestSet2.txt&apos;)
+# 按行读取
+arrayOfLines = fr.readlines()
+arrayOfLines
+
+from numpy import *
+numberOfLines = len(arrayOfLines)
+# 生成与数据集相同列数的矩阵
+returnMat = zeros((numberOfLines,3))
+returnMat
+# 格式化读入,存储到矩阵中
+for line in arrayOfLines:
+    line = line.strip()
+    print(line.split(&apos;\t&apos;))
+    print(int(line.split(&apos;\t&apos;)[-1]))</code></pre><h4 id="matplotlib散点图"><a href="#matplotlib散点图" class="headerlink" title="matplotlib散点图"></a>matplotlib散点图</h4><pre><code>import matplotlib
+import matplotlib.pyplot as plt
+import numpy
+from numpy import *
+# 生成plt
+fig = plt.figure()
+# 规定最多111个点
+ax = fig.add_subplot(111)
+# 创建一个矩阵,第三个代表类别
+Mat = array([[1,123,2],[10,256,1],[7,321,3]])
+# 获取类别矩阵
+Label = Mat[:,2]
+# 第一个参数横坐标,第二个参数纵坐标,第三个参数,颜色矩阵,第三个参数,大小矩阵
+ax.scatter(Mat[:,0],Mat[:,1],15.0*Label,15.0*Label)
+# 绘制
+plt.show()</code></pre><h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><h4 id="对于代码的解释我都注释在代码中了"><a href="#对于代码的解释我都注释在代码中了" class="headerlink" title="对于代码的解释我都注释在代码中了"></a>对于代码的解释我都注释在代码中了</h4><pre><code># K-近邻
+&apos;&apos;&apos;
+算法思想:
+
+计算已知类别数据集中的点
+
+按照距离递增次序排序
+
+选取与当前点距离最小的k个点
+
+确定前k个点所在的类别的出现频率
+
+返回前k个点出现频率最高的类别作为当前点的预测分类
+&apos;&apos;&apos;
+
+def classify0(inX,dataSet,labels,k):
+    &apos;&apos;&apos;
+    k-邻近算法
+    inX:测试数据 - array
+    dataSet:样本数据集 - array
+    labels:标签向量 - array
+    k: 选举前k个 - int
+    &apos;&apos;&apos;
+    # 获取数据集的列数
+    dataSetSize = dataSet.shape[0]
+    # 新建一个矩阵,将测试数据inX复制到每列上,以便计算距离
+    diffMat = tile(inX,(dataSetSize,1)) - dataSet
+    # 对每个指标的距离进行平方
+    sqDiffMat = diffMat**2
+    # 把每个指标的差方相加
+    sqDistance = sqDiffMat.sum(0)
+    # 计算inX与每个点的距离
+    distance = sqDistance**0.5
+    # 升序排序,返回排序后的下标矩阵
+    sortedDistIndicies = distance.argsort()
+
+    # 选择距离最小的k个点
+    classCount = {}
+    for i in range(k):
+        # 选取前k个距离最近的点中的第i个
+        voteIlabel = labels[sortedDistIndicies[i]]
+        # 映射到dict中,其中get的第二个参数是如果不存在的默认值
+        classCount[voteIlabel] = classCount.get(voteIlabel,0) + 1
+    # dict.items()返回一个字典列表(dict_items)类型,即dict的原始插入顺序的list
+    # 可以直接用sorted排序
+    # 升序,其中operator.itemgetter(index)代表按照待排列表的第几个元素排序.
+    # reverse=True即变成了降序
+    sortedClassCount = sorted(classCount.items(),key=operator.itemgetter(1),reverse=True)
+    # 返回分类中频率最高的那个的标签
+    return sortedClassCount[0][0]</code></pre><h3 id="可视化分析"><a href="#可视化分析" class="headerlink" title="可视化分析"></a>可视化分析</h3><pre><code>import numpy
+from numpy import *
+# 将测试数据转换为需要的类型
+def file2matrix(filename):
+    &apos;&apos;&apos;
+    对于datingTestSet2.txt返回值类型
+    returnMat: [里程数,百分比,公升数]
+    --每年获得的飞行常客里程数
+    --玩视频游戏所耗时间百分比
+    --每周消耗的冰淇淋公升数
+    classLabelVector: [标签]
+    --1,2,3分别代表最好,其次,最次
+    &apos;&apos;&apos;
+    fr = open(filename)
+    arrayOLines = fr.readlines()
+    # 得到文件行数
+    numberOfLines = len(arrayOLines)
+    # 新建(文件行数,3列)的0 array
+    returnMat = zeros((numberOfLines,3))
+    classLabelVector = []
+    index = 0
+    # 处理数据
+    for line in arrayOLines:
+        line = line.strip()
+        listFromLine = line.split(&apos;\t&apos;)
+        # 将数据加入返回的列表中
+        returnMat[index,:] = listFromLine[:3]
+        # 标签列表
+        classLabelVector.append(int(listFromLine[-1]))
+        index+=1
+    return returnMat,classLabelVector
+
+import matplotlib
+import matplotlib.pyplot as plt
+
+datingDataMat,datingLabels = file2matrix(&apos;datingTestSet2.txt&apos;)
+
+fig = plt.figure()
+ax = fig.add_subplot(111)
+ax.scatter(datingDataMat[:,0],datingDataMat[:,1],15.0*array(datingLabels),15.0*array(datingLabels))
+plt.show()</code></pre><p>最后的结果如下: <a href="http://cdn.be-sunshine.cn/wp-content/uploads/2018/01/QQ截图20180127214341.jpg" target="_blank" rel="noopener"><img src="http://cdn.be-sunshine.cn/wp-content/uploads/2018/01/QQ%E6%88%AA%E5%9B%BE20180127214341.jpg" alt></a></p>
+<h3 id="归一化数值"><a href="#归一化数值" class="headerlink" title="归一化数值"></a>归一化数值</h3><p>我们可以发现,在数据集中,每种类的数据极差差距都很大,比如飞行常客里程数的极差,和每周消费冰淇淋公升数的极差相距交大. 所以我们尝试将不同的数据集按照相同的区间范围进行计算. 计算公式(和百分制化为150分制的道理一样): <strong>newValue = (OldValue-min)/(max-min)</strong> 其中min和max代表数据集中的最小特征值和最大特征值. 是用这个公式后的数值将统一变成0<del>1或者-1</del>1之间.</p>
+<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><pre><code>def autoNorm(dataSet):
+    &apos;&apos;&apos;
+    归一化数值
+    返回值
+    normDataSet:归一化后数值 - array
+    ranges:每类特征极差 - array
+    minVals:每类特征最小值 - array
+    &apos;&apos;&apos;
+    # numpy数组 .min(0)每列最小值
+    # .min(1)每行最小值
+    minVals = dataSet.min(0)
+    maxVals = dataSet.max(0)
+    ranges = maxVals - minVals
+    normDataSet = zeros(shape(dataSet))
+    m = dataSet.shape[0]
+    normDataSet = dataSet - tile(minVals,(m,1))
+    normDataSet = normDataSet/tile(ranges,(m,1))
+    return normDataSet,ranges,minVals</code></pre><h3 id="对约会网站的测试"><a href="#对约会网站的测试" class="headerlink" title="对约会网站的测试"></a>对约会网站的测试</h3><p>最后我们对之前的datingTestSet2.txt进行误差测试 其中hoRatio代表对数据集的测试普及率. 这里用<strong>0.1即1000*0.1=100个</strong>样本数据进行测试.</p>
+<pre><code>def datingClassTest():
+    hoRatio = 0.10
+    datingDataMat,datingLabels = file2matrix(&apos;datingTestSet2.txt&apos;)
+    normMat,ranges,minVals = autoNorm(datingDataMat)
+    m = normMat.shape[0]
+    numTestVecs = int(m*hoRatio)
+    errorCount = 0.0
+    for i in range(numTestVecs):
+        classifierResult = classify0(normMat[i,:],normMat[numTestVecs:m,:],\
+                                    datingLabels[numTestVecs:m],3)
+        print(&apos;the classifier came back with: %d,the real answer is: %d&apos;\
+              % (classifierResult,datingLabels[i]))
+        if(classifierResult != datingLabels[i]): errorCount += 1.0
+    print(&apos;the total error rate is: %f&apos; % (errorCount/float(numTestVecs)))
+
+datingClassTest()</code></pre><p>测试结果:</p>
+<pre><code>the classifier came back with: 1,the real answer is: 3
+the classifier came back with: 1,the real answer is: 2
+the classifier came back with: 3,the real answer is: 1
+the classifier came back with: 1,the real answer is: 1
+the classifier came back with: 3,the real answer is: 1
+the classifier came back with: 1,the real answer is: 1
+the classifier came back with: 1,the real answer is: 3
+the classifier came back with: 3,the real answer is: 3
+the classifier came back with: 1,the real answer is: 1
+the classifier came back with: 3,the real answer is: 3
+the classifier came back with: 1,the real answer is: 1
+the classifier came back with: 1,the real answer is: 1
+the classifier came back with: 1,the real answer is: 2
+the classifier came back with: 1,the real answer is: 1
+the classifier came back with: 2,the real answer is: 1
+the classifier came back with: 3,the real answer is: 1
+the classifier came back with: 1,the real answer is: 1
+the classifier came back with: 1,the real answer is: 1
+the classifier came back with: 3,the real answer is: 2
+the classifier came back with: 3,the real answer is: 3
+the classifier came back with: 1,the real answer is: 2
+the classifier came back with: 3,the real answer is: 1
+the classifier came back with: 1,the real answer is: 2
+the classifier came back with: 1,the real answer is: 3
+the classifier came back with: 1,the real answer is: 2
+the classifier came back with: 3,the real answer is: 3
+the classifier came back with: 1,the real answer is: 2
+the classifier came back with: 3,the real answer is: 3
+the classifier came back with: 2,the real answer is: 2
+the classifier came back with: 3,the real answer is: 1
+the classifier came back with: 3,the real answer is: 3
+the classifier came back with: 3,the real answer is: 1
+the classifier came back with: 1,the real answer is: 3
+the classifier came back with: 1,the real answer is: 1
+the classifier came back with: 1,the real answer is: 2
+the classifier came back with: 1,the real answer is: 1
+the classifier came back with: 1,the real answer is: 1
+the classifier came back with: 1,the real answer is: 2
+the classifier came back with: 3,the real answer is: 3
+the classifier came back with: 3,the real answer is: 3
+the classifier came back with: 1,the real answer is: 1
+the classifier came back with: 3,the real answer is: 2
+the classifier came back with: 1,the real answer is: 3
+the classifier came back with: 3,the real answer is: 3
+the classifier came back with: 3,the real answer is: 3
+the classifier came back with: 3,the real answer is: 1
+the classifier came back with: 3,the real answer is: 1
+the classifier came back with: 3,the real answer is: 1
+the classifier came back with: 1,the real answer is: 1
+the classifier came back with: 1,the real answer is: 2
+the classifier came back with: 1,the real answer is: 2
+the classifier came back with: 2,the real answer is: 1
+the classifier came back with: 3,the real answer is: 3
+the classifier came back with: 1,the real answer is: 2
+the classifier came back with: 3,the real answer is: 2
+the classifier came back with: 1,the real answer is: 2
+the classifier came back with: 1,the real answer is: 2
+the classifier came back with: 1,the real answer is: 3
+the classifier came back with: 1,the real answer is: 1
+the classifier came back with: 1,the real answer is: 2
+the classifier came back with: 1,the real answer is: 1
+the classifier came back with: 1,the real answer is: 2
+the classifier came back with: 1,the real answer is: 2
+the classifier came back with: 1,the real answer is: 2
+the classifier came back with: 1,the real answer is: 2
+the classifier came back with: 1,the real answer is: 2
+the classifier came back with: 2,the real answer is: 3
+the classifier came back with: 1,the real answer is: 2
+the classifier came back with: 3,the real answer is: 3
+the classifier came back with: 1,the real answer is: 1
+the classifier came back with: 1,the real answer is: 2
+the classifier came back with: 3,the real answer is: 3
+the classifier came back with: 3,the real answer is: 2
+the classifier came back with: 1,the real answer is: 2
+the classifier came back with: 1,the real answer is: 1
+the classifier came back with: 1,the real answer is: 3
+the classifier came back with: 2,the real answer is: 1
+the classifier came back with: 1,the real answer is: 1
+the classifier came back with: 1,the real answer is: 3
+the classifier came back with: 1,the real answer is: 3
+the classifier came back with: 1,the real answer is: 1
+the classifier came back with: 1,the real answer is: 2
+the classifier came back with: 3,the real answer is: 3
+the classifier came back with: 1,the real answer is: 1
+the classifier came back with: 3,the real answer is: 3
+the classifier came back with: 1,the real answer is: 1
+the classifier came back with: 1,the real answer is: 2
+the classifier came back with: 1,the real answer is: 2
+the classifier came back with: 2,the real answer is: 1
+the classifier came back with: 1,the real answer is: 1
+the classifier came back with: 1,the real answer is: 3
+the classifier came back with: 1,the real answer is: 3
+the classifier came back with: 2,the real answer is: 1
+the classifier came back with: 1,the real answer is: 2
+the classifier came back with: 1,the real answer is: 1
+the classifier came back with: 1,the real answer is: 3
+the classifier came back with: 1,the real answer is: 3
+the classifier came back with: 1,the real answer is: 2
+the classifier came back with: 3,the real answer is: 1
+the classifier came back with: 1,the real answer is: 1
+the total error rate is: 0.600000</code></pre><h1 id="Done-And-thank-you-for-watching"><a href="#Done-And-thank-you-for-watching" class="headerlink" title="Done,And thank you for watching!"></a>Done,And thank you for watching!</h1>
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#K临近算法概述"><span class="toc-text">K临近算法概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#实现KNN算法"><span class="toc-text">实现KNN算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#伪码"><span class="toc-text">伪码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实现算法前"><span class="toc-text">实现算法前</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#numpy"><span class="toc-text">numpy</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#数据读取"><span class="toc-text">数据读取</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#matplotlib散点图"><span class="toc-text">matplotlib散点图</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码实现"><span class="toc-text">代码实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#对于代码的解释我都注释在代码中了"><span class="toc-text">对于代码的解释我都注释在代码中了</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#可视化分析"><span class="toc-text">可视化分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#归一化数值"><span class="toc-text">归一化数值</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#代码"><span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对约会网站的测试"><span class="toc-text">对约会网站的测试</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Done-And-thank-you-for-watching"><span class="toc-text">Done,And thank you for watching!</span></a></li></ol>
+  </div>
+</aside>
+  
+    <aside class="passage-copyright">
+      <div>本文作者: 张文涛</div>
+      
+        <div>
+          原文链接: 
+          <a href="" target="_blank">http://be-sunshine.cn/passages/machine-learning-knn/</a>
+        </div>
+      
+      <div>
+        版权声明: 本博客所有文章除特别声明外, 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议. 转载请注明出处!
+      </div>
+    </aside>
+  
+  
+    <div class="passage-tags">
+     
+      <a href="/tags/Python/"><i class="fa fa-tags"></i>Python</a>
+     
+      <a href="/tags/机器学习/"><i class="fa fa-tags"></i>机器学习</a>
+     
+      <a href="/tags/K-邻近/"><i class="fa fa-tags"></i>K-邻近</a>
+    
+    </div>
+  
+</div>
+
+    </main>
+    
+      
+<div class="site-comment-contanier" data-plateform="leancloud">
+  
+    <p id="site-comment-info">
+      <i class="fa fa-spinner fa-spin"></i> 评论加载中
+    </p>
+    <div id="site-comment"></div>
+  
+</div>
+    
+    <div class="site-footer-wrapper">
+  <footer class="site-footer">
+    
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">博客推荐</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/" target="_blank">GodBMW</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="http://ruanyifeng.com/" target="_blank">阮一峰的个人网站</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">系列教程</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/categories/webpack4%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B/" target="_blank">webpack4系列教程</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/design-patterns/" target="_blank">设计模式手册</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">抓到我</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://weibo.com/3260959934/" target="_blank">微博</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://github.com/834930269" target="_blank">Github</a>
+            </span>
+          
+        </div>
+      
+    
+    <div class="site-footer-info">
+      <i class="fa fa-clock-o"></i> 本站已稳定运行<span id="site-time"></span>
+    </div>
+    
+      <div class="site-footer-info">
+        <i class="fa fa-paw"></i> 您是本站第 <span id="site-count"></span> 位访客
+      </div>
+    
+    
+      <div class="site-footer-info">
+        <i class="fa fa-at"></i> Email: 834930269@qq.com
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-copyright"></i> 
+      2019 <a href="https://github.com/dongyuanxin/theme-ad/" target="_blank">Theme-AD</a>.
+      Created by <a href="https://godbmw.com/" target="_blank">GodBMW</a>.
+      All rights reserved.
+    </div>
+  </footer>
+</div>
+    <div id="site-layer" style="display:none;">
+  <div class="site-layer-content">
+    <div class="site-layer-header">
+      <span class="site-layer-header-title" id="site-layer-title"></span>
+      <i class="fa fa-close" id="site-layer-close"></i>
+    </div>
+    <div class="site-layer-body" id="site-layer-container">
+      <div class="site-layer-input" id="site-layer-search" style="display: none;">
+        <div class="site-layer-input-choose">
+          <a href="javascript:void(0);" title="Change Search Engine">Google</a>
+        </div>
+        <input type="text">
+        <i class="fa fa-search"></i>
+      </div>
+      
+        <div class="site-layer-reward" id="site-layer-reward" style="display: none;">
+          
+            <div>
+              <img src="/images/wechat.png" alt="WeChat">
+              
+                <p>WeChat</p>
+              
+            </div>
+          
+            <div>
+              <img src="/images/alipay.png" alt="AliPay">
+              
+                <p>AliPay</p>
+              
+            </div>
+          
+        </div>
+      
+      <div id="site-layer-welcome" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+    
+
+<div class="bottom-bar">
+  <div class="bottom-bar-left">
+    <a href="/passages/uva-11538/" data-enable="true">
+      <i class="fa fa-arrow-left"></i>
+    </a>
+    <a href="/passages/nklxs11/" data-enable="true">
+      <i class="fa fa-arrow-right"></i>
+    </a>
+  </div>
+  <div class="bottom-bar-right">
+    <a href="javascript:void(0);" data-enable="true" id="site-toc-show-btn">
+      <i class="fa fa-bars"></i>
+    </a>
+    
+      <a href="#site-comment" data-enable="true">
+        <i class="fa fa-commenting"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="site-toggle-share-btn">
+      <i class="fa fa-share-alt"></i>
+    </a>
+    
+      <a href="javascript:void(0);" id="site-reward">
+        <i class="fa fa-thumbs-up"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="back-top-btn">
+      <i class="fa fa-chevron-up"></i>
+    </a>
+  </div>
+</div>
+    <div id="share-btn">
+  
+    <a id="share-btn-twitter" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-twitter"></i>
+    </a>
+  
+  
+    <a id="share-btn-facebook" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-facebook"></i>
+    </a>
+  
+  
+    <a id="share-btn-weibo" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-weibo"></i>
+    </a>
+  
+  
+    <a id="share-btn-qq" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-qq"></i>
+    </a>
+  
+  
+    <a id="share-btn-wechat" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-wechat"></i>
+    </a>
+  
+</div>
+    
+
+
+
+
+
+    
+  </body>
+</html>

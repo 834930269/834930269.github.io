@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html>
+  
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="author" content="张文涛">
+  
+  
+  <title>LintCode(12-22) | 山海经▪大荒经</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="LintCode,LintCode,">
+  
+
+  
+  <meta name="description" content="Winter Zhang的小站">
+
+  
+
+  
+    <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.1/dist/av-min.js" async></script>
+  
+
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+  
+
+  
+    <script src="//unpkg.com/valine/dist/Valine.min.js" async></script>
+  
+
+  
+
+  <script>
+  // theme-ad's config script
+  // it can be used in every script
+  
+  window.AD_CONFIG = {
+    leancloud: {"appid":"J7nVGeFex3em3P8A4ktCiv3b-gzGzoHsz","appkey":"XiR0DX1Kvlh3Et3UalbFN4Dq","comment":true,"count":true},
+    welcome: {"enable":false,"interval":30},
+    start_time: "2015-02-10",
+    passwords: ["c035b468e47fd966ac2df15e3d7f7a64d89b1dbf209c24caad6e62bffd90d4c7", ],
+    is_post: true,
+    lock: false,
+    author: "张文涛",
+    share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
+    mathjax: true,
+    page_type: "",
+    root: "/"
+  };
+</script>
+
+  <script src="/vendor/sha256.min.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/index.js"></script>
+<script src="/vendor/qrcode.min.js"></script>
+
+  
+    <link rel="icon" href="/images/favicon2.ico">
+    <link rel="apple-touch-icon" href="/images/touch-icon.png">
+  
+
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/styles/components/highlight/highlight.css">
+
+  
+</head>
+  <body>
+    <header class="site-header">
+  <div class="site-header-brand">
+    
+      <span class="site-header-brand-title">
+        <a href="/">1900</a>
+      </span>
+    
+    
+      <span class="site-header-brand-motto"> | 祝你平安幸福 我就不下船了</span>
+    
+  </div>
+  <div class="site-header-right">
+    <nav class="site-header-navigation">
+      
+        <a href="/" target="_self">首页</a>
+      
+        <a href="/archives/" target="_self">归档</a>
+      
+        <a href="/tags/" target="_self">标签</a>
+      
+        <a href="/categories/" target="_self">分类</a>
+      
+        <a href="/friends/" target="_self">友链</a>
+      
+        <a href="/about/" target="_self">关于</a>
+      
+    </nav>
+    <div class="site-header-btn">
+      
+        <a href="https://github.com/834930269/" target="_blank" id="site-github">
+          <i class="fa fa-github-alt"></i>
+        </a>
+      
+      <a href="javascript:void(0);" id="site-search">
+        <i class="fa fa-search"></i>
+      </a>
+      <a href="javascript:void(0);" id="site-nav-btn">
+        <i class="fa fa-ellipsis-v"></i>
+      </a>
+    </div>
+  </div>
+</header>
+<nav class="table-content" id="site-nav">
+  <div class="table-content-title">
+    <span>导航</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc">
+      
+        <li class="toc-item">
+          <a href="/" target="_self">
+            首页
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/archives/" target="_self">
+            归档
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/tags/" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/categories/" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/friends/" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/about/" target="_self">
+            关于
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</nav>
+<div id="site-process"></div>
+    <main>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2019-02-10
+    </span>
+    
+      <span>
+        | <a href="/categories/LintCode/"><i class="fa fa-bookmark"></i>LintCode</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    LintCode(12-22)
+  </h1>
+  
+  <article class="passage-article">
+    <h1 id="12-Min-Stack"><a href="#12-Min-Stack" class="headerlink" title="(12) - Min Stack"></a>(12) - Min Stack</h1><blockquote>
+<p>一个栈维护最小值,另一个栈存数据</p>
+<blockquote>
+<p>为什么最小值同步插入可行,因为栈的pop只能从栈顶开始，所以:</p>
+<blockquote>
+<p>1.栈顶元素最小,minValue栈顶也是该元素 2.栈顶元素不是最小,minValue中没有该元素</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<pre><code>public class MinStack {
+
+    private Stack&lt;Integer&gt; data;
+    private Stack&lt;Integer&gt; minValue;
+
+    public MinStack() {
+        // do intialization if necessary
+        data=new Stack&lt;&gt;();
+        minValue=new Stack&lt;&gt;();
+        minValue.push(0x3f3f3f3f);
+    }
+
+    /*
+     * @param number: An integer
+     * @return: nothing
+     */
+    public void push(int number) {
+        // write your code here
+        data.push(number);
+        if(number&lt;=minValue.peek()) minValue.push(number);
+    }
+
+    /*
+     * @return: An integer
+     */
+    public int pop() {
+        // write your code here
+        if(data.peek().equals(minValue.peek())) minValue.pop();
+        return data.pop();
+    }
+
+    /*
+     * @return: An integer
+     */
+    public int min() {
+        // write your code here
+        return minValue.peek();
+    }
+}</code></pre><h1 id="13-Implement-strStr"><a href="#13-Implement-strStr" class="headerlink" title="(13) - Implement strStr()"></a>(13) - Implement strStr()</h1><blockquote>
+<p>KMP模板,但是实际面试的时候不需要使用KMP,暴力O(N^2)即可</p>
+</blockquote>
+<pre><code>public class Solution {
+
+    private final int maxn=10000+7;
+    private int Next[];
+
+    private void getNext(String S,String T){
+        int k=-1,len=T.length();
+        int j=0;
+        Next[0]=-1;
+        while(j&lt;len){
+            if(k==-1 || T.charAt(j)==T.charAt(k)) Next[++j]=++k;
+            else k=Next[k];
+        }
+    }
+
+    private int KMP_index(String S,String T){
+        int i=0,j=0,slen=S.length(),tlen=T.length();
+        getNext(S,T);
+        while(i&lt;slen &amp;&amp; j&lt;tlen){
+            if(j==-1 || S.charAt(i)==T.charAt(j)){
+                i++;
+                j++;
+            }else j=Next[j];
+        }
+        if(j==tlen) return i-tlen;
+        else return -1;
+    }
+
+    /**
+     * @param source: 
+     * @param target: 
+     * @return: return the index
+     */
+    public int strStr(String source, String target) {
+        // Write your code here
+        Next=new int[maxn];
+        return KMP_index(source,target);
+
+    }
+}</code></pre><h1 id="14-First-Position-of-Target"><a href="#14-First-Position-of-Target" class="headerlink" title="(14) - First Position of Target"></a>(14) - First Position of Target</h1><h2 id="C-偷懒用二分"><a href="#C-偷懒用二分" class="headerlink" title="C++偷懒用二分"></a>C++偷懒用二分</h2><pre><code>class Solution {
+public:
+    /**
+     * @param nums: The integer array.
+     * @param target: Target to find.
+     * @return: The first position of target. Position starts from 0.
+     */
+    int binarySearch(vector&lt;int&gt; &amp;nums, int target) {
+        // write your code here
+        int index=lower_bound(nums.begin(),nums.end(),target)-nums.begin();
+        if(nums[index]!=target)
+            return -1;
+        return index;
+    }
+};</code></pre><h2 id="Java-实现二分"><a href="#Java-实现二分" class="headerlink" title="Java 实现二分"></a>Java 实现二分</h2><pre><code>public class Solution {
+    /**
+     * @param nums: The integer array.
+     * @param target: Target to find.
+     * @return: The first position of target. Position starts from 0.
+     */
+    public int binarySearch(int[] nums, int target) {
+        // write your code here
+
+        int mid=0,l=0,r=nums.length;
+        while(l&lt;=r){
+            mid=((l+r)&gt;&gt;1);
+            if(nums[mid]&lt;target)
+                l=mid+1;
+            else r=mid-1;
+        }
+        if(nums[l]==target) return l;
+        else return -1;
+    }
+}</code></pre><h1 id="15-Permutations"><a href="#15-Permutations" class="headerlink" title="(15) - Permutations"></a>(15) - Permutations</h1><blockquote>
+<p>dfs即可</p>
+</blockquote>
+<pre><code>public class Solution {
+
+    public List&lt;List&lt;Integer&gt;&gt; permute(int[] nums) {
+        List&lt;List&lt;Integer&gt;&gt; res = new LinkedList&lt;&gt;();
+        boolean[] used = new boolean[nums.length];
+        helper(nums, used, new LinkedList&lt;&gt;(), res);
+        return res;
+    }
+  private void helper(int[] nums, boolean[] used, List&lt;Integer&gt; tmp, List&lt;List&lt;Integer&gt;&gt; res) {
+    if (tmp.size() == nums.length) {
+      res.add(new LinkedList&lt;&gt;(tmp));
+      return;
+    }
+    for (int i = 0; i &lt; nums.length; i++) {
+      if (used[i]) {
+        continue;
+      }
+      used[i] = true;
+      tmp.add(nums[i]);
+      helper(nums, used, tmp, res);
+      used[i] = false;
+      tmp.remove(tmp.size()-1);
+    }
+    return;
+  }
+}</code></pre><h1 id="16-Permutations-II"><a href="#16-Permutations-II" class="headerlink" title="(16) - Permutations II"></a>(16) - Permutations II</h1><blockquote>
+<p>用set集直接映射即可</p>
+</blockquote>
+<pre><code>public class Solution {
+
+    private Set&lt;String&gt; reg;
+
+    private void helper(int[] nums, boolean[] used, List&lt;Integer&gt; tmp, List&lt;List&lt;Integer&gt;&gt; res,StringBuilder str){
+        if (tmp.size() == nums.length) {
+            String ts=str.toString();
+            if(reg.contains(ts)){
+                return;
+            }
+            reg.add(ts);
+            res.add(new LinkedList&lt;&gt;(tmp));
+            return;
+        }
+        for (int i = 0; i &lt; nums.length; i++) {
+            if (used[i]) {
+                continue;
+            }
+            used[i] = true;
+            tmp.add(nums[i]);
+            String nw=String.valueOf(nums[i]);
+            str.append(nw);
+            helper(nums, used, tmp, res,str);
+            used[i] = false;
+            tmp.remove(tmp.size()-1);
+            str.delete(str.length()-nw.length(),str.length());
+        }
+        return;
+    }
+    public List&lt;List&lt;Integer&gt;&gt; permuteUnique(int[] nums) {
+        List&lt;List&lt;Integer&gt;&gt; res = new LinkedList&lt;&gt;();
+        boolean[] used = new boolean[nums.length];
+        reg=new HashSet&lt;String&gt;();
+        helper(nums, used, new LinkedList&lt;&gt;(), res,new StringBuilder());
+        return res;
+    }
+};</code></pre><h1 id="17-Subsets"><a href="#17-Subsets" class="headerlink" title="(17) - Subsets"></a>(17) - Subsets</h1><blockquote>
+<p>方法:</p>
+<blockquote>
+<p>[[]]] [[1]] [[2],[1,2]] [[3],[1,3],[2,3],[1,2,3]] 合起来就好了</p>
+</blockquote>
+<p>一个小语法</p>
+<blockquote>
+<p>java中的List是引用传递,List套List给出来的是引用对象,所以必须new一个新的ArrayList才行.</p>
+</blockquote>
+</blockquote>
+<pre><code>public class Solution {
+    /**
+     * @param nums: A set of numbers
+     * @return: A list of lists
+     */
+    public List&lt;List&lt;Integer&gt;&gt; subsets(int[] nums) {
+        // write your code here
+        int len=nums.length;
+        Arrays.sort(nums);
+        List&lt;Integer&gt; init=new ArrayList();
+        List&lt;List&lt;Integer&gt;&gt; ans = new LinkedList&lt;&gt;();
+        ans.add(init);
+        for(int i=0;i&lt;len;++i){
+            int size=ans.size();
+            for(int j=0;j&lt;size;++j){
+                List&lt;Integer&gt; reg=new ArrayList&lt;Integer&gt;(ans.get(j));
+                reg.add(nums[i]);
+                ans.add(reg);
+            }
+        }
+        return ans;
+    }
+}</code></pre><h1 id="18-Subsets-II"><a href="#18-Subsets-II" class="headerlink" title="(18) - Subsets II"></a>(18) - Subsets II</h1><blockquote>
+<p>还是用set映射</p>
+</blockquote>
+<pre><code>import java.util.*;
+
+public class Topic_18 {
+    private static Set&lt;String&gt; dict;
+
+    /**
+     * @param nums: A set of numbers.
+     * @return: A list of lists. All valid subsets.
+     */
+    public static List&lt;List&lt;Integer&gt;&gt; subsetsWithDup(int[] nums) {
+        // write your code here
+        dict=new HashSet&lt;String&gt;();
+        int len=nums.length;
+        Arrays.sort(nums);
+        List&lt;Integer&gt; init=new ArrayList();
+        List&lt;List&lt;Integer&gt;&gt; ans = new LinkedList&lt;&gt;();
+        ans.add(init);
+        for(int i=0;i&lt;len;++i){
+            int size=ans.size();
+            for(int j=0;j&lt;size;++j){
+                StringBuilder str=new StringBuilder();
+                List&lt;Integer&gt; reg=new ArrayList&lt;Integer&gt;(ans.get(j));
+                reg.add(nums[i]);
+                for(int k=0;k&lt;reg.size();++k){
+                    str.append(String.valueOf(reg.get(k)));
+                }
+                String n=str.toString();
+                if(!dict.contains(n)){
+                    ans.add(reg);
+                    dict.add(n);
+                }
+            }
+        }
+        return ans;
+    }
+    public static void main(String[] args){
+        int[] nums={1,2};
+        List&lt;List&lt;Integer&gt;&gt; ans=subsetsWithDup(nums);
+        System.out.println(ans.size());
+    }
+
+}</code></pre>
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#12-Min-Stack"><span class="toc-text">(12) - Min Stack</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#13-Implement-strStr"><span class="toc-text">(13) - Implement strStr()</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#14-First-Position-of-Target"><span class="toc-text">(14) - First Position of Target</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#C-偷懒用二分"><span class="toc-text">C++偷懒用二分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Java-实现二分"><span class="toc-text">Java 实现二分</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#15-Permutations"><span class="toc-text">(15) - Permutations</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#16-Permutations-II"><span class="toc-text">(16) - Permutations II</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#17-Subsets"><span class="toc-text">(17) - Subsets</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#18-Subsets-II"><span class="toc-text">(18) - Subsets II</span></a></li></ol>
+  </div>
+</aside>
+  
+    <aside class="passage-copyright">
+      <div>本文作者: 张文涛</div>
+      
+        <div>
+          原文链接: 
+          <a href="" target="_blank">http://be-sunshine.cn/passages/lintcode12-22/</a>
+        </div>
+      
+      <div>
+        版权声明: 本博客所有文章除特别声明外, 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议. 转载请注明出处!
+      </div>
+    </aside>
+  
+  
+    <div class="passage-tags">
+     
+      <a href="/tags/LintCode/"><i class="fa fa-tags"></i>LintCode</a>
+    
+    </div>
+  
+</div>
+
+    </main>
+    
+      
+<div class="site-comment-contanier" data-plateform="leancloud">
+  
+    <p id="site-comment-info">
+      <i class="fa fa-spinner fa-spin"></i> 评论加载中
+    </p>
+    <div id="site-comment"></div>
+  
+</div>
+    
+    <div class="site-footer-wrapper">
+  <footer class="site-footer">
+    
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">博客推荐</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/" target="_blank">GodBMW</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="http://ruanyifeng.com/" target="_blank">阮一峰的个人网站</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">系列教程</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/categories/webpack4%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B/" target="_blank">webpack4系列教程</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/design-patterns/" target="_blank">设计模式手册</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">抓到我</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://weibo.com/3260959934/" target="_blank">微博</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://github.com/834930269" target="_blank">Github</a>
+            </span>
+          
+        </div>
+      
+    
+    <div class="site-footer-info">
+      <i class="fa fa-clock-o"></i> 本站已稳定运行<span id="site-time"></span>
+    </div>
+    
+      <div class="site-footer-info">
+        <i class="fa fa-paw"></i> 您是本站第 <span id="site-count"></span> 位访客
+      </div>
+    
+    
+      <div class="site-footer-info">
+        <i class="fa fa-at"></i> Email: 834930269@qq.com
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-copyright"></i> 
+      2019 <a href="https://github.com/dongyuanxin/theme-ad/" target="_blank">Theme-AD</a>.
+      Created by <a href="https://godbmw.com/" target="_blank">GodBMW</a>.
+      All rights reserved.
+    </div>
+  </footer>
+</div>
+    <div id="site-layer" style="display:none;">
+  <div class="site-layer-content">
+    <div class="site-layer-header">
+      <span class="site-layer-header-title" id="site-layer-title"></span>
+      <i class="fa fa-close" id="site-layer-close"></i>
+    </div>
+    <div class="site-layer-body" id="site-layer-container">
+      <div class="site-layer-input" id="site-layer-search" style="display: none;">
+        <div class="site-layer-input-choose">
+          <a href="javascript:void(0);" title="Change Search Engine">Google</a>
+        </div>
+        <input type="text">
+        <i class="fa fa-search"></i>
+      </div>
+      
+        <div class="site-layer-reward" id="site-layer-reward" style="display: none;">
+          
+            <div>
+              <img src="/images/wechat.png" alt="WeChat">
+              
+                <p>WeChat</p>
+              
+            </div>
+          
+            <div>
+              <img src="/images/alipay.png" alt="AliPay">
+              
+                <p>AliPay</p>
+              
+            </div>
+          
+        </div>
+      
+      <div id="site-layer-welcome" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+    
+
+<div class="bottom-bar">
+  <div class="bottom-bar-left">
+    <a href="/passages/patp-sscanf/" data-enable="true">
+      <i class="fa fa-arrow-left"></i>
+    </a>
+    <a href="/passages/spring-validation-spring/" data-enable="true">
+      <i class="fa fa-arrow-right"></i>
+    </a>
+  </div>
+  <div class="bottom-bar-right">
+    <a href="javascript:void(0);" data-enable="true" id="site-toc-show-btn">
+      <i class="fa fa-bars"></i>
+    </a>
+    
+      <a href="#site-comment" data-enable="true">
+        <i class="fa fa-commenting"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="site-toggle-share-btn">
+      <i class="fa fa-share-alt"></i>
+    </a>
+    
+      <a href="javascript:void(0);" id="site-reward">
+        <i class="fa fa-thumbs-up"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="back-top-btn">
+      <i class="fa fa-chevron-up"></i>
+    </a>
+  </div>
+</div>
+    <div id="share-btn">
+  
+    <a id="share-btn-twitter" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-twitter"></i>
+    </a>
+  
+  
+    <a id="share-btn-facebook" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-facebook"></i>
+    </a>
+  
+  
+    <a id="share-btn-weibo" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-weibo"></i>
+    </a>
+  
+  
+    <a id="share-btn-qq" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-qq"></i>
+    </a>
+  
+  
+    <a id="share-btn-wechat" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-wechat"></i>
+    </a>
+  
+</div>
+    
+
+
+
+
+
+    
+  </body>
+</html>

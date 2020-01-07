@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html>
+  
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="author" content="张文涛">
+  
+  
+  <title>Python Flask 10 用户上传头像 | 山海经▪大荒经</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Flask,JS,Python,Flask,Python,JS,">
+  
+
+  
+  <meta name="description" content="Winter Zhang的小站">
+
+  
+
+  
+    <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.1/dist/av-min.js" async></script>
+  
+
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+  
+
+  
+    <script src="//unpkg.com/valine/dist/Valine.min.js" async></script>
+  
+
+  
+
+  <script>
+  // theme-ad's config script
+  // it can be used in every script
+  
+  window.AD_CONFIG = {
+    leancloud: {"appid":"J7nVGeFex3em3P8A4ktCiv3b-gzGzoHsz","appkey":"XiR0DX1Kvlh3Et3UalbFN4Dq","comment":true,"count":true},
+    welcome: {"enable":false,"interval":30},
+    start_time: "2015-02-10",
+    passwords: ["c035b468e47fd966ac2df15e3d7f7a64d89b1dbf209c24caad6e62bffd90d4c7", ],
+    is_post: true,
+    lock: false,
+    author: "张文涛",
+    share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
+    mathjax: true,
+    page_type: "",
+    root: "/"
+  };
+</script>
+
+  <script src="/vendor/sha256.min.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/index.js"></script>
+<script src="/vendor/qrcode.min.js"></script>
+
+  
+    <link rel="icon" href="/images/favicon2.ico">
+    <link rel="apple-touch-icon" href="/images/touch-icon.png">
+  
+
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/styles/components/highlight/highlight.css">
+
+  
+</head>
+  <body>
+    <header class="site-header">
+  <div class="site-header-brand">
+    
+      <span class="site-header-brand-title">
+        <a href="/">1900</a>
+      </span>
+    
+    
+      <span class="site-header-brand-motto"> | 祝你平安幸福 我就不下船了</span>
+    
+  </div>
+  <div class="site-header-right">
+    <nav class="site-header-navigation">
+      
+        <a href="/" target="_self">首页</a>
+      
+        <a href="/archives/" target="_self">归档</a>
+      
+        <a href="/tags/" target="_self">标签</a>
+      
+        <a href="/categories/" target="_self">分类</a>
+      
+        <a href="/friends/" target="_self">友链</a>
+      
+        <a href="/about/" target="_self">关于</a>
+      
+    </nav>
+    <div class="site-header-btn">
+      
+        <a href="https://github.com/834930269/" target="_blank" id="site-github">
+          <i class="fa fa-github-alt"></i>
+        </a>
+      
+      <a href="javascript:void(0);" id="site-search">
+        <i class="fa fa-search"></i>
+      </a>
+      <a href="javascript:void(0);" id="site-nav-btn">
+        <i class="fa fa-ellipsis-v"></i>
+      </a>
+    </div>
+  </div>
+</header>
+<nav class="table-content" id="site-nav">
+  <div class="table-content-title">
+    <span>导航</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc">
+      
+        <li class="toc-item">
+          <a href="/" target="_self">
+            首页
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/archives/" target="_self">
+            归档
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/tags/" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/categories/" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/friends/" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/about/" target="_self">
+            关于
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</nav>
+<div id="site-process"></div>
+    <main>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2017-10-18
+    </span>
+    
+      <span>
+        | <a href="/categories/Flask/"><i class="fa fa-bookmark"></i>Flask</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    Python Flask 10 用户上传头像
+  </h1>
+  
+  <article class="passage-article">
+    <p>借助上节的基础==&gt; <a href="http://cdn.be-sunshine.cn/index.php/2017/10/17/python-flask-upfile/" title="&lt;code&gt;点我啊!  Python Flask 上传文件&lt;/code&gt;" target="_blank" rel="noopener"><code>点我啊! Python Flask 上传文件</code></a> 这节我们实现一下<code>修改用户头像</code>以及<code>默认头像</code>的功能. 截止目前的项目进度: <a href="https://github.com/834930269/Flask_Study/tree/master/flask-%E5%A4%A7%E5%9E%8B%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%845-%E4%B8%8A%E4%BC%A0%E5%A4%B4%E5%83%8F" title="&lt;code&gt;点我啊! Github:flask-大型网站架构5-新增上传头像&lt;/code&gt;" target="_blank" rel="noopener"><code>点我啊! Github:flask-大型网站架构5-新增上传头像</code></a> 最终效果如图: <code>1.</code> <a href="http://cdn.be-sunshine.cn/wp-content/uploads/2017/10/捕获18.png" target="_blank" rel="noopener"><img src="http://cdn.be-sunshine.cn/wp-content/uploads/2017/10/%E6%8D%95%E8%8E%B718.png" alt></a> <code>2.</code> <a href="http://cdn.be-sunshine.cn/wp-content/uploads/2017/10/捕获19.png" target="_blank" rel="noopener"><img src="http://cdn.be-sunshine.cn/wp-content/uploads/2017/10/%E6%8D%95%E8%8E%B719.png" alt></a> <code>3.</code> <a href="http://cdn.be-sunshine.cn/wp-content/uploads/2017/10/捕获21.png" target="_blank" rel="noopener"><img src="http://cdn.be-sunshine.cn/wp-content/uploads/2017/10/%E6%8D%95%E8%8E%B721.png" alt></a> <code>4.</code> <a href="http://cdn.be-sunshine.cn/wp-content/uploads/2017/10/捕获22.png" target="_blank" rel="noopener"><img src="http://cdn.be-sunshine.cn/wp-content/uploads/2017/10/%E6%8D%95%E8%8E%B722.png" alt></a></p>
+<h1 id="开始"><a href="#开始" class="headerlink" title="开始!"></a>开始!</h1><h3 id="1"><a href="#1" class="headerlink" title="1:"></a>1:</h3><p>因为我们需要对每个用户<code>存下他的头像信息</code>. 这里我们选择<code>直接存储图片url</code>的形式进行存储. 所以我们需要对<code>model层</code>的<code>User</code>添加一个<code>gravatar</code>列,存储头像url. 主要代码如下:</p>
+<pre><code>class User(UserMixin,db.Model):
+    __tablename__ = &apos;users&apos;
+    gravatar = db.Column(db.String(200),default=&apos;/_uploads/photos/default.jpg&apos;)</code></pre><p>其中<code>gravatar</code>的默认值是<code>默认头像相对url</code>.</p>
+<h3 id="2"><a href="#2" class="headerlink" title="2:"></a>2:</h3><p>首先我们依然需要<code>先码出</code>上传头像界面的<code>表单(form)</code>. 先配置<code>所要上传的目标地址</code>变量<code>/config.py</code>:</p>
+<pre><code>import os
+UPLOADED_PHOTOS_DEST = os.path.abspath(os.path.join(os.getcwd(),&quot;app/static/Gravatar&quot;))</code></pre><p>我们需要对<code>上传文件</code>进行约束为图片格式,这里我们用一个<code>UploadSet</code>模块,编辑代码<code>/app/__init__.py</code>:</p>
+<pre><code>from flask_uploads import UploadSet, configure_uploads, IMAGES, patch_request_class
+
+photos = UploadSet(&apos;photos&apos;,IMAGES)</code></pre><p>然后将创建好的<code>photo</code>对象加入已经创建好的<code>app</code>中:</p>
+<pre><code>configure_uploads(app,photos)
+patch_request_class(app)  </code></pre><p>然后编写<code>form表单</code>:</p>
+<pre><code>from flask_wtf.file import FileField, FileRequired, FileAllowed
+from flask_uploads import UploadSet, configure_uploads, IMAGES, patch_request_class
+from .. import photos
+from flask_wtf import FlaskForm
+
+class UploadForm(FlaskForm):
+    photo = FileField(validators=[
+        FileAllowed(photos, u&apos;只能上传图片！&apos;), 
+        FileRequired(u&apos;请选择一个头像吧！&apos;)])
+    submit = SubmitField(u&apos;确认上传&apos;,render_kw={&quot;class&quot;:&quot;btn btn-primary&quot;})</code></pre><p>其中<code>render_kw</code>是一个<code>dict</code>类型,作用是<code>渲染对应表单的css</code>. <code>FileAllowed</code>用来检测上传文件类型,不对的的话返回<code>第二个参数</code>. <code>FileRequired</code>和<code>Required</code>作用近似,即<code>非空判断</code>.</p>
+<h3 id="3"><a href="#3" class="headerlink" title="3:"></a>3:</h3><p>接下来我们就要开始编写<code>view层</code>了. 这里我们将编辑头像页面的<code>url</code>设为<code>/edit-gravatar</code> 所以我们需要码一个有<code>GET</code>和<code>POST</code>的视图函数.</p>
+<pre><code>from flask_login import  current_user
+from flask_login import login_user,login_required,logout_user
+from .forms import UploadForm
+from flask import render_template, session, redirect, url_for, current_app,abort,flash
+from .. import db,photos
+
+@main.route(&apos;/edit-gravatar&apos;,methods=[&apos;GET&apos;,&apos;POST&apos;])
+@login_required
+def edit_gravatar():
+    form = UploadForm()
+    if form.validate_on_submit():
+        filename = photos.save(form.photo.data)
+        file_url = photos.url(filename)
+        current_user.gravatar = file_url
+        db.session.add(current_user)
+        flash(&apos;修改成功!&apos;)
+        return redirect(url_for(&apos;.user&apos;,username=current_user.username,file_url=file_url))
+
+    return render_template(&apos;edit_gravatar.html&apos;,form=form,file_url=current_user.gravatar)</code></pre><p>注意我们所上传的头像文件<code>即使名字相同也不会覆盖掉之前的头像文件的</code>..(所以还是以二进制存到数据库中更好一点么).</p>
+<h3 id="4"><a href="#4" class="headerlink" title="4:"></a>4:</h3><p>接下来我们需要编写<code>前台界面</code>了: 首先,由于如果我们直接用<code>quick_form</code>创建表单的话,表单的<code>css</code>就不好改了.所以我们把每个表单分开放入<code>form type=file</code>中,并且通过<code>传参</code>或者<code>重叠覆盖</code>修改表单控件的<code>样式</code>. 其中,修改<code>input type=file</code>样式的通用方法是<code>将opacity设为0</code>,然后用一个<code>a</code>标签将<code>input和a组合</code>到一起,这样修改<code>a</code>的样式便相当于修改<code>input</code>的样式. 对应的几部分代码如下:</p>
+<pre><code>/*CSS*/
+.upload{
+    padding: 5px 10px;
+    height: 40px;
+    line-height: 30px;
+    position: relative;
+    border: 1px solid #999;
+    text-decoration: none;
+    text-align:center;
+    color: #fff;
+}
+.change{
+    position: absolute;
+    overflow: hidden;
+    right: 0;
+    top: 0;
+    opacity: 0;
+}
+
+
+&lt;a class=&quot;btn btn-success upload&quot; placeholder=&quot;上传头像&quot; &gt;
+    &lt;p id=&quot;show_gt&quot;&gt;选择您要上传的头像~&lt;/p&gt;
+    { { form.photo(class=&quot;change&quot;,placeholder=&quot;上传头像&quot;,onchange=&quot;c()&quot;) }}
+&lt;/a&gt;</code></pre><p>然后在<code>css</code>中修改<code>upload</code>样式即可. 其中<code>btn btn-xxx</code>是<code>bootstrap</code>样式. 但是到这里还需要考虑一个问题,就是当<code>选中图片以后,并不会显示到页面上,必选点击提交以后</code>才会修改,下次访问这个页面才会变成新图片. 所以我们需要一种方法使<code>选中图片的同时将图片显示在页面上</code>,并和之前的头像对比. 这里我们使用直接<code>通过JavaScript在本地显示</code>: 对应JS代码如下:</p>
+<pre><code>&lt;script type=&quot;text/javascript&quot;&gt;
+    function c () {
+        var gt=document.getElementById(&apos;show_gt&apos;);
+        gt.innerText = &apos;已选中图片~&apos;
+        var r= new FileReader();
+        f=document.getElementById(&apos;photo&apos;).files[0];
+        r.readAsDataURL(f);
+        r.onload=function  (e) {
+            document.getElementById(&apos;show&apos;).src=this.result;
+        };
+    }
+&lt;/script&gt;</code></pre><p>因为<code>FlaskForm</code>生成的表单的<code>id</code>和类中对应<code>表单实例的名字</code>是一样的,所以这里的<code>id</code>是photo. 获取<code>图片对象(object) f</code>. 把这个File对象传给FileReader对象的读取方法，就能读取文件了。 连接: <a href="http://blog.csdn.net/oscar999/article/details/37499743/" title="&lt;code&gt;[JS进阶] HTML5 之文件操作(file)&lt;/code&gt;" target="_blank" rel="noopener"><code>点我啦! [JS进阶] HTML5 之文件操作(file)</code></a> 最后的<code>r.result</code>即为对应图片的<code>二进制数据</code>. 然后就是修改一下排版即可:</p>
+<pre><code>&lt;!-- edit_gravatar.html --&gt;
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %}编辑个人头像{% endblock %}
+    {% block page_content %}
+    <form method="POST" enctype="multipart/form-data">
+         { { form.hidden_tag() }}
+         <div class="page-header"><h2>展览板~</h2></div>
+         <a class="btn btn-success upload" placeholder="上传头像"><p id="show_gt">选择您要上传的头像~</p>
+            { { form.photo(class="change",placeholder="上传头像",onchange="c()") }}
+         </a><br>
+         {% for error in form.photo.errors %}
+             <span style="color: red;">{ { error }}</span>
+         {% endfor %}
+         {% if file_url %}
+         <br><img src="{ { file_url }}" width="256" height="256">
+         {% endif %}
+         <a class="btn btn-success"><-之前 之后-></-之前></a>
+         <img src="{ { file_url }}" id="show" width="256" height="256"><br><br>
+         { { form.submit }}
+    </form>
+    <script type="text/javascript">
+        function c () {
+            var gt=document.getElementById('show_gt');
+            gt.innerText = '已选中图片~'
+            var r= new FileReader();
+            f=document.getElementById('photo').files[0];
+            r.readAsDataURL(f);
+            r.onload=function  (e) {
+                document.getElementById('show').src=this.result;
+            };
+        }
+    </script>
+    {% endblock %}</code></pre><h3 id="Done"><a href="#Done" class="headerlink" title="Done"></a>Done</h3>
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#开始"><span class="toc-text">开始!</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1"><span class="toc-text">1:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2"><span class="toc-text">2:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3"><span class="toc-text">3:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4"><span class="toc-text">4:</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">展览板~</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Done"><span class="toc-text">Done</span></a></li></ol></li></ol></li></ol>
+  </div>
+</aside>
+  
+    <aside class="passage-copyright">
+      <div>本文作者: 张文涛</div>
+      
+        <div>
+          原文链接: 
+          <a href="" target="_blank">http://be-sunshine.cn/passages/python-flask-up-fil-to-app-2/</a>
+        </div>
+      
+      <div>
+        版权声明: 本博客所有文章除特别声明外, 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议. 转载请注明出处!
+      </div>
+    </aside>
+  
+  
+    <div class="passage-tags">
+     
+      <a href="/tags/Flask/"><i class="fa fa-tags"></i>Flask</a>
+     
+      <a href="/tags/Python/"><i class="fa fa-tags"></i>Python</a>
+     
+      <a href="/tags/JS/"><i class="fa fa-tags"></i>JS</a>
+    
+    </div>
+  
+</div>
+
+    </main>
+    
+      
+<div class="site-comment-contanier" data-plateform="leancloud">
+  
+    <p id="site-comment-info">
+      <i class="fa fa-spinner fa-spin"></i> 评论加载中
+    </p>
+    <div id="site-comment"></div>
+  
+</div>
+    
+    <div class="site-footer-wrapper">
+  <footer class="site-footer">
+    
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">博客推荐</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/" target="_blank">GodBMW</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="http://ruanyifeng.com/" target="_blank">阮一峰的个人网站</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">系列教程</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/categories/webpack4%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B/" target="_blank">webpack4系列教程</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/design-patterns/" target="_blank">设计模式手册</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">抓到我</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://weibo.com/3260959934/" target="_blank">微博</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://github.com/834930269" target="_blank">Github</a>
+            </span>
+          
+        </div>
+      
+    
+    <div class="site-footer-info">
+      <i class="fa fa-clock-o"></i> 本站已稳定运行<span id="site-time"></span>
+    </div>
+    
+      <div class="site-footer-info">
+        <i class="fa fa-paw"></i> 您是本站第 <span id="site-count"></span> 位访客
+      </div>
+    
+    
+      <div class="site-footer-info">
+        <i class="fa fa-at"></i> Email: 834930269@qq.com
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-copyright"></i> 
+      2019 <a href="https://github.com/dongyuanxin/theme-ad/" target="_blank">Theme-AD</a>.
+      Created by <a href="https://godbmw.com/" target="_blank">GodBMW</a>.
+      All rights reserved.
+    </div>
+  </footer>
+</div>
+    <div id="site-layer" style="display:none;">
+  <div class="site-layer-content">
+    <div class="site-layer-header">
+      <span class="site-layer-header-title" id="site-layer-title"></span>
+      <i class="fa fa-close" id="site-layer-close"></i>
+    </div>
+    <div class="site-layer-body" id="site-layer-container">
+      <div class="site-layer-input" id="site-layer-search" style="display: none;">
+        <div class="site-layer-input-choose">
+          <a href="javascript:void(0);" title="Change Search Engine">Google</a>
+        </div>
+        <input type="text">
+        <i class="fa fa-search"></i>
+      </div>
+      
+        <div class="site-layer-reward" id="site-layer-reward" style="display: none;">
+          
+            <div>
+              <img src="/images/wechat.png" alt="WeChat">
+              
+                <p>WeChat</p>
+              
+            </div>
+          
+            <div>
+              <img src="/images/alipay.png" alt="AliPay">
+              
+                <p>AliPay</p>
+              
+            </div>
+          
+        </div>
+      
+      <div id="site-layer-welcome" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+    
+
+<div class="bottom-bar">
+  <div class="bottom-bar-left">
+    <a href="/passages/python-flask-1-onmouse/" data-enable="true">
+      <i class="fa fa-arrow-left"></i>
+    </a>
+    <a href="/passages/python-flask-upfile/" data-enable="true">
+      <i class="fa fa-arrow-right"></i>
+    </a>
+  </div>
+  <div class="bottom-bar-right">
+    <a href="javascript:void(0);" data-enable="true" id="site-toc-show-btn">
+      <i class="fa fa-bars"></i>
+    </a>
+    
+      <a href="#site-comment" data-enable="true">
+        <i class="fa fa-commenting"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="site-toggle-share-btn">
+      <i class="fa fa-share-alt"></i>
+    </a>
+    
+      <a href="javascript:void(0);" id="site-reward">
+        <i class="fa fa-thumbs-up"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="back-top-btn">
+      <i class="fa fa-chevron-up"></i>
+    </a>
+  </div>
+</div>
+    <div id="share-btn">
+  
+    <a id="share-btn-twitter" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-twitter"></i>
+    </a>
+  
+  
+    <a id="share-btn-facebook" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-facebook"></i>
+    </a>
+  
+  
+    <a id="share-btn-weibo" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-weibo"></i>
+    </a>
+  
+  
+    <a id="share-btn-qq" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-qq"></i>
+    </a>
+  
+  
+    <a id="share-btn-wechat" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-wechat"></i>
+    </a>
+  
+</div>
+    
+
+
+
+
+
+    
+  </body>
+</html>

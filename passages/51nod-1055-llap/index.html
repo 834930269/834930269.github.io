@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html>
+  
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="author" content="张文涛">
+  
+  
+  <title>51nod 1055 最长等差数列 | 山海经▪大荒经</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="51nod,LLAP,动态规划,双向dp,思维,思维,51nod,动态规划,LLAP,双向dp,">
+  
+
+  
+  <meta name="description" content="Winter Zhang的小站">
+
+  
+
+  
+    <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.1/dist/av-min.js" async></script>
+  
+
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+  
+
+  
+    <script src="//unpkg.com/valine/dist/Valine.min.js" async></script>
+  
+
+  
+
+  <script>
+  // theme-ad's config script
+  // it can be used in every script
+  
+  window.AD_CONFIG = {
+    leancloud: {"appid":"J7nVGeFex3em3P8A4ktCiv3b-gzGzoHsz","appkey":"XiR0DX1Kvlh3Et3UalbFN4Dq","comment":true,"count":true},
+    welcome: {"enable":false,"interval":30},
+    start_time: "2015-02-10",
+    passwords: ["c035b468e47fd966ac2df15e3d7f7a64d89b1dbf209c24caad6e62bffd90d4c7", ],
+    is_post: true,
+    lock: false,
+    author: "张文涛",
+    share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
+    mathjax: true,
+    page_type: "",
+    root: "/"
+  };
+</script>
+
+  <script src="/vendor/sha256.min.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/index.js"></script>
+<script src="/vendor/qrcode.min.js"></script>
+
+  
+    <link rel="icon" href="/images/favicon2.ico">
+    <link rel="apple-touch-icon" href="/images/touch-icon.png">
+  
+
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/styles/components/highlight/highlight.css">
+
+  
+</head>
+  <body>
+    <header class="site-header">
+  <div class="site-header-brand">
+    
+      <span class="site-header-brand-title">
+        <a href="/">1900</a>
+      </span>
+    
+    
+      <span class="site-header-brand-motto"> | 祝你平安幸福 我就不下船了</span>
+    
+  </div>
+  <div class="site-header-right">
+    <nav class="site-header-navigation">
+      
+        <a href="/" target="_self">首页</a>
+      
+        <a href="/archives/" target="_self">归档</a>
+      
+        <a href="/tags/" target="_self">标签</a>
+      
+        <a href="/categories/" target="_self">分类</a>
+      
+        <a href="/friends/" target="_self">友链</a>
+      
+        <a href="/about/" target="_self">关于</a>
+      
+    </nav>
+    <div class="site-header-btn">
+      
+        <a href="https://github.com/834930269/" target="_blank" id="site-github">
+          <i class="fa fa-github-alt"></i>
+        </a>
+      
+      <a href="javascript:void(0);" id="site-search">
+        <i class="fa fa-search"></i>
+      </a>
+      <a href="javascript:void(0);" id="site-nav-btn">
+        <i class="fa fa-ellipsis-v"></i>
+      </a>
+    </div>
+  </div>
+</header>
+<nav class="table-content" id="site-nav">
+  <div class="table-content-title">
+    <span>导航</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc">
+      
+        <li class="toc-item">
+          <a href="/" target="_self">
+            首页
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/archives/" target="_self">
+            归档
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/tags/" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/categories/" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/friends/" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/about/" target="_self">
+            关于
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</nav>
+<div id="site-process"></div>
+    <main>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2018-03-08
+    </span>
+    
+      <span>
+        | <a href="/categories/51nod/"><i class="fa fa-bookmark"></i>51nod</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    51nod 1055 最长等差数列
+  </h1>
+  
+  <article class="passage-article">
+    <h1 id="Type-动态规划-双向DP-思维-技巧"><a href="#Type-动态规划-双向DP-思维-技巧" class="headerlink" title="Type: 动态规划,双向DP,思维,技巧"></a>Type: 动态规划,双向DP,思维,技巧</h1><h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p>N个不同的正整数，找出由这些数组成的最长的等差数列。 例如：1 3 5 6 8 9 10 12 13 14 等差子数列包括(仅包括两项的不列举） 1 3 5 1 5 9 13 3 6 9 12 3 8 13 5 9 13 6 8 10 12 14 其中6 8 10 12 14最长，长度为5。</p>
+<h1 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h1><p>第1行：N，N为正整数的数量(3 &lt;= N &lt;= 10000)。 第2 - N+1行：N个正整数。(2&lt;= A[i] &lt;= 10^9)</p>
+<h1 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h1><p>最长等差数列的长度。</p>
+<h1 id="Input示例"><a href="#Input示例" class="headerlink" title="Input示例"></a>Input示例</h1><p>10 1 3 5 6 8 9 10 12 13 14</p>
+<h1 id="Output示例"><a href="#Output示例" class="headerlink" title="Output示例"></a>Output示例</h1><p>5</p>
+<h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><blockquote>
+<p>数据范围可判是O(N^2) 一开始我一直在想如何把数字,即两个数之间的差用哈希存起来,来方便dp. 然后搜了题解发现是论文题. 被叫做LLAP问题 Length of the Longest Arithmetic Progressio</p>
+</blockquote>
+<h2 id="论文Link"><a href="#论文Link" class="headerlink" title="论文Link:"></a>论文Link:</h2><p><a href="https://www.geeksforgeeks.org/length-of-the-longest-arithmatic-progression-in-a-sorted-array/" target="_blank" rel="noopener">https://www.geeksforgeeks.org/length-of-the-longest-arithmatic-progression-in-a-sorted-array/</a></p>
+<h2 id="论文解释"><a href="#论文解释" class="headerlink" title="论文解释"></a>论文解释</h2><blockquote>
+<p>这道题可以转化为:</p>
+<blockquote>
+<p>给与一个 排过序 的集合set,我们要求这个集合中的最长等差数列的长度.</p>
+</blockquote>
+<p>标重点: 序列是已排好序的 我们设 dp[i][j] 为以下标 i 和 j 两个元素开头的等差序列最长长度. 我们可以创建一个浮标 j 作为等差数列的中间值</p>
+<blockquote>
+<p>初始化一个 i=j-1,k=j+1.</p>
+<blockquote>
+<p>1.如果 set[i]+set[k] &lt; set[j]*2</p>
+<blockquote>
+<p>k++</p>
+</blockquote>
+<p>2.如果 set[i]+set[k] &gt; set[j]*2</p>
+<blockquote>
+<p>i–</p>
+</blockquote>
+<p>如果 set[i]+set[k]=set[j]*2</p>
+<blockquote>
+<p>则构成等差数列,我们只需要让</p>
+<blockquote>
+<p>dp[i][j]=(dp[j][k]==0)?3:dp[j][k]+1</p>
+</blockquote>
+<p>如果dp[j][k]=0的话,dp[i][j]直接=3就可以了,因为 i,j,k 三个刚好构成等差数列.否则等于 dp[j][k]+1</p>
+</blockquote>
+<p>计算完以后 i–,k++ 继续计算其他以 j 为第二个点的等差数列</p>
+</blockquote>
+<p>倒序计算,正序反过来即可</p>
+</blockquote>
+<p>另外: 还可以 直接将 dp 数组初始化为 2(因为每个数的等差数列至少为2). dp[i][j]=dp[j][k]+1 另外有一个小技巧: 如果int的取值范围不大,但是数组要开很大的时候,可以用 short int,比如这道题.</p>
+</blockquote>
+<h1 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h1><pre><code>#include&lt;bits/stdc++.h&gt;
+
+using namespace std;
+
+const int maxn=10000;
+
+short int dp[maxn][maxn];
+int Num[maxn],ans,N;
+
+int main(){
+    while(~scanf(&quot;%d&quot;,&amp;N)){
+        memset(dp,0,sizeof(dp));
+        for(int i=0;i&lt;N;++i){
+            scanf(&quot;%d&quot;,&amp;Num[i]);
+        }
+        sort(Num,Num+N);
+        ans=0;
+        for(int j=N-2;j&gt;=1;--j){
+            int i=j-1,k=j+1;
+            while(k&lt;N&amp;&amp;i&gt;=0){
+                if(Num[i]+Num[k]&gt;2*Num[j]){
+                    --i;
+                }else if(Num[i]+Num[k]&lt;2*Num[j]){
+                    ++k;
+                }else{
+                    dp[i][j]=(dp[j][k]==0)?3:dp[j][k]+1;
+                    ans=max(ans,(int)dp[i][j]);
+                    --i;++k;
+                }
+            }
+        }
+        printf(&quot;%d\n&quot;,ans);
+    }
+    return 0;
+}</code></pre>
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Type-动态规划-双向DP-思维-技巧"><span class="toc-text">Type: 动态规划,双向DP,思维,技巧</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#题目"><span class="toc-text">题目</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Input"><span class="toc-text">Input</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Output"><span class="toc-text">Output</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Input示例"><span class="toc-text">Input示例</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Output示例"><span class="toc-text">Output示例</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#题解"><span class="toc-text">题解</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#论文Link"><span class="toc-text">论文Link:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#论文解释"><span class="toc-text">论文解释</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Code"><span class="toc-text">Code</span></a></li></ol>
+  </div>
+</aside>
+  
+    <aside class="passage-copyright">
+      <div>本文作者: 张文涛</div>
+      
+        <div>
+          原文链接: 
+          <a href="" target="_blank">http://be-sunshine.cn/passages/51nod-1055-llap/</a>
+        </div>
+      
+      <div>
+        版权声明: 本博客所有文章除特别声明外, 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议. 转载请注明出处!
+      </div>
+    </aside>
+  
+  
+    <div class="passage-tags">
+     
+      <a href="/tags/思维/"><i class="fa fa-tags"></i>思维</a>
+     
+      <a href="/tags/51nod/"><i class="fa fa-tags"></i>51nod</a>
+     
+      <a href="/tags/动态规划/"><i class="fa fa-tags"></i>动态规划</a>
+     
+      <a href="/tags/LLAP/"><i class="fa fa-tags"></i>LLAP</a>
+     
+      <a href="/tags/双向dp/"><i class="fa fa-tags"></i>双向dp</a>
+    
+    </div>
+  
+</div>
+
+    </main>
+    
+      
+<div class="site-comment-contanier" data-plateform="leancloud">
+  
+    <p id="site-comment-info">
+      <i class="fa fa-spinner fa-spin"></i> 评论加载中
+    </p>
+    <div id="site-comment"></div>
+  
+</div>
+    
+    <div class="site-footer-wrapper">
+  <footer class="site-footer">
+    
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">博客推荐</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/" target="_blank">GodBMW</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="http://ruanyifeng.com/" target="_blank">阮一峰的个人网站</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">系列教程</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/categories/webpack4%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B/" target="_blank">webpack4系列教程</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/design-patterns/" target="_blank">设计模式手册</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">抓到我</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://weibo.com/3260959934/" target="_blank">微博</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://github.com/834930269" target="_blank">Github</a>
+            </span>
+          
+        </div>
+      
+    
+    <div class="site-footer-info">
+      <i class="fa fa-clock-o"></i> 本站已稳定运行<span id="site-time"></span>
+    </div>
+    
+      <div class="site-footer-info">
+        <i class="fa fa-paw"></i> 您是本站第 <span id="site-count"></span> 位访客
+      </div>
+    
+    
+      <div class="site-footer-info">
+        <i class="fa fa-at"></i> Email: 834930269@qq.com
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-copyright"></i> 
+      2019 <a href="https://github.com/dongyuanxin/theme-ad/" target="_blank">Theme-AD</a>.
+      Created by <a href="https://godbmw.com/" target="_blank">GodBMW</a>.
+      All rights reserved.
+    </div>
+  </footer>
+</div>
+    <div id="site-layer" style="display:none;">
+  <div class="site-layer-content">
+    <div class="site-layer-header">
+      <span class="site-layer-header-title" id="site-layer-title"></span>
+      <i class="fa fa-close" id="site-layer-close"></i>
+    </div>
+    <div class="site-layer-body" id="site-layer-container">
+      <div class="site-layer-input" id="site-layer-search" style="display: none;">
+        <div class="site-layer-input-choose">
+          <a href="javascript:void(0);" title="Change Search Engine">Google</a>
+        </div>
+        <input type="text">
+        <i class="fa fa-search"></i>
+      </div>
+      
+        <div class="site-layer-reward" id="site-layer-reward" style="display: none;">
+          
+            <div>
+              <img src="/images/wechat.png" alt="WeChat">
+              
+                <p>WeChat</p>
+              
+            </div>
+          
+            <div>
+              <img src="/images/alipay.png" alt="AliPay">
+              
+                <p>AliPay</p>
+              
+            </div>
+          
+        </div>
+      
+      <div id="site-layer-welcome" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+    
+
+<div class="bottom-bar">
+  <div class="bottom-bar-left">
+    <a href="/passages/wannafly-cha-11/" data-enable="true">
+      <i class="fa fa-arrow-left"></i>
+    </a>
+    <a href="/passages/51nod-1241-tsds/" data-enable="true">
+      <i class="fa fa-arrow-right"></i>
+    </a>
+  </div>
+  <div class="bottom-bar-right">
+    <a href="javascript:void(0);" data-enable="true" id="site-toc-show-btn">
+      <i class="fa fa-bars"></i>
+    </a>
+    
+      <a href="#site-comment" data-enable="true">
+        <i class="fa fa-commenting"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="site-toggle-share-btn">
+      <i class="fa fa-share-alt"></i>
+    </a>
+    
+      <a href="javascript:void(0);" id="site-reward">
+        <i class="fa fa-thumbs-up"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="back-top-btn">
+      <i class="fa fa-chevron-up"></i>
+    </a>
+  </div>
+</div>
+    <div id="share-btn">
+  
+    <a id="share-btn-twitter" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-twitter"></i>
+    </a>
+  
+  
+    <a id="share-btn-facebook" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-facebook"></i>
+    </a>
+  
+  
+    <a id="share-btn-weibo" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-weibo"></i>
+    </a>
+  
+  
+    <a id="share-btn-qq" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-qq"></i>
+    </a>
+  
+  
+    <a id="share-btn-wechat" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-wechat"></i>
+    </a>
+  
+</div>
+    
+
+
+
+
+
+    
+  </body>
+</html>

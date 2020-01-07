@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html>
+  
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="author" content="张文涛">
+  
+  
+  <title>UVa 11426 | 山海经▪大荒经</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="UVa,思维,数论,欧拉函数,思维,数论,欧拉函数,UVa,">
+  
+
+  
+  <meta name="description" content="Winter Zhang的小站">
+
+  
+
+  
+    <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.11.1/dist/av-min.js" async></script>
+  
+
+  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+  
+
+  
+    <script src="//unpkg.com/valine/dist/Valine.min.js" async></script>
+  
+
+  
+
+  <script>
+  // theme-ad's config script
+  // it can be used in every script
+  
+  window.AD_CONFIG = {
+    leancloud: {"appid":"J7nVGeFex3em3P8A4ktCiv3b-gzGzoHsz","appkey":"XiR0DX1Kvlh3Et3UalbFN4Dq","comment":true,"count":true},
+    welcome: {"enable":false,"interval":30},
+    start_time: "2015-02-10",
+    passwords: ["c035b468e47fd966ac2df15e3d7f7a64d89b1dbf209c24caad6e62bffd90d4c7", ],
+    is_post: true,
+    lock: false,
+    author: "张文涛",
+    share: {"twitter":true,"facebook":true,"weibo":true,"qq":true,"wechat":true},
+    mathjax: true,
+    page_type: "",
+    root: "/"
+  };
+</script>
+
+  <script src="/vendor/sha256.min.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/index.js"></script>
+<script src="/vendor/qrcode.min.js"></script>
+
+  
+    <link rel="icon" href="/images/favicon2.ico">
+    <link rel="apple-touch-icon" href="/images/touch-icon.png">
+  
+
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/styles/components/highlight/highlight.css">
+
+  
+</head>
+  <body>
+    <header class="site-header">
+  <div class="site-header-brand">
+    
+      <span class="site-header-brand-title">
+        <a href="/">1900</a>
+      </span>
+    
+    
+      <span class="site-header-brand-motto"> | 祝你平安幸福 我就不下船了</span>
+    
+  </div>
+  <div class="site-header-right">
+    <nav class="site-header-navigation">
+      
+        <a href="/" target="_self">首页</a>
+      
+        <a href="/archives/" target="_self">归档</a>
+      
+        <a href="/tags/" target="_self">标签</a>
+      
+        <a href="/categories/" target="_self">分类</a>
+      
+        <a href="/friends/" target="_self">友链</a>
+      
+        <a href="/about/" target="_self">关于</a>
+      
+    </nav>
+    <div class="site-header-btn">
+      
+        <a href="https://github.com/834930269/" target="_blank" id="site-github">
+          <i class="fa fa-github-alt"></i>
+        </a>
+      
+      <a href="javascript:void(0);" id="site-search">
+        <i class="fa fa-search"></i>
+      </a>
+      <a href="javascript:void(0);" id="site-nav-btn">
+        <i class="fa fa-ellipsis-v"></i>
+      </a>
+    </div>
+  </div>
+</header>
+<nav class="table-content" id="site-nav">
+  <div class="table-content-title">
+    <span>导航</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc">
+      
+        <li class="toc-item">
+          <a href="/" target="_self">
+            首页
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/archives/" target="_self">
+            归档
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/tags/" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/categories/" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/friends/" target="_self">
+            友链
+          </a>
+        </li>
+      
+        <li class="toc-item">
+          <a href="/about/" target="_self">
+            关于
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</nav>
+<div id="site-process"></div>
+    <main>
+      
+  <div class="passage">
+  <div class="passage-meta">
+    <span>
+      <i class="fa fa-calendar"></i>2018-02-12
+    </span>
+    
+      <span>
+        | <a href="/categories/UVa/"><i class="fa fa-bookmark"></i>UVa</a>
+      </span>
+    
+    
+      <span>
+        | <i class="fa fa-unlock-alt"></i>UNLOCK
+      </span>
+    
+  </div>
+  <h1 class="passage-title">
+    UVa 11426
+  </h1>
+  
+  <article class="passage-article">
+    <h1 id="Link"><a href="#Link" class="headerlink" title="Link"></a>Link</h1><p><a href="https://vjudge.net/problem/UVA-11426" title="https://vjudge.net/problem/UVA-11426" target="_blank" rel="noopener">https://vjudge.net/problem/UVA-11426</a></p>
+<h1 id="Type-数论-欧拉函数-递推-思维"><a href="#Type-数论-欧拉函数-递推-思维" class="headerlink" title="Type: 数论,欧拉函数,递推,思维"></a>Type: 数论,欧拉函数,递推,思维</h1><h1 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h1><blockquote>
+<p>输入正整数n,求gcd(1,2)+gcd(1,3)+gcd(2,3)+gcd(1,4)+…+gcd(n-1,n) 保证输出不超过long long 范围: n∈[1,4000000]</p>
+</blockquote>
+<h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><blockquote>
+<p>首先我们应该清楚</p>
+<blockquote>
+<p>4000000的数据,用暴力 - 对每个gcd求值相加复杂度是i*j*O(gcd) 你懂就行,这么大的复杂度肯定爆炸.</p>
+</blockquote>
+<p>所以我们第一想法肯定是预处理.</p>
+<blockquote>
+<p>我们设 f(n) 为 (1,n)+(2,n)+(3,n)+…+(n-1,n) 则 S(n)=f(1)+f(2)+…+f(n)</p>
+<blockquote>
+<p>通过这个公式我们就可以递推出所有的 S(n)</p>
+<blockquote>
+<p>S(n)=S(n-1)+f(n)</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>然后我们的问题就转化成了求f(n)</p>
+<blockquote>
+<p>首先我们会自然地想到,与n互素的答案是1.即(k,n)的结果都是n的约数</p>
+<blockquote>
+<p>我们可以按照这个约数来进行分类, 用 g(n,i)表示满足gcd(x,n)=i 且 x\&lt;n 的正整数x的个数 则: f(n)=Sum(i*g(n,i) | i是n的约数,g(n,i)是1~n中gcd(k,n)=i的k的个数)</p>
+<blockquote>
+<p>然后我们注意到: -gcd(x,n)=i -则gcd(x/i,n/i)=1 -即x/i与n/i互质</p>
+</blockquote>
+<p>然后我们就可以将 g(n,i) 看做1~n中与 n/i 互质的数的个数,即</p>
+</blockquote>
+<p>g(n,i) = phi(n/i) 然后我们预处理phi[maxn],预处理完以后处理f(n),这里如果用二重循环依然是接受不了的 所以我们沿用筛法的思想对f[maxn]数组进行预处理,遇到i 是 k 的约数时,直接f[k]+=(i*phi[n/i])</p>
+</blockquote>
+<p>最后预处理S[maxn]即可</p>
+</blockquote>
+<h1 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h1><pre><code>/*
+我们要求:
+G=Sigma(i=1~N) Sigma(j=i+1~N) GCD(i,j)
+N&lt;=4000000，这样的范围二次循环+GCD肯定是不行的
+所以我们考虑
+f(n)=Sigma(i=1~n-1) gcd(i,n)
+则
+G(n)=Sigma(i=1~n) f(i)
+=G(n-1)+f(n)
+所以我们的问题转换为如何求f(n)
+
+即k都是n的约数
+可以按照约数进行分类,用g(n,i)表示满足 (x,n)=i且x&lt;n的正整数x的个数
+则 f(n)=sum(i\*g(n,i)|i是n的约数)
+
+再重提: g(n,i)代表满足(x,n)=i,且x&lt;n的正整数x的个数
+
+我们知道,如果 (a,n)=k
+则 (a/k,n/k)=1
+
+所以我们可以理解为g(n,i)代表的是x/i与n/i互质的数的个数
+即满足条件的x/i 有 phi(n/i)个
+g(n,i)=phi(n/i)
+*/
+#include&lt;bits/stdc++.h&gt;
+using namespace std;
+typedef long long LL;
+const int maxn=4000000+10;
+LL phi[maxn];
+
+LL f[maxn];
+
+LL g[maxn];
+void phi_table(){
+    for(int i=2;i&lt;maxn;++i) phi[i]=0;
+    phi[1]=1;
+    for(int i=2;i&lt;maxn;++i){
+        if(!phi[i]){
+            for(int j=i;j&lt;maxn;j+=i){
+                if(!phi[j]) phi[j]=j;
+                phi[j]=phi[j]/i*(i-1);
+            }
+        }
+    }
+}
+
+void init(){
+    phi_table();
+    memset(f,0,sizeof(f));
+    for(int i=1;i&lt;maxn;++i){
+        for(int j=i*2;j&lt;maxn;j+=i){
+            f[j]+=(i*phi[j/i]);
+        }
+    }
+    memset(g,0,sizeof(g));
+    for(int i=1;i&lt;maxn;++i) g[i]=g[i-1]+f[i];
+}
+
+int main(){
+    init();
+    int k;
+    while(~scanf(&quot;%d&quot;,&amp;k) &amp;&amp; k){
+        printf(&quot;%lld\n&quot;,g[k]);
+    }
+    return 0;
+}</code></pre>
+  </article>
+  <aside class="table-content" id="site-toc">
+  <div class="table-content-title">
+    <i class="fa fa-arrow-right fa-lg" id="site-toc-hide-btn"></i>
+    <span>目录</span>
+  </div>
+  <div class="table-content-main">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Link"><span class="toc-text">Link</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Type-数论-欧拉函数-递推-思维"><span class="toc-text">Type: 数论,欧拉函数,递推,思维</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#题意"><span class="toc-text">题意</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#题解"><span class="toc-text">题解</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Code"><span class="toc-text">Code</span></a></li></ol>
+  </div>
+</aside>
+  
+    <aside class="passage-copyright">
+      <div>本文作者: 张文涛</div>
+      
+        <div>
+          原文链接: 
+          <a href="" target="_blank">http://be-sunshine.cn/passages/uva-11426/</a>
+        </div>
+      
+      <div>
+        版权声明: 本博客所有文章除特别声明外, 均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议. 转载请注明出处!
+      </div>
+    </aside>
+  
+  
+    <div class="passage-tags">
+     
+      <a href="/tags/思维/"><i class="fa fa-tags"></i>思维</a>
+     
+      <a href="/tags/数论/"><i class="fa fa-tags"></i>数论</a>
+     
+      <a href="/tags/欧拉函数/"><i class="fa fa-tags"></i>欧拉函数</a>
+     
+      <a href="/tags/UVa/"><i class="fa fa-tags"></i>UVa</a>
+    
+    </div>
+  
+</div>
+
+    </main>
+    
+      
+<div class="site-comment-contanier" data-plateform="leancloud">
+  
+    <p id="site-comment-info">
+      <i class="fa fa-spinner fa-spin"></i> 评论加载中
+    </p>
+    <div id="site-comment"></div>
+  
+</div>
+    
+    <div class="site-footer-wrapper">
+  <footer class="site-footer">
+    
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">博客推荐</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/" target="_blank">GodBMW</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="http://ruanyifeng.com/" target="_blank">阮一峰的个人网站</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">系列教程</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/categories/webpack4%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B/" target="_blank">webpack4系列教程</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://godbmw.com/design-patterns/" target="_blank">设计模式手册</a>
+            </span>
+          
+        </div>
+      
+        <div class="site-footer-col">
+          <h5 class="site-footer-title">抓到我</h5>
+          
+            <span class="site-footer-item">
+              <a href="https://weibo.com/3260959934/" target="_blank">微博</a>
+            </span>
+          
+            <span class="site-footer-item">
+              <a href="https://github.com/834930269" target="_blank">Github</a>
+            </span>
+          
+        </div>
+      
+    
+    <div class="site-footer-info">
+      <i class="fa fa-clock-o"></i> 本站已稳定运行<span id="site-time"></span>
+    </div>
+    
+      <div class="site-footer-info">
+        <i class="fa fa-paw"></i> 您是本站第 <span id="site-count"></span> 位访客
+      </div>
+    
+    
+      <div class="site-footer-info">
+        <i class="fa fa-at"></i> Email: 834930269@qq.com
+      </div>
+    
+    <div class="site-footer-info">
+      <i class="fa fa-copyright"></i> 
+      2019 <a href="https://github.com/dongyuanxin/theme-ad/" target="_blank">Theme-AD</a>.
+      Created by <a href="https://godbmw.com/" target="_blank">GodBMW</a>.
+      All rights reserved.
+    </div>
+  </footer>
+</div>
+    <div id="site-layer" style="display:none;">
+  <div class="site-layer-content">
+    <div class="site-layer-header">
+      <span class="site-layer-header-title" id="site-layer-title"></span>
+      <i class="fa fa-close" id="site-layer-close"></i>
+    </div>
+    <div class="site-layer-body" id="site-layer-container">
+      <div class="site-layer-input" id="site-layer-search" style="display: none;">
+        <div class="site-layer-input-choose">
+          <a href="javascript:void(0);" title="Change Search Engine">Google</a>
+        </div>
+        <input type="text">
+        <i class="fa fa-search"></i>
+      </div>
+      
+        <div class="site-layer-reward" id="site-layer-reward" style="display: none;">
+          
+            <div>
+              <img src="/images/wechat.png" alt="WeChat">
+              
+                <p>WeChat</p>
+              
+            </div>
+          
+            <div>
+              <img src="/images/alipay.png" alt="AliPay">
+              
+                <p>AliPay</p>
+              
+            </div>
+          
+        </div>
+      
+      <div id="site-layer-welcome" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+    
+
+<div class="bottom-bar">
+  <div class="bottom-bar-left">
+    <a href="/passages/poj-2407/" data-enable="true">
+      <i class="fa fa-arrow-left"></i>
+    </a>
+    <a href="/passages/hdu-2035/" data-enable="true">
+      <i class="fa fa-arrow-right"></i>
+    </a>
+  </div>
+  <div class="bottom-bar-right">
+    <a href="javascript:void(0);" data-enable="true" id="site-toc-show-btn">
+      <i class="fa fa-bars"></i>
+    </a>
+    
+      <a href="#site-comment" data-enable="true">
+        <i class="fa fa-commenting"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="site-toggle-share-btn">
+      <i class="fa fa-share-alt"></i>
+    </a>
+    
+      <a href="javascript:void(0);" id="site-reward">
+        <i class="fa fa-thumbs-up"></i>
+      </a>
+    
+    <a href="javascript:void(0);" id="back-top-btn">
+      <i class="fa fa-chevron-up"></i>
+    </a>
+  </div>
+</div>
+    <div id="share-btn">
+  
+    <a id="share-btn-twitter" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-twitter"></i>
+    </a>
+  
+  
+    <a id="share-btn-facebook" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-facebook"></i>
+    </a>
+  
+  
+    <a id="share-btn-weibo" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-weibo"></i>
+    </a>
+  
+  
+    <a id="share-btn-qq" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-qq"></i>
+    </a>
+  
+  
+    <a id="share-btn-wechat" href="javascript:void(0);" target="_blank">
+      <i class="fa fa-wechat"></i>
+    </a>
+  
+</div>
+    
+
+
+
+
+
+    
+  </body>
+</html>
