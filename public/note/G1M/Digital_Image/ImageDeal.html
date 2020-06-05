@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>数字图像处理 - 图像增强 | 山海经·大荒经</title>
+    <meta name="generator" content="VuePress 1.4.1">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="description" content="数字图像处理">
+    <meta name="keywords" content="数字图像处理">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <link rel="preload" href="/assets/css/0.styles.a1e95c0c.css" as="style"><link rel="preload" href="/assets/js/app.04685d3a.js" as="script"><link rel="preload" href="/assets/js/3.90a49217.js" as="script"><link rel="preload" href="/assets/js/1.09e86ddf.js" as="script"><link rel="preload" href="/assets/js/43.5006b53a.js" as="script"><link rel="prefetch" href="/assets/js/10.dedee96d.js"><link rel="prefetch" href="/assets/js/11.e97ecc82.js"><link rel="prefetch" href="/assets/js/12.6cebf2c1.js"><link rel="prefetch" href="/assets/js/13.b56c647a.js"><link rel="prefetch" href="/assets/js/14.190c3083.js"><link rel="prefetch" href="/assets/js/15.9e99afdb.js"><link rel="prefetch" href="/assets/js/16.1ce65fa2.js"><link rel="prefetch" href="/assets/js/17.1e73a208.js"><link rel="prefetch" href="/assets/js/18.1f3f6a1d.js"><link rel="prefetch" href="/assets/js/19.59add20f.js"><link rel="prefetch" href="/assets/js/20.6eedba62.js"><link rel="prefetch" href="/assets/js/21.09904bd1.js"><link rel="prefetch" href="/assets/js/22.a71bea94.js"><link rel="prefetch" href="/assets/js/23.d476659e.js"><link rel="prefetch" href="/assets/js/24.f20962d3.js"><link rel="prefetch" href="/assets/js/25.2f4f66e3.js"><link rel="prefetch" href="/assets/js/26.906ec63e.js"><link rel="prefetch" href="/assets/js/27.eadfc01c.js"><link rel="prefetch" href="/assets/js/28.e5c7713c.js"><link rel="prefetch" href="/assets/js/29.5099a043.js"><link rel="prefetch" href="/assets/js/30.e2c8074b.js"><link rel="prefetch" href="/assets/js/31.7b8aa370.js"><link rel="prefetch" href="/assets/js/32.d90bebb0.js"><link rel="prefetch" href="/assets/js/33.fd30217d.js"><link rel="prefetch" href="/assets/js/34.6efb63c3.js"><link rel="prefetch" href="/assets/js/35.336ff28f.js"><link rel="prefetch" href="/assets/js/36.4faa5528.js"><link rel="prefetch" href="/assets/js/37.b8d4d152.js"><link rel="prefetch" href="/assets/js/38.7e143553.js"><link rel="prefetch" href="/assets/js/39.4a5754f7.js"><link rel="prefetch" href="/assets/js/4.1a0c54af.js"><link rel="prefetch" href="/assets/js/40.ab09e03d.js"><link rel="prefetch" href="/assets/js/41.acd590b3.js"><link rel="prefetch" href="/assets/js/42.fdb09462.js"><link rel="prefetch" href="/assets/js/44.5a895393.js"><link rel="prefetch" href="/assets/js/45.c82a2059.js"><link rel="prefetch" href="/assets/js/46.d62cc5a6.js"><link rel="prefetch" href="/assets/js/47.7009ca47.js"><link rel="prefetch" href="/assets/js/48.16aece2c.js"><link rel="prefetch" href="/assets/js/49.2fbc0af8.js"><link rel="prefetch" href="/assets/js/5.8700c8cc.js"><link rel="prefetch" href="/assets/js/50.ac346fb4.js"><link rel="prefetch" href="/assets/js/51.e6e8d83c.js"><link rel="prefetch" href="/assets/js/52.74d28842.js"><link rel="prefetch" href="/assets/js/53.e8a12ebb.js"><link rel="prefetch" href="/assets/js/54.fa1ac5dd.js"><link rel="prefetch" href="/assets/js/55.9ad5cbfe.js"><link rel="prefetch" href="/assets/js/56.3f286aa2.js"><link rel="prefetch" href="/assets/js/57.761e35ac.js"><link rel="prefetch" href="/assets/js/58.163a439d.js"><link rel="prefetch" href="/assets/js/59.09fa18a0.js"><link rel="prefetch" href="/assets/js/6.ca89540a.js"><link rel="prefetch" href="/assets/js/60.d089b184.js"><link rel="prefetch" href="/assets/js/61.c2fd4705.js"><link rel="prefetch" href="/assets/js/62.e117b357.js"><link rel="prefetch" href="/assets/js/63.6bfda5d4.js"><link rel="prefetch" href="/assets/js/64.183a4fa4.js"><link rel="prefetch" href="/assets/js/65.559bb681.js"><link rel="prefetch" href="/assets/js/66.18ad8db7.js"><link rel="prefetch" href="/assets/js/67.e5a81b4e.js"><link rel="prefetch" href="/assets/js/68.931c5073.js"><link rel="prefetch" href="/assets/js/69.69de6db6.js"><link rel="prefetch" href="/assets/js/7.f6dd72f1.js"><link rel="prefetch" href="/assets/js/70.e8077c9a.js"><link rel="prefetch" href="/assets/js/8.4b7dc8e1.js"><link rel="prefetch" href="/assets/js/9.b99917c5.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.a1e95c0c.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container" data-v-19557b78><div data-v-19557b78><div id="loader-wrapper" class="loading-wrapper" data-v-d48f4d20 data-v-19557b78 data-v-19557b78><div class="loader-main" data-v-d48f4d20><div data-v-d48f4d20></div><div data-v-d48f4d20></div><div data-v-d48f4d20></div><div data-v-d48f4d20></div></div> <!----> <!----></div> <div class="password-shadow password-wrapper-out" style="display:none;" data-v-64685f0e data-v-19557b78 data-v-19557b78><h3 class="title" style="display:none;" data-v-64685f0e data-v-64685f0e>山海经·大荒经</h3> <!----> <label id="box" class="inputBox" style="display:none;" data-v-64685f0e data-v-64685f0e><input type="password" value="" data-v-64685f0e> <span data-v-64685f0e>Konck! Knock!</span> <button data-v-64685f0e>OK</button></label> <div class="footer" style="display:none;" data-v-64685f0e data-v-64685f0e><span data-v-64685f0e><i class="iconfont reco-theme" data-v-64685f0e></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-64685f0e>vuePress-theme-reco</a></span> <span data-v-64685f0e><i class="iconfont reco-copyright" data-v-64685f0e></i> <a data-v-64685f0e><span data-v-64685f0e>Winter</span>
+            
+          <span data-v-64685f0e>2017 - </span>
+          2020
+        </a></span></div></div> <div class="hide" data-v-19557b78><header class="navbar" data-v-19557b78><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><img src="/logo.png" alt="山海经·大荒经" class="logo"> <span class="site-name">山海经·大荒经</span></a> <div class="links"><div class="color-picker"><a class="color-button"><i class="iconfont reco-color"></i></a> <div class="color-picker-menu" style="display:none;"><div class="mode-options"><h4 class="title">Choose mode</h4> <ul class="color-mode-options"><li class="dark">dark</li><li class="auto active">auto</li><li class="light">light</li></ul></div></div></div> <div class="search-box"><i class="iconfont reco-search"></i> <input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link"><i class="iconfont reco-home"></i>
+  主页
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont undefined"></i>
+      编程语言
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>Java</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/" class="nav-link"><i class="iconfont undefined"></i>
+  语言高级特性
+</a></li><li class="dropdown-subitem"><a href="/" class="nav-link"><i class="iconfont undefined"></i>
+  Spring技术栈
+</a></li><li class="dropdown-subitem"><a href="/" class="nav-link"><i class="iconfont undefined"></i>
+  分布式
+</a></li></ul></li><li class="dropdown-item"><h4>Python</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/" class="nav-link"><i class="iconfont undefined"></i>
+  语言高级特性
+</a></li><li class="dropdown-subitem"><a href="/" class="nav-link"><i class="iconfont undefined"></i>
+  Flask
+</a></li><li class="dropdown-subitem"><a href="/programming_language/python/DataScience/numpy.html" class="nav-link"><i class="iconfont undefined"></i>
+  Numpy
+</a></li></ul></li><li class="dropdown-item"><h4>C++</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/note/G1M/Cpp/Cplus.html" class="nav-link"><i class="iconfont undefined"></i>
+  高级语法
+</a></li></ul></li></ul></div></div><div class="nav-item"><a href="/tag/" class="nav-link"><i class="iconfont reco-tag"></i>
+  Tag
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont undefined"></i>
+      通用技能
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/general/mysql/mysql.html" class="nav-link"><i class="iconfont undefined"></i>
+  MySql
+</a></li><li class="dropdown-item"><!----> <a href="/algorithm/dp/dp.html" class="nav-link"><i class="iconfont undefined"></i>
+  算法
+</a></li><li class="dropdown-item"><!----> <a href="/note/G1M/advance_ds/priority_queue.html" class="nav-link"><i class="iconfont undefined"></i>
+  高级数据结构
+</a></li><li class="dropdown-item"><!----> <a href="/note/G1M/Digital_Image/Introduce.html" class="nav-link"><i class="iconfont undefined"></i>
+  数字图像处理
+</a></li><li class="dropdown-item"><!----> <a href="/note/G1M/Computer_Graphics/Computer_Graphics.html" class="nav-link"><i class="iconfont undefined"></i>
+  计算机图形学
+</a></li><li class="dropdown-item"><!----> <a href="/note/G1M/Digital_Image/note/G1M/mode/matlab.html" class="nav-link"><i class="iconfont undefined"></i>
+  数学建模
+</a></li><li class="dropdown-item"><h4>人工智能</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/Tensorflow2/tf2/Tensorflow_Keras/Keras.html" class="nav-link"><i class="iconfont undefined"></i>
+  Tensorflow
+</a></li><li class="dropdown-subitem"><a href="/ai/ml/Modle_Represen.html" class="nav-link"><i class="iconfont undefined"></i>
+  机器学习
+</a></li><li class="dropdown-subitem"><a href="/ai/dl/about.html" class="nav-link"><i class="iconfont undefined"></i>
+  神经网络
+</a></li></ul></li><li class="dropdown-item"><h4>游戏/VR/AR开发</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/xr/vr/Unity.html" class="nav-link"><i class="iconfont undefined"></i>
+  VR
+</a></li><li class="dropdown-subitem"><a href="/" class="nav-link"><i class="iconfont undefined"></i>
+  AR
+</a></li><li class="dropdown-subitem"><a href="/" class="nav-link"><i class="iconfont undefined"></i>
+  GameMakerStudio
+</a></li></ul></li></ul></div></div><div class="nav-item"><a href="/timeline/" class="nav-link"><i class="iconfont reco-date"></i>
+  TimeLine
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-message"></i>
+      Contact
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://github.com/recoluan" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-github"></i>
+  GitHub
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="http://be-sunshine.cn" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont undefined"></i>
+  hexo博客
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask" data-v-19557b78></div> <aside class="sidebar" data-v-19557b78><div class="personal-info-wrapper" data-v-042e23d4><img src="/avatar.png" alt="author-avatar" class="personal-img" data-v-042e23d4> <h3 class="name" data-v-042e23d4>
+    Winter
+  </h3> <div class="num" data-v-042e23d4><div data-v-042e23d4><h3 data-v-042e23d4>4</h3> <h6 data-v-042e23d4>Article</h6></div> <div data-v-042e23d4><h3 data-v-042e23d4>4</h3> <h6 data-v-042e23d4>Tag</h6></div></div> <hr data-v-042e23d4></div> <nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link"><i class="iconfont reco-home"></i>
+  主页
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont undefined"></i>
+      编程语言
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>Java</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/" class="nav-link"><i class="iconfont undefined"></i>
+  语言高级特性
+</a></li><li class="dropdown-subitem"><a href="/" class="nav-link"><i class="iconfont undefined"></i>
+  Spring技术栈
+</a></li><li class="dropdown-subitem"><a href="/" class="nav-link"><i class="iconfont undefined"></i>
+  分布式
+</a></li></ul></li><li class="dropdown-item"><h4>Python</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/" class="nav-link"><i class="iconfont undefined"></i>
+  语言高级特性
+</a></li><li class="dropdown-subitem"><a href="/" class="nav-link"><i class="iconfont undefined"></i>
+  Flask
+</a></li><li class="dropdown-subitem"><a href="/programming_language/python/DataScience/numpy.html" class="nav-link"><i class="iconfont undefined"></i>
+  Numpy
+</a></li></ul></li><li class="dropdown-item"><h4>C++</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/note/G1M/Cpp/Cplus.html" class="nav-link"><i class="iconfont undefined"></i>
+  高级语法
+</a></li></ul></li></ul></div></div><div class="nav-item"><a href="/tag/" class="nav-link"><i class="iconfont reco-tag"></i>
+  Tag
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont undefined"></i>
+      通用技能
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/general/mysql/mysql.html" class="nav-link"><i class="iconfont undefined"></i>
+  MySql
+</a></li><li class="dropdown-item"><!----> <a href="/algorithm/dp/dp.html" class="nav-link"><i class="iconfont undefined"></i>
+  算法
+</a></li><li class="dropdown-item"><!----> <a href="/note/G1M/advance_ds/priority_queue.html" class="nav-link"><i class="iconfont undefined"></i>
+  高级数据结构
+</a></li><li class="dropdown-item"><!----> <a href="/note/G1M/Digital_Image/Introduce.html" class="nav-link"><i class="iconfont undefined"></i>
+  数字图像处理
+</a></li><li class="dropdown-item"><!----> <a href="/note/G1M/Computer_Graphics/Computer_Graphics.html" class="nav-link"><i class="iconfont undefined"></i>
+  计算机图形学
+</a></li><li class="dropdown-item"><!----> <a href="/note/G1M/Digital_Image/note/G1M/mode/matlab.html" class="nav-link"><i class="iconfont undefined"></i>
+  数学建模
+</a></li><li class="dropdown-item"><h4>人工智能</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/Tensorflow2/tf2/Tensorflow_Keras/Keras.html" class="nav-link"><i class="iconfont undefined"></i>
+  Tensorflow
+</a></li><li class="dropdown-subitem"><a href="/ai/ml/Modle_Represen.html" class="nav-link"><i class="iconfont undefined"></i>
+  机器学习
+</a></li><li class="dropdown-subitem"><a href="/ai/dl/about.html" class="nav-link"><i class="iconfont undefined"></i>
+  神经网络
+</a></li></ul></li><li class="dropdown-item"><h4>游戏/VR/AR开发</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/xr/vr/Unity.html" class="nav-link"><i class="iconfont undefined"></i>
+  VR
+</a></li><li class="dropdown-subitem"><a href="/" class="nav-link"><i class="iconfont undefined"></i>
+  AR
+</a></li><li class="dropdown-subitem"><a href="/" class="nav-link"><i class="iconfont undefined"></i>
+  GameMakerStudio
+</a></li></ul></li></ul></div></div><div class="nav-item"><a href="/timeline/" class="nav-link"><i class="iconfont reco-date"></i>
+  TimeLine
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-message"></i>
+      Contact
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://github.com/recoluan" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-github"></i>
+  GitHub
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="http://be-sunshine.cn" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont undefined"></i>
+  hexo博客
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></div></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>数字图像处理</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/note/G1M/Digital_Image/Introduce.html" class="sidebar-link">数字图像处理 - 介绍</a></li><li><a href="/note/G1M/Digital_Image/grey.html" class="sidebar-link">数字图像处理 - 灰度直方图</a></li><li><a href="/note/G1M/Digital_Image/ImageDeal.html" aria-current="page" class="active sidebar-link">数字图像处理 - 图像增强</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/note/G1M/Digital_Image/ImageDeal.html#方法" class="sidebar-link">方法</a></li><li class="sidebar-sub-header"><a href="/note/G1M/Digital_Image/ImageDeal.html#空域处理" class="sidebar-link">空域处理</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/note/G1M/Digital_Image/ImageDeal.html#变换" class="sidebar-link">变换</a></li><li class="sidebar-sub-header"><a href="/note/G1M/Digital_Image/ImageDeal.html#数学表示" class="sidebar-link">数学表示</a></li><li class="sidebar-sub-header"><a href="/note/G1M/Digital_Image/ImageDeal.html#幂律变换" class="sidebar-link">幂律变换</a></li><li class="sidebar-sub-header"><a href="/note/G1M/Digital_Image/ImageDeal.html#对数变换" class="sidebar-link">对数变换</a></li><li class="sidebar-sub-header"><a href="/note/G1M/Digital_Image/ImageDeal.html#对比拉伸变换" class="sidebar-link">对比拉伸变换</a></li><li class="sidebar-sub-header"><a href="/note/G1M/Digital_Image/ImageDeal.html#直方图" class="sidebar-link">直方图</a></li></ul></li><li class="sidebar-sub-header"><a href="/note/G1M/Digital_Image/ImageDeal.html#椒盐噪声" class="sidebar-link">椒盐噪声</a></li><li class="sidebar-sub-header"><a href="/note/G1M/Digital_Image/ImageDeal.html#来源" class="sidebar-link">来源</a></li></ul></li><li><a href="/note/G1M/Digital_Image/transform.html" class="sidebar-link">数字图像处理 - 变换</a></li></ul></section></li></ul> </aside> <div class="password-shadow password-wrapper-in" style="display:none;" data-v-64685f0e data-v-19557b78><h3 class="title" style="display:none;" data-v-64685f0e data-v-64685f0e>数字图像处理 - 图像增强</h3> <!----> <label id="box" class="inputBox" style="display:none;" data-v-64685f0e data-v-64685f0e><input type="password" value="" data-v-64685f0e> <span data-v-64685f0e>Konck! Knock!</span> <button data-v-64685f0e>OK</button></label> <div class="footer" style="display:none;" data-v-64685f0e data-v-64685f0e><span data-v-64685f0e><i class="iconfont reco-theme" data-v-64685f0e></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-64685f0e>vuePress-theme-reco</a></span> <span data-v-64685f0e><i class="iconfont reco-copyright" data-v-64685f0e></i> <a data-v-64685f0e><span data-v-64685f0e>Winter</span>
+            
+          <span data-v-64685f0e>2017 - </span>
+          2020
+        </a></span></div></div> <div data-v-19557b78><main class="page"><div class="page-title" style="display:none;"><h1>数字图像处理 - 图像增强</h1> <hr> <div data-v-34ea29db><i class="iconfont reco-account" data-v-34ea29db><span data-v-34ea29db>Winter</span></i> <!----> <!----> <!----></div></div> <div class="theme-reco-content content__default" style="display:none;"><p></p><div class="table-of-contents"><ul><li><a href="#方法">方法</a></li><li><a href="#空域处理">空域处理</a><ul><li><a href="#变换">变换</a></li><li><a href="#数学表示">数学表示</a></li><li><a href="#幂律变换">幂律变换</a></li><li><a href="#对数变换">对数变换</a></li><li><a href="#对比拉伸变换">对比拉伸变换</a></li><li><a href="#直方图">直方图</a></li></ul></li><li><a href="#椒盐噪声">椒盐噪声</a></li><li><a href="#来源">来源</a></li></ul></div><p></p> <h1 id="图像增强"><a href="#图像增强" class="header-anchor">#</a> 图像增强</h1> <h2 id="方法"><a href="#方法" class="header-anchor">#</a> 方法</h2> <p><img src="http://cdn.be-sunshine.cn/image_strong.png" alt=""></p> <h2 id="空域处理"><a href="#空域处理" class="header-anchor">#</a> 空域处理</h2> <h3 id="变换"><a href="#变换" class="header-anchor">#</a> 变换</h3> <blockquote><p>不同于操作一个函数生成一个新的值
+而是操作一个新的函数生成一个新的函数</p></blockquote> <h3 id="数学表示"><a href="#数学表示" class="header-anchor">#</a> 数学表示</h3> <p>\begin{equation}
+g(x,y) = T[f(x,y)]
+\end{equation}</p> <p>       f(x,y): 输入图像
+       g(x,y): 输出图像
+       T: 在f(x,y)上操作,定义在(x,y)的某个邻域上</p> <ul><li>T可以再一组图像上进行操作,例如噪声消除</li> <li>方形和矩形<code>邻域</code>是使用最多的,因为它们易实现,也可使用圆形区域</li></ul> <blockquote><p>T最简单的情况是邻域大小 <code>1*1</code>。这时g只依赖于f在(x,y)处的值,即</p> <blockquote><center>s=T(r)</center></blockquote> <p>我们称之为<code>灰度变换</code>或<code>两度变换</code>,其中s与r分别为输出与输入的亮度值</p></blockquote> <h3 id="幂律变换"><a href="#幂律变换" class="header-anchor">#</a> 幂律变换</h3> <blockquote><p>比如<code>伽马校正</code> <code>对比度增强,伽马越小,越亮(对比度越高)</code>如果图片亮度过高,也可以让伽马变大</p> <blockquote><p>至于<code>对比度增强</code>,也可以用分段线性函数</p></blockquote></blockquote> <p>       matlab实现:</p> <blockquote><p>幂律变换函数实现的是imadjust(图像,[low_in,high_in],[low_out,high_out])
+其中low_in,high_in 映射到 low_out,high_out
+不填Gamma就是最简单的直方图映射
+[0.1] [1 0]就是反色
+[] [] 2 gamma=2 前两个参数代表的是原图映射,但是gamma=2,即改成抛物线映射</p></blockquote> <div class="language-matlab line-numbers-mode"><pre class="language-matlab"><code>G<span class="token operator">=</span><span class="token function">imadjust</span><span class="token punctuation">(</span>I<span class="token punctuation">,</span><span class="token punctuation">[</span><span class="token number">0</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token punctuation">[</span><span class="token number">1</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+# 反色调<span class="token punctuation">,</span>第三个参数缺省
+<span class="token function">imshow</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+
+G <span class="token operator">=</span> <span class="token function">imadjust</span><span class="token punctuation">(</span>I<span class="token punctuation">,</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">)</span>
+# 伽马<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">,</span>即 <span class="token function">I</span><span class="token punctuation">(</span>每个像素<span class="token punctuation">)</span><span class="token operator">^</span><span class="token number">2</span>
+<span class="token function">imshow</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br></div></div><h3 id="对数变换"><a href="#对数变换" class="header-anchor">#</a> 对数变换</h3> <p>\begin{equation}</p> <p>s = clog(1+r)</p> <p>\end{equation}</p> <ul><li>其中c是常数</li> <li>该变幻的形状类似于gamma曲线</li> <li>请注意,伽马曲线的形状是<code>可变的</code>,而对数函数的形状是<code>固定的</code></li> <li>加一防止出现0的情况</li></ul> <p><strong>对数变换常用于处理傅里叶变换后的频谱,使频谱的对比度更高,细节更清晰,傅里叶变换前通常需要对数变换</strong></p> <blockquote><p>傅里叶谱在[0,1e6]的范围内并不少见,当显示在一个线性缩放到8位的显示器上时,高值占据了显示器的主导地位,从而丢失了低强度值的视觉细节频谱。通过计算log,动态范围可以减小到大约14,更易于显示管理
+在执行对数转换时,通常希望将压缩后的值恢复到<code>全部显示范围</code>,对于8位,在Matlab中最简单的方法是使用:</p></blockquote> <div class="language-python line-numbers-mode"><pre class="language-python"><code>gs <span class="token operator">=</span> im2uint8<span class="token punctuation">(</span>mat2gray<span class="token punctuation">(</span>g<span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><blockquote><p>使用<code>mat2gray</code>将值映射到[0,1]范围内,而im2uint8将值映射到[0,255]范围
+使用对数变换的方式:</p></blockquote> <div class="language-python line-numbers-mode"><pre class="language-python"><code>gs <span class="token operator">=</span> im2uint8<span class="token punctuation">(</span>mat2gray<span class="token punctuation">(</span>log<span class="token punctuation">(</span><span class="token number">1</span><span class="token operator">+</span>double<span class="token punctuation">(</span>f<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+imshow<span class="token punctuation">(</span>gs<span class="token punctuation">)</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br></div></div><blockquote><p>结果(中间是低频):
+<img src="http://cdn.be-sunshine.cn/fft_log.png" alt=""></p></blockquote> <h3 id="对比拉伸变换"><a href="#对比拉伸变换" class="header-anchor">#</a> 对比拉伸变换</h3> <div class="language- line-numbers-mode"><pre class="language-text"><code>m = 128
+r=0:255
+figure
+for E = 0.1:1:20
+    s=1./(1+(m./r).^E)
+    plot(r,s)
+    hold on
+end
+% 初值0.1,步长1
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br></div></div><p>.</p> <h3 id="直方图"><a href="#直方图" class="header-anchor">#</a> 直方图</h3> <blockquote><p>h=imhist(f,b)</p> <blockquote><p>f为输入图像
+h为输入图像的直方图,b为生成直方图所用的量化级别的数目
+如参数不包含b,则默认为256
+量化级别是对亮度范围的一种子划分</p></blockquote></blockquote> <div class="language-python line-numbers-mode"><pre class="language-python"><code>f<span class="token operator">=</span>imread<span class="token punctuation">(</span><span class="token string">'Fig3 8 a.tif'</span><span class="token punctuation">)</span>
+imhist<span class="token punctuation">(</span>f<span class="token punctuation">)</span>
+
+<span class="token comment"># 归一化直方图</span>
+p <span class="token operator">=</span> imhist<span class="token punctuation">(</span>f<span class="token punctuation">,</span>b<span class="token punctuation">)</span><span class="token operator">/</span>number<span class="token punctuation">(</span>f<span class="token punctuation">)</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br></div></div><p>       使用柱状图绘制直方图，可使用matlab函数bar(horz,v,width)实现</p> <ul><li>其中v是一个行向量,包含要绘制的纵坐标</li> <li>horz是一个维数与v相同的向量,它包含水平尺度的增量,如省略了horz,则水平轴的单位是从0到长度v的长度</li> <li>宽度介于0~1之间</li></ul> <div class="language-python line-numbers-mode"><pre class="language-python"><code><span class="token comment"># 1</span>
+<span class="token operator">%</span> 绘制直方图
+I <span class="token operator">=</span> imread<span class="token punctuation">(</span><span class="token string">'lenacolor.png'</span><span class="token punctuation">)</span>
+I1 <span class="token operator">=</span> rgb2gray<span class="token punctuation">(</span>I<span class="token punctuation">)</span>
+h1 <span class="token operator">=</span> imhist<span class="token punctuation">(</span>I1<span class="token punctuation">,</span><span class="token number">255</span><span class="token punctuation">)</span>
+horz <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">:</span><span class="token number">255</span>
+bar<span class="token punctuation">(</span>horz<span class="token punctuation">,</span>h1<span class="token punctuation">,</span><span class="token number">0.8</span><span class="token punctuation">)</span>
+
+
+<span class="token operator">%</span><span class="token number">2</span>
+I <span class="token operator">=</span> imread<span class="token punctuation">(</span><span class="token string">&quot;lenacolor.png&quot;</span><span class="token punctuation">)</span>
+I1 <span class="token operator">=</span> rgb2gray<span class="token punctuation">(</span>I<span class="token punctuation">)</span>
+imshow<span class="token punctuation">(</span>I1<span class="token punctuation">)</span>
+figure<span class="token punctuation">,</span>imhist<span class="token punctuation">(</span>I1<span class="token punctuation">)</span>
+ylim<span class="token punctuation">(</span><span class="token string">'auto'</span><span class="token punctuation">)</span>
+I2 <span class="token operator">=</span> histeq<span class="token punctuation">(</span>I1<span class="token punctuation">,</span><span class="token number">256</span><span class="token punctuation">)</span>
+figure<span class="token punctuation">,</span>imshow<span class="token punctuation">(</span>I2<span class="token punctuation">)</span>
+figure<span class="token punctuation">,</span>imhist<span class="token punctuation">(</span>I2<span class="token punctuation">)</span>
+ylim<span class="token punctuation">(</span><span class="token string">'auto'</span><span class="token punctuation">)</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br></div></div><blockquote><p>也可以用setm画
+<img src="http://cdn.be-sunshine.cn/stem.png" alt=""></p></blockquote> <div class="language-python line-numbers-mode"><pre class="language-python"><code><span class="token operator">%</span> 绘制直方图
+I <span class="token operator">=</span> imread<span class="token punctuation">(</span><span class="token string">'lenacolor.png'</span><span class="token punctuation">)</span>
+I1 <span class="token operator">=</span> rgb2gray<span class="token punctuation">(</span>I<span class="token punctuation">)</span>
+h1 <span class="token operator">=</span> imhist<span class="token punctuation">(</span>I1<span class="token punctuation">,</span><span class="token number">255</span><span class="token punctuation">)</span>
+<span class="token operator">%</span>horz <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">:</span><span class="token number">255</span>
+<span class="token operator">%</span>bar<span class="token punctuation">(</span>horz<span class="token punctuation">,</span>h1<span class="token punctuation">,</span><span class="token number">0.8</span><span class="token punctuation">)</span>
+stem<span class="token punctuation">(</span>h1<span class="token punctuation">,</span><span class="token string">'r-o'</span><span class="token punctuation">,</span><span class="token string">'fill'</span><span class="token punctuation">)</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br></div></div><blockquote><p>可以用plot画曲线</p></blockquote> <h4 id="直方图均衡化"><a href="#直方图均衡化" class="header-anchor">#</a> 直方图均衡化</h4> <blockquote><p>普通</p></blockquote> <div class="language-python line-numbers-mode"><pre class="language-python"><code>I <span class="token operator">=</span> imread<span class="token punctuation">(</span><span class="token string">&quot;lenacolor.png&quot;</span><span class="token punctuation">)</span>
+I1 <span class="token operator">=</span> rgb2gray<span class="token punctuation">(</span>I<span class="token punctuation">)</span>
+I2 <span class="token operator">=</span> histeq<span class="token punctuation">(</span>I1<span class="token punctuation">,</span><span class="token number">256</span><span class="token punctuation">)</span>
+imshow<span class="token punctuation">(</span>I2<span class="token punctuation">)</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br></div></div><blockquote><p>g=histeq(f,nlev)</p> <blockquote><p>f: 输入图像 nlev为输出图像指定亮度级别数,256即正常灰度</p></blockquote></blockquote> <blockquote><p>但是普通均衡化的效果不是很理想
+可以用高斯双峰优化</p></blockquote> <h2 id="椒盐噪声"><a href="#椒盐噪声" class="header-anchor">#</a> 椒盐噪声</h2> <p>       椒盐噪声的实现原理为，随机地将图像中的一定比例的像素值取极大或者极小：</p> <p>       这里给出 Python 下的一种实现，可简单地转换为其他：</p> <div class="language-python line-numbers-mode"><pre class="language-python"><code><span class="token keyword">def</span> <span class="token function">salt_and_pepper_noise</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> v<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token comment"># x 表示原始无噪图像，行数表示图像的个数，列数表示单幅图像的像素数。</span>
+    x_noise <span class="token operator">=</span> x<span class="token punctuation">.</span>copy<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    n_features <span class="token operator">=</span> x<span class="token punctuation">.</span>shape<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>
+    mn <span class="token operator">=</span> x<span class="token punctuation">.</span><span class="token builtin">min</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    mx <span class="token operator">=</span> x<span class="token punctuation">.</span><span class="token builtin">max</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">for</span> i<span class="token punctuation">,</span> sample <span class="token keyword">in</span> <span class="token builtin">enumerate</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        mask <span class="token operator">=</span> np<span class="token punctuation">.</span>random<span class="token punctuation">.</span>randint<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> n_features<span class="token punctuation">,</span> v<span class="token punctuation">)</span>
+        <span class="token keyword">for</span> m <span class="token keyword">in</span> mask<span class="token punctuation">:</span>
+            <span class="token keyword">if</span> np<span class="token punctuation">.</span>random<span class="token punctuation">.</span>rand<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token number">.5</span><span class="token punctuation">:</span>
+                x<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>m<span class="token punctuation">]</span> <span class="token operator">=</span> mn
+            <span class="token keyword">else</span><span class="token punctuation">:</span>
+                x<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>m<span class="token punctuation">]</span> <span class="token operator">=</span> mx
+    <span class="token keyword">return</span> x_noise
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br></div></div><h2 id="来源"><a href="#来源" class="header-anchor">#</a> 来源</h2> <p><a href="https://www.bilibili.com/video/BV1ME411G7b3?p=2" target="_blank" rel="noopener noreferrer">https://www.bilibili.com/video/BV1ME411G7b3?p=2<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p></div> <footer class="page-edit" style="display:none;"><!----> <!----></footer> <!----> <!----></main> <!----></div></div></div></div><div class="global-ui"><div class="back-to-ceiling" style="right:1rem;bottom:6rem;width:2.5rem;height:2.5rem;border-radius:.25rem;line-height:2.5rem;display:none;" data-v-44bd5a18 data-v-44bd5a18><svg t="1574745035067" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5404" class="icon" data-v-44bd5a18><path d="M526.60727968 10.90185116a27.675 27.675 0 0 0-29.21455937 0c-131.36607665 82.28402758-218.69155461 228.01873535-218.69155402 394.07834331a462.20625001 462.20625001 0 0 0 5.36959153 69.94390903c1.00431239 6.55289093-0.34802892 13.13561351-3.76865779 18.80351572-32.63518765 54.11355614-51.75690182 118.55860487-51.7569018 187.94566865a371.06718723 371.06718723 0 0 0 11.50484808 91.98906777c6.53300375 25.50556257 41.68394495 28.14064038 52.69160883 4.22606766 17.37162448-37.73630017 42.14135425-72.50938081 72.80769204-103.21549295 2.18761121 3.04276886 4.15646224 6.24463696 6.40373557 9.22774369a1871.4375 1871.4375 0 0 0 140.04691725 5.34970492 1866.36093723 1866.36093723 0 0 0 140.04691723-5.34970492c2.24727335-2.98310674 4.21612437-6.18497483 6.3937923-9.2178004 30.66633723 30.70611158 55.4360664 65.4791928 72.80769147 103.21549355 11.00766384 23.91457269 46.15860503 21.27949489 52.69160879-4.22606768a371.15156223 371.15156223 0 0 0 11.514792-91.99901164c0-69.36717486-19.13165746-133.82216804-51.75690182-187.92578088-3.42062944-5.66790279-4.76302748-12.26056868-3.76865837-18.80351632a462.20625001 462.20625001 0 0 0 5.36959269-69.943909c-0.00994388-166.08943902-87.32547796-311.81420293-218.6915546-394.09823051zM605.93803103 357.87693858a93.93749974 93.93749974 0 1 1-187.89594924 6.1e-7 93.93749974 93.93749974 0 0 1 187.89594924-6.1e-7z" p-id="5405" data-v-44bd5a18></path><path d="M429.50777625 765.63860547C429.50777625 803.39355007 466.44236686 1000.39046097 512.00932183 1000.39046097c45.56695499 0 82.4922232-197.00623328 82.5015456-234.7518555 0-37.75494459-36.9345906-68.35043303-82.4922232-68.34111062-45.57627738-0.00932239-82.52019037 30.59548842-82.51086798 68.34111062z" p-id="5406" data-v-44bd5a18></path></svg></div></div></div>
+    <script src="/assets/js/app.04685d3a.js" defer></script><script src="/assets/js/3.90a49217.js" defer></script><script src="/assets/js/1.09e86ddf.js" defer></script><script src="/assets/js/43.5006b53a.js" defer></script>
+  </body>
+</html>

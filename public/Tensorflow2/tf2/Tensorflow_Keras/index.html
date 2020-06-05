@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Tensorflow2笔记开篇 | 山海经·大荒经</title>
+    <meta name="generator" content="VuePress 1.4.1">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="description" content="神经网络">
+    <meta name="keywords" content="神经网络">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <link rel="preload" href="/assets/css/0.styles.a1e95c0c.css" as="style"><link rel="preload" href="/assets/js/app.04685d3a.js" as="script"><link rel="preload" href="/assets/js/3.90a49217.js" as="script"><link rel="preload" href="/assets/js/1.09e86ddf.js" as="script"><link rel="preload" href="/assets/js/15.9e99afdb.js" as="script"><link rel="prefetch" href="/assets/js/10.dedee96d.js"><link rel="prefetch" href="/assets/js/11.e97ecc82.js"><link rel="prefetch" href="/assets/js/12.6cebf2c1.js"><link rel="prefetch" href="/assets/js/13.b56c647a.js"><link rel="prefetch" href="/assets/js/14.190c3083.js"><link rel="prefetch" href="/assets/js/16.1ce65fa2.js"><link rel="prefetch" href="/assets/js/17.1e73a208.js"><link rel="prefetch" href="/assets/js/18.1f3f6a1d.js"><link rel="prefetch" href="/assets/js/19.59add20f.js"><link rel="prefetch" href="/assets/js/20.6eedba62.js"><link rel="prefetch" href="/assets/js/21.09904bd1.js"><link rel="prefetch" href="/assets/js/22.a71bea94.js"><link rel="prefetch" href="/assets/js/23.d476659e.js"><link rel="prefetch" href="/assets/js/24.f20962d3.js"><link rel="prefetch" href="/assets/js/25.2f4f66e3.js"><link rel="prefetch" href="/assets/js/26.906ec63e.js"><link rel="prefetch" href="/assets/js/27.eadfc01c.js"><link rel="prefetch" href="/assets/js/28.e5c7713c.js"><link rel="prefetch" href="/assets/js/29.5099a043.js"><link rel="prefetch" href="/assets/js/30.e2c8074b.js"><link rel="prefetch" href="/assets/js/31.7b8aa370.js"><link rel="prefetch" href="/assets/js/32.d90bebb0.js"><link rel="prefetch" href="/assets/js/33.fd30217d.js"><link rel="prefetch" href="/assets/js/34.6efb63c3.js"><link rel="prefetch" href="/assets/js/35.336ff28f.js"><link rel="prefetch" href="/assets/js/36.4faa5528.js"><link rel="prefetch" href="/assets/js/37.b8d4d152.js"><link rel="prefetch" href="/assets/js/38.7e143553.js"><link rel="prefetch" href="/assets/js/39.4a5754f7.js"><link rel="prefetch" href="/assets/js/4.1a0c54af.js"><link rel="prefetch" href="/assets/js/40.ab09e03d.js"><link rel="prefetch" href="/assets/js/41.acd590b3.js"><link rel="prefetch" href="/assets/js/42.fdb09462.js"><link rel="prefetch" href="/assets/js/43.5006b53a.js"><link rel="prefetch" href="/assets/js/44.5a895393.js"><link rel="prefetch" href="/assets/js/45.c82a2059.js"><link rel="prefetch" href="/assets/js/46.d62cc5a6.js"><link rel="prefetch" href="/assets/js/47.7009ca47.js"><link rel="prefetch" href="/assets/js/48.16aece2c.js"><link rel="prefetch" href="/assets/js/49.2fbc0af8.js"><link rel="prefetch" href="/assets/js/5.8700c8cc.js"><link rel="prefetch" href="/assets/js/50.ac346fb4.js"><link rel="prefetch" href="/assets/js/51.e6e8d83c.js"><link rel="prefetch" href="/assets/js/52.74d28842.js"><link rel="prefetch" href="/assets/js/53.e8a12ebb.js"><link rel="prefetch" href="/assets/js/54.fa1ac5dd.js"><link rel="prefetch" href="/assets/js/55.9ad5cbfe.js"><link rel="prefetch" href="/assets/js/56.3f286aa2.js"><link rel="prefetch" href="/assets/js/57.761e35ac.js"><link rel="prefetch" href="/assets/js/58.163a439d.js"><link rel="prefetch" href="/assets/js/59.09fa18a0.js"><link rel="prefetch" href="/assets/js/6.ca89540a.js"><link rel="prefetch" href="/assets/js/60.d089b184.js"><link rel="prefetch" href="/assets/js/61.c2fd4705.js"><link rel="prefetch" href="/assets/js/62.e117b357.js"><link rel="prefetch" href="/assets/js/63.6bfda5d4.js"><link rel="prefetch" href="/assets/js/64.183a4fa4.js"><link rel="prefetch" href="/assets/js/65.559bb681.js"><link rel="prefetch" href="/assets/js/66.18ad8db7.js"><link rel="prefetch" href="/assets/js/67.e5a81b4e.js"><link rel="prefetch" href="/assets/js/68.931c5073.js"><link rel="prefetch" href="/assets/js/69.69de6db6.js"><link rel="prefetch" href="/assets/js/7.f6dd72f1.js"><link rel="prefetch" href="/assets/js/70.e8077c9a.js"><link rel="prefetch" href="/assets/js/8.4b7dc8e1.js"><link rel="prefetch" href="/assets/js/9.b99917c5.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.a1e95c0c.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container" data-v-19557b78><div data-v-19557b78><div id="loader-wrapper" class="loading-wrapper" data-v-d48f4d20 data-v-19557b78 data-v-19557b78><div class="loader-main" data-v-d48f4d20><div data-v-d48f4d20></div><div data-v-d48f4d20></div><div data-v-d48f4d20></div><div data-v-d48f4d20></div></div> <!----> <!----></div> <div class="password-shadow password-wrapper-out" style="display:none;" data-v-64685f0e data-v-19557b78 data-v-19557b78><h3 class="title" style="display:none;" data-v-64685f0e data-v-64685f0e>山海经·大荒经</h3> <!----> <label id="box" class="inputBox" style="display:none;" data-v-64685f0e data-v-64685f0e><input type="password" value="" data-v-64685f0e> <span data-v-64685f0e>Konck! Knock!</span> <button data-v-64685f0e>OK</button></label> <div class="footer" style="display:none;" data-v-64685f0e data-v-64685f0e><span data-v-64685f0e><i class="iconfont reco-theme" data-v-64685f0e></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-64685f0e>vuePress-theme-reco</a></span> <span data-v-64685f0e><i class="iconfont reco-copyright" data-v-64685f0e></i> <a data-v-64685f0e><span data-v-64685f0e>Winter</span>
+            
+          <span data-v-64685f0e>2017 - </span>
+          2020
+        </a></span></div></div> <div class="hide" data-v-19557b78><header class="navbar" data-v-19557b78><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><img src="/logo.png" alt="山海经·大荒经" class="logo"> <span class="site-name">山海经·大荒经</span></a> <div class="links"><div class="color-picker"><a class="color-button"><i class="iconfont reco-color"></i></a> <div class="color-picker-menu" style="display:none;"><div class="mode-options"><h4 class="title">Choose mode</h4> <ul class="color-mode-options"><li class="dark">dark</li><li class="auto active">auto</li><li class="light">light</li></ul></div></div></div> <div class="search-box"><i class="iconfont reco-search"></i> <input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link"><i class="iconfont reco-home"></i>
+  主页
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont undefined"></i>
+      编程语言
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>Java</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/" class="nav-link"><i class="iconfont undefined"></i>
+  语言高级特性
+</a></li><li class="dropdown-subitem"><a href="/" class="nav-link"><i class="iconfont undefined"></i>
+  Spring技术栈
+</a></li><li class="dropdown-subitem"><a href="/" class="nav-link"><i class="iconfont undefined"></i>
+  分布式
+</a></li></ul></li><li class="dropdown-item"><h4>Python</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/" class="nav-link"><i class="iconfont undefined"></i>
+  语言高级特性
+</a></li><li class="dropdown-subitem"><a href="/" class="nav-link"><i class="iconfont undefined"></i>
+  Flask
+</a></li><li class="dropdown-subitem"><a href="/programming_language/python/DataScience/numpy.html" class="nav-link"><i class="iconfont undefined"></i>
+  Numpy
+</a></li></ul></li><li class="dropdown-item"><h4>C++</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/note/G1M/Cpp/Cplus.html" class="nav-link"><i class="iconfont undefined"></i>
+  高级语法
+</a></li></ul></li></ul></div></div><div class="nav-item"><a href="/tag/" class="nav-link"><i class="iconfont reco-tag"></i>
+  Tag
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont undefined"></i>
+      通用技能
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/general/mysql/mysql.html" class="nav-link"><i class="iconfont undefined"></i>
+  MySql
+</a></li><li class="dropdown-item"><!----> <a href="/algorithm/dp/dp.html" class="nav-link"><i class="iconfont undefined"></i>
+  算法
+</a></li><li class="dropdown-item"><!----> <a href="/note/G1M/advance_ds/priority_queue.html" class="nav-link"><i class="iconfont undefined"></i>
+  高级数据结构
+</a></li><li class="dropdown-item"><!----> <a href="/note/G1M/Digital_Image/Introduce.html" class="nav-link"><i class="iconfont undefined"></i>
+  数字图像处理
+</a></li><li class="dropdown-item"><!----> <a href="/note/G1M/Computer_Graphics/Computer_Graphics.html" class="nav-link"><i class="iconfont undefined"></i>
+  计算机图形学
+</a></li><li class="dropdown-item"><!----> <a href="/Tensorflow2/tf2/Tensorflow_Keras/note/G1M/mode/matlab.html" class="nav-link"><i class="iconfont undefined"></i>
+  数学建模
+</a></li><li class="dropdown-item"><h4>人工智能</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/Tensorflow2/tf2/Tensorflow_Keras/Keras.html" class="nav-link"><i class="iconfont undefined"></i>
+  Tensorflow
+</a></li><li class="dropdown-subitem"><a href="/ai/ml/Modle_Represen.html" class="nav-link"><i class="iconfont undefined"></i>
+  机器学习
+</a></li><li class="dropdown-subitem"><a href="/ai/dl/about.html" class="nav-link"><i class="iconfont undefined"></i>
+  神经网络
+</a></li></ul></li><li class="dropdown-item"><h4>游戏/VR/AR开发</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/xr/vr/Unity.html" class="nav-link"><i class="iconfont undefined"></i>
+  VR
+</a></li><li class="dropdown-subitem"><a href="/" class="nav-link"><i class="iconfont undefined"></i>
+  AR
+</a></li><li class="dropdown-subitem"><a href="/" class="nav-link"><i class="iconfont undefined"></i>
+  GameMakerStudio
+</a></li></ul></li></ul></div></div><div class="nav-item"><a href="/timeline/" class="nav-link"><i class="iconfont reco-date"></i>
+  TimeLine
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-message"></i>
+      Contact
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://github.com/recoluan" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-github"></i>
+  GitHub
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="http://be-sunshine.cn" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont undefined"></i>
+  hexo博客
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask" data-v-19557b78></div> <aside class="sidebar" data-v-19557b78><div class="personal-info-wrapper" data-v-042e23d4><img src="/avatar.png" alt="author-avatar" class="personal-img" data-v-042e23d4> <h3 class="name" data-v-042e23d4>
+    Winter
+  </h3> <div class="num" data-v-042e23d4><div data-v-042e23d4><h3 data-v-042e23d4>4</h3> <h6 data-v-042e23d4>Article</h6></div> <div data-v-042e23d4><h3 data-v-042e23d4>4</h3> <h6 data-v-042e23d4>Tag</h6></div></div> <hr data-v-042e23d4></div> <nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link"><i class="iconfont reco-home"></i>
+  主页
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont undefined"></i>
+      编程语言
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>Java</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/" class="nav-link"><i class="iconfont undefined"></i>
+  语言高级特性
+</a></li><li class="dropdown-subitem"><a href="/" class="nav-link"><i class="iconfont undefined"></i>
+  Spring技术栈
+</a></li><li class="dropdown-subitem"><a href="/" class="nav-link"><i class="iconfont undefined"></i>
+  分布式
+</a></li></ul></li><li class="dropdown-item"><h4>Python</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/" class="nav-link"><i class="iconfont undefined"></i>
+  语言高级特性
+</a></li><li class="dropdown-subitem"><a href="/" class="nav-link"><i class="iconfont undefined"></i>
+  Flask
+</a></li><li class="dropdown-subitem"><a href="/programming_language/python/DataScience/numpy.html" class="nav-link"><i class="iconfont undefined"></i>
+  Numpy
+</a></li></ul></li><li class="dropdown-item"><h4>C++</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/note/G1M/Cpp/Cplus.html" class="nav-link"><i class="iconfont undefined"></i>
+  高级语法
+</a></li></ul></li></ul></div></div><div class="nav-item"><a href="/tag/" class="nav-link"><i class="iconfont reco-tag"></i>
+  Tag
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont undefined"></i>
+      通用技能
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/general/mysql/mysql.html" class="nav-link"><i class="iconfont undefined"></i>
+  MySql
+</a></li><li class="dropdown-item"><!----> <a href="/algorithm/dp/dp.html" class="nav-link"><i class="iconfont undefined"></i>
+  算法
+</a></li><li class="dropdown-item"><!----> <a href="/note/G1M/advance_ds/priority_queue.html" class="nav-link"><i class="iconfont undefined"></i>
+  高级数据结构
+</a></li><li class="dropdown-item"><!----> <a href="/note/G1M/Digital_Image/Introduce.html" class="nav-link"><i class="iconfont undefined"></i>
+  数字图像处理
+</a></li><li class="dropdown-item"><!----> <a href="/note/G1M/Computer_Graphics/Computer_Graphics.html" class="nav-link"><i class="iconfont undefined"></i>
+  计算机图形学
+</a></li><li class="dropdown-item"><!----> <a href="/Tensorflow2/tf2/Tensorflow_Keras/note/G1M/mode/matlab.html" class="nav-link"><i class="iconfont undefined"></i>
+  数学建模
+</a></li><li class="dropdown-item"><h4>人工智能</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/Tensorflow2/tf2/Tensorflow_Keras/Keras.html" class="nav-link"><i class="iconfont undefined"></i>
+  Tensorflow
+</a></li><li class="dropdown-subitem"><a href="/ai/ml/Modle_Represen.html" class="nav-link"><i class="iconfont undefined"></i>
+  机器学习
+</a></li><li class="dropdown-subitem"><a href="/ai/dl/about.html" class="nav-link"><i class="iconfont undefined"></i>
+  神经网络
+</a></li></ul></li><li class="dropdown-item"><h4>游戏/VR/AR开发</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/xr/vr/Unity.html" class="nav-link"><i class="iconfont undefined"></i>
+  VR
+</a></li><li class="dropdown-subitem"><a href="/" class="nav-link"><i class="iconfont undefined"></i>
+  AR
+</a></li><li class="dropdown-subitem"><a href="/" class="nav-link"><i class="iconfont undefined"></i>
+  GameMakerStudio
+</a></li></ul></li></ul></div></div><div class="nav-item"><a href="/timeline/" class="nav-link"><i class="iconfont reco-date"></i>
+  TimeLine
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-message"></i>
+      Contact
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://github.com/recoluan" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-github"></i>
+  GitHub
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="http://be-sunshine.cn" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont undefined"></i>
+  hexo博客
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></div></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>Tensorflow笔记</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/Tensorflow2/tf2/Tensorflow_Keras/Keras.html" class="sidebar-link">Tensorflow2笔记</a></li><li><a href="/Tensorflow2/tf2/Base/pku.html" class="sidebar-link">/Tensorflow2/tf2/Base/pku.html</a></li></ul></section></li></ul> </aside> <div class="password-shadow password-wrapper-in" style="display:none;" data-v-64685f0e data-v-19557b78><h3 class="title" style="display:none;" data-v-64685f0e data-v-64685f0e>Tensorflow2笔记开篇</h3> <!----> <label id="box" class="inputBox" style="display:none;" data-v-64685f0e data-v-64685f0e><input type="password" value="" data-v-64685f0e> <span data-v-64685f0e>Konck! Knock!</span> <button data-v-64685f0e>OK</button></label> <div class="footer" style="display:none;" data-v-64685f0e data-v-64685f0e><span data-v-64685f0e><i class="iconfont reco-theme" data-v-64685f0e></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-64685f0e>vuePress-theme-reco</a></span> <span data-v-64685f0e><i class="iconfont reco-copyright" data-v-64685f0e></i> <a data-v-64685f0e><span data-v-64685f0e>Winter</span>
+            
+          <span data-v-64685f0e>2017 - </span>
+          2020
+        </a></span></div></div> <div data-v-19557b78><main class="page"><div class="page-title" style="display:none;"><h1>Tensorflow2笔记开篇</h1> <hr> <div data-v-34ea29db><i class="iconfont reco-account" data-v-34ea29db><span data-v-34ea29db>Winter</span></i> <!----> <!----> <!----></div></div> <div class="theme-reco-content content__default" style="display:none;"><p></p><div class="table-of-contents"><ul><li><a href="#安装tensorflow-gpu">安装Tensorflow-gpu</a><ul><li><a href="#安装失败解决方案">安装失败解决方案</a></li><li><a href="#为什么使用gpu">为什么使用GPU?</a></li><li><a href="#检查是否装好">检查是否装好</a></li><li><a href="#使用gpu进行运算">使用gpu进行运算</a></li><li><a href="#限制gpu使用大小">限制gpu使用大小</a></li></ul></li></ul></div><p></p> <h1 id="tesnorflow2-开篇"><a href="#tesnorflow2-开篇" class="header-anchor">#</a> Tesnorflow2 开篇</h1> <h2 id="安装tensorflow-gpu"><a href="#安装tensorflow-gpu" class="header-anchor">#</a> 安装Tensorflow-gpu</h2> <blockquote><p>前置条件: GPU算力必须在3.0以上</p></blockquote> <ol><li>首先要安装cuda和cudnn</li> <li>cuda必须是10.0或者往下,建议就只用10.0.</li> <li>cudnn要7.4.6+，这之后的cudnn对GPU进行深度学习运算进行了优化</li> <li>Python - 3.7</li> <li>conda install tensorflow-gpu==2.0.0</li></ol> <h3 id="安装失败解决方案"><a href="#安装失败解决方案" class="header-anchor">#</a> 安装失败解决方案</h3> <blockquote><p>一般都是因为VS的插件安装错误</p> <blockquote><p>第一步: 控制面板中全删掉(包括Nvidia的显卡驱动,Cuda10安装中将驱动也安装了)
+第二步: C:/ProgramData ProgramFile ProgramFile(x86)中包含和Nvidia的全删掉
+第三部: 重启,安装(建议关掉360)</p></blockquote></blockquote> <h3 id="为什么使用gpu"><a href="#为什么使用gpu" class="header-anchor">#</a> 为什么使用GPU?</h3> <blockquote><p>因为神经网络是使用矩阵进行运算,恰巧GPU也是使用矩阵进行运算(游戏中的渲染),通过GPU对神经网络的运算过程进行优化是再好不过的了.</p></blockquote> <h3 id="检查是否装好"><a href="#检查是否装好" class="header-anchor">#</a> 检查是否装好</h3> <div class="language-python line-numbers-mode"><pre class="language-python"><code><span class="token keyword">import</span> tensorflow <span class="token keyword">as</span> tf
+tf<span class="token punctuation">.</span>test<span class="token punctuation">.</span>is_gpu_available<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br></div></div><p>返回True即表示已经装好了</p> <h3 id="使用gpu进行运算"><a href="#使用gpu进行运算" class="header-anchor">#</a> 使用gpu进行运算</h3> <blockquote><p>Tip: TF2只要检测到有gpu,直接就使用它了,不需要设置.</p> <blockquote><p>实在放不下心,就调用下面的代码</p></blockquote></blockquote> <div class="language-python line-numbers-mode"><pre class="language-python"><code><span class="token keyword">import</span> os
+<span class="token comment"># 选择编号为0的GPU</span>
+os<span class="token punctuation">.</span>environ<span class="token punctuation">[</span><span class="token string">&quot;CUDA_VISIBLE_DEVICES&quot;</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">&quot;0&quot;</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br></div></div><blockquote><p>其中<code>0</code>为要是用的gpu的编号</p></blockquote> <h3 id="限制gpu使用大小"><a href="#限制gpu使用大小" class="header-anchor">#</a> 限制gpu使用大小</h3> <p>默认是完全使用gpu进行运算(如果找到的话)</p> <div class="language-python line-numbers-mode"><pre class="language-python"><code><span class="token keyword">import</span> os
+<span class="token comment"># 设置tf2-gpu按需增长</span>
+gpus <span class="token operator">=</span> tf<span class="token punctuation">.</span>config<span class="token punctuation">.</span>experimental<span class="token punctuation">.</span>list_physical_devices<span class="token punctuation">(</span>device_type<span class="token operator">=</span><span class="token string">'GPU'</span><span class="token punctuation">)</span>
+<span class="token keyword">for</span> gpu <span class="token keyword">in</span> gpus<span class="token punctuation">:</span>
+    tf<span class="token punctuation">.</span>config<span class="token punctuation">.</span>experimental<span class="token punctuation">.</span>set_memory_growth<span class="token punctuation">(</span>gpu<span class="token punctuation">,</span> <span class="token boolean">True</span><span class="token punctuation">)</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br></div></div></div> <footer class="page-edit" style="display:none;"><!----> <!----></footer> <!----> <!----></main> <!----></div></div></div></div><div class="global-ui"><div class="back-to-ceiling" style="right:1rem;bottom:6rem;width:2.5rem;height:2.5rem;border-radius:.25rem;line-height:2.5rem;display:none;" data-v-44bd5a18 data-v-44bd5a18><svg t="1574745035067" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5404" class="icon" data-v-44bd5a18><path d="M526.60727968 10.90185116a27.675 27.675 0 0 0-29.21455937 0c-131.36607665 82.28402758-218.69155461 228.01873535-218.69155402 394.07834331a462.20625001 462.20625001 0 0 0 5.36959153 69.94390903c1.00431239 6.55289093-0.34802892 13.13561351-3.76865779 18.80351572-32.63518765 54.11355614-51.75690182 118.55860487-51.7569018 187.94566865a371.06718723 371.06718723 0 0 0 11.50484808 91.98906777c6.53300375 25.50556257 41.68394495 28.14064038 52.69160883 4.22606766 17.37162448-37.73630017 42.14135425-72.50938081 72.80769204-103.21549295 2.18761121 3.04276886 4.15646224 6.24463696 6.40373557 9.22774369a1871.4375 1871.4375 0 0 0 140.04691725 5.34970492 1866.36093723 1866.36093723 0 0 0 140.04691723-5.34970492c2.24727335-2.98310674 4.21612437-6.18497483 6.3937923-9.2178004 30.66633723 30.70611158 55.4360664 65.4791928 72.80769147 103.21549355 11.00766384 23.91457269 46.15860503 21.27949489 52.69160879-4.22606768a371.15156223 371.15156223 0 0 0 11.514792-91.99901164c0-69.36717486-19.13165746-133.82216804-51.75690182-187.92578088-3.42062944-5.66790279-4.76302748-12.26056868-3.76865837-18.80351632a462.20625001 462.20625001 0 0 0 5.36959269-69.943909c-0.00994388-166.08943902-87.32547796-311.81420293-218.6915546-394.09823051zM605.93803103 357.87693858a93.93749974 93.93749974 0 1 1-187.89594924 6.1e-7 93.93749974 93.93749974 0 0 1 187.89594924-6.1e-7z" p-id="5405" data-v-44bd5a18></path><path d="M429.50777625 765.63860547C429.50777625 803.39355007 466.44236686 1000.39046097 512.00932183 1000.39046097c45.56695499 0 82.4922232-197.00623328 82.5015456-234.7518555 0-37.75494459-36.9345906-68.35043303-82.4922232-68.34111062-45.57627738-0.00932239-82.52019037 30.59548842-82.51086798 68.34111062z" p-id="5406" data-v-44bd5a18></path></svg></div></div></div>
+    <script src="/assets/js/app.04685d3a.js" defer></script><script src="/assets/js/3.90a49217.js" defer></script><script src="/assets/js/1.09e86ddf.js" defer></script><script src="/assets/js/15.9e99afdb.js" defer></script>
+  </body>
+</html>
