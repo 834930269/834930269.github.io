@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Neo4j指令集Cypher | 山海经·大荒经</title>
+    <meta name="generator" content="VuePress 1.4.1">
+    <link rel="icon" href="/public/icon.ico">
+    <link rel="stylesheet" href="http://cdn.be-sunshine.cn/winter.css">
+    <meta name="description" content="理寺少卿,今天下太平,惟愿安康.">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <link rel="preload" href="/public/assets/css/0.styles.78ae971e.css" as="style"><link rel="preload" href="/public/assets/js/app.f3718b99.js" as="script"><link rel="preload" href="/public/assets/js/4.fc5870ef.js" as="script"><link rel="preload" href="/public/assets/js/1.71bf9aac.js" as="script"><link rel="preload" href="/public/assets/js/49.61ed16c8.js" as="script"><link rel="prefetch" href="/public/assets/js/10.9b727f8f.js"><link rel="prefetch" href="/public/assets/js/100.11af7c4b.js"><link rel="prefetch" href="/public/assets/js/101.8e19a335.js"><link rel="prefetch" href="/public/assets/js/102.d7b26a9b.js"><link rel="prefetch" href="/public/assets/js/103.434017a5.js"><link rel="prefetch" href="/public/assets/js/104.e4475343.js"><link rel="prefetch" href="/public/assets/js/105.277e0a3d.js"><link rel="prefetch" href="/public/assets/js/106.fb9e3f14.js"><link rel="prefetch" href="/public/assets/js/107.ac5d2c26.js"><link rel="prefetch" href="/public/assets/js/108.e7def678.js"><link rel="prefetch" href="/public/assets/js/109.8e4aa238.js"><link rel="prefetch" href="/public/assets/js/11.f7ba628d.js"><link rel="prefetch" href="/public/assets/js/12.a0a1ede3.js"><link rel="prefetch" href="/public/assets/js/13.00683c96.js"><link rel="prefetch" href="/public/assets/js/14.74ace146.js"><link rel="prefetch" href="/public/assets/js/15.36a56a9a.js"><link rel="prefetch" href="/public/assets/js/16.f73cc7cc.js"><link rel="prefetch" href="/public/assets/js/17.cab904b5.js"><link rel="prefetch" href="/public/assets/js/18.5df0e973.js"><link rel="prefetch" href="/public/assets/js/19.ca07cb32.js"><link rel="prefetch" href="/public/assets/js/20.b6bd34d1.js"><link rel="prefetch" href="/public/assets/js/21.3ebfaea7.js"><link rel="prefetch" href="/public/assets/js/22.c1370130.js"><link rel="prefetch" href="/public/assets/js/23.a4d288c2.js"><link rel="prefetch" href="/public/assets/js/24.f504ee0f.js"><link rel="prefetch" href="/public/assets/js/25.2360aa6a.js"><link rel="prefetch" href="/public/assets/js/26.998f0e76.js"><link rel="prefetch" href="/public/assets/js/27.d7121a6b.js"><link rel="prefetch" href="/public/assets/js/28.39e752ef.js"><link rel="prefetch" href="/public/assets/js/29.31705675.js"><link rel="prefetch" href="/public/assets/js/30.6e40832d.js"><link rel="prefetch" href="/public/assets/js/31.fa425b32.js"><link rel="prefetch" href="/public/assets/js/32.e7b746a4.js"><link rel="prefetch" href="/public/assets/js/33.46136090.js"><link rel="prefetch" href="/public/assets/js/34.7f887b3e.js"><link rel="prefetch" href="/public/assets/js/35.318bf34e.js"><link rel="prefetch" href="/public/assets/js/36.3dcdd3e2.js"><link rel="prefetch" href="/public/assets/js/37.15e47751.js"><link rel="prefetch" href="/public/assets/js/38.bf5b9a90.js"><link rel="prefetch" href="/public/assets/js/39.8c459293.js"><link rel="prefetch" href="/public/assets/js/40.53d7244c.js"><link rel="prefetch" href="/public/assets/js/41.c24d47a4.js"><link rel="prefetch" href="/public/assets/js/42.2189b2d4.js"><link rel="prefetch" href="/public/assets/js/43.0063386c.js"><link rel="prefetch" href="/public/assets/js/44.e01533f0.js"><link rel="prefetch" href="/public/assets/js/45.56cbe514.js"><link rel="prefetch" href="/public/assets/js/46.07dd8f12.js"><link rel="prefetch" href="/public/assets/js/47.99af79d4.js"><link rel="prefetch" href="/public/assets/js/48.8e5526d7.js"><link rel="prefetch" href="/public/assets/js/5.23332061.js"><link rel="prefetch" href="/public/assets/js/50.b2617cb8.js"><link rel="prefetch" href="/public/assets/js/51.a93bc59f.js"><link rel="prefetch" href="/public/assets/js/52.289ae971.js"><link rel="prefetch" href="/public/assets/js/53.4e104be2.js"><link rel="prefetch" href="/public/assets/js/54.2e045881.js"><link rel="prefetch" href="/public/assets/js/55.f5122cbf.js"><link rel="prefetch" href="/public/assets/js/56.38d4a29b.js"><link rel="prefetch" href="/public/assets/js/57.9fd95088.js"><link rel="prefetch" href="/public/assets/js/58.06428741.js"><link rel="prefetch" href="/public/assets/js/59.6b5995ed.js"><link rel="prefetch" href="/public/assets/js/6.a11073e9.js"><link rel="prefetch" href="/public/assets/js/60.5a4677d2.js"><link rel="prefetch" href="/public/assets/js/61.01755ed4.js"><link rel="prefetch" href="/public/assets/js/62.ed76dae7.js"><link rel="prefetch" href="/public/assets/js/63.eaa29f28.js"><link rel="prefetch" href="/public/assets/js/64.fbf28590.js"><link rel="prefetch" href="/public/assets/js/65.89498306.js"><link rel="prefetch" href="/public/assets/js/66.0bd2696c.js"><link rel="prefetch" href="/public/assets/js/67.19189bd2.js"><link rel="prefetch" href="/public/assets/js/68.4471a972.js"><link rel="prefetch" href="/public/assets/js/69.ac672dff.js"><link rel="prefetch" href="/public/assets/js/7.bcc0637b.js"><link rel="prefetch" href="/public/assets/js/70.1e8ac89b.js"><link rel="prefetch" href="/public/assets/js/71.7f712668.js"><link rel="prefetch" href="/public/assets/js/72.f14b7294.js"><link rel="prefetch" href="/public/assets/js/73.79c51307.js"><link rel="prefetch" href="/public/assets/js/74.88964ce0.js"><link rel="prefetch" href="/public/assets/js/75.e31d8013.js"><link rel="prefetch" href="/public/assets/js/76.8a38bd93.js"><link rel="prefetch" href="/public/assets/js/77.10c4f414.js"><link rel="prefetch" href="/public/assets/js/78.347cf842.js"><link rel="prefetch" href="/public/assets/js/79.a6c7f37a.js"><link rel="prefetch" href="/public/assets/js/8.8b908267.js"><link rel="prefetch" href="/public/assets/js/80.f45dc492.js"><link rel="prefetch" href="/public/assets/js/81.e294dd80.js"><link rel="prefetch" href="/public/assets/js/82.23e348c3.js"><link rel="prefetch" href="/public/assets/js/83.9fc7d155.js"><link rel="prefetch" href="/public/assets/js/84.f1cdb1c2.js"><link rel="prefetch" href="/public/assets/js/85.5210b978.js"><link rel="prefetch" href="/public/assets/js/86.645620ff.js"><link rel="prefetch" href="/public/assets/js/87.a7bb3710.js"><link rel="prefetch" href="/public/assets/js/88.fdadcbbd.js"><link rel="prefetch" href="/public/assets/js/89.3a14f736.js"><link rel="prefetch" href="/public/assets/js/9.e4b36ef7.js"><link rel="prefetch" href="/public/assets/js/90.cf98a742.js"><link rel="prefetch" href="/public/assets/js/91.092e2615.js"><link rel="prefetch" href="/public/assets/js/92.57f0582f.js"><link rel="prefetch" href="/public/assets/js/93.6a3cbd57.js"><link rel="prefetch" href="/public/assets/js/94.01ee5c36.js"><link rel="prefetch" href="/public/assets/js/95.2074aab3.js"><link rel="prefetch" href="/public/assets/js/96.c970e299.js"><link rel="prefetch" href="/public/assets/js/97.539826ba.js"><link rel="prefetch" href="/public/assets/js/98.11e207f0.js"><link rel="prefetch" href="/public/assets/js/99.ee7c55ab.js"><link rel="prefetch" href="/public/assets/js/vendors~flowchart.6e39f720.js">
+    <link rel="stylesheet" href="/public/assets/css/0.styles.78ae971e.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container" data-v-19557b78><div data-v-19557b78><div id="loader-wrapper" class="loading-wrapper" data-v-d48f4d20 data-v-19557b78 data-v-19557b78><div class="loader-main" data-v-d48f4d20><div data-v-d48f4d20></div><div data-v-d48f4d20></div><div data-v-d48f4d20></div><div data-v-d48f4d20></div></div> <!----> <!----></div> <div class="password-shadow password-wrapper-out" style="display:none;" data-v-64685f0e data-v-19557b78 data-v-19557b78><h3 class="title" style="display:none;" data-v-64685f0e data-v-64685f0e>山海经·大荒经</h3> <!----> <label id="box" class="inputBox" style="display:none;" data-v-64685f0e data-v-64685f0e><input type="password" value="" data-v-64685f0e> <span data-v-64685f0e>Konck! Knock!</span> <button data-v-64685f0e>OK</button></label> <div class="footer" style="display:none;" data-v-64685f0e data-v-64685f0e><span data-v-64685f0e><i class="iconfont reco-theme" data-v-64685f0e></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-64685f0e>vuePress-theme-reco</a></span> <span data-v-64685f0e><i class="iconfont reco-copyright" data-v-64685f0e></i> <a data-v-64685f0e><span data-v-64685f0e>Winter</span>
+            
+          <span data-v-64685f0e>2017 - </span>
+          2020
+        </a></span></div></div> <div class="hide" data-v-19557b78><header class="navbar" data-v-19557b78><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/public/" class="home-link router-link-active"><img src="http://cdn.be-sunshine.cn/public/avatar.png" alt="山海经·大荒经" class="logo"> <span class="site-name">山海经·大荒经</span></a> <div class="links"><div class="color-picker"><a class="color-button"><i class="iconfont reco-color"></i></a> <div class="color-picker-menu" style="display:none;"><div class="mode-options"><h4 class="title">Choose mode</h4> <ul class="color-mode-options"><li class="dark">dark</li><li class="auto active">auto</li><li class="light">light</li></ul></div></div></div> <div class="search-box"><i class="iconfont reco-search"></i> <input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/public/" class="nav-link"><i class="iconfont reco-home"></i>
+  主页
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont undefined"></i>
+      编程语言
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>Java</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/public/" class="nav-link"><i class="iconfont undefined"></i>
+  语言高级特性
+</a></li><li class="dropdown-subitem"><a href="/public/" class="nav-link"><i class="iconfont undefined"></i>
+  Spring技术栈
+</a></li><li class="dropdown-subitem"><a href="/public/Java/Distribution/1.html" class="nav-link"><i class="iconfont undefined"></i>
+  分布式
+</a></li></ul></li><li class="dropdown-item"><h4>Python</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/public/" class="nav-link"><i class="iconfont undefined"></i>
+  语言高级特性
+</a></li><li class="dropdown-subitem"><a href="/public/" class="nav-link"><i class="iconfont undefined"></i>
+  Flask
+</a></li><li class="dropdown-subitem"><a href="/public/programming_language/python/DataScience/numpy.html" class="nav-link"><i class="iconfont undefined"></i>
+  Numpy
+</a></li><li class="dropdown-subitem"><a href="/public/note/fractal/Koch.html" class="nav-link"><i class="iconfont undefined"></i>
+  Processing 分形
+</a></li></ul></li><li class="dropdown-item"><h4>C++</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/public/note/G1M/Cpp/Cplus.html" class="nav-link"><i class="iconfont undefined"></i>
+  高级语法
+</a></li><li class="dropdown-subitem"><a href="/public/note/leetcode/LC1.html" class="nav-link"><i class="iconfont undefined"></i>
+  LeetCode
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont undefined"></i>
+      通用技能
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/public/general/mysql/mysql.html" class="nav-link"><i class="iconfont undefined"></i>
+  MySql
+</a></li><li class="dropdown-item"><!----> <a href="/public/algorithm/dp/dp.html" class="nav-link"><i class="iconfont undefined"></i>
+  算法
+</a></li><li class="dropdown-item"><!----> <a href="/public/note/G1M/advance_ds/priority_queue.html" class="nav-link"><i class="iconfont undefined"></i>
+  高级数据结构
+</a></li><li class="dropdown-item"><!----> <a href="/public/note/G1M/Digital_Image/Introduce.html" class="nav-link"><i class="iconfont undefined"></i>
+  数字图像处理
+</a></li><li class="dropdown-item"><!----> <a href="/public/note/G1M/Computer_Graphics/Computer_Graphics.html" class="nav-link"><i class="iconfont undefined"></i>
+  计算机图形学
+</a></li><li class="dropdown-item"><!----> <a href="/public/note/G1M/mode/matlab.html" class="nav-link"><i class="iconfont undefined"></i>
+  数学建模
+</a></li><li class="dropdown-item"><h4>人工智能</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/public/Tensorflow2/tf2/Tensorflow_Keras/Keras.html" class="nav-link"><i class="iconfont undefined"></i>
+  Tensorflow
+</a></li><li class="dropdown-subitem"><a href="/public/ai/ml/Modle_Represen.html" class="nav-link"><i class="iconfont undefined"></i>
+  机器学习
+</a></li><li class="dropdown-subitem"><a href="/public/ai/dl/about.html" class="nav-link"><i class="iconfont undefined"></i>
+  神经网络
+</a></li></ul></li><li class="dropdown-item"><h4>游戏/VR/AR开发</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/public/xr/vr/Unity.html" class="nav-link"><i class="iconfont undefined"></i>
+  VR
+</a></li><li class="dropdown-subitem"><a href="/public/" class="nav-link"><i class="iconfont undefined"></i>
+  AR
+</a></li><li class="dropdown-subitem"><a href="/public/" class="nav-link"><i class="iconfont undefined"></i>
+  GameMakerStudio
+</a></li></ul></li><li class="dropdown-item"><!----> <a href="/public/web/es6.html" class="nav-link"><i class="iconfont undefined"></i>
+  前端
+</a></li><li class="dropdown-item"><!----> <a href="/public/note/Design_pattern/facade.html" class="nav-link"><i class="iconfont undefined"></i>
+  设计模式
+</a></li><li class="dropdown-item"><!----> <a href="/public/general/mysql/mysql.html" class="nav-link"><i class="iconfont undefined"></i>
+  数据库
+</a></li></ul></div></div><div class="nav-item"><a href="/public/tag/" class="nav-link"><i class="iconfont reco-tag"></i>
+  Tag
+</a></div><div class="nav-item"><a href="/public/timeline/" class="nav-link"><i class="iconfont reco-date"></i>
+  TimeLine
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-message"></i>
+      Contact
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://github.com/834930269" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-github"></i>
+  GitHub
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="http://be-sunshine.cn" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont undefined"></i>
+  hexo博客
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask" data-v-19557b78></div> <aside class="sidebar" data-v-19557b78><div class="personal-info-wrapper" data-v-042e23d4><img src="http://cdn.be-sunshine.cn/public/avatar.png" alt="author-avatar" class="personal-img" data-v-042e23d4> <h3 class="name" data-v-042e23d4>
+    Winter
+  </h3> <div class="num" data-v-042e23d4><div data-v-042e23d4><h3 data-v-042e23d4>52</h3> <h6 data-v-042e23d4>Article</h6></div> <div data-v-042e23d4><h3 data-v-042e23d4>24</h3> <h6 data-v-042e23d4>Tag</h6></div></div> <hr data-v-042e23d4></div> <nav class="nav-links"><div class="nav-item"><a href="/public/" class="nav-link"><i class="iconfont reco-home"></i>
+  主页
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont undefined"></i>
+      编程语言
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>Java</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/public/" class="nav-link"><i class="iconfont undefined"></i>
+  语言高级特性
+</a></li><li class="dropdown-subitem"><a href="/public/" class="nav-link"><i class="iconfont undefined"></i>
+  Spring技术栈
+</a></li><li class="dropdown-subitem"><a href="/public/Java/Distribution/1.html" class="nav-link"><i class="iconfont undefined"></i>
+  分布式
+</a></li></ul></li><li class="dropdown-item"><h4>Python</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/public/" class="nav-link"><i class="iconfont undefined"></i>
+  语言高级特性
+</a></li><li class="dropdown-subitem"><a href="/public/" class="nav-link"><i class="iconfont undefined"></i>
+  Flask
+</a></li><li class="dropdown-subitem"><a href="/public/programming_language/python/DataScience/numpy.html" class="nav-link"><i class="iconfont undefined"></i>
+  Numpy
+</a></li><li class="dropdown-subitem"><a href="/public/note/fractal/Koch.html" class="nav-link"><i class="iconfont undefined"></i>
+  Processing 分形
+</a></li></ul></li><li class="dropdown-item"><h4>C++</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/public/note/G1M/Cpp/Cplus.html" class="nav-link"><i class="iconfont undefined"></i>
+  高级语法
+</a></li><li class="dropdown-subitem"><a href="/public/note/leetcode/LC1.html" class="nav-link"><i class="iconfont undefined"></i>
+  LeetCode
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont undefined"></i>
+      通用技能
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/public/general/mysql/mysql.html" class="nav-link"><i class="iconfont undefined"></i>
+  MySql
+</a></li><li class="dropdown-item"><!----> <a href="/public/algorithm/dp/dp.html" class="nav-link"><i class="iconfont undefined"></i>
+  算法
+</a></li><li class="dropdown-item"><!----> <a href="/public/note/G1M/advance_ds/priority_queue.html" class="nav-link"><i class="iconfont undefined"></i>
+  高级数据结构
+</a></li><li class="dropdown-item"><!----> <a href="/public/note/G1M/Digital_Image/Introduce.html" class="nav-link"><i class="iconfont undefined"></i>
+  数字图像处理
+</a></li><li class="dropdown-item"><!----> <a href="/public/note/G1M/Computer_Graphics/Computer_Graphics.html" class="nav-link"><i class="iconfont undefined"></i>
+  计算机图形学
+</a></li><li class="dropdown-item"><!----> <a href="/public/note/G1M/mode/matlab.html" class="nav-link"><i class="iconfont undefined"></i>
+  数学建模
+</a></li><li class="dropdown-item"><h4>人工智能</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/public/Tensorflow2/tf2/Tensorflow_Keras/Keras.html" class="nav-link"><i class="iconfont undefined"></i>
+  Tensorflow
+</a></li><li class="dropdown-subitem"><a href="/public/ai/ml/Modle_Represen.html" class="nav-link"><i class="iconfont undefined"></i>
+  机器学习
+</a></li><li class="dropdown-subitem"><a href="/public/ai/dl/about.html" class="nav-link"><i class="iconfont undefined"></i>
+  神经网络
+</a></li></ul></li><li class="dropdown-item"><h4>游戏/VR/AR开发</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/public/xr/vr/Unity.html" class="nav-link"><i class="iconfont undefined"></i>
+  VR
+</a></li><li class="dropdown-subitem"><a href="/public/" class="nav-link"><i class="iconfont undefined"></i>
+  AR
+</a></li><li class="dropdown-subitem"><a href="/public/" class="nav-link"><i class="iconfont undefined"></i>
+  GameMakerStudio
+</a></li></ul></li><li class="dropdown-item"><!----> <a href="/public/web/es6.html" class="nav-link"><i class="iconfont undefined"></i>
+  前端
+</a></li><li class="dropdown-item"><!----> <a href="/public/note/Design_pattern/facade.html" class="nav-link"><i class="iconfont undefined"></i>
+  设计模式
+</a></li><li class="dropdown-item"><!----> <a href="/public/general/mysql/mysql.html" class="nav-link"><i class="iconfont undefined"></i>
+  数据库
+</a></li></ul></div></div><div class="nav-item"><a href="/public/tag/" class="nav-link"><i class="iconfont reco-tag"></i>
+  Tag
+</a></div><div class="nav-item"><a href="/public/timeline/" class="nav-link"><i class="iconfont reco-date"></i>
+  TimeLine
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-message"></i>
+      Contact
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://github.com/834930269" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-github"></i>
+  GitHub
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li><li class="dropdown-item"><!----> <a href="http://be-sunshine.cn" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont undefined"></i>
+  hexo博客
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul></div></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>数据库</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/public/general/mysql/mysql.html" class="sidebar-link">Mysql</a></li><li><a href="/public/general/mysql/neo4j.html" class="sidebar-link">Neo4j</a></li><li><a href="/public/general/mysql/neo4j_dml.html" aria-current="page" class="active sidebar-link">Neo4j指令集Cypher</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/public/general/mysql/neo4j_dml.html#cypher" class="sidebar-link">Cypher</a></li><li class="sidebar-sub-header"><a href="/public/general/mysql/neo4j_dml.html#最简单的例子" class="sidebar-link">最简单的例子</a></li><li class="sidebar-sub-header"><a href="/public/general/mysql/neo4j_dml.html#节点语法" class="sidebar-link">节点语法</a></li><li class="sidebar-sub-header"><a href="/public/general/mysql/neo4j_dml.html#关系语法" class="sidebar-link">关系语法</a></li><li class="sidebar-sub-header"><a href="/public/general/mysql/neo4j_dml.html#模式语法" class="sidebar-link">模式语法</a></li><li class="sidebar-sub-header"><a href="/public/general/mysql/neo4j_dml.html#模式变量" class="sidebar-link">模式变量</a></li><li class="sidebar-sub-header"><a href="/public/general/mysql/neo4j_dml.html#操作词" class="sidebar-link">操作词</a></li><li class="sidebar-sub-header"><a href="/public/general/mysql/neo4j_dml.html#练习" class="sidebar-link">练习</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/public/general/mysql/neo4j_dml.html#创建数据" class="sidebar-link">创建数据</a></li><li class="sidebar-sub-header"><a href="/public/general/mysql/neo4j_dml.html#匹配节点-match" class="sidebar-link">匹配节点(Match)</a></li><li class="sidebar-sub-header"><a href="/public/general/mysql/neo4j_dml.html#查询基础上添加新的结构" class="sidebar-link">查询基础上添加新的结构</a></li></ul></li></ul></li></ul></section></li></ul> </aside> <div class="password-shadow password-wrapper-in" style="display:none;" data-v-64685f0e data-v-19557b78><h3 class="title" style="display:none;" data-v-64685f0e data-v-64685f0e>Neo4j指令集Cypher</h3> <!----> <label id="box" class="inputBox" style="display:none;" data-v-64685f0e data-v-64685f0e><input type="password" value="" data-v-64685f0e> <span data-v-64685f0e>Konck! Knock!</span> <button data-v-64685f0e>OK</button></label> <div class="footer" style="display:none;" data-v-64685f0e data-v-64685f0e><span data-v-64685f0e><i class="iconfont reco-theme" data-v-64685f0e></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-64685f0e>vuePress-theme-reco</a></span> <span data-v-64685f0e><i class="iconfont reco-copyright" data-v-64685f0e></i> <a data-v-64685f0e><span data-v-64685f0e>Winter</span>
+            
+          <span data-v-64685f0e>2017 - </span>
+          2020
+        </a></span></div></div> <div data-v-19557b78><main class="page"><div class="page-title" style="display:none;"><h1>Neo4j指令集Cypher</h1> <hr> <div data-v-34ea29db><i class="iconfont reco-account" data-v-34ea29db><span data-v-34ea29db>Winter</span></i> <i class="iconfont reco-date" data-v-34ea29db><span data-v-34ea29db>2020-07-02</span></i> <i class="iconfont reco-eye" data-v-34ea29db><span id="/public/general/mysql/neo4j_dml.html" data-flag-title="Your Article Title" class="leancloud-visitors" data-v-34ea29db><a class="leancloud-visitors-count" style="font-size:.9rem;font-weight:normal;color:#999;"></a></span></i> <i class="iconfont reco-tag tags" data-v-34ea29db><span class="tag-item" data-v-34ea29db>数据库</span></i></div></div> <div class="theme-reco-content content__default" style="display:none;"><p></p><div class="table-of-contents"><ul><li><a href="#cypher">Cypher</a></li><li><a href="#最简单的例子">最简单的例子</a></li><li><a href="#节点语法">节点语法</a></li><li><a href="#关系语法">关系语法</a></li><li><a href="#模式语法">模式语法</a></li><li><a href="#模式变量">模式变量</a></li><li><a href="#操作词">操作词</a></li><li><a href="#练习">练习</a><ul><li><a href="#创建数据">创建数据</a></li><li><a href="#匹配节点-match">匹配节点(Match)</a></li><li><a href="#查询基础上添加新的结构">查询基础上添加新的结构</a></li></ul></li></ul></div><p></p> <h1 id="neo4j指令集cypher"><a href="#neo4j指令集cypher" class="header-anchor">#</a> neo4j指令集Cypher</h1> <h2 id="cypher"><a href="#cypher" class="header-anchor">#</a> Cypher</h2> <p>graph query language <code>Cypher</code></p> <h2 id="最简单的例子"><a href="#最简单的例子" class="header-anchor">#</a> 最简单的例子</h2> <p>A Person <code>LIVES_IN</code> a City or a City is PART_OF a Country;</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>(Person) -[:LIVES_IN]-&gt;(City)-[:PART_OF]-&gt;(:Country)
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br></div></div><h2 id="节点语法"><a href="#节点语法" class="header-anchor">#</a> 节点语法</h2> <p>Cypher使用<code>()</code>代表一个节点,在一个节点中,提供的属性有</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>()
+(matrix)
+(:Movie)
+(matrix:Movie)
+(matrix:Movie{title: &quot;The Matrix&quot;})
+(matrix:Movie{title: &quot;The Matrix&quot;,released: 1997})
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br></div></div><ul><li><code>()</code>: 代表一个匿名，未定义的节点,如果我们想要使用该节点,我们需要对它添加一个名字</li> <li><code>(matrix)</code>: 代表添加了一个名字</li> <li><code>:Movie</code>: 代表声明了该节点的标签</li> <li><code>{title:&quot;SAD&quot;}</code>: 以逗号分割,均为属性</li></ul> <h2 id="关系语法"><a href="#关系语法" class="header-anchor">#</a> 关系语法</h2> <p>Cypher使用 <code>--</code> 代表无向的关系.<br>
+有向的关系以三角箭头作为端点. <code>&lt;--,--&gt;</code><br>
+其中<code>[...]</code>代表关系的细节,它可以包括属性,变量以及类型的信息.</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>--&gt;
+-[role]-&gt;
+-[:ACTED_IN]-&gt;
+-[role:ACTED_IN]-&gt;
+-[role:ACTED_IN {roles: [&quot;Neo&quot;]}] -&gt;
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br></div></div><h2 id="模式语法"><a href="#模式语法" class="header-anchor">#</a> 模式语法</h2> <p>将关系与节点连接起来我们称之为模式.<br>
+常见的模式:</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>(keanu: Person:Actor {name: &quot;Keanu Reeves&quot;})
+-[role:ACTED)IN  {roles: [&quot;Neo&quot;]}]-&gt;
+(matrix:Movie {title: &quot;The Matrix&quot;})
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br></div></div><h2 id="模式变量"><a href="#模式变量" class="header-anchor">#</a> 模式变量</h2> <p>为了提高模块化与减少重复,Cypher允许新建一个变量存储结果.</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>MATCH a_in = (:Person)-[:ACTED_IN]-&gt;(:Movie) return a_in;
+//返回路径
+
+MATCH a_in = (:Person)-[:ACTED_IN]-&gt;(:Movie) return length(a_in);
+
+//返回每条路径的长度
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br></div></div><h2 id="操作词"><a href="#操作词" class="header-anchor">#</a> 操作词</h2> <ul><li>create 和 match</li> <li>filter,project,sort,or paginate 结果</li> <li>组合</li></ul> <h2 id="练习"><a href="#练习" class="header-anchor">#</a> 练习</h2> <h3 id="创建数据"><a href="#创建数据" class="header-anchor">#</a> 创建数据</h3> <blockquote><p>neo4j自带的数据库里有一个比较完整的Movie和Person</p></blockquote> <div class="language- line-numbers-mode"><pre class="language-text"><code>CREATE (:Movie{title:&quot;The Matrix&quot;,released:1997})
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br></div></div><p>创建的时候也可以返回新创建的节点:</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>CREATE (p:Person { name:&quot;Keanu Reeves&quot;, born:1964 })
+RETURN p;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br></div></div><p>如果我们想创建多于一个的节点,我们需要用逗号分割开节点,或者用多个<code>create</code>子句.</p> <p>当然,我们也可以创建更复杂的结构,如一个<code>ACTED_IN</code>关系,或者一个<code>DIRECTED</code>代表导演.</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>CREATE (a:Person {name: &quot;Tom Hanks&quot;,born:1956}) - [r:ACTED_IN{roles:[&quot;Forrest&quot;]}]-&gt;(m:Movie {title: &quot;Forrest Gump&quot;,released:1994})
+
+CREATE (d:Person {name: &quot;Robert Zemeckis&quot;,born:1951}) - [:DIRECTED]-&gt;(m)
+
+RETURN a,d,r,m;
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br></div></div><blockquote><p>结果如下所示<br> <img src="http://cdn.be-sunshine.cn/graph_12.jpg" alt=""></p></blockquote> <p><img src="http://cdn.be-sunshine.cn/graph_13.jpg" alt=""></p> <p>但是在大部分的案例中,我们会想要将一个新的数据连接到一个已存在的结构,这就需要我们去寻找存在的图数据.</p> <h3 id="匹配节点-match"><a href="#匹配节点-match" class="header-anchor">#</a> 匹配节点(Match)</h3> <div class="custom-block tip"><blockquote><p>一个<code>MATCH</code>语句将寻找所有满足匹配条件的路径,并且返回每一行.</p></blockquote></div> <blockquote><p>查找所有带有<code>Movie</code>标签的数据</p></blockquote> <div class="language- line-numbers-mode"><pre class="language-text"><code>MATCH (m:Movie)
+RETURN m
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br></div></div><blockquote><p>带属性匹配(表中必须存在)</p></blockquote> <div class="language- line-numbers-mode"><pre class="language-text"><code>MATCH (p:Person { name: &quot;Keanu Reeves&quot;})
+RETURN p
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br></div></div><p>你必须提供足够确定节点的信息,并非必须提供全部的属性,某些类似于<code>关系数据库中的主键</code>可以作为查找目标</p> <blockquote><p>当然,我们也可以找到更多有趣的连接(路径),如Tom Hanks表演的电影以及他饰演的角色.</p></blockquote> <div class="language- line-numbers-mode"><pre class="language-text"><code>MATCH (p:Person {name:&quot;Tom Hanks&quot;}) - [r:ACTED_IN]-&gt;(m:Movie)
+RETURN m.title,r.roles
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br></div></div><p>它会返回一个表.</p> <h3 id="查询基础上添加新的结构"><a href="#查询基础上添加新的结构" class="header-anchor">#</a> 查询基础上添加新的结构</h3> <p>我们知道,查询会返回一个路径结构,</p> <p>比如,我们可以先匹配上一个存在的节点,然后基于这个节点新建一个新的节点和连接.</p> <p>比如,TomHanks在新电影Cloud Atlas中饰演Zachry</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>MATCH (p:Person { name:&quot;Tom Hanks&quot; })
+CREATE (m:Movie { title:&quot;Cloud Atlas&quot;,released:2012 })
+CREATE (p)-[r:ACTED_IN { roles: ['Zachry']}]-&gt;(m)
+RETURN p,r,m
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br></div></div><div class="custom-block tip"><p>无论我们是<code>CREATE</code>还是<code>MATCH</code>得到的节点,我们都可以对其进行操作</p></div> <blockquote><p>一般的,当我们在关系数据库中添加/更新数据是,我们一般会先检查是否存在,如果存在,则直接合并到存在的上面.</p></blockquote> <div class="language- line-numbers-mode"><pre class="language-text"><code>MERGE (m:Movie { title: &quot;Cloud Atlas&quot;}) ON CREATE SET m.released=2013 RETURN m
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br></div></div><p>上述语句开头谓词是<code>MERGE</code>,它会使得当m表创建的时候才会更改released为2013,但因为数据库中存在title为Cloud Atlas的Movie,所以找到了,所以不更改.<br>
+除非这个Movie不存在才会为2013.</p> <p>p13</p></div> <footer class="page-edit" style="display:none;"><!----> <!----></footer> <!----> <!----></main> <!----></div></div></div></div><div class="global-ui"><div class="back-to-ceiling" style="right:1rem;bottom:6rem;width:2.5rem;height:2.5rem;border-radius:.25rem;line-height:2.5rem;display:none;" data-v-44bd5a18 data-v-44bd5a18><svg t="1574745035067" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5404" class="icon" data-v-44bd5a18><path d="M526.60727968 10.90185116a27.675 27.675 0 0 0-29.21455937 0c-131.36607665 82.28402758-218.69155461 228.01873535-218.69155402 394.07834331a462.20625001 462.20625001 0 0 0 5.36959153 69.94390903c1.00431239 6.55289093-0.34802892 13.13561351-3.76865779 18.80351572-32.63518765 54.11355614-51.75690182 118.55860487-51.7569018 187.94566865a371.06718723 371.06718723 0 0 0 11.50484808 91.98906777c6.53300375 25.50556257 41.68394495 28.14064038 52.69160883 4.22606766 17.37162448-37.73630017 42.14135425-72.50938081 72.80769204-103.21549295 2.18761121 3.04276886 4.15646224 6.24463696 6.40373557 9.22774369a1871.4375 1871.4375 0 0 0 140.04691725 5.34970492 1866.36093723 1866.36093723 0 0 0 140.04691723-5.34970492c2.24727335-2.98310674 4.21612437-6.18497483 6.3937923-9.2178004 30.66633723 30.70611158 55.4360664 65.4791928 72.80769147 103.21549355 11.00766384 23.91457269 46.15860503 21.27949489 52.69160879-4.22606768a371.15156223 371.15156223 0 0 0 11.514792-91.99901164c0-69.36717486-19.13165746-133.82216804-51.75690182-187.92578088-3.42062944-5.66790279-4.76302748-12.26056868-3.76865837-18.80351632a462.20625001 462.20625001 0 0 0 5.36959269-69.943909c-0.00994388-166.08943902-87.32547796-311.81420293-218.6915546-394.09823051zM605.93803103 357.87693858a93.93749974 93.93749974 0 1 1-187.89594924 6.1e-7 93.93749974 93.93749974 0 0 1 187.89594924-6.1e-7z" p-id="5405" data-v-44bd5a18></path><path d="M429.50777625 765.63860547C429.50777625 803.39355007 466.44236686 1000.39046097 512.00932183 1000.39046097c45.56695499 0 82.4922232-197.00623328 82.5015456-234.7518555 0-37.75494459-36.9345906-68.35043303-82.4922232-68.34111062-45.57627738-0.00932239-82.52019037 30.59548842-82.51086798 68.34111062z" p-id="5406" data-v-44bd5a18></path></svg></div><div class="reco-bgm-panel" data-v-39f9e6e0><audio id="bgm" src="http://cdn.be-sunshine.cn/bgm/bg1.mp3" data-v-39f9e6e0></audio> <div class="reco-float-box" style="bottom:200px;z-index:999999;display:none;" data-v-39f9e6e0 data-v-41bcba48 data-v-39f9e6e0><img src="http://cdn.be-sunshine.cn/bgm/bg1.jpg" data-v-39f9e6e0></div> <div class="reco-bgm-box" style="left:10px;bottom:10px;z-index:999999;" data-v-39f9e6e0 data-v-41bcba48 data-v-39f9e6e0><div class="reco-bgm-cover" style="background-image:url(http://cdn.be-sunshine.cn/bgm/bg1.jpg);" data-v-39f9e6e0><div class="mini-operation" style="display:none;" data-v-39f9e6e0><i class="reco-bgm reco-bgm-pause" style="display:none;" data-v-39f9e6e0></i> <i class="reco-bgm reco-bgm-play" style="display:none;" data-v-39f9e6e0></i></div> <div class="falut-message" style="display:none;" data-v-39f9e6e0>
+          播放失败
+        </div></div> <div class="reco-bgm-info" data-v-39f9e6e0 data-v-41bcba48 data-v-39f9e6e0><div class="info-box" data-v-39f9e6e0><i class="reco-bgm reco-bgm-music music" data-v-39f9e6e0></i>雨后的天空</div> <div class="info-box" data-v-39f9e6e0><i class="reco-bgm reco-bgm-artist" data-v-39f9e6e0></i>glassmoon</div> <div class="reco-bgm-progress" data-v-39f9e6e0><div class="progress-bar" data-v-39f9e6e0><div class="bar" data-v-39f9e6e0></div></div></div> <div class="reco-bgm-operation" data-v-39f9e6e0><i class="reco-bgm reco-bgm-last last" data-v-39f9e6e0></i> <i class="reco-bgm reco-bgm-pause pause" style="display:none;" data-v-39f9e6e0></i> <i class="reco-bgm reco-bgm-play play" data-v-39f9e6e0></i> <i class="reco-bgm reco-bgm-next next" data-v-39f9e6e0></i> <i class="reco-bgm reco-bgm-volume1 volume" data-v-39f9e6e0></i> <i class="reco-bgm reco-bgm-mute mute" style="display:none;" data-v-39f9e6e0></i> <div class="volume-bar" data-v-39f9e6e0><div class="bar" data-v-39f9e6e0></div></div></div></div> <div class="reco-bgm-left-box" data-v-39f9e6e0 data-v-41bcba48 data-v-39f9e6e0><i class="reco-bgm reco-bgm-left" data-v-39f9e6e0></i></div></div></div></div></div>
+    <script src="/public/assets/js/app.f3718b99.js" defer></script><script src="/public/assets/js/4.fc5870ef.js" defer></script><script src="/public/assets/js/1.71bf9aac.js" defer></script><script src="/public/assets/js/49.61ed16c8.js" defer></script>
+  </body>
+</html>
